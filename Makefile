@@ -6,7 +6,7 @@
 #    By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/08/08 18:02:05 by mrizakov          #+#    #+#              #
-#    Updated: 2024/03/26 17:13:18 by mrizhakov        ###   ########.fr        #
+#    Updated: 2024/03/26 17:57:47 by mrizhakov        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ SRC= main.c error_handling.c parsing.c
 
 all:
 #	cc $(SRC) $(LIBFT) $(LIBMLX) $(MLXFLAGS) -o cub3d
-	cc $(SRC) -o cub3d
+	cc $(SRC) $(CFLAGS) -o cub3d
 	
 name:
 #	make -C $(LIBFT_PATH) all
