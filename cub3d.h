@@ -6,7 +6,7 @@
 /*   By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/03/26 17:09:02 by mrizhakov        ###   ########.fr       */
+/*   Updated: 2024/03/26 17:31:59 by mrizhakov        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include <fcntl.h>
 #include <math.h>
 #include "cub3d.h"
+#include "errno.h"
+
 
 //#include "libft/libft.h"
 
