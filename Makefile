@@ -1,41 +1,47 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/08/08 18:02:05 by mrizakov          #+#    #+#              #
-#    Updated: 2024/03/26 17:13:18 by mrizhakov        ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = cub3D
 
+LIBFT = ./libft/libft.a
+MLX42 = ./MLX42/build/libmlx42.a
+SRCS	:= $(shell find ./src -iname "*.c")
+MLX42_dir = ./MLX42
 
+OBJS = ${SRCS:.c=.o}
 
-#LIBMLX = MLX42/build/libmlx42.a
-#MLXFLAGS = -L/path/to/glfw/library -lglfw -lm
-CFLAGS = -Wall -Werror -Wextra -g3
+CFLAGS = -Wall -Wextra -Werror
+CC = cc 
+MLX42FLAGS = -ldl -lglfw -pthread -lm  
 
-#LIBFT_PATH		=	./libft
-#LIBFT			=	$(LIBFT_PATH)/libft.a
+all:	buildlib	$(NAME) 
 
-SRC= main.c error_handling.c parsing.c
+$(NAME): $(LIBFT) libmlx $(MLX42) $(OBJS)
+	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX42) $(MLX42FLAGS)
+	@echo "\033[33m=== so_long ===\033[36m=== COMPILED  ===\033[0m"
 
-all:
-#	cc $(SRC) $(LIBFT) $(LIBMLX) $(MLXFLAGS) -o cub3d
-	cc $(SRC) -o cub3d
-	
-name:
-#	make -C $(LIBFT_PATH) all
-	make all
-	
-clean:
-#	make -C $(LIBFT_PATH) fclean
-	make fclean
+buildlib:
+	@if ! [ -d "$(MLX42_dir)" ]; then \
+	git clone https://github.com/codam-coding-college/MLX42.git $(MLX42_dir); \
+	fi
+
+$(LIBFT):
+	@$(MAKE) -C ./libft
+	@echo "\033[33m=== libft ===\033[36m=== COMPILED  ===\033[0m"
+
+libmlx:
+	@cd $(MLX42_dir) && cmake -B build && cmake --build build -j4
+	@echo "\033[33m=== mlx ===\033[36m=== COMPILED  ===\033[0m"
+
+clean: 
+	@$(MAKE) clean -C ./libft
+	$(RM) $(OBJS)
+	@echo "\033[33m=== ALL ===\033[36m=== CLEANED ===\033[0m"
 
 fclean:
-	@rm cub3d
+	@$(MAKE) fclean -C ./libft
+	@cd ./MLX42 && rm -rf build
+	@rm -rf ./MLX42
+	$(RM) $(OBJS) $(NAME)
+	@echo "\033[33m=== ALL ===\033[36m=== FULLY CLEANED ===\033[0m"
 
-re: fclean all
+re:	fclean all
 
-
+.PHONY: all clean fclean re

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_handling.c                                   :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+        */
+/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:01:00 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/03/26 17:12:37 by mrizhakov        ###   ########.fr       */
+/*   Created: 2022/12/20 18:05:46 by eltongid          #+#    #+#             */
+/*   Updated: 2022/12/20 18:11:39 by eltongid         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "libft.h"
 
-int error_handling(int argc, const char *argv[])
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-    if (argc != 2)
-    {
-        perror("Please provide a map\n");
-        return (0);
-    }
-    return (0);
+	unsigned int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		f(i, s + i);
+		i++;
+	}
 }
