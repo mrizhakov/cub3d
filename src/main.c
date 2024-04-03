@@ -1,19 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/03/26 17:08:53 by mrizhakov        ###   ########.fr       */
+/*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
+/*   Updated: 2024/03/26 17:11:53 by mrizhakov        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int map_parsing(void)
+int main(int argc, const char *argv[])
 {
-    printf("Parsing map\n");
-    return (0);
+
+	error_handling(argc, argv);
+	map_parsing();
+
+	return (EXIT_SUCCESS);
 }
