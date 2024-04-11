@@ -3,13 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/03/26 17:09:02 by mrizhakov        ###   ########.fr       */
+/*   Updated: 2024/04/11 20:21:42 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-#ifndef cub3d_H
+
 #define cub3d_H
 
 #include "./MLX42.h"
@@ -22,9 +22,14 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
+#include <errno.h>
+
 
 #define WINDOW_WIDTH 1280
 #define WINDOW_HEIGHT 1024
+// which one ?
+#define WIDTH 512
+#define HEIGHT 512
 
 
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
@@ -60,7 +65,7 @@ typedef struct	s_game
 }				t_game;
 
 int 	error_handling(int argc, const char *argv[]);
-int 	map_parsing(void);
+int     map_parsing(char *filename);
 void	init_data(t_game *game_data);
 void 	initialise_game(t_game *game_data);
 int		load_textures(t_game *game_data);
@@ -70,4 +75,4 @@ int		load_textures(t_game *game_data);
 
 
 
-#endif // cub3d_H
+// #endif // cub3d_H

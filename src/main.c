@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/11 18:55:57 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/11 20:47:56 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ int32_t main(int argc, const char *argv[])
 {
 	mlx_t* mlx;
 
+
 	(void)argc;
     (void)argv;
 
@@ -117,13 +118,13 @@ int32_t main(int argc, const char *argv[])
     }
     // game_data->mlx = mlx_init();
 
-	//error_handling(argc, argv);
-	//map_parsing();
-	initialise_game(game_data);
     printf("no errors\n");
-	(void)argv;
+
+	
 	error_handling(argc, argv);
-	map_parsing();
+	initialise_game(game_data);
+
+	map_parsing((char *)argv[1]);
 
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
