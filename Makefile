@@ -15,7 +15,7 @@ all:	buildlib	$(NAME)
 
 $(NAME): $(LIBFT) libmlx $(MLX42) $(OBJS)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(LIBFT) $(MLX42) $(MLX42FLAGS)
-	@echo "\033[33m=== so_long ===\033[36m=== COMPILED  ===\033[0m"
+	@echo "\033[33m=== cub3D ===\033[36m=== COMPILED  ===\033[0m"
 
 buildlib:
 	@if ! [ -d "$(MLX42_dir)" ]; then \

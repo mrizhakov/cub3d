@@ -78,6 +78,26 @@ mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 		image->instances[0].x += 5;
 }
+void initialise_game(t_game *game_data)
+{
+    // Initialize game window and graphics context
+    //init_window();
+
+    // Load textures, sprites, and map data
+    load_textures(game_data);
+    //load_map();
+
+    // Initialize player position and direction
+    //init_player();
+
+    // Other initialization tasks...
+}
+
+void	init_data(t_game *game_data)
+{
+
+	game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", 0);
+}
 
 // -----------------------------------------------------------------------------
 
@@ -85,6 +105,22 @@ int32_t main(int argc, const char *argv[])
 {
 	mlx_t* mlx;
 
+	(void)argc;
+    (void)argv;
+
+	t_game *game_data;
+	game_data = malloc(sizeof(t_game));
+    if (game_data == NULL)
+    {
+        perror("Error: Failed to allocate memory for game data");
+        return EXIT_FAILURE;
+    }
+    // game_data->mlx = mlx_init();
+
+	//error_handling(argc, argv);
+	//map_parsing();
+	initialise_game(game_data);
+    printf("no errors\n");
 	(void)argv;
 	error_handling(argc, argv);
 	map_parsing();
