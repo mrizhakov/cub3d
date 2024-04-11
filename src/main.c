@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/11 18:47:26 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/11 18:55:57 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ void ft_hook(void* param)
 	mlx_t* mlx = param;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(mlx);
+		mlx_close_window(	// 	(void)argv;
+// 	error_handling(argc, argv);
+// 	map_parsing();
+
+// 	return (EXIT_SUCCESS);
+mlx);
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 		image->instances[0].y -= 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
@@ -76,9 +81,13 @@ void ft_hook(void* param)
 
 // -----------------------------------------------------------------------------
 
-int32_t main(void)
+int32_t main(int argc, const char *argv[])
 {
 	mlx_t* mlx;
+
+	(void)argv;
+	error_handling(argc, argv);
+	map_parsing();
 
 	// Gotta error check this stuff
 	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
