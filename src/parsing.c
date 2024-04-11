@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/11 20:45:54 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/11 21:38:03 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,21 @@ int map_parsing(char *filename)
     if (fd != -1)
     {
         printf("File : %s \n", filename);
-
         printf("Map opened\n");
-        close(fd);
     }
+    printf("Logging out map for debugging purposes\n");
+
     map = get_next_line(fd);
+    printf("%s", map);
+    free(map);
 
     while (map != NULL)
     // while (map != NULL || ft_strncmp(map, "(null)", 6) == 0)
     {
         map = get_next_line(fd);
-        // if (ft_strncmp(map, "null\n", 7) == 0)
-        // {
-        //     free(map);
-        //     break;
-        // }
-        printf("|%s|", map);
+        printf("%s", map);
         free(map);
     }
-    printf("\n");
     close(fd);
     return (0);
 }
