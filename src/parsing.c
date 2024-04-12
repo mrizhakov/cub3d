@@ -47,3 +47,36 @@ int map_parsing(char *filename)
     close(fd);
     return (0);
 }
+
+int	iffile_cub(char *map_file_name)
+{
+	char	*find_ber;
+
+	find_ber = ft_strrchr(map_file_name, '.');
+	if (!find_ber || ft_strncmp(find_ber, ".cub", 5) != 0)
+    {
+        ft_printf("Error: Not a .cub file.\n");
+		return (1);
+    }
+	return (0);
+}
+
+int			is_valid_char(char matrix_val)
+{
+	if (matrix_val && matrix_val != '1' && matrix_val != '0' && matrix_val != '2' && matrix_val
+		!= 'N' && matrix_val != 'S' && matrix_val != 'W' && matrix_val != 'E' && matrix_val
+		!= ' ')
+		return (1);
+	return (0);
+}
+
+int		no_of_players(char matrix_val)
+{
+	int i;
+
+	i = 0;
+	if (matrix_val == 'N' || matrix_val == 'S' || matrix_val == 'W' || matrix_val == 'E')
+		i++;
+	return (i);
+}// just one player per map
+
