@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/11 20:21:42 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 00:08:19 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 // which one ?
 #define WIDTH 512
 #define HEIGHT 512
+#define FILE_READ_BUFFER 1024
 
 
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
@@ -61,14 +62,34 @@ typedef struct	s_game
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_textures	*textures;
+	char		*no_texture_filename;
+	char		*so_texture_filename;
+	char		*we_texture_filename;
+	char		*ea_texture_filename;
+
+	char		*whole_map;
 
 }				t_game;
 
 int 	error_handling(int argc, const char *argv[]);
-int     map_parsing(char *filename);
+int		map_parsing(char *filename, t_game *game_data);
 void	init_data(t_game *game_data);
 void 	initialise_game(t_game *game_data);
 int		load_textures(t_game *game_data);
+int 	valid_file(char *filename);
+int		check_read_file(int fd);
+int		check_file_extension(char *filename, char *file_extension);
+char	*parse_textures(char *map_line, char *direction);
+
+
+// Memory management
+void	initialise_to_null(t_game *game_data);
+
+void	free_on_exit(t_game *game_data);
+void	free_to_null_string(char *str);
+
+
+
 
 
 
