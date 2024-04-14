@@ -7,7 +7,7 @@ MLX42_dir = ./MLX42
 
 OBJS = ${SRCS:.c=.o}
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 CC = cc 
 MLX42FLAGS = -ldl -lglfw -pthread -lm  
 

@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/11 20:47:56 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 00:41:45 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,9 @@ void ft_hook(void* param)
 	mlx_t* mlx = param;
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(	// 	(void)argv;
-// 	error_handling(argc, argv);
-// 	map_parsing();
-
-// 	return (EXIT_SUCCESS);
-mlx);
+	{
+		mlx_close_window(mlx);
+	}
 	if (mlx_is_key_down(mlx, MLX_KEY_UP))
 		image->instances[0].y -= 5;
 	if (mlx_is_key_down(mlx, MLX_KEY_DOWN))
@@ -80,6 +77,7 @@ mlx);
 }
 void initialise_game(t_game *game_data)
 {
+	initialise_to_null(game_data);
     // Initialize game window and graphics context
     //init_window();
 
@@ -117,38 +115,51 @@ int32_t main(int argc, const char *argv[])
         return EXIT_FAILURE;
     }
     // game_data->mlx = mlx_init();
-
-    printf("no errors\n");
-
 	
 	error_handling(argc, argv);
 	initialise_game(game_data);
 
-	map_parsing((char *)argv[1]);
+	map_parsing((char *)argv[1], game_data);
+    printf("In main:\n");
 
+	printf("game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
+	printf("game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
+	printf("game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
+	printf("game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
+
+	(void)mlx;
 	// Gotta error check this stuff
-	if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
-	{
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (!(image = mlx_new_image(mlx, 128, 128)))
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	if (mlx_image_to_window(mlx, image, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		puts(mlx_strerror(mlx_errno));
-		return(EXIT_FAILURE);
-	}
-	
-	mlx_loop_hook(mlx, ft_randomize, mlx);
-	mlx_loop_hook(mlx, ft_hook, mlx);
+	// if (!(mlx = mlx_init(WIDTH, HEIGHT, "MLX42", true)))
+	// {
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	free_on_exit(game_data); // added
 
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
+	// 	return(EXIT_FAILURE);
+	// }
+	// if (!(image = mlx_new_image(mlx, 128, 128)))
+	// {
+	// 	mlx_close_window(mlx);
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	free_on_exit(game_data); //added
+
+	// 	return(EXIT_FAILURE);
+	// }
+	// if (mlx_image_to_window(mlx, image, 0, 0) == -1)
+	// {
+	// 	mlx_close_window(mlx);
+	// 	puts(mlx_strerror(mlx_errno));
+	// 	free_on_exit(game_data); //added
+
+	// 	return(EXIT_FAILURE);
+	// }
+	
+	// mlx_loop_hook(mlx, ft_randomize, mlx);
+	// mlx_loop_hook(mlx, ft_hook, mlx);
+
+	// mlx_loop(mlx);
+	// mlx_terminate(mlx);
+	free_on_exit(game_data);
+	printf("Exiting\n");
+	
 	return (EXIT_SUCCESS);
 }
