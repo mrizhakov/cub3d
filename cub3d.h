@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 15:50:18 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:28:44 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,33 @@ typedef struct	s_map
 	int	ea;
 }				t_map;
 
+typedef struct	s_rgb
+{
+	int	color[3];
+	// int	g;
+	// int	b;
+	int valid_rgb;
+}				t_rgb;
+
 
 typedef struct	s_game
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
-	t_textures	*textures;
-	char		*no_texture_filename;
-	char		*so_texture_filename;
-	char		*we_texture_filename;
-	char		*ea_texture_filename;
-	int			no_texture_present;
-	int 		so_texture_present;
-	int			we_texture_present;
-	int 		ea_texture_present;
-	int			all_textures_present;
-	int			direction_count;
-
-	char		*whole_map;
+	mlx_t			*mlx;
+	mlx_image_t		*img;
+	t_textures		*textures;
+	char			*no_texture_filename;
+	char			*so_texture_filename;
+	char			*we_texture_filename;
+	char			*ea_texture_filename;
+	int				no_texture_present;
+	int 			so_texture_present;
+	int				we_texture_present;
+	int 			ea_texture_present;
+	int				all_textures_present;
+	int				direction_count;
+	t_rgb			floor;
+	t_rgb			ceiling;
+	char			*whole_map;
 
 }				t_game;
 
@@ -88,6 +97,9 @@ int		check_file_extension(char *filename, char *file_extension);
 char	*parse_textures(char *map_line, char *direction);
 void	check_all_text_present(t_game *game_data);
 
+int		parse_color(t_game *game_data, char *map_line);
+
+
 
 
 // Memory management
@@ -95,6 +107,8 @@ void	initialise_to_null(t_game *game_data);
 
 void	free_on_exit(t_game *game_data);
 void	free_to_null_string(char *str);
+void	free_to_null_char_arr(char **str);
+
 
 
 

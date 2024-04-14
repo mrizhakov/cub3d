@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 16:06:22 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:28:20 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,131 @@ int parse_directions(t_game *game_data, char *map_line)
     return(0);
 }
 
+t_rgb read_color(char *map_line, char *surface)
+{
+    t_rgb rgb;
+
+    rgb.valid_rgb = -1;
+    
+    char *color_line;
+    char *color_def;
+    // char *texture_filename;
+    // int   texture_fd;
+        
+    color_line =  ft_strnstr(map_line, surface, ft_strlen(map_line));
+    if (color_line == NULL)
+    {
+        free(map_line);
+        rgb.valid_rgb = -1;
+        return(rgb);
+    }
+    color_line++;
+
+    color_def = ft_strtrim(color_line, " \n"); //malloc here
+    printf("Color line now is : |%s|\n", color_def);
+    char **color_array = ft_split(color_def, ',');
+    
+    int i = 0;
+    while (color_array [i] != NULL)
+    {
+        rgb.color[i] = ft_atoi(color_array[i]);
+        printf("Array %i is : |%d|\n", i, rgb.color[i]);
+        i++;
+        if (i > 3)
+        {
+            perror("Invalid color");
+            free_to_null_string(color_def);
+            rgb.valid_rgb = -1;
+            return(rgb);
+        }
+    }
+
+    
+    int y = 0;
+    while (y != i && rgb.color[y] >= 0 && rgb.color[y] <= 255)
+    {
+        printf("Y is %i\n", y);
+        y++;
+    }
+    rgb.valid_rgb = 1;
+
+    if (y != 3)
+    {
+        rgb.valid_rgb = -1;
+        printf("Y is %i, triggered unvalidity check\n", y);
+
+    }
+    
+    printf("Is it a valid RGB? r : %i, g: %i. b: %i, validity: %i\n", rgb.color[0], rgb.color[1], rgb.color[2], rgb.valid_rgb);
+    free_to_null_string(color_def);
+    free_to_null_char_arr(color_array);
+
+
+    // printf("Array 1 is : |%s|\n", array[0]);
+    // printf("Array 2 is : |%s|\n", array[1]);
+    // printf("Array 3 is : |%s|\n", array[2]);
+
+
+
+    
+    
+
+    
+    // texture_fd = valid_file(texture_filename);
+    // if (texture_fd == 0)
+    // {
+    //     perror("Can't open texture files!");
+    //     free(texture_filename);
+    //     return(NULL);
+    // }
+    // if (check_file_extension(texture_filename, ".png") || check_read_file(texture_fd))
+    // {
+    //     perror("Texture files are no bueno. Bring your nice .png's!");
+    //     free(texture_filename);
+    //     free(map_line);
+    //     close(texture_fd);
+    //     return(NULL);
+    // }
+    // printf("Texture %s opened!\n", texture_filename);
+    // return(texture_filename);
+
+
+    
+    
+    return (rgb);
+}
+
+int parse_color(t_game *game_data, char *map_line)
+{
+    (void)map_line;
+    (void)game_data;
+    if (ft_strnstr(map_line, "F", ft_strlen(map_line)))
+    {
+        if (game_data->floor.valid_rgb == -1)
+            game_data->floor = read_color(map_line, "F");
+        printf("Inside parse_color game_data->floor.color[0] contains %i\n", game_data->floor.color[0]);
+        printf("Inside parse_color game_data->floor.color[1] contains %i\n", game_data->floor.color[1]);
+        printf("Inside parse_color game_data->floor.color[2] contains %i\n", game_data->floor.color[2]);
+        printf("Inside parse_color game_data->floor.valid_rgb contains %i\n", game_data->floor.valid_rgb);
+
+
+
+
+            
+        //     game_data->no_texture_filename = parse_textures(map_line, "NO");
+        // game_data->no_texture_present++;
+    }
+    // if (ft_strnstr(map_line, "NO", ft_strlen(map_line)))
+    // {
+    //     if (game_data->no_texture_filename == NULL)
+    //         game_data->no_texture_filename = parse_textures(map_line, "NO");
+    //     printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
+    //     game_data->no_texture_present++;
+    // }
+    return(0);
+}
+
+
 
 
 int map_parsing(char *filename, t_game *game_data)
@@ -142,7 +267,7 @@ int map_parsing(char *filename, t_game *game_data)
             return(0);
         }
         parse_directions(game_data, map_line);
-        // parse_color(game_data, map_line);
+        parse_color(game_data, map_line);
 
         printf("%s", map_line);
         free(map_line);
