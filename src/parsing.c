@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 00:51:56 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 00:56:23 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ char *parse_textures(char *map_line, char *direction)
     }
     texture_line++;
     texture_line++;
-    //texture_line++;
 
     texture_filename = ft_strtrim(texture_line, " \n"); //malloc here
     printf("Texture file for NO is |%s|\n", texture_filename);
