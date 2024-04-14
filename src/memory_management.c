@@ -22,6 +22,48 @@ void free_to_null_char_arr(char **str)
         free(str);
 }
 
+void    init_maze(t_game *game_maze)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    while (y != MAZE_DIMENSION - 1)
+    {
+        while (x != MAZE_DIMENSION - 1)
+        {
+            game_maze->maze.g[y][x] = 9;
+            x++;
+        }
+        x = 0;
+        y++;
+    }
+    game_maze->maze.valid_maze = -1;
+}
+
+t_maze  init_t_maze(t_maze maze)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    while (y != MAZE_DIMENSION - 1)
+    {
+        while (x != MAZE_DIMENSION - 1)
+        {
+            maze.g[y][x] = 9;
+            x++;
+        }
+        x = 0;
+        y++;
+    }
+    maze.valid_maze = -1;
+    return(maze);
+}
+
+
 void initialise_to_null(t_game *game_data) 
 {
     game_data->no_texture_filename = NULL;
@@ -47,8 +89,10 @@ void initialise_to_null(t_game *game_data)
 
     game_data->floor_count = 0; 
 	game_data->ceiling_count = 0;
-}
+	game_data->player_count = 0;
 
+    init_maze(game_data);
+}
 
 void free_on_exit(t_game *game_data) 
 {

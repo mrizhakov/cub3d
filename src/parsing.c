@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 19:29:39 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 22:00:11 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,80 @@ int check_colors_ok(t_game *game_data)
         return (0);
 }
 
+void print_maze(t_game *game_data)
+{
+    int x;
+    int y;
+
+    x = 0;
+    y = 0;
+    printf("Printing out maze for educational purposes: \n\n");
+    while (y != MAZE_DIMENSION - 1)
+    {
+        while (x != MAZE_DIMENSION - 1)
+        {
+            printf("%i", game_data->maze.g[y][x]);
+            x++;
+        }
+        printf("\n");
+        x = 0;
+        y++;
+    }
+    printf("\nIs the maze valid? %i\n", game_data->maze.valid_maze);
+}
+
+
+int maze_parse(t_game *game_data, char *map_line)
+{
+    (void)game_data;
+    (void)map_line;
+    static t_maze maze;
+    (void)maze;
+    //init_t_maze(maze)
+    // char *maze_line;
+    int i;
+    int y;
+
+    i = 0;
+    y = 0;
+    //if (is)
+    if (is_valid_char(map_line[i]))
+    {
+        if (map_line[i] == '\n')
+        {
+            y++;
+            game_data->maze.g[y][i] = 0;
+            return (0);
+        }
+        game_data->maze.g[y][i] = map_line[i];
+        i++;
+    }
+    else
+        game_data->maze.valid_maze = 0;
+    
+    // if (!ft_strnstr(map_line, "1", ft_strlen(map_line)) 
+    //     || !ft_strnstr(map_line, "0", ft_strlen(map_line))
+    //     || !ft_strnstr(map_line, "N", ft_strlen(map_line))
+    //     || !ft_strnstr(map_line, "E", ft_strlen(map_line))
+    //     || !ft_strnstr(map_line, "W", ft_strlen(map_line))
+    //     || !ft_strnstr(map_line, "S", ft_strlen(map_line)))
+    //     return (0);
+    // else
+    // {
+        
+        
+        // maze_line = ft_strtrim(color_line, "\n"); //malloc here
+        // free(maze_line);
+
+    
+        
+
+        
+
+
+    return (1);
+}
+
 
 
 
@@ -206,10 +280,6 @@ int map_parsing(char *filename, t_game *game_data)
 {
     int fd;
     char *map_line;
-    //char *map_buf;
-    (void)game_data;
-
-
     printf("Parsing map\n");
     
     fd = open(filename, O_RDONLY);
@@ -234,7 +304,10 @@ int map_parsing(char *filename, t_game *game_data)
         map_line = get_next_line(fd);
         if (map_line == NULL)
         {
+            printf("-------------------------------------\n");
             printf("Map is finito!\n");
+            printf("Final check!\n");
+
             check_textures_ok(game_data);
             if (game_data->all_textures_ok == 1)
                 printf("Textures are ok!\n");
@@ -249,7 +322,20 @@ int map_parsing(char *filename, t_game *game_data)
         }
         parse_directions(game_data, map_line);
         parse_color(game_data, map_line);
-
+        if (game_data->all_textures_ok == 1 && check_colors_ok(game_data))
+        {
+            printf("Textures are ok!\n");
+            printf("Colors arent good!\n");
+            printf("Time to parse the map!\n");
+            //maze_parse(game_data, map_line);
+            
+        }
+        else
+        {
+            printf("Textures are ok!\n");
+            printf("Colors arent good!\n");
+            printf("Dont even think about parsing the map!\n");
+        }
         printf("%s", map_line);
         free(map_line);
     }
@@ -273,20 +359,26 @@ int	iffile_cub(char *map_file_name)
 
 int			is_valid_char(char matrix_val)
 {
-	if (matrix_val && matrix_val != '1' && matrix_val != '0' && matrix_val != '2' && matrix_val
-		!= 'N' && matrix_val != 'S' && matrix_val != 'W' && matrix_val != 'E' && matrix_val
-		!= ' ')
+	if (matrix_val 
+        && (matrix_val == '1' || matrix_val == '0' || matrix_val == '2' 
+        || matrix_val == 'N' || matrix_val == 'E' || matrix_val == 'W' 
+        || matrix_val == 'S' || matrix_val == ' ' || matrix_val == '\n'))
 		return (1);
-	return (0);
+    else
+	    return (0);
 }
 
-int		no_of_players(char matrix_val)
+int		no_of_players(t_game *game_data, char matrix_val)
 {
 	int i;
 
 	i = 0;
-	if (matrix_val == 'N' || matrix_val == 'S' || matrix_val == 'W' || matrix_val == 'E')
-		i++;
+	if (matrix_val == 'N' || matrix_val == 'S' 
+        || matrix_val == 'W' || matrix_val == 'E')
+    {
+        i++;
+		game_data->player_count++;
+    }
 	return (i);
 }// just one player per map
 
