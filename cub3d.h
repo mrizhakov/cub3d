@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 00:08:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 15:50:18 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ typedef struct	s_game
 	char		*so_texture_filename;
 	char		*we_texture_filename;
 	char		*ea_texture_filename;
+	int			no_texture_present;
+	int 		so_texture_present;
+	int			we_texture_present;
+	int 		ea_texture_present;
+	int			all_textures_present;
+	int			direction_count;
 
 	char		*whole_map;
 
@@ -80,6 +86,8 @@ int 	valid_file(char *filename);
 int		check_read_file(int fd);
 int		check_file_extension(char *filename, char *file_extension);
 char	*parse_textures(char *map_line, char *direction);
+void	check_all_text_present(t_game *game_data);
+
 
 
 // Memory management

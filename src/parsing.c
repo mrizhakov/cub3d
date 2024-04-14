@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 00:56:23 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 16:06:22 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ char *parse_textures(char *map_line, char *direction)
     texture_line++;
 
     texture_filename = ft_strtrim(texture_line, " \n"); //malloc here
-    printf("Texture file for NO is |%s|\n", texture_filename);
-
-
     texture_fd = valid_file(texture_filename);
     if (texture_fd == 0)
     {
@@ -47,48 +44,62 @@ char *parse_textures(char *map_line, char *direction)
         return(NULL);
     }
     printf("Texture %s opened!\n", texture_filename);
-    // direction = ft_strdup(texture_filename);
-    // free(texture_filename);
-    // game_data.so_texture_filename = NULL;
-
-    
-    //now texture file is open, dont forget to close
-    //close(texture_fd)
-
-    
     return(texture_filename);
 }
+
+void check_all_text_present(t_game *game_data)
+{
+    if (game_data->no_texture_filename 
+        && game_data->so_texture_filename 
+        && game_data->we_texture_filename 
+        && game_data->ea_texture_filename 
+        && game_data->no_texture_present == 1
+        && game_data->so_texture_present == 1
+        && game_data->we_texture_present == 1
+        && game_data->ea_texture_present == 1)
+        game_data->all_textures_present = 1;
+    else
+        game_data->all_textures_present = 0;
+    if (game_data->no_texture_present > 1
+        && game_data->so_texture_present > 1
+        && game_data->we_texture_present > 1
+        && game_data->ea_texture_present > 1)
+        game_data->all_textures_present = 0;    
+}
+
 
 int parse_directions(t_game *game_data, char *map_line)
 {
     if (ft_strnstr(map_line, "NO", ft_strlen(map_line)))
     {
-        game_data->no_texture_filename = parse_textures(map_line, "NO");
-    	printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
-
+        if (game_data->no_texture_filename == NULL)
+            game_data->no_texture_filename = parse_textures(map_line, "NO");
+        printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
+        game_data->no_texture_present++;
     }
     if (ft_strnstr(map_line, "SO", ft_strlen(map_line)))
     {
-        game_data->so_texture_filename = parse_textures(map_line, "SO");
-    	printf("Inside parse_directions game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
+        if (game_data->so_texture_filename == NULL)
+            game_data->so_texture_filename = parse_textures(map_line, "SO");
+        printf("Inside parse_directions game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
+        game_data->so_texture_present++;
     }
     if (ft_strnstr(map_line, "WE", ft_strlen(map_line)))
     {
-        game_data->we_texture_filename = parse_textures(map_line, "WE");
-    	printf("Inside parse_directions game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
-
+        if (game_data->we_texture_filename == NULL)
+            game_data->we_texture_filename = parse_textures(map_line, "WE");
+        printf("Inside parse_directions game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
+        game_data->we_texture_present++;
     }
     if (ft_strnstr(map_line, "EA", ft_strlen(map_line)))
     {
-        game_data->ea_texture_filename = parse_textures(map_line, "EA");
-    	printf("Inside parse_directions game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
+        if (game_data->ea_texture_filename == NULL)
+            game_data->ea_texture_filename = parse_textures(map_line, "EA");
+        printf("Inside parse_directions game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
+        game_data->ea_texture_present++;
     }
+    check_all_text_present(game_data);
     return(0);
-
-//     NO ./src/textures/DarkAbstractBackgrounds_03.png
-// SO ./src/textures/DarkAbstractBackgrounds_06.png
-// WE ./src/textures/DarkAbstractBackgrounds_09.png
-// EA ./src/textures/DarkAbstractBackgrounds_10.png
 }
 
 
@@ -116,22 +127,7 @@ int map_parsing(char *filename, t_game *game_data)
         printf("Map opened\n");
         printf("Logging out map for debugging purposes\n");
     }
-    // map_line = get_next_line(fd);
-    // printf("%s", map_line);
-
-    // parse_textures(game_data, map_line);
-    // printf("Map line is %s\n", map_line);
-    // free(map_line);
-    // map_line = ft_strdup("");
     
-    // while (map_line != NULL)
-    // {
-    //     free(map_line);
-    //     map_line = get_next_line(fd);
-    //     parse_textures(game_data, map_line);
-    //     printf("Map line is %s\n", map_line);
-    //     // free(map_line);
-    // }
     map_line = NULL;
     printf("Presto! Here is the map:\n");
 
@@ -141,14 +137,16 @@ int map_parsing(char *filename, t_game *game_data)
         if (map_line == NULL)
         {
             printf("Map is finito!\n");
+            check_all_text_present(game_data);
             close(fd);
             return(0);
         }
         parse_directions(game_data, map_line);
+        // parse_color(game_data, map_line);
+
         printf("%s", map_line);
         free(map_line);
     }
-    //free(map_line);
 
     close(fd);
     return (0);
@@ -161,7 +159,7 @@ int	iffile_cub(char *map_file_name)
 	find_ber = ft_strrchr(map_file_name, '.');
 	if (!find_ber || ft_strncmp(find_ber, ".cub", 5) != 0)
     {
-        ft_printf("Error: Not a .cub file.\n");
+        printf("Error: Not a .cub file.\n");
 		return (1);
     }
 	return (0);
