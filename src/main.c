@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/14 15:27:35 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:18:57 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ int32_t main(int argc, const char *argv[])
 	printf("game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
 	printf("game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
 	printf("game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
-	printf("game_data->all_textures_present contains %i\n", game_data->all_textures_present);
+	printf("game_data->all_textures_ok contains %i\n", game_data->all_textures_ok);
 
 
 	map_parsing((char *)argv[1], game_data);
@@ -134,9 +134,18 @@ int32_t main(int argc, const char *argv[])
 	printf("game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
 	printf("game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
 	printf("game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
-	printf("Are all textures present? %s\n", game_data->all_textures_present ? "true" : "false");
-	printf("game_data->all_textures_present contains %i\n", game_data->all_textures_present);
+	printf("Are all textures present? %s\n", game_data->all_textures_ok ? "true" : "false");
+	printf("game_data->all_textures_ok contains %i\n", game_data->all_textures_ok);
 
+	printf("parse_color game_data->floor.color[0] contains %i\n", game_data->floor.color[0]);
+    printf("parse_color game_data->floor.color[1] contains %i\n", game_data->floor.color[1]);
+    printf("parse_color game_data->floor.color[2] contains %i\n", game_data->floor.color[2]);
+    printf("Is floor valid? parse_color game_data->floor.valid_rgb contains %i\n", game_data->floor.valid_rgb);
+
+	printf("parse_color game_data->ceiling.color[0] contains %i\n", game_data->ceiling.color[0]);
+    printf("parse_color game_data->ceiling.color[1] contains %i\n", game_data->ceiling.color[1]);
+    printf("parse_color game_data->ceiling.color[2] contains %i\n", game_data->ceiling.color[2]);
+    printf("Is ceiling valid? parse_color game_data->ceiling.valid_rgb contains %i\n", game_data->ceiling.valid_rgb);
 
 
 

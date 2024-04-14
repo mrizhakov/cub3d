@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 17:28:20 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 19:29:39 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,24 @@ char *parse_textures(char *map_line, char *direction)
     return(texture_filename);
 }
 
-void check_all_text_present(t_game *game_data)
+void check_textures_ok(t_game *game_data)
 {
     if (game_data->no_texture_filename 
         && game_data->so_texture_filename 
         && game_data->we_texture_filename 
         && game_data->ea_texture_filename 
-        && game_data->no_texture_present == 1
-        && game_data->so_texture_present == 1
-        && game_data->we_texture_present == 1
-        && game_data->ea_texture_present == 1)
-        game_data->all_textures_present = 1;
+        && game_data->no_texture_count == 1
+        && game_data->so_texture_count == 1
+        && game_data->we_texture_count == 1
+        && game_data->ea_texture_count == 1)
+        game_data->all_textures_ok = 1;
     else
-        game_data->all_textures_present = 0;
-    if (game_data->no_texture_present > 1
-        && game_data->so_texture_present > 1
-        && game_data->we_texture_present > 1
-        && game_data->ea_texture_present > 1)
-        game_data->all_textures_present = 0;    
+        game_data->all_textures_ok = 0;
+    if (game_data->no_texture_count > 1
+        && game_data->so_texture_count > 1
+        && game_data->we_texture_count > 1
+        && game_data->ea_texture_count > 1)
+        game_data->all_textures_ok = 0;    
 }
 
 
@@ -75,30 +75,30 @@ int parse_directions(t_game *game_data, char *map_line)
         if (game_data->no_texture_filename == NULL)
             game_data->no_texture_filename = parse_textures(map_line, "NO");
         printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
-        game_data->no_texture_present++;
+        game_data->no_texture_count++;
     }
     if (ft_strnstr(map_line, "SO", ft_strlen(map_line)))
     {
         if (game_data->so_texture_filename == NULL)
             game_data->so_texture_filename = parse_textures(map_line, "SO");
         printf("Inside parse_directions game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
-        game_data->so_texture_present++;
+        game_data->so_texture_count++;
     }
     if (ft_strnstr(map_line, "WE", ft_strlen(map_line)))
     {
         if (game_data->we_texture_filename == NULL)
             game_data->we_texture_filename = parse_textures(map_line, "WE");
         printf("Inside parse_directions game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
-        game_data->we_texture_present++;
+        game_data->we_texture_count++;
     }
     if (ft_strnstr(map_line, "EA", ft_strlen(map_line)))
     {
         if (game_data->ea_texture_filename == NULL)
             game_data->ea_texture_filename = parse_textures(map_line, "EA");
         printf("Inside parse_directions game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
-        game_data->ea_texture_present++;
+        game_data->ea_texture_count++;
     }
-    check_all_text_present(game_data);
+    check_textures_ok(game_data);
     return(0);
 }
 
@@ -107,12 +107,9 @@ t_rgb read_color(char *map_line, char *surface)
     t_rgb rgb;
 
     rgb.valid_rgb = -1;
-    
     char *color_line;
     char *color_def;
-    // char *texture_filename;
-    // int   texture_fd;
-        
+
     color_line =  ft_strnstr(map_line, surface, ft_strlen(map_line));
     if (color_line == NULL)
     {
@@ -141,7 +138,6 @@ t_rgb read_color(char *map_line, char *surface)
         }
     }
 
-    
     int y = 0;
     while (y != i && rgb.color[y] >= 0 && rgb.color[y] <= 255)
     {
@@ -149,14 +145,12 @@ t_rgb read_color(char *map_line, char *surface)
         y++;
     }
     rgb.valid_rgb = 1;
-
     if (y != 3)
     {
         rgb.valid_rgb = -1;
         printf("Y is %i, triggered unvalidity check\n", y);
 
     }
-    
     printf("Is it a valid RGB? r : %i, g: %i. b: %i, validity: %i\n", rgb.color[0], rgb.color[1], rgb.color[2], rgb.valid_rgb);
     free_to_null_string(color_def);
     free_to_null_char_arr(color_array);
@@ -166,64 +160,43 @@ t_rgb read_color(char *map_line, char *surface)
     // printf("Array 2 is : |%s|\n", array[1]);
     // printf("Array 3 is : |%s|\n", array[2]);
 
-
-
-    
-    
-
-    
-    // texture_fd = valid_file(texture_filename);
-    // if (texture_fd == 0)
-    // {
-    //     perror("Can't open texture files!");
-    //     free(texture_filename);
-    //     return(NULL);
-    // }
-    // if (check_file_extension(texture_filename, ".png") || check_read_file(texture_fd))
-    // {
-    //     perror("Texture files are no bueno. Bring your nice .png's!");
-    //     free(texture_filename);
-    //     free(map_line);
-    //     close(texture_fd);
-    //     return(NULL);
-    // }
-    // printf("Texture %s opened!\n", texture_filename);
-    // return(texture_filename);
-
-
-    
-    
     return (rgb);
 }
 
 int parse_color(t_game *game_data, char *map_line)
 {
-    (void)map_line;
-    (void)game_data;
     if (ft_strnstr(map_line, "F", ft_strlen(map_line)))
     {
+        game_data->floor_count++;
         if (game_data->floor.valid_rgb == -1)
             game_data->floor = read_color(map_line, "F");
         printf("Inside parse_color game_data->floor.color[0] contains %i\n", game_data->floor.color[0]);
         printf("Inside parse_color game_data->floor.color[1] contains %i\n", game_data->floor.color[1]);
         printf("Inside parse_color game_data->floor.color[2] contains %i\n", game_data->floor.color[2]);
         printf("Inside parse_color game_data->floor.valid_rgb contains %i\n", game_data->floor.valid_rgb);
-
-
-
-
-            
-        //     game_data->no_texture_filename = parse_textures(map_line, "NO");
-        // game_data->no_texture_present++;
     }
-    // if (ft_strnstr(map_line, "NO", ft_strlen(map_line)))
-    // {
-    //     if (game_data->no_texture_filename == NULL)
-    //         game_data->no_texture_filename = parse_textures(map_line, "NO");
-    //     printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
-    //     game_data->no_texture_present++;
-    // }
+    if (ft_strnstr(map_line, "C", ft_strlen(map_line)))
+    {
+        game_data->ceiling_count++;
+        if (game_data->ceiling.valid_rgb == -1)
+            game_data->ceiling = read_color(map_line, "C");
+        printf("Inside parse_color game_data->ceiling.color[0] contains %i\n", game_data->ceiling.color[0]);
+        printf("Inside parse_color game_data->ceiling.color[1] contains %i\n", game_data->ceiling.color[1]);
+        printf("Inside parse_color game_data->ceiling.color[2] contains %i\n", game_data->ceiling.color[2]);
+        printf("Inside parse_color game_data->ceiling.valid_rgb contains %i\n", game_data->ceiling.valid_rgb);
+    }
     return(0);
+}
+
+int check_colors_ok(t_game *game_data)
+{
+    if (game_data->floor_count == 1 
+        && game_data->ceiling_count == 1
+        && game_data->floor.valid_rgb == 1
+        && game_data->ceiling.valid_rgb == 1)
+        return (1);
+    else
+        return (0);
 }
 
 
@@ -262,7 +235,15 @@ int map_parsing(char *filename, t_game *game_data)
         if (map_line == NULL)
         {
             printf("Map is finito!\n");
-            check_all_text_present(game_data);
+            check_textures_ok(game_data);
+            if (game_data->all_textures_ok == 1)
+                printf("Textures are ok!\n");
+            else
+                printf("Colors arent good!\n");
+            if (check_colors_ok(game_data))
+                printf("Colors are ok!\n");
+            else
+                printf("Colors arent good!\n");
             close(fd);
             return(0);
         }

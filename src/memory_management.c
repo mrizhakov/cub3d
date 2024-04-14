@@ -28,11 +28,11 @@ void initialise_to_null(t_game *game_data)
     game_data->so_texture_filename = NULL;
     game_data->we_texture_filename = NULL;
     game_data->ea_texture_filename = NULL;
-    game_data->no_texture_present = 0;
-	game_data->so_texture_present = 0;
-	game_data->we_texture_present = 0;
-	game_data->ea_texture_present = 0;
-    game_data->all_textures_present = 0;
+    game_data->no_texture_count = 0;
+	game_data->so_texture_count = 0;
+	game_data->we_texture_count = 0;
+	game_data->ea_texture_count = 0;
+    game_data->all_textures_ok = 0;
     game_data->direction_count = 0;
     game_data->floor.color[0] = -1;
 
@@ -44,6 +44,9 @@ void initialise_to_null(t_game *game_data)
     game_data->ceiling.color[1] = -1;
     game_data->ceiling.color[2] = -1;
     game_data->ceiling.valid_rgb = -1;
+
+    game_data->floor_count = 0; 
+	game_data->ceiling_count = 0;
 }
 
 
