@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/14 00:41:45 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/14 20:38:35 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int32_t main(int argc, const char *argv[])
 
 	t_game *game_data;
 	game_data = malloc(sizeof(t_game));
+
     if (game_data == NULL)
     {
         perror("Error: Failed to allocate memory for game data");
@@ -118,14 +119,38 @@ int32_t main(int argc, const char *argv[])
 	
 	error_handling(argc, argv);
 	initialise_game(game_data);
+	printf("In main after init:\n");
+	printf("game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
+	printf("game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
+	printf("game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
+	printf("game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
+	printf("game_data->all_textures_ok contains %i\n", game_data->all_textures_ok);
+
+	print_maze(game_data);
+
+
 
 	map_parsing((char *)argv[1], game_data);
-    printf("In main:\n");
+    printf("In main after map parsing:\n");
 
 	printf("game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
 	printf("game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
 	printf("game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
 	printf("game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
+	printf("Are all textures present? %s\n", game_data->all_textures_ok ? "true" : "false");
+	printf("game_data->all_textures_ok contains %i\n", game_data->all_textures_ok);
+
+	printf("parse_color game_data->floor.color[0] contains %i\n", game_data->floor.color[0]);
+    printf("parse_color game_data->floor.color[1] contains %i\n", game_data->floor.color[1]);
+    printf("parse_color game_data->floor.color[2] contains %i\n", game_data->floor.color[2]);
+    printf("Is floor valid? parse_color game_data->floor.valid_rgb contains %i\n", game_data->floor.valid_rgb);
+
+	printf("parse_color game_data->ceiling.color[0] contains %i\n", game_data->ceiling.color[0]);
+    printf("parse_color game_data->ceiling.color[1] contains %i\n", game_data->ceiling.color[1]);
+    printf("parse_color game_data->ceiling.color[2] contains %i\n", game_data->ceiling.color[2]);
+    printf("Is ceiling valid? parse_color game_data->ceiling.valid_rgb contains %i\n", game_data->ceiling.valid_rgb);
+	print_maze(game_data);
+
 
 	(void)mlx;
 	// Gotta error check this stuff
