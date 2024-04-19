@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 21:06:38 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/20 00:20:23 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 
 #define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 1024
+#define WINDOW_HEIGHT 1280
 // which one ?
-#define WIDTH 512
-#define HEIGHT 512
+#define WIDTH 1280
+#define HEIGHT 1280
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
 
@@ -69,6 +69,23 @@ typedef struct	s_maze
 	int valid_maze;
 }				t_maze;
 
+//storing WINDOW_WIDTH number of elements,
+//each should contain x, y coordinates and color
+//both of the starting point and the end point
+
+
+typedef struct	s_pixel
+{
+	uint32_t	y;
+	uint32_t	x;
+	uint32_t	color;
+}				t_pixel;
+
+typedef struct	s_wall
+{
+	t_pixel	column_start[WINDOW_WIDTH];
+	t_pixel	column_end[WINDOW_WIDTH];
+}				t_wall;
 
 typedef struct	s_game
 {
@@ -92,6 +109,11 @@ typedef struct	s_game
 	int				player_count;
 
 	t_maze			maze;
+
+	t_wall			*wall;
+	t_wall			*projection;
+	t_pixel			*center;
+
 	
 	char			*whole_map;
 
@@ -128,6 +150,14 @@ void    init_maze(t_game *game_data);
 void	free_on_exit(t_game *game_data);
 void	free_to_null_string(char *str);
 void	free_to_null_char_arr(char **str);
+void	free_wall(t_game *game_data);
+void	init_wall(t_game *game_data);
+
+
+
+//Extra mlx
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 
