@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/15 23:50:32 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:06:04 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -337,11 +337,22 @@ int maze_parse(t_game *game_data, char *map_line)
             x_axis++;
             i++;
         }
-        if (map_line[i] == 'N')
+        if (map_line[i] == 'N' || map_line[i] == 'E' || map_line[i] == 'W' || map_line[i] == 'S')
         {
-            printf("ENNN\n");
+            printf("Found player\n");
 
             game_data->maze.g[y_axis][x_axis] = 3;
+            game_data->player->y = y_axis * game_data->minimap_side_len + game_data->minimap_side_len/2;
+            game_data->player->x = x_axis * game_data->minimap_side_len + game_data->minimap_side_len/2;
+
+            if (map_line[i] == 'N')
+                game_data->player_init_dir = 1;
+            if (map_line[i] == 'E')
+                game_data->player_init_dir = 2;
+            if (map_line[i] == 'W')
+                game_data->player_init_dir = 3;
+            if (map_line[i] == 'S')
+                game_data->player_init_dir = 4;
             x_axis++;
             i++;
         }
@@ -439,6 +450,18 @@ int			is_valid_char(char matrix_val)
         && (matrix_val == '1' || matrix_val == '0' || matrix_val == '2' 
         || matrix_val == 'N' || matrix_val == 'E' || matrix_val == 'W' 
         || matrix_val == 'S' || matrix_val == ' ' || matrix_val == '\n' || matrix_val == '\t'))
+		return (1);
+    else
+	    return (0);
+}
+
+int			is_valid_int(int matrix_val)
+{
+    if (matrix_val == 1 || matrix_val == 0 || matrix_val == 3)
+	// if (matrix_val 
+    //     && (matrix_val == 1 || matrix_val == 0 || matrix_val == 2 
+    //     || matrix_val == 3 || matrix_val == 'E' || matrix_val == 'W' 
+    //     || matrix_val == 'S' || matrix_val == ' ' || matrix_val == '\n' || matrix_val == '\t'))
 		return (1);
     else
 	    return (0);

@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/20 00:20:23 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/20 22:36:03 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,16 @@ typedef struct	s_game
 	int				floor_count;
 	int				ceiling_count;
 	int				player_count;
+	int				player_init_loc[2];
+	double			player_init_dir;
+	int				minimap_side_len;
+	int				player_step;
+
+
 
 	t_maze			maze;
+	t_pixel			*player;
+
 
 	t_wall			*wall;
 	t_wall			*projection;
@@ -132,12 +140,14 @@ void	check_textures_ok(t_game *game_data);
 int		check_colors_ok(t_game *game_data);
 int		is_valid_char(char matrix_val);
 int		no_of_players(t_game *game_data, char matrix_val);
+void	prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
+
 
 
 
 
 int		parse_color(t_game *game_data, char *map_line);
-void	print_maze(t_game *game_data);
+int		is_valid_int(int matrix_val);
 
 
 
@@ -152,6 +162,24 @@ void	free_to_null_string(char *str);
 void	free_to_null_char_arr(char **str);
 void	free_wall(t_game *game_data);
 void	init_wall(t_game *game_data);
+
+// Extra MLX testing functions
+int32_t mlx_demo(t_game *game_data);
+void	ft_generate_rectangle_data(t_game *game_data);
+void	ft_draw_rectangle(mlx_image_t *image, t_game *game_data);
+int32_t	conv_x(int32_t x, int32_t y, double angle);
+int32_t	conv_y(int32_t x, int32_t y, double angle);
+t_pixel	rotatePoint(t_pixel p, t_pixel center, double angle);
+void	ft_projection_rectangle_data(t_game *game_data);
+
+
+//Drawing functions
+
+
+
+//Testing functions, remove for final version
+void	ft_print_parsed_map(t_game *game_data);
+void	print_maze(t_game *game_data);
 
 
 
