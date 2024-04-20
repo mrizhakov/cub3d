@@ -69,9 +69,34 @@ typedef struct	s_maze
 	int valid_maze;
 }				t_maze;
 
+typedef struct s_raycast
+{
+
+	double			cam;
+	double			ray_x;
+	double			ray_y;
+	double			first_intersection_x;
+	double			first_intersection_y;
+	double			grid_step_dist_x;
+	double			grid_step_dist_y;
+	int				map_x;
+	int				map_y;
+	double			step_x;
+	double			step_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	
+	
+}	t_raycast;
 
 typedef struct	s_game
 {
+	double		pl_pos_x;
+	double		pl_pos_y;
+	double		cam_plane_x;
+	double		cam_plane_y;
+	double		player_dir_x;
+	double		player_dir_y;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
@@ -111,13 +136,11 @@ int		check_colors_ok(t_game *game_data);
 int		is_valid_char(char matrix_val);
 int		no_of_players(t_game *game_data, char matrix_val);
 
-
-
-
 int		parse_color(t_game *game_data, char *map_line);
 void	print_maze(t_game *game_data);
 
-
+//raycast
+static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);
 
 
 
