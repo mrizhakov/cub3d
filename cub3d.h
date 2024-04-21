@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/20 22:36:03 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:08:12 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@
 #include <errno.h>
 
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 1280
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 1000 // not sure why doesnt  work properly with non-square big window size
 // which one ?
-#define WIDTH 1280
-#define HEIGHT 1280
+//#define WIDTH 1280
+//#define HEIGHT 1024 // change to window_heigh and window_width
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
+#define PLAYER_STEP 10
+#define MINIMAP_SQUARE_SIDE_LEN 25
+
+
 
 
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
@@ -140,7 +144,7 @@ void	check_textures_ok(t_game *game_data);
 int		check_colors_ok(t_game *game_data);
 int		is_valid_char(char matrix_val);
 int		no_of_players(t_game *game_data, char matrix_val);
-void	prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
+int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
 
 
 
@@ -174,7 +178,16 @@ void	ft_projection_rectangle_data(t_game *game_data);
 
 
 //Drawing functions
-
+int32_t draw_rectangle(t_game *game_data, t_pixel start, t_pixel end);
+void	drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
+int32_t	draw_h_line(t_game *game_data, t_pixel start, t_pixel end);
+int32_t	draw_v_line(t_game *game_data, t_pixel start, t_pixel end);
+int32_t check_pix(t_pixel pix);
+int32_t draw_minimap(t_game *game_data, t_pixel start, unsigned int side_len);
+int32_t draw_minimap_with_border(t_game *game_data, t_pixel start, unsigned int side_len);
+int32_t draw_player(t_game *game_data, t_pixel *player, unsigned int side_len);
+void	draw_black_background(t_game *game_data);
+int32_t draw_grid(t_game *game_data, t_pixel start, unsigned int side_len);
 
 
 //Testing functions, remove for final version

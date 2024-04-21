@@ -90,10 +90,10 @@ void initialise_to_null(t_game *game_data)
     game_data->floor_count = 0; 
 	game_data->ceiling_count = 0;
 	game_data->player_count = 0;
-    game_data->minimap_side_len = 25;
-    game_data->player_step = 3;
+    game_data->minimap_side_len = MINIMAP_SQUARE_SIDE_LEN;
+    //game_data->player_step = 3;
 
-    game_data->player = malloc(sizeof(t_pixel*));
+    game_data->player = malloc(sizeof(t_pixel)); // is this supposed to be *t_pixel?
     // game_data->player->x = game_data->player_init_loc[0] * game_data->minimap_side_len;
     // game_data->player->y = game_data->player_init_loc[1] * game_data->minimap_side_len;
 
