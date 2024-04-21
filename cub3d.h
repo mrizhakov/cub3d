@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 16:31:18 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:43:36 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
 #define PLAYER_STEP 10
-#define MINIMAP_SQUARE_SIDE_LEN 5
+#define MINIMAP_SQUARE_SIDE_LEN 25
 
 
 
@@ -171,17 +171,11 @@ int		is_valid_char(char matrix_val);
 int		no_of_players(t_game *game_data, char matrix_val);
 int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
 
-
-
-
-
 int		parse_color(t_game *game_data, char *map_line);
 int		is_valid_int(int matrix_val);
 
 //raycast
-static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);
-
-
+// static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);
 
 // Memory management
 void	initialise_to_null(t_game *game_data);
