@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 17:59:23 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 19:02:04 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,9 @@
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
 #define PLAYER_STEP 5
-#define MINIMAP_SQUARE_SIDE_LEN 10
+#define MAP_PADDING 3
+
+#define MINIMAP_SQUARE_SIDE_LEN 25
 #define MINIMAP_Y_OFFSET 10
 #define MINIMAP_X_OFFSET 10
 
