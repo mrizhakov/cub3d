@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:11:23 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:41:05 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,19 +171,6 @@ void	ft_projection_rectangle_data(t_game *game_data)
 	}
 }
 
-int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check)
-{
-    (void)game_data;
-    (void)player_y_check;
-    (void)player_x_check;
-    if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
-    {
-        game_data->player->y = player_y_check;
-        game_data->player->x = player_x_check; 
-        return (0);
-    }
-    return(1);   
-}
 
 // -----------------------------------------------------------------------------
 
@@ -204,15 +191,18 @@ void ft_randomize(void* param)
 			);
 
     t_pixel h_start;
-    h_start.y = 20;
-    h_start.x = 20;
+    h_start.y = 0;
+    h_start.x = 0;
     h_start.color = color;
     
+    if (game_data->redraw_minimap == 0)
+    {
     draw_black_background(game_data);
     // draw_grid(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-    draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
     // draw_minimap_with_border(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
+    game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
     draw_player(game_data, game_data->player, 3);
+    }
 }
 
 void ft_hook(void* param)
@@ -224,35 +214,69 @@ void ft_hook(void* param)
 
     player_y_check = game_data->player->y;
     player_x_check = game_data->player->x;
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
-	{
+
+
+    // if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(game_data->mlx);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
+    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check);
+    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+    //     //     player_y_check += PLAYER_STEP;
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
+    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP);
+
+
+
+    if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game_data->mlx);
-	}
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
-        player_y_check -= PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_y_check += PLAYER_STEP;
+        prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check, -MAP_PADDING, 0);
+        // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+        //     player_y_check += PLAYER_STEP;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
-        player_y_check += PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_y_check -= PLAYER_STEP;
+        prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check, MAP_PADDING, 0);
+        // prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-        player_x_check -= PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_x_check += PLAYER_STEP;
+        prevent_wall_collisions(game_data, player_y_check , player_x_check - PLAYER_STEP, 0, -MAP_PADDING);
+        // prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-        player_x_check += PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_x_check -= PLAYER_STEP;
-    printf("game_data->player->y in struct is %i\n", game_data->player->y);
-    printf("game_data->player->x in struct is %i\n", game_data->player->x);
-    printf("player_x_check in struct is %i\n", player_x_check);
-    printf("player_y_check in struct is %i\n", player_y_check);
+        prevent_wall_collisions(game_data, player_y_check , player_x_check + PLAYER_STEP, 0, MAP_PADDING);
+
+        // prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
 
 
 
+    // if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(game_data->mlx);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
+    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
+    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+    //     //     player_y_check += PLAYER_STEP;
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
+    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
 
 
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(game_data->mlx);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
+    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
+    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+    //     //     player_y_check += PLAYER_STEP;
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
+    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
+        
     // if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	// {
 	// 	mlx_close_window(mlx);
@@ -315,7 +339,17 @@ int32_t mlx_demo(t_game *game_data)
 		free_on_exit(game_data); //added
 		return(EXIT_FAILURE);
 	}
-	init_wall(game_data);
+	//init_wall(game_data);
+    printf("Initial player pos in pixels: x %i and y %i\n", game_data->player->x,  game_data->player->y);
+    printf("Initial player pos in int[2] array is: init_loc[0] or y %i and init_loc[1] x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
+    printf("Initial player pos in int[2] array is: y %i and x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
+    printf("PLAYER STEP is %i\n", PLAYER_STEP);
+    printf("No offset\n");
+
+    printf("Initial player direction is %f\n", game_data->player_init_dir);
+
+
+
 	mlx_loop_hook(game_data->mlx, ft_randomize, game_data);
 	mlx_loop_hook(game_data->mlx, ft_hook, game_data);
 

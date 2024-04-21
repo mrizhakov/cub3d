@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/20 14:02:58 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:59:46 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int32_t main(int argc, const char *argv[])
 	initialise_game(game_data);
 	map_parsing((char *)argv[1], game_data);
 	ft_print_parsed_map(game_data);
+	
 
 	mlx_demo(game_data);
 	free_on_exit(game_data);
