@@ -6,11 +6,12 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:11:52 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:52:04 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
 
 int32_t check_pix(t_pixel pix)
 {
@@ -229,6 +230,7 @@ int32_t	conv_y(int32_t x, int32_t y, double angle)
 
 	
 }
+
 
 t_pixel rotatePoint(t_pixel p, t_pixel center, double angle) {
     t_pixel rotated;

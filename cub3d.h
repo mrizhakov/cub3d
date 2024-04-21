@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 16:43:36 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:52:32 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,11 @@
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
 #define PLAYER_STEP 10
-#define MINIMAP_SQUARE_SIDE_LEN 25
+#define MINIMAP_SQUARE_SIDE_LEN 10
+#define MINIMAP_Y_OFFSET 10
+#define MINIMAP_X_OFFSET 10
+
+
 
 
 
@@ -145,6 +149,7 @@ typedef struct	s_game
 
 	t_maze			maze;
 	t_pixel			*player;
+	t_pixel			*minimap;
 
 
 	t_wall			*wall;
@@ -210,6 +215,10 @@ void	draw_black_background(t_game *game_data);
 int32_t draw_grid(t_game *game_data, t_pixel start, unsigned int side_len);
 
 
+//Game logic
+int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
+
+
 //Testing functions, remove for final version
 void	ft_print_parsed_map(t_game *game_data);
 void	print_maze(t_game *game_data);
@@ -230,3 +239,7 @@ int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 // #endif // cub3d_H
+
+
+
+

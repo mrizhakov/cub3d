@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 16:11:23 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:52:12 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,19 +171,6 @@ void	ft_projection_rectangle_data(t_game *game_data)
 	}
 }
 
-int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check)
-{
-    (void)game_data;
-    (void)player_y_check;
-    (void)player_x_check;
-    if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
-    {
-        game_data->player->y = player_y_check;
-        game_data->player->x = player_x_check; 
-        return (0);
-    }
-    return(1);   
-}
 
 // -----------------------------------------------------------------------------
 
@@ -203,9 +190,10 @@ void ft_randomize(void* param)
 				rand() % 0xFF  // A
 			);
 
+    // game_data->minimap->color = color;
     t_pixel h_start;
-    h_start.y = 20;
-    h_start.x = 20;
+    h_start.y = 0;
+    h_start.x = 0;
     h_start.color = color;
     
     draw_black_background(game_data);
@@ -224,35 +212,20 @@ void ft_hook(void* param)
 
     player_y_check = game_data->player->y;
     player_x_check = game_data->player->x;
+
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
-	{
 		mlx_close_window(game_data->mlx);
-	}
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
-        player_y_check -= PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_y_check += PLAYER_STEP;
+        prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check);
+        // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+        //     player_y_check += PLAYER_STEP;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
-        player_y_check += PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_y_check -= PLAYER_STEP;
+        prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-        player_x_check -= PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_x_check += PLAYER_STEP;
+        prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-        player_x_check += PLAYER_STEP;
-        if (prevent_wall_collisions(game_data, player_y_check, player_x_check))
-            player_x_check -= PLAYER_STEP;
-    printf("game_data->player->y in struct is %i\n", game_data->player->y);
-    printf("game_data->player->x in struct is %i\n", game_data->player->x);
-    printf("player_x_check in struct is %i\n", player_x_check);
-    printf("player_y_check in struct is %i\n", player_y_check);
-
-
-
-
-
+        prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP);
+        
     // if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	// {
 	// 	mlx_close_window(mlx);
@@ -315,7 +288,13 @@ int32_t mlx_demo(t_game *game_data)
 		free_on_exit(game_data); //added
 		return(EXIT_FAILURE);
 	}
-	init_wall(game_data);
+	//init_wall(game_data);
+    printf("Initial player pos in pixels: y %i and x %i\n", game_data->player->y,  game_data->player->x);
+    printf("Initial player pos in int[2] array is: y %i and x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
+    printf("Initial player direction is %f\n", game_data->player_init_dir);
+
+
+
 	mlx_loop_hook(game_data->mlx, ft_randomize, game_data);
 	mlx_loop_hook(game_data->mlx, ft_hook, game_data);
 
