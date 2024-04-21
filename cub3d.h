@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 19:02:04 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:10:19 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@
 //#define HEIGHT 1024 // change to window_heigh and window_width
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
-#define PLAYER_STEP 5
-#define MAP_PADDING 3
+#define PLAYER_STEP 3
+#define MAP_PADDING 2
 
-#define MINIMAP_SQUARE_SIDE_LEN 25
+#define MINIMAP_SQUARE_SIDE_LEN 15
 #define MINIMAP_Y_OFFSET 10
 #define MINIMAP_X_OFFSET 10
 
@@ -173,7 +173,6 @@ void	check_textures_ok(t_game *game_data);
 int		check_colors_ok(t_game *game_data);
 int		is_valid_char(char matrix_val);
 int		no_of_players(t_game *game_data, char matrix_val);
-int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
 
 int		parse_color(t_game *game_data, char *map_line);
 int		is_valid_int(int matrix_val);
@@ -215,7 +214,9 @@ int32_t draw_grid(t_game *game_data, t_pixel start, unsigned int side_len);
 
 
 //Game logic
-int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
+// int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
+int     prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check, int y_map_padding, int x_map_padding);
+
 
 
 //Testing functions, remove for final version

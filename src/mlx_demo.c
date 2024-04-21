@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 19:02:17 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:07:38 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,18 +213,67 @@ void ft_hook(void* param)
     player_y_check = game_data->player->y;
     player_x_check = game_data->player->x;
 
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+
+    // if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(game_data->mlx);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
+    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check);
+    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+    //     //     player_y_check += PLAYER_STEP;
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
+    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP);
+
+
+
+    if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game_data->mlx);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
-        prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
+        prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check, -MAP_PADDING, 0);
         // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
         //     player_y_check += PLAYER_STEP;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
-        prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
+        prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check, MAP_PADDING, 0);
+        // prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-        prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
+        prevent_wall_collisions(game_data, player_y_check , player_x_check - PLAYER_STEP, 0, -MAP_PADDING);
+        // prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-        prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
+        prevent_wall_collisions(game_data, player_y_check , player_x_check + PLAYER_STEP, 0, MAP_PADDING);
+
+        // prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
+
+
+
+    // if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(game_data->mlx);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
+    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
+    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+    //     //     player_y_check += PLAYER_STEP;
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
+    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
+
+
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
+	// 	mlx_close_window(game_data->mlx);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
+    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
+    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
+    //     //     player_y_check += PLAYER_STEP;
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
+    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
+	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
         
     // if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	// {
