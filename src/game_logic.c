@@ -83,6 +83,7 @@ int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_
 
             game_data->player->y = player_y_check;
             game_data->player->x = player_x_check; 
+            game_data->redraw_minimap = 0;
             printf("Valid mode to -> game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
             return (0);
         }

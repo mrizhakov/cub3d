@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 20:07:38 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:41:05 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,17 +190,19 @@ void ft_randomize(void* param)
 				rand() % 0xFF  // A
 			);
 
-    // game_data->minimap->color = color;
     t_pixel h_start;
     h_start.y = 0;
     h_start.x = 0;
     h_start.color = color;
     
+    if (game_data->redraw_minimap == 0)
+    {
     draw_black_background(game_data);
     // draw_grid(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-    draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
     // draw_minimap_with_border(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
+    game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
     draw_player(game_data, game_data->player, 3);
+    }
 }
 
 void ft_hook(void* param)

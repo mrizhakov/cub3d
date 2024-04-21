@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 20:10:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 20:21:45 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,6 +143,7 @@ typedef struct	s_game
 	double			player_init_dir;
 	int				minimap_side_len;
 	int				player_step;
+	int             redraw_minimap;
 
 
 
