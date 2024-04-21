@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 16:26:04 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:31:18 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,25 @@ typedef struct	s_maze
 	int valid_maze;
 }				t_maze;
 
+typedef struct s_raycast
+{
+
+	double			cam;
+	double			ray_x;
+	double			ray_y;
+	double			first_intersection_x;
+	double			first_intersection_y;
+	double			grid_step_dist_x;
+	double			grid_step_dist_y;
+	int				map_x;
+	int				map_y;
+	double			step_x;
+	double			step_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	
+	
+}	t_raycast;
 //storing WINDOW_WIDTH number of elements,
 //each should contain x, y coordinates and color
 //both of the starting point and the end point
@@ -93,6 +112,12 @@ typedef struct	s_wall
 
 typedef struct	s_game
 {
+	double		pl_pos_x;
+	double		pl_pos_y;
+	double		cam_plane_x;
+	double		cam_plane_y;
+	double		player_dir_x;
+	double		player_dir_y;
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
@@ -153,7 +178,8 @@ int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x
 int		parse_color(t_game *game_data, char *map_line);
 int		is_valid_int(int matrix_val);
 
-
+//raycast
+static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);
 
 
 
