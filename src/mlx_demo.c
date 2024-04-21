@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 17:52:12 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 18:13:36 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,8 +289,12 @@ int32_t mlx_demo(t_game *game_data)
 		return(EXIT_FAILURE);
 	}
 	//init_wall(game_data);
-    printf("Initial player pos in pixels: y %i and x %i\n", game_data->player->y,  game_data->player->x);
+    printf("Initial player pos in pixels: x %i and y %i\n", game_data->player->x,  game_data->player->y);
+    printf("Initial player pos in int[2] array is: init_loc[0] or y %i and init_loc[1] x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
     printf("Initial player pos in int[2] array is: y %i and x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
+    printf("PLAYER STEP is %i\n", PLAYER_STEP);
+    printf("No offset\n");
+
     printf("Initial player direction is %f\n", game_data->player_init_dir);
 
 
