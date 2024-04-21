@@ -90,6 +90,16 @@ void initialise_to_null(t_game *game_data)
     game_data->floor_count = 0; 
 	game_data->ceiling_count = 0;
 	game_data->player_count = 0;
+    game_data->minimap_side_len = MINIMAP_SQUARE_SIDE_LEN;
+    //game_data->player_step = 3;
+
+    game_data->player = malloc(sizeof(t_pixel)); // is this supposed to be *t_pixel?
+    // game_data->player->x = game_data->player_init_loc[0] * game_data->minimap_side_len;
+    // game_data->player->y = game_data->player_init_loc[1] * game_data->minimap_side_len;
+
+    game_data->player->y = 0;
+    game_data->player->x = 0;
+    game_data->player->color = 0x00FF00FF;
 
     init_maze(game_data);
 }
@@ -100,5 +110,25 @@ void free_on_exit(t_game *game_data)
     free_to_null_string(game_data->so_texture_filename);
     free_to_null_string(game_data->we_texture_filename);
     free_to_null_string(game_data->ea_texture_filename);
+    free(game_data->player);
+	free_wall(game_data);
     free(game_data);
+}
+
+
+void init_wall(t_game *game_data) 
+{
+	game_data->wall = malloc(sizeof(t_wall));
+	game_data->projection = malloc(sizeof(t_wall));
+
+}
+
+void free_wall(t_game *game_data) 
+{
+	if (game_data->wall != NULL)
+		free(game_data->wall);
+	game_data->wall = NULL;
+	if (game_data->projection != NULL)
+		free(game_data->projection);
+	game_data->projection= NULL;
 }

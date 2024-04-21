@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 21:06:38 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:31:18 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@
 #include <errno.h>
 
 
-#define WINDOW_WIDTH 1280
-#define WINDOW_HEIGHT 1024
+#define WINDOW_WIDTH 1000
+#define WINDOW_HEIGHT 1000 // not sure why doesnt  work properly with non-square big window size
 // which one ?
-#define WIDTH 512
-#define HEIGHT 512
+//#define WIDTH 1280
+//#define HEIGHT 1024 // change to window_heigh and window_width
 #define FILE_READ_BUFFER 1024
 #define MAZE_DIMENSION 40
+#define PLAYER_STEP 10
+#define MINIMAP_SQUARE_SIDE_LEN 5
+
+
 
 
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
@@ -88,6 +92,23 @@ typedef struct s_raycast
 	
 	
 }	t_raycast;
+//storing WINDOW_WIDTH number of elements,
+//each should contain x, y coordinates and color
+//both of the starting point and the end point
+
+
+typedef struct	s_pixel
+{
+	uint32_t	y;
+	uint32_t	x;
+	uint32_t	color;
+}				t_pixel;
+
+typedef struct	s_wall
+{
+	t_pixel	column_start[WINDOW_WIDTH];
+	t_pixel	column_end[WINDOW_WIDTH];
+}				t_wall;
 
 typedef struct	s_game
 {
@@ -115,8 +136,21 @@ typedef struct	s_game
 	int				floor_count;
 	int				ceiling_count;
 	int				player_count;
+	int				player_init_loc[2];
+	double			player_init_dir;
+	int				minimap_side_len;
+	int				player_step;
+
+
 
 	t_maze			maze;
+	t_pixel			*player;
+
+
+	t_wall			*wall;
+	t_wall			*projection;
+	t_pixel			*center;
+
 	
 	char			*whole_map;
 
@@ -135,9 +169,14 @@ void	check_textures_ok(t_game *game_data);
 int		check_colors_ok(t_game *game_data);
 int		is_valid_char(char matrix_val);
 int		no_of_players(t_game *game_data, char matrix_val);
+int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
+
+
+
+
 
 int		parse_color(t_game *game_data, char *map_line);
-void	print_maze(t_game *game_data);
+int		is_valid_int(int matrix_val);
 
 //raycast
 static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);
@@ -151,6 +190,41 @@ void    init_maze(t_game *game_data);
 void	free_on_exit(t_game *game_data);
 void	free_to_null_string(char *str);
 void	free_to_null_char_arr(char **str);
+void	free_wall(t_game *game_data);
+void	init_wall(t_game *game_data);
+
+// Extra MLX testing functions
+int32_t mlx_demo(t_game *game_data);
+void	ft_generate_rectangle_data(t_game *game_data);
+void	ft_draw_rectangle(mlx_image_t *image, t_game *game_data);
+int32_t	conv_x(int32_t x, int32_t y, double angle);
+int32_t	conv_y(int32_t x, int32_t y, double angle);
+t_pixel	rotatePoint(t_pixel p, t_pixel center, double angle);
+void	ft_projection_rectangle_data(t_game *game_data);
+
+
+//Drawing functions
+int32_t draw_rectangle(t_game *game_data, t_pixel start, t_pixel end);
+void	drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
+int32_t	draw_h_line(t_game *game_data, t_pixel start, t_pixel end);
+int32_t	draw_v_line(t_game *game_data, t_pixel start, t_pixel end);
+int32_t check_pix(t_pixel pix);
+int32_t draw_minimap(t_game *game_data, t_pixel start, unsigned int side_len);
+int32_t draw_minimap_with_border(t_game *game_data, t_pixel start, unsigned int side_len);
+int32_t draw_player(t_game *game_data, t_pixel *player, unsigned int side_len);
+void	draw_black_background(t_game *game_data);
+int32_t draw_grid(t_game *game_data, t_pixel start, unsigned int side_len);
+
+
+//Testing functions, remove for final version
+void	ft_print_parsed_map(t_game *game_data);
+void	print_maze(t_game *game_data);
+
+
+
+//Extra mlx
+
+int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 
