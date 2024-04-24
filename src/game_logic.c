@@ -1,5 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   game_logic.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
+/*   Updated: 2024/04/24 21:01:29 by mrizakov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../cub3d.h"
+
+
+
+// Prototype code for finding the end of the ray drawn from the player
+
+// game_data->maze.g.y*MINIMAP_SQUARE_SIDE_LEN;
+// game_data->maze.g.x*MINIMAP_SQUARE_SIDE_LEN;
+// game_data->maze.g.y = 0;
+// game_data->maze.g.x = 0;
 
 
 // int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check)
@@ -8,53 +29,17 @@
 //     printf("game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
 //     if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
 //     {
-//         printf("Trying move to: \n");
-//         printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN]);
-//         printf("player_y_check is %i\n", player_y_check);
-//         printf("player_x_check is %i\n", player_x_check);
-
-
-//         printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
-//         printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
-
-//         // if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
-//         if (game_data->maze.g[(player_y_check - MAP_PADDING) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] != 0 
-//             || game_data->maze.g[(player_y_check + MAP_PADDING) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] != 3
-//             || game_data->maze.g[(player_y_check - MAP_PADDING) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] != 0
-//             || game_data->maze.g[(player_y_check + MAP_PADDING) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] != 3)
+//         if (game_data->maze.g[(player_y_check ) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check)/ MINIMAP_SQUARE_SIDE_LEN] == 0 
+//             || game_data->maze.g[(player_y_check ) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check)/ MINIMAP_SQUARE_SIDE_LEN] == 3)
 //         {
-//             printf("Invalid move try to ->  player_y_check %i and player_x_check %i \n", player_y_check, player_x_check);
-//             return (1);
-//         }
-//             else
-//         {
-//             printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / PLAYER_STEP]);
-//             printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
-//             printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
-//             printf("player_y_check is %i\n", player_y_check);
-//             printf("player_x_check is %i\n", player_x_check);
-
 //             game_data->player->y = player_y_check;
 //             game_data->player->x = player_x_check; 
-//             printf("Valid mode to -> game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
+//             game_data->redraw_minimap = 0;
 //             return (0);
 //         }
-        
-//         //     //player_x_check = 25; //in pixels
-//         //     //player_y_check = 15; //in pixels
-//         //     //game_data->player_init_loc[0] = 1;// 2nd row this is y
-//         //     //game_data->player_init_loc[1] = 2;// 3rd pos from left this x
-//         //     //
-//         // }
-
-
 //     }
-//     printf("Invalid move try to ->  player_y_check %i and player_x_check %i \n", player_y_check, player_x_check);
-
 //     return(1);   
 // }
-
-
 
 
 
@@ -71,7 +56,7 @@ int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_
         printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
         printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
 
-        // if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
+        if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
         if (game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 0 
             || game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 3)
         {
@@ -92,85 +77,6 @@ int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_
     return(1);   
 }
 
-
-// int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check)
-// {
-//     (void)game_data;
-//     printf("game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
-//     if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
-//     {
-//         printf("Trying move to: \n");
-//         printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN]);
-//         printf("player_y_check is %i\n", player_y_check);
-//         printf("player_x_check is %i\n", player_x_check);
-//         printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
-//         printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
-
-//         // if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
-//         if (game_data->maze.g[(player_y_check) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 
-//             || game_data->maze.g[(player_y_check) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
-//         {
-//             printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / PLAYER_STEP]);
-//             printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
-//             printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
-//             printf("player_y_check is %i\n", player_y_check);
-//             printf("player_x_check is %i\n", player_x_check);
-
-//             game_data->player->y = player_y_check;
-//             game_data->player->x = player_x_check; 
-//             printf("Valid mode to -> game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
-//             return (0);
-//         }
-//     }
-//     printf("Invalid move try to ->  player_y_check %i and player_x_check %i \n", player_y_check, player_x_check);
-//     return(1);   
-// }
-
-
-// int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check)
-// {
-//     (void)game_data;
-//     printf("game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
-//     if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
-//     {
-//         printf("Trying move to: \n");
-//         printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN]);
-//         printf("player_y_check is %i\n", player_y_check);
-//         printf("player_x_check is %i\n", player_x_check);
-
-
-//         printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
-//         printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
-
-//         // if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
-//         if (game_data->maze.g[(player_y_check) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 
-//             || game_data->maze.g[(player_y_check) / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
-//         {
-//             printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / PLAYER_STEP]);
-//             printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
-//             printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
-//             printf("player_y_check is %i\n", player_y_check);
-//             printf("player_x_check is %i\n", player_x_check);
-
-//             game_data->player->y = player_y_check;
-//             game_data->player->x = player_x_check; 
-//             printf("Valid mode to -> game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
-//             return (0);
-//         }
-        
-//         //     //player_x_check = 25; //in pixels
-//         //     //player_y_check = 15; //in pixels
-//         //     //game_data->player_init_loc[0] = 1;// 2nd row this is y
-//         //     //game_data->player_init_loc[1] = 2;// 3rd pos from left this x
-//         //     //
-//         // }
-
-
-//     }
-//     printf("Invalid move try to ->  player_y_check %i and player_x_check %i \n", player_y_check, player_x_check);
-
-//     return(1);   
-// }
 
 // void game_loop()
 // {

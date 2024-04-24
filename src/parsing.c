@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 17:34:37 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:06:19 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,12 +154,6 @@ t_rgb read_color(char *map_line, char *surface)
     printf("Is it a valid RGB? r : %i, g: %i. b: %i, validity: %i\n", rgb.color[0], rgb.color[1], rgb.color[2], rgb.valid_rgb);
     free_to_null_string(color_def);
     free_to_null_char_arr(color_array);
-
-
-    // printf("Array 1 is : |%s|\n", array[0]);
-    // printf("Array 2 is : |%s|\n", array[1]);
-    // printf("Array 3 is : |%s|\n", array[2]);
-
     return (rgb);
 }
 
@@ -237,10 +231,10 @@ int maze_parse(t_game *game_data, char *map_line)
 {
     int i;
     int x_axis;
-    static int y_axis;
+    static int y_axis = 1;
 
     i = 0;
-    x_axis = 0;
+    x_axis = 1;
     //y_axis = 0;
     //if (is)
     printf("entered maze_parse\n");
@@ -361,6 +355,8 @@ int maze_parse(t_game *game_data, char *map_line)
             i++;
         }
     }
+    game_data->maze_end.y = y_axis;
+    game_data->maze_end.x = x_axis - 1;
     return (1);
 }
 
@@ -415,11 +411,15 @@ int map_parsing(char *filename, t_game *game_data)
         parse_color(game_data, map_line);
         if (game_data->all_textures_ok == 1 && check_colors_ok(game_data))
         {
-            // printf("Textures are ok!\n");
-            // printf("Colors arent good!\n");
-            // printf("Time to parse the map!\n");
+            printf("Textures are ok!\n");
+            printf("Colors are good!\n");
+            printf("Time to parse the map!\n");
             maze_parse(game_data, map_line);
-            
+            print_maze(game_data);
+            // maze_check_closed(game_data);
+            // print_maze(game_data);
+            // printf("done!\n");
+            // exit(0);
         }
         if (!(game_data->all_textures_ok == 1 && check_colors_ok(game_data)))
         {

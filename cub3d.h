@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/21 20:21:45 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 18:33:30 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,11 @@ typedef struct	s_pixel
 	uint32_t	color;
 }				t_pixel;
 
+typedef struct 	s_point {
+	int			x;				// x : Width  | x-axis
+	int			y;				// y : Height | y-axis
+}				t_point;
+
 typedef struct	s_wall
 {
 	t_pixel	column_start[WINDOW_WIDTH];
@@ -144,12 +149,15 @@ typedef struct	s_game
 	int				minimap_side_len;
 	int				player_step;
 	int             redraw_minimap;
+	int             maze_closed;
 
 
 
+	t_point			maze_start;
+	t_point			maze_end;
 	t_maze			maze;
 	t_pixel			*player;
-	t_pixel			*minimap;
+	t_point			*minimap;
 
 
 	t_wall			*wall;
@@ -161,6 +169,8 @@ typedef struct	s_game
 
 }				t_game;
 
+
+// Error handling and parsing
 int 	error_handling(int argc, const char *argv[]);
 int		map_parsing(char *filename, t_game *game_data);
 void	init_data(t_game *game_data);
@@ -177,6 +187,8 @@ int		no_of_players(t_game *game_data, char matrix_val);
 
 int		parse_color(t_game *game_data, char *map_line);
 int		is_valid_int(int matrix_val);
+
+int		maze_check_closed(t_game *game_data);
 
 //raycast
 // static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);

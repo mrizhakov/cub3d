@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 20:26:55 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:56:29 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int32_t check_pix(t_pixel pix)
 {
-    if (pix.x < 0 || pix.y < 0 || pix.x > WINDOW_WIDTH || pix.y > WINDOW_HEIGHT)
+    if (pix.x < 0 || pix.y < 0 || pix.x > WINDOW_WIDTH - 1 || pix.y > WINDOW_HEIGHT -1)
     {
         perror("Invalid pixel");
         return (0);
@@ -49,7 +49,7 @@ void draw_black_background(t_game *game_data)
 
     black_background.y = 0;
     black_background.x = 0;
-    black_background.color = 0x000000FF;
+    black_background.color = 0x000000FF; //0x000000FF;
     end.x = WINDOW_WIDTH - 1;
     end.y = WINDOW_HEIGHT - 1;
     draw_rectangle(game_data, black_background, end);
@@ -71,7 +71,9 @@ int32_t draw_rectangle(t_game *game_data, t_pixel start, t_pixel end)
             start.x--;
         }
         if(start.x == end.x)
+        {   
             drawLine(start.x, start.y, start.x, end.y, start.color);
+        }
         return(1);
     }
     return(0);
