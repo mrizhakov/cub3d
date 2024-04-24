@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/24 21:06:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 22:35:57 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,8 +237,8 @@ int maze_parse(t_game *game_data, char *map_line)
     x_axis = 1;
     //y_axis = 0;
     //if (is)
-    printf("entered maze_parse\n");
-    printf("y_axis is %i\n", y_axis);
+    // printf("entered maze_parse\n");
+    // printf("y_axis is %i\n", y_axis);
 
 
     // if (skip_empty_line(map_line))
@@ -249,27 +249,27 @@ int maze_parse(t_game *game_data, char *map_line)
     // }
     while (is_valid_char(map_line[i]))
     {
-        printf("Entered loop\n");
-        printf("map_line[i] is %c, index %i\n", map_line[i], i);
+        // printf("Entered loop\n");
+        // printf("map_line[i] is %c, index %i\n", map_line[i], i);
         
 
 
         if (skip_empty_line(map_line))
         {
             //y_axis++;
-            printf("skiping empty line\n");
+            // printf("skiping empty line\n");
             return(0);
         }
-        printf("map_line[i] is %c, index %i\n", map_line[i], i);
+        // printf("map_line[i] is %c, index %i\n", map_line[i], i);
 
-        printf("not an empty line\n");
-        printf("finding valid characters\n");
+        // printf("not an empty line\n");
+        // printf("finding valid characters\n");
 
         if (map_line[i] == '\n' || map_line[i] == '\r')
         {
-            printf("NEWLINE\n");
+            // printf("NEWLINE\n");
 
-            printf("\n");
+            // printf("\n");
 
             y_axis++;
             //game_data->maze.g[y][i] = 0;
@@ -279,7 +279,7 @@ int maze_parse(t_game *game_data, char *map_line)
         //printf("map_line is :%c\n", map_line[i]);
         if (map_line[i] == '\t')
         {
-            printf("tab\n");
+            // printf("tab\n");
             
             game_data->maze.g[y_axis][x_axis] = 2;
             x_axis++;
@@ -301,7 +301,7 @@ int maze_parse(t_game *game_data, char *map_line)
         }
         if (map_line[i] == '0')
         {
-            printf("Empty space\n");
+            // printf("Empty space\n");
 
             game_data->maze.g[y_axis][x_axis] = 0;
             x_axis++;
@@ -309,7 +309,7 @@ int maze_parse(t_game *game_data, char *map_line)
         }
         if (map_line[i] == ' ')
         {
-            printf("Empty space\n");
+            // printf("Empty space\n");
 
             game_data->maze.g[y_axis][x_axis] = 2;
             x_axis++;
@@ -317,7 +317,7 @@ int maze_parse(t_game *game_data, char *map_line)
         }
         if (map_line[i] == '1')
         {
-            printf("One\n");
+            // printf("One\n");
 
             game_data->maze.g[y_axis][x_axis] = 1;
             x_axis++;
@@ -325,7 +325,7 @@ int maze_parse(t_game *game_data, char *map_line)
         }
         if (map_line[i] == '2')
         {
-            printf("tTo\n");
+            // printf("tTo\n");
 
             game_data->maze.g[y_axis][x_axis] = 2;
             x_axis++;
@@ -333,7 +333,7 @@ int maze_parse(t_game *game_data, char *map_line)
         }
         if (map_line[i] == 'N' || map_line[i] == 'E' || map_line[i] == 'W' || map_line[i] == 'S')
         {
-            printf("Found player\n");
+            // printf("Found player\n");
             game_data->player_init_loc[0] = x_axis;
             game_data->player_init_loc[1] = y_axis;
 
@@ -354,9 +354,12 @@ int maze_parse(t_game *game_data, char *map_line)
             x_axis++;
             i++;
         }
+        game_data->maze_end.y = y_axis;
+        game_data->maze_end.x = x_axis - 1;
     }
-    game_data->maze_end.y = y_axis;
-    game_data->maze_end.x = x_axis - 1;
+    // game_data->maze_end.y = y_axis;
+    // game_data->maze_end.x = x_axis - 1;
+    printf("---------------->>game MAZE end is x %i, y %i, x_axis is %x, y_axis is %i\n", game_data->maze_end.x, game_data->maze_end.y, x_axis, y_axis);
     return (1);
 }
 
@@ -391,9 +394,9 @@ int map_parsing(char *filename, t_game *game_data)
         map_line = get_next_line(fd);
         if (map_line == NULL)
         {
-            printf("-------------------------------------\n");
-            printf("Map is finito!\n");
-            printf("Final check!\n");
+        //     printf("-------------------------------------\n");
+        //     printf("Map is finito!\n");
+        //     printf("Final check!\n");
 
             check_textures_ok(game_data);
             if (game_data->all_textures_ok == 1)
@@ -411,23 +414,29 @@ int map_parsing(char *filename, t_game *game_data)
         parse_color(game_data, map_line);
         if (game_data->all_textures_ok == 1 && check_colors_ok(game_data))
         {
-            printf("Textures are ok!\n");
-            printf("Colors are good!\n");
-            printf("Time to parse the map!\n");
+            // printf("Textures are ok!\n");
+            // printf("Colors are good!\n");
+            // printf("Time to parse the map!\n");
             maze_parse(game_data, map_line);
-            print_maze(game_data);
-            // maze_check_closed(game_data);
+            // printf("After parsing, maze looks like --------->\n");
+        	// print_maze(game_data);
+            // exit(0);
+
+            // print_maze(game_data);
+            maze_check_closed(game_data);
+            // printf("After checking, maze looks like --------->\n");
+
             // print_maze(game_data);
             // printf("done!\n");
             // exit(0);
         }
         if (!(game_data->all_textures_ok == 1 && check_colors_ok(game_data)))
         {
-            printf("Textures are ok!\n");
-            printf("Colors arent good!\n");
-            printf("Dont even think about parsing the map!\n");
+            // printf("Textures are ok!\n");
+            // printf("Colors arent good!\n");
+            // printf("Dont even think about parsing the map!\n");
         }
-        printf("Map line in main is %s", map_line);
+        // printf("Map line in main is %s", map_line);
         free(map_line);
     }
 
