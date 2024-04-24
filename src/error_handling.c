@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:01:00 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/14 00:29:31 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:59:31 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,36 +94,3 @@ int error_handling(int argc, const char *argv[])
     
     return (0);
 }
-
-
-
-// You can compare the last 4 characters of a string using pointer arithmetic along with string comparison functions like strcmp or strncmp. Here's how you can do it:
-
-// c
-// Copy code
-// #include <stdio.h>
-// #include <string.h>
-
-// int main() {
-//     const char *filename1 = "map.cub";        free(map_line);
-
-//     const char *filename2 = "other.cub";
-//     const char *extension = ".cub";
-//     size_t len = strlen(extension);
-
-//     // Compare the last 'len' characters of filename1 with extension
-//     if (strlen(filename1) >= len && strcmp(filename1 + strlen(filename1) - len, extension) == 0) {
-//         printf("%s ends with %s\n", filename1, extension);
-//     } else {
-//         printf("%s does not end with %s\n", filename1, extension);
-//     }
-
-//     // Compare the last 'len' characters of filename2 with extension
-//     if (strlen(filename2) >= len && strcmp(filename2 + strlen(filename2) - len, extension) == 0) {
-//         printf("%s ends with %s\n", filename2, extension);
-//     } else {
-//         printf("%s does not end with %s\n", filename2, extension);
-//     }
-
-//     return 0;
-// }

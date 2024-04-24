@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:55:17 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/20 14:00:39 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:06:51 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,21 +34,3 @@ void ft_print_parsed_map(t_game *game_data)
 	print_maze(game_data);
     
 }
-
-
-
-
-// void	ft_put_line(t_main *v)
-// {
-// 	if (v->old_x < v->new_x)
-// 		v->sx = 1;
-// 	else
-// 		v->sx = -1;
-// 	if (v->old_y < v->new_y)
-// 		v->sy = 1;
-// 	else
-// 		v->sy = -1;
-// 	v->err = v->dx + v->dy;
-// 	ft_put_line_loop(v);
-// }
-

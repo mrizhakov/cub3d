@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/24 20:52:38 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 21:04:48 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color
 
         mlx_put_pixel(image, x0, y0, color);
 
-        // Check if we've reached the eimagek;
+        // Check if we've reached the end point
         if (x0 == x1 && y0 == y1) break;
 
 
@@ -109,71 +109,6 @@ int32_t draw_v_line(t_game *game_data, t_pixel start, t_pixel end)
     }       
 }
 
-void	ft_projection_rectangle_data(t_game *game_data)
-{
-	int columns;
-	int offset = 600;
-
-	columns = 0;
-
-	// center_x = (game_data->wall->column_start[columns].x - game_data->wall->column_end[columns].x) / 2;
-	// center_y = (game_data->wall->column_start[columns].y - game_data->wall->column_end[columns].y) / 2;
-	double angle = M_PI / 4.0; // 45 degrees in radians
-
-	t_pixel center;
-	center.y =	game_data->wall->column_start[0].y;
-	center.x =	game_data->wall->column_start[0].x;
-	
-	while (columns != WINDOW_WIDTH - 1)
-	{
-		// Rotate each point (x, y) by the angle around the center (center_x, center_y)
-		// double new_y = (game_data->wall->column_start[columns].y - center_x) * sin(angle) + (y - center_y) * cos(angle) + center_y;
-
-		// game_data->projection->column_start[columns].x = conv_x(game_data->wall->column_start[columns].x, game_data->wall->column_start[columns].y, angle);
-		// game_data->projection->column_start[columns].y = conv_y(game_data->wall->column_start[columns].y, game_data->wall->column_start[columns].y, angle);
-
-		// game_data->projection->column_end[columns].x = conv_x(game_data->wall->column_end[columns].x, game_data->wall->column_end[columns].y, angle);
-		// game_data->projection->column_end[columns].y = conv_y(game_data->wall->column_end[columns].y, game_data->wall->column_end[columns].y, angle);
-
-		game_data->projection->column_start[columns] = rotatePoint(game_data->wall->column_start[columns], center, angle);
-		game_data->projection->column_end[columns] = rotatePoint(game_data->wall->column_end[columns], center, angle);
-
-		// game_data->projection->column_start[columns] = conv_y(game_data->wall->column_start[columns].y, game_data->wall->column_start[columns].y, angle);
-
-		// game_data->projection->column_end[columns].x = conv_x(game_data->wall->column_end[columns].x, game_data->wall->column_end[columns].y, angle);
-		// game_data->projection->column_end[columns].y = conv_y(game_data->wall->column_end[columns].y, game_data->wall->column_end[columns].y, angle);
-
-		game_data->projection->column_start[columns].color  = game_data->wall->column_start[columns].color;
-		game_data->projection->column_end[columns].color  = game_data->wall->column_end[columns].color;
-
-		game_data->projection->column_start[columns].x += offset;
-		game_data->projection->column_end[columns].x += offset;
-
-		
-		// (game_data->wall->column_start[columns].x - center_x) * cos(angle) - (game_data->wall->column_start[columns].x - center_y) * sin(angle) + center_x;
-		// game_data->projection->column_start[columns].y = (game_data->wall->column_start[columns].y - center_x) * sin(angle) + (game_data->projection->column_start[columns].y - center_y) * cos(angle) + center_y;
-		// game_data->projection->column_start[columns].color  = game_data->wall->column_start[columns].color;
-
-		
-		// game_data->projection->column_end[columns].x = (game_data->wall->column_end[columns].x - center_x) * cos(angle) - (game_data->projection->column_end[columns].x - center_y) * sin(angle) + center_x;
-		// game_data->projection->column_end[columns].y = (game_data->wall->column_end[columns].y - center_x) * sin(angle) + (game_data->projection->column_end[columns].y - center_y) * cos(angle) + center_y;
-		// game_data->projection->column_end[columns].color  = game_data->wall->column_end[columns].color;
-		
-		printf("Converted pixel at START x %i, y %i, color %u\n", 
-		game_data->projection->column_start[columns].x, 
-		game_data->projection->column_start[columns].y, 
-		game_data->projection->column_start[columns].color);
-		printf("Converted pixel at END x %i, y %i, color %u\n", game_data->projection->column_end[columns].x, game_data->projection->column_end[columns].y, game_data->projection->column_end[columns].color);
-		if (game_data->projection->column_start[columns].x < 1280 && game_data->projection->column_start[columns].y < 1280)
-			mlx_put_pixel(image, game_data->projection->column_start[columns].x, game_data->projection->column_start[columns].y, game_data->projection->column_start[columns].color);
-		if (game_data->projection->column_end[columns].x < 1280 && game_data->projection->column_end[columns].y < 1280)
-			mlx_put_pixel(image, game_data->projection->column_end[columns].x, game_data->projection->column_end[columns].y, game_data->projection->column_end[columns].color);
-		columns++;
-
-	}
-}
-
-
 // -----------------------------------------------------------------------------
 
 int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
@@ -217,68 +152,20 @@ void ft_hook(void* param)
     player_y_check = game_data->player->y;
     player_x_check = game_data->player->x;
 
-
-    // if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
-	// 	mlx_close_window(game_data->mlx);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
-    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check);
-    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
-    //     //     player_y_check += PLAYER_STEP;
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
-    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP);
-
-
-
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game_data->mlx);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
         prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check, -MAP_PADDING, 0);
-        // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
-        //     player_y_check += PLAYER_STEP;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
         prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP, player_x_check, MAP_PADDING, 0);
-        // prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
         prevent_wall_collisions(game_data, player_y_check , player_x_check - PLAYER_STEP, 0, -MAP_PADDING);
-        // prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
         prevent_wall_collisions(game_data, player_y_check , player_x_check + PLAYER_STEP, 0, MAP_PADDING);
 
-        // prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
+// original keyhook code
 
 
-
-    // if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
-	// 	mlx_close_window(game_data->mlx);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
-    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
-    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
-    //     //     player_y_check += PLAYER_STEP;
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
-    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
-
-
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
-	// 	mlx_close_window(game_data->mlx);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_UP))
-    //     prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP - MAP_PADDING, player_x_check);
-    //     // if (prevent_wall_collisions(game_data, player_y_check - PLAYER_STEP, player_x_check))
-    //     //     player_y_check += PLAYER_STEP;
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_DOWN))
-    //     prevent_wall_collisions(game_data, player_y_check + PLAYER_STEP + MAP_PADDING, player_x_check);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-    //     prevent_wall_collisions(game_data, player_y_check, player_x_check - PLAYER_STEP - MAP_PADDING);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-    //     prevent_wall_collisions(game_data, player_y_check, player_x_check + PLAYER_STEP + MAP_PADDING);
-        
     // if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	// {
 	// 	mlx_close_window(mlx);
@@ -341,17 +228,12 @@ int32_t mlx_demo(t_game *game_data)
 		free_on_exit(game_data); //added
 		return(EXIT_FAILURE);
 	}
-	//init_wall(game_data);
     printf("Initial player pos in pixels: x %i and y %i\n", game_data->player->x,  game_data->player->y);
     printf("Initial player pos in int[2] array is: init_loc[0] or y %i and init_loc[1] x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
     printf("Initial player pos in int[2] array is: y %i and x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
     printf("PLAYER STEP is %i\n", PLAYER_STEP);
     printf("No offset\n");
-
     printf("Initial player direction is %f\n", game_data->player_init_dir);
-
-
-
 	mlx_loop_hook(game_data->mlx, ft_randomize, game_data);
 	mlx_loop_hook(game_data->mlx, ft_hook, game_data);
 

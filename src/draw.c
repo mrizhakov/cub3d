@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/24 20:44:44 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:56:29 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,41 +58,21 @@ void draw_black_background(t_game *game_data)
 int32_t draw_rectangle(t_game *game_data, t_pixel start, t_pixel end)
 {
     (void)game_data;
-    printf("Start x is %i , start y is %i\n", start.x, start.y);
-    printf("End  x is %i , End y is %i\n", end.x, end.y);
-
     if (check_pix(start) && check_pix(end))
     {
         while(start.x < end.x)
         {
-            printf("Start x is %i , start y is %i\n", start.x, start.y);
-            printf("End  x is %i , End y is %i\n", end.x, end.y);
-            printf("Color is %i\n", start.color);
-
-            printf("+++ condition End  x is %i , End y is %i\n", end.x, end.y);
-
             drawLine(start.x, start.y, start.x, end.y, start.color);
-            printf("Not segfaulting here +++ condition End  x is %i , End y is %i\n", end.x, end.y);
-
             start.x++;
         }
         while(start.x > end.x)
         {
-            printf("Start x is %i , start y is %i\n", start.x, start.y);
-            printf("End  x is %i , End y is %i\n", end.x, end.y);
-            printf("---  condition End  x is %i , End y is %i\n", end.x, end.y);
-
             drawLine(start.x, start.y, start.x, end.y, start.color);
             start.x--;
         }
         if(start.x == end.x)
         {   
-            printf("Start x is %i , start y is %i\n", start.x, start.y);
-            printf("End  x is %i , End y is %i\n", end.x, end.y);
-            printf("Equal condition End  x is %i , End y is %i\n", end.x, end.y);
-
             drawLine(start.x, start.y, start.x, end.y, start.color);
-    
         }
         return(1);
     }
