@@ -108,6 +108,19 @@ void initialise_to_null(t_game *game_data)
     game_data->minimap->y = 0;
     game_data->minimap->x = 0;
     game_data->redraw_minimap = 0;
+    // game_data->maze_start = malloc(sizeof(t_pixel));
+    game_data->maze_start.y = 0;
+    game_data->maze_start.x = 0;
+    // game_data->maze_start->color = 0x00000000;
+    // game_data->maze_end = malloc(sizeof(t_pixel));
+    game_data->maze_end.y = 0;
+    game_data->maze_end.x = 0;
+    // game_data->maze_end.color = 0x00000000;
+    game_data->maze_closed = -1;
+
+
+
+
 
 
     init_maze(game_data);

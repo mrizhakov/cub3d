@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/21 20:41:05 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/24 20:52:38 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,13 @@ void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color
 
     while (1) {
         // Plot current point
-        mlx_put_pixel(image, x0, y0, color);
         // printf("(%d, %d)\n", x0, y0);
 
-        // Check if we've reached the end point
+        mlx_put_pixel(image, x0, y0, color);
+
+        // Check if we've reached the eimagek;
         if (x0 == x1 && y0 == y1) break;
+
 
         // Calculate next point
         e2 = err;
@@ -197,11 +199,11 @@ void ft_randomize(void* param)
     
     if (game_data->redraw_minimap == 0)
     {
-    draw_black_background(game_data);
-    // draw_grid(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-    // draw_minimap_with_border(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-    game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-    draw_player(game_data, game_data->player, 3);
+        draw_black_background(game_data);
+        // draw_grid(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
+        // draw_minimap_with_border(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
+        game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
+        draw_player(game_data, game_data->player, 3);
     }
 }
 
