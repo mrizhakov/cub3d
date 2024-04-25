@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/24 21:01:29 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/25 20:34:44 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,12 @@ int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_
         printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);
         printf("player_x_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_x_check / MINIMAP_SQUARE_SIDE_LEN);
 
-        if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 0 || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
-        if (game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 0 
-            || game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 3)
+        // if (game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == '0' || game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] == 3)
+        if (game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == '0' 
+            || game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'N'
+            || game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'E'
+            || game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'W'
+            || game_data->maze.g[(player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][(player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'S')
         {
             printf("game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / MINIMAP_SQUARE_SIDE_LEN] is %i\n", game_data->maze.g[player_y_check / MINIMAP_SQUARE_SIDE_LEN][player_x_check / PLAYER_STEP]);
             printf("player_y_check / MINIMAP_SQUARE_SIDE_LEN is %i\n", player_y_check / MINIMAP_SQUARE_SIDE_LEN);

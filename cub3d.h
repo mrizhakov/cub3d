@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/24 18:33:30 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/25 19:39:38 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ typedef struct	s_rgb
 
 typedef struct	s_maze
 {
-	int	g[MAZE_DIMENSION][MAZE_DIMENSION];
-	int valid_maze;
+	char	g[MAZE_DIMENSION][MAZE_DIMENSION];
+	int		valid_maze;
 }				t_maze;
 
 typedef struct s_raycast

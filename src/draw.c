@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/24 20:56:29 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/25 20:35:35 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,14 +143,14 @@ int32_t draw_minimap(t_game *game_data, t_pixel start, unsigned int side_len)
     {
         while (x != MAZE_DIMENSION - 1)
         {
-            if (is_valid_int(game_data->maze.g[y][x]))
+            if (is_valid_char(game_data->maze.g[y][x]))
             {
                 drawLine(start.x, start.y, start.x + side_len, start.y, start.color);
                 drawLine(start.x, start.y, start.x , start.y + side_len, start.color);
             }
-            if (game_data->maze.g[y][x] == 1)
+            if (game_data->maze.g[y][x] == '1')
                 draw_square(game_data, start, side_len);
-            if (game_data->maze.g[y][x] == 3)
+            if (game_data->maze.g[y][x] == 'N' || game_data->maze.g[y][x] == 'E' || game_data->maze.g[y][x] == 'W' || game_data->maze.g[y][x] == 'S')
             {
                 player.x = start.x;
                 player.y = start.y;

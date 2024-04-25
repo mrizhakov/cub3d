@@ -33,7 +33,7 @@ void    init_maze(t_game *game_maze)
     {
         while (x != MAZE_DIMENSION - 1)
         {
-            game_maze->maze.g[y][x] = 9;
+            game_maze->maze.g[y][x] = 'Z';
             x++;
         }
         x = 0;
@@ -53,7 +53,7 @@ t_maze  init_t_maze(t_maze maze)
     {
         while (x != MAZE_DIMENSION - 1)
         {
-            maze.g[y][x] = 9;
+            maze.g[y][x] = 'Z';
             x++;
         }
         x = 0;

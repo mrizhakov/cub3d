@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/24 22:35:57 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/25 20:36:33 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void print_maze(t_game *game_data)
     {
         while (x != MAZE_DIMENSION - 1)
         {
-            printf("%i", game_data->maze.g[y][x]);
+            printf("%c", game_data->maze.g[y][x]);
             x++;
         }
         printf("\n");
@@ -281,21 +281,21 @@ int maze_parse(t_game *game_data, char *map_line)
         {
             // printf("tab\n");
             
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
             i++;
         }
@@ -303,7 +303,7 @@ int maze_parse(t_game *game_data, char *map_line)
         {
             // printf("Empty space\n");
 
-            game_data->maze.g[y_axis][x_axis] = 0;
+            game_data->maze.g[y_axis][x_axis] = '0';
             x_axis++;
             i++;
         }
@@ -311,7 +311,7 @@ int maze_parse(t_game *game_data, char *map_line)
         {
             // printf("Empty space\n");
 
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
             i++;
         }
@@ -319,7 +319,7 @@ int maze_parse(t_game *game_data, char *map_line)
         {
             // printf("One\n");
 
-            game_data->maze.g[y_axis][x_axis] = 1;
+            game_data->maze.g[y_axis][x_axis] = '1';
             x_axis++;
             i++;
         }
@@ -327,7 +327,7 @@ int maze_parse(t_game *game_data, char *map_line)
         {
             // printf("tTo\n");
 
-            game_data->maze.g[y_axis][x_axis] = 2;
+            game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
             i++;
         }
@@ -339,18 +339,31 @@ int maze_parse(t_game *game_data, char *map_line)
 
             
 
-            game_data->maze.g[y_axis][x_axis] = 3;
+            //game_data->maze.g[y_axis][x_axis] = 3;
             game_data->player->y = y_axis * game_data->minimap_side_len + game_data->minimap_side_len/2;
             game_data->player->x = x_axis * game_data->minimap_side_len + game_data->minimap_side_len/2;
 
             if (map_line[i] == 'N')
-                game_data->player_init_dir = 1;
+            {
+                game_data->player_init_dir = 'N';
+                game_data->maze.g[y_axis][x_axis] = 'N';
+            }
             if (map_line[i] == 'E')
-                game_data->player_init_dir = 2;
+            {
+                game_data->player_init_dir = 'E';
+                game_data->maze.g[y_axis][x_axis] = 'E';
+            }
+            
             if (map_line[i] == 'W')
-                game_data->player_init_dir = 3;
+            {
+                game_data->player_init_dir = 'W';
+                game_data->maze.g[y_axis][x_axis] = 'W';
+            }
             if (map_line[i] == 'S')
-                game_data->player_init_dir = 4;
+            {
+                game_data->player_init_dir = 'S';
+                game_data->maze.g[y_axis][x_axis] = 'S';
+            }
             x_axis++;
             i++;
         }
@@ -423,12 +436,11 @@ int map_parsing(char *filename, t_game *game_data)
             // exit(0);
 
             // print_maze(game_data);
-            maze_check_closed(game_data);
+            // maze_check_closed(game_data);
             // printf("After checking, maze looks like --------->\n");
 
             // print_maze(game_data);
             // printf("done!\n");
-            // exit(0);
         }
         if (!(game_data->all_textures_ok == 1 && check_colors_ok(game_data)))
         {
@@ -462,7 +474,7 @@ int			is_valid_char(char matrix_val)
 	if (matrix_val 
         && (matrix_val == '1' || matrix_val == '0' || matrix_val == '2' 
         || matrix_val == 'N' || matrix_val == 'E' || matrix_val == 'W' 
-        || matrix_val == 'S' || matrix_val == ' ' || matrix_val == '\n' || matrix_val == '\t'))
+        || matrix_val == 'S' || matrix_val == ' ' || matrix_val == 'Z'|| matrix_val == '\n' || matrix_val == '\t'))
 		return (1);
     else
 	    return (0);
