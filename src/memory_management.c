@@ -87,15 +87,15 @@ void initialise_to_null(t_game *game_data)
     game_data->floor_count = 0; 
 	game_data->ceiling_count = 0;
 	game_data->player_count = 0;
-    game_data->minimap_side_len = MINIMAP_SQUARE_SIDE_LEN;
+    // game_data->minimap_side_len = MINIMAP_SQUARE_SIDE_LEN;
     game_data->player_init_loc[0] = 0;
     game_data->player_init_loc[1] = 0;
     game_data->player_init_dir = 1.0;
-    game_data->player = malloc(sizeof(t_pixel));
+    game_data->player = malloc(sizeof(t_double_pixel));
     game_data->player->y = 0;
     game_data->player->x = 0;
     game_data->player->color = 0x00FF00FF;
-    game_data->minimap = malloc(sizeof(t_pixel));
+    game_data->minimap = malloc(sizeof(t_double_pixel));
     game_data->minimap->y = 0;
     game_data->minimap->x = 0;
     game_data->redraw_minimap = 0;
@@ -104,6 +104,22 @@ void initialise_to_null(t_game *game_data)
     game_data->maze_end.y = 0;
     game_data->maze_end.x = 0;
     game_data->maze_closed = -1;
+    // game_data->player_dir_x= 0.5;
+    // game_data->player_dir_y = 0.5;
+    // game_data->player_angle = 0.1;
+
+    game_data->player_dir_x= cos(game_data->player_angle) * 5;
+    game_data->player_dir_y = sin(game_data->player_angle) * 5;
+    game_data->player_angle = M_PI / 2;
+    game_data->player_turn_dir = 0;
+    game_data->player_walk_dir = 0;
+    game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
+
+
+
+
+
+
     init_maze(game_data);
 }
 

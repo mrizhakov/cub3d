@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/25 20:36:33 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/28 23:29:45 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -340,8 +340,8 @@ int maze_parse(t_game *game_data, char *map_line)
             
 
             //game_data->maze.g[y_axis][x_axis] = 3;
-            game_data->player->y = y_axis * game_data->minimap_side_len + game_data->minimap_side_len/2;
-            game_data->player->x = x_axis * game_data->minimap_side_len + game_data->minimap_side_len/2;
+            game_data->player->y = y_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN/2;
+            game_data->player->x = x_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN/2;
 
             if (map_line[i] == 'N')
             {

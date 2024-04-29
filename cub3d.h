@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/25 19:39:38 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/29 02:15:27 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
-#include <errno.h>
+
+
+
 
 
 #define WINDOW_WIDTH 1000
@@ -38,6 +40,11 @@
 #define MINIMAP_SQUARE_SIDE_LEN 15
 #define MINIMAP_Y_OFFSET 10
 #define MINIMAP_X_OFFSET 10
+#define MAX_DEPTH_OF_FIELD 8
+#define FOV 60
+#define TURNING_SPEED 0.1
+
+
 
 
 
@@ -107,6 +114,13 @@ typedef struct	s_pixel
 	uint32_t	color;
 }				t_pixel;
 
+typedef struct	s_double_pixel
+{
+	double		y;
+	double		x;
+	uint32_t	color;
+}				t_double_pixel;
+
 typedef struct 	s_point {
 	int			x;				// x : Width  | x-axis
 	int			y;				// y : Height | y-axis
@@ -114,8 +128,8 @@ typedef struct 	s_point {
 
 typedef struct	s_wall
 {
-	t_pixel	column_start[WINDOW_WIDTH];
-	t_pixel	column_end[WINDOW_WIDTH];
+	t_double_pixel	column_start[WINDOW_WIDTH];
+	t_double_pixel	column_end[WINDOW_WIDTH];
 }				t_wall;
 
 typedef struct	s_game
@@ -143,26 +157,33 @@ typedef struct	s_game
 	t_rgb			ceiling;
 	int				floor_count;
 	int				ceiling_count;
+	// int				minimap_side_len;
+
+	
 	int				player_count;
 	int				player_init_loc[2];
 	double			player_init_dir;
-	int				minimap_side_len;
 	int				player_step;
 	int             redraw_minimap;
 	int             maze_closed;
+	int				direction;
+	float			player_angle;
+	int				player_turn_dir;
+	int				player_walk_dir;
+	int				player_turn_speed;
 
 
 
 	t_point			maze_start;
 	t_point			maze_end;
 	t_maze			maze;
-	t_pixel			*player;
+	t_double_pixel			*player;
 	t_point			*minimap;
 
 
 	t_wall			*wall;
 	t_wall			*projection;
-	t_pixel			*center;
+	t_double_pixel			*center;
 
 	
 	char			*whole_map;
@@ -209,26 +230,36 @@ void	ft_generate_rectangle_data(t_game *game_data);
 void	ft_draw_rectangle(mlx_image_t *image, t_game *game_data);
 int32_t	conv_x(int32_t x, int32_t y, double angle);
 int32_t	conv_y(int32_t x, int32_t y, double angle);
-t_pixel	rotatePoint(t_pixel p, t_pixel center, double angle);
+t_double_pixel	rotatePoint(t_double_pixel p, t_double_pixel center, double angle);
 void	ft_projection_rectangle_data(t_game *game_data);
 
 
 //Drawing functions
-int32_t draw_rectangle(t_game *game_data, t_pixel start, t_pixel end);
+int32_t draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel end);
 void	drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-int32_t	draw_h_line(t_game *game_data, t_pixel start, t_pixel end);
-int32_t	draw_v_line(t_game *game_data, t_pixel start, t_pixel end);
-int32_t check_pix(t_pixel pix);
-int32_t draw_minimap(t_game *game_data, t_pixel start, unsigned int side_len);
-int32_t draw_minimap_with_border(t_game *game_data, t_pixel start, unsigned int side_len);
-int32_t draw_player(t_game *game_data, t_pixel *player, unsigned int side_len);
+int32_t	draw_h_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
+int32_t	draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
+int32_t check_pix(t_double_pixel pix);
+int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_len);
+int32_t draw_minimap_with_border(t_game *game_data, t_double_pixel start, unsigned int side_len);
+int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side_len);
 void	draw_black_background(t_game *game_data);
-int32_t draw_grid(t_game *game_data, t_pixel start, unsigned int side_len);
+int32_t draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len);
+int32_t draw_square(t_game *game_data, t_double_pixel start, unsigned int side_len);
+int32_t draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
+
+//Raycast
+void	raycast(t_game *game_data);
+void    check_angle_overflow(t_game *game_data);
+void    draw_ray(t_game *game_data);
+void    draw_fov(t_game *game_data);
+
 
 
 //Game logic
 // int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
 int     prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check, int y_map_padding, int x_map_padding);
+void	update_pos(t_game *game_data);
 
 
 
@@ -240,7 +271,7 @@ void	print_maze(t_game *game_data);
 
 //Extra mlx
 
-int32_t ft_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+int32_t ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 
 

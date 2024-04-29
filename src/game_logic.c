@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/25 20:34:44 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/04/29 02:16:52 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check, int y_map_padding, int x_map_padding)
 {
     (void)game_data;
-    printf("game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
+    printf("game_data->player->x and y in struct is %f and %f\n", game_data->player->x,  game_data->player->y);
     if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
     {
         printf("Trying move to: \n");
@@ -72,13 +72,54 @@ int prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_
             game_data->player->y = player_y_check;
             game_data->player->x = player_x_check; 
             game_data->redraw_minimap = 0;
-            printf("Valid mode to -> game_data->player->x and y in struct is %i and %i\n", game_data->player->x,  game_data->player->y);
+            printf("Valid mode to -> game_data->player->x and y in struct is %f and %f\n", game_data->player->x,  game_data->player->y);
             return (0);
         }
     }
     printf("Invalid move try to ->  player_y_check %i and player_x_check %i \n", player_y_check, player_x_check);
     return(1);   
 }
+
+void    check_angle_overflow(t_game *game_data)
+{
+    printf("Player angle is %f, player_direction_x is %f, player_direction_y is %f\n", game_data->player_angle, game_data->player_dir_x, game_data->player_dir_y);
+    if (game_data->player_angle < 0)
+        game_data->player_angle += 2 * M_PI;
+    if (game_data->player_angle > (2 * M_PI))
+        game_data->player_angle -= 2 * M_PI;
+    // game_data->player_dir_x = cos(game_data->player_angle) * 5;
+    // game_data->player_dir_y = sin(game_data->player_angle) * 5;
+    //game_data->redraw_minimap = 0;
+    game_data->player_turn_dir = 0;
+
+    
+
+    
+}
+
+void update_pos(t_game *game_data)
+{
+    double  player_y_check;
+    double  player_x_check;
+    double  move_step;
+    
+    game_data->redraw_minimap = 0;
+    game_data->player_angle += game_data->player_turn_dir * TURNING_SPEED;
+    check_angle_overflow(game_data);
+    move_step = game_data->player_walk_dir * PLAYER_STEP;
+    player_x_check = cos(game_data->player->x) * move_step;
+    player_y_check = sin(game_data->player->y) * move_step;
+
+    if (game_data->player_walk_dir != 0)
+    {
+        prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 0, 0);
+        game_data->player_walk_dir = 0;
+    }
+
+    
+}
+
+
 
 
 // void game_loop()
