@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/03 22:09:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/03 23:23:49 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     int found_hor_hit;
     double hor_wall_hit_x;
     double hor_wall_hit_y;
-
-
-
+    
     found_hor_hit = -1;
     hor_wall_hit_x = 0;
     hor_wall_hit_y = 0;
@@ -79,8 +77,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
     is_ray_facing_left = !is_ray_facing_right;
 
-    printf("is ray facing up? up %d down %d\n", is_ray_facing_up, is_ray_facing_down);
-    printf("is ray facing right or left? right %d left %d\n", is_ray_facing_right, is_ray_facing_left);
+    // printf("is ray facing up? up %d down %d\n", is_ray_facing_up, is_ray_facing_down);
+    // printf("is ray facing right or left? right %d left %d\n", is_ray_facing_right, is_ray_facing_left);
     
 
     // horizontal ray intersection logic
@@ -109,8 +107,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     next_hor_touch_x = xintercept;
     next_hor_touch_y = yintercept;
     
-    if (is_ray_facing_up)
-        next_hor_touch_y--;
+    // if (is_ray_facing_up)
+    //     next_hor_touch_y--;
 
 
         
@@ -120,7 +118,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
         && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
         && next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
     {
-        printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
+        // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
 
         if (game_data->maze.g[(int)(next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN)][(int)(next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
         {
@@ -128,7 +126,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
             found_hor_hit = 1;
             hor_wall_hit_x = next_hor_touch_x;
             hor_wall_hit_y = next_hor_touch_y;
-            printf("Found a wall!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", hor_wall_hit_x, hor_wall_hit_y, next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN);
+            // printf("Found a wall!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", hor_wall_hit_x, hor_wall_hit_y, next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN);
             // drawLine(game_data->player->x, game_data->player->y, hor_wall_hit_x, hor_wall_hit_y, game_data->player->color);
             break;
         }
@@ -184,7 +182,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
         && next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
         && next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
     {
-        printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_vert_touch_x, next_vert_touch_y);
+        // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_vert_touch_x, next_vert_touch_y);
 
         if (game_data->maze.g[(int)(next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN)][(int)(next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
         {
@@ -192,7 +190,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
             found_vert_hit = 1;
             vert_wall_hit_x = next_vert_touch_x;
             vert_wall_hit_y = next_vert_touch_y;
-            printf("Found a wall!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", vert_wall_hit_x, vert_wall_hit_y, next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
+            // printf("Found a wall!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", vert_wall_hit_x, vert_wall_hit_y, next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
             // drawLine(game_data->player->x, game_data->player->y, vert_wall_hit_x, vert_wall_hit_y, game_data->player->color);
             break;
         }
@@ -223,8 +221,13 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 
     //calculate both distances, and choose the smallest value
 
-    double shortest_wall_hit_x;
-    double shortest_wall_hit_y;    
+    double  shortest_wall_hit_x;
+    double  shortest_wall_hit_y; 
+    int     was_hit_vertical;
+    
+
+
+    was_hit_vertical = -1;   
     distance = 0;   
 
     double distance_hor;
@@ -253,6 +256,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
         shortest_wall_hit_y = vert_wall_hit_y;
         distance = distance_vert;
     }
+    if (distance_vert < distance_hor)
+        was_hit_vertical = 1;
         
     drawLine(game_data->player->x, game_data->player->y, shortest_wall_hit_x, shortest_wall_hit_y, game_data->player->color);
 
@@ -272,7 +277,7 @@ void    draw_fov(t_game *game_data)
     
     ray_angle = game_data->player_angle - (game_data->fov_angle/2);
     // while(i < game_data->num_rays)
-    while(i < WINDOW_WIDTH)
+    while(i < game_data->num_rays)
     {
         game_data->redraw_minimap = 0;
         // printf("Drawing ray with angle %f is %i \n", game_data->fov_angle, i);
@@ -286,6 +291,8 @@ void    draw_fov(t_game *game_data)
         // TODO : cast ray
         // TODO : add ray to array of rays
         ray_angle += game_data->fov_angle / game_data->num_rays;
+        // check_angle_overflow(game_data);
+
         // printf("Drawing ray with angle %f\n", ray_angle);
 
         i++;

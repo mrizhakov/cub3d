@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/02 20:46:00 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:48:34 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,7 +183,7 @@ void ft_hook(void* param)
     }
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_A))
     {
-        game_data->player_turn_dir = 1;
+        game_data->player_turn_dir = -1;
         
         // game_data->player_angle -= 0.1;
         // check_angle_overflow(game_data);
@@ -191,7 +191,7 @@ void ft_hook(void* param)
         // prevent_wall_collisions(game_data, player_y_check , player_x_check - PLAYER_STEP, 0, -MAP_PADDING);
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_D))
     {
-        game_data->player_turn_dir = -1;
+        game_data->player_turn_dir = 1;
 
         // game_data->player_angle += 0.1;
         // check_angle_overflow(game_data);
