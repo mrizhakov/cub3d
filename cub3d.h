@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/29 02:15:27 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/03 22:09:50 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <math.h>
+#include <limits.h>
+
 
 
 
@@ -167,10 +169,12 @@ typedef struct	s_game
 	int             redraw_minimap;
 	int             maze_closed;
 	int				direction;
-	float			player_angle;
+	double			player_angle;
 	int				player_turn_dir;
 	int				player_walk_dir;
 	int				player_turn_speed;
+	double			fov_angle;
+	int				num_rays;
 
 
 
@@ -251,14 +255,16 @@ int32_t draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
 //Raycast
 void	raycast(t_game *game_data);
 void    check_angle_overflow(t_game *game_data);
-void    draw_ray(t_game *game_data);
+void    draw_ray(t_game *game_data, double ray_angle);
 void    draw_fov(t_game *game_data);
+void    cast_ray(t_game *game_data, double ray_angle, int column_id);
 
 
 
 //Game logic
 // int		prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check);
-int     prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check, int y_map_padding, int x_map_padding);
+// int     prevent_wall_collisions(t_game *game_data, int player_y_check, int player_x_check, int y_map_padding, int x_map_padding);
+int		prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int y_map_padding, int x_map_padding);
 void	update_pos(t_game *game_data);
 
 

@@ -114,6 +114,9 @@ void initialise_to_null(t_game *game_data)
     game_data->player_turn_dir = 0;
     game_data->player_walk_dir = 0;
     game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
+    game_data->fov_angle = FOV * (M_PI / 180);
+    game_data->num_rays = WINDOW_WIDTH / 1;;
+
 
 
 
