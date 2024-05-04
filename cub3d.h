@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/04 19:10:55 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 01:16:07 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 #define MINIMAP_X_OFFSET 10
 #define MAX_DEPTH_OF_FIELD 8
 #define FOV 60
-#define TURNING_SPEED 0.1
+#define TURNING_SPEED 0.03
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
 # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
@@ -73,22 +73,22 @@ typedef struct	s_maze
 	int		valid_maze;
 }				t_maze;
 
-typedef struct s_raycast
-{
-	double			cam;
-	double			ray_x;
-	double			ray_y;
-	double			first_intersection_x;
-	double			first_intersection_y;
-	double			grid_step_dist_x;
-	double			grid_step_dist_y;
-	int				map_x;
-	int				map_y;
-	double			step_x;
-	double			step_y;
-	double			side_dist_x;
-	double			side_dist_y;
-}	t_raycast;
+// typedef struct s_raycast
+// {
+// 	double			cam;
+// 	double			ray_x;
+// 	double			ray_y;
+// 	double			first_intersection_x;
+// 	double			first_intersection_y;
+// 	double			grid_step_dist_x;
+// 	double			grid_step_dist_y;
+// 	int				map_x;
+// 	int				map_y;
+// 	double			step_x;
+// 	double			step_y;
+// 	double			side_dist_x;
+// 	double			side_dist_y;
+// }	t_raycast;
 
 //storing WINDOW_WIDTH number of elements,
 //each should contain x, y coordinates and color
