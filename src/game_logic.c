@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 17:43:21 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:53:07 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double   check_angle_overflow(t_game *game_data, double player_angle)
         player_angle += 2 * M_PI;
     if (player_angle > (2 * M_PI))
         player_angle -= 2 * M_PI;
-    printf("Player angle is %f\n", player_angle);
+    // printf("Player angle is %f\n", player_angle);
     game_data->player_turn_dir = 0;
     return (player_angle);
 }

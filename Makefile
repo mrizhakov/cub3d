@@ -6,7 +6,7 @@
 #    By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/25 21:53:00 by mrizakov          #+#    #+#              #
-#    Updated: 2024/04/25 21:59:03 by mrizakov         ###   ########.fr        #
+#    Updated: 2024/05/04 18:53:47 by mrizakov         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ MLX42_dir = ./MLX42
 
 OBJS = ${SRCS:.c=.o}
 
-#CFLAGS = -Wall -Wextra -Werror -fsanitize=address
+# CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 CFLAGS = -Wall -Wextra -Werror -g
 CC = cc 
 MLX42FLAGS = -ldl -lglfw -pthread -lm  

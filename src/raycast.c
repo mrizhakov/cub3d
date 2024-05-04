@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 18:28:53 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 19:20:35 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
             found_hor_hit = 1;
             hor_wall_hit_x = next_hor_touch_x;
             hor_wall_hit_y = next_hor_touch_y;
-            // printf("Found a wall!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", hor_wall_hit_x, hor_wall_hit_y, next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN);
+            printf("Found horizontal wall hit!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", hor_wall_hit_x, hor_wall_hit_y, next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN);
             // drawLine(game_data->player->x, game_data->player->y, hor_wall_hit_x, hor_wall_hit_y, game_data->player->color);
             break;
         }
@@ -205,7 +205,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
             found_vert_hit = 1;
             vert_wall_hit_x = next_vert_touch_x;
             vert_wall_hit_y = next_vert_touch_y;
-            // printf("Found a wall!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", vert_wall_hit_x, vert_wall_hit_y, next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
+            printf("Found vertical wall hit!!! -> Raycast endpoint x %f, y %f, square y %f, square x %f\n", vert_wall_hit_x, vert_wall_hit_y, next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
             // drawLine(game_data->player->x, game_data->player->y, vert_wall_hit_x, vert_wall_hit_y, game_data->player->color);
             break;
         }
@@ -249,6 +249,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     double distance_vert;
 
 
+
     if (found_hor_hit)
         distance_hor = distance_between_points(game_data->player->x, game_data->player->y, hor_wall_hit_x, hor_wall_hit_y);
     else
@@ -273,7 +274,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     }
     if (distance_vert < distance_hor)
         was_hit_vertical = 1;
-    
+    printf("Shortest distance is -> Raycast endpoint x %f, y %f, square y %f, square x %f\n\n\n", vert_wall_hit_x, vert_wall_hit_y, next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
+
     drawLine(game_data->player->x, game_data->player->y, shortest_wall_hit_x, shortest_wall_hit_y, game_data->player->color);
 }
 
