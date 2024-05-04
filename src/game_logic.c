@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/03 23:04:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 14:10:18 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,23 +82,20 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
     return(1);   
 }
 
-void    check_angle_overflow(t_game *game_data)
+double   check_angle_overflow(t_game *game_data, double player_angle)
 {
     // printf("Player angle is %f, player_direction_x is %f, player_direction_y is %f\n", game_data->player_angle, game_data->player_dir_x, game_data->player_dir_y);
-    if (game_data->player_angle < 0)
-        game_data->player_angle += 2 * M_PI;
-    if (game_data->player_angle > (2 * M_PI))
-        game_data->player_angle -= 2 * M_PI;
-    printf("Player angle is %f\n", game_data->player_angle);
+    if (player_angle < 0)
+        player_angle += 2 * M_PI;
+    if (player_angle > (2 * M_PI))
+        player_angle -= 2 * M_PI;
+    printf("Player angle is %f\n", player_angle);
 
     // game_data->player_dir_x = cos(game_data->player_angle) * 5;
     // game_data->player_dir_y = sin(game_data->player_angle) * 5;
     //game_data->redraw_minimap = 0;
     game_data->player_turn_dir = 0;
-
-    
-
-    
+    return (player_angle);
 }
 
 void update_pos(t_game *game_data)
@@ -111,7 +108,7 @@ void update_pos(t_game *game_data)
     player_y_check = 0;
     game_data->redraw_minimap = 0;
     game_data->player_angle += game_data->player_turn_dir * TURNING_SPEED;
-    check_angle_overflow(game_data);
+    game_data->player_angle = check_angle_overflow(game_data, game_data->player_angle);
     move_step = game_data->player_walk_dir * PLAYER_STEP;
     player_x_check += cos(game_data->player_angle) * move_step;
     player_y_check += sin(game_data->player_angle) * move_step;

@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/03 23:22:30 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 14:27:37 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int		is_valid_int(int matrix_val);
 int		maze_check_closed(t_game *game_data);
 
 //raycast
-// static void raycasting_init(int x, t_game *game_data, t_raycast *ray_data);
+// static void raycasting_init(int x, t_game *game_data, t_raycast *ray_datahttps://github.com/mrizhakov/cub3d);
 
 // Memory management
 void	initialise_to_null(t_game *game_data);
@@ -254,7 +254,7 @@ int32_t draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
 
 //Raycast
 void	raycast(t_game *game_data);
-void    check_angle_overflow(t_game *game_data);
+double   check_angle_overflow(t_game *game_data, double player_angle);
 void    draw_ray(t_game *game_data, double ray_angle);
 void    draw_fov(t_game *game_data);
 void    cast_ray(t_game *game_data, double ray_angle, int column_id);
