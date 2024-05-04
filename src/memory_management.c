@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory_management.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
+/*   Updated: 2024/05/04 18:10:42 by mrizakov         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 
 #include "../cub3d.h"
 
@@ -104,10 +116,10 @@ void initialise_to_null(t_game *game_data)
     game_data->maze_end.x = 0;
     game_data->maze_closed = -1;
 
-    // game_data->player_angle = 0.1;
+    // game_data->player_angle = 0.1; // set starting angle based on player init position
 
-    game_data->player_dir_x= cos(game_data->player_angle) * 5;
-    game_data->player_dir_y = sin(game_data->player_angle) * 5;
+    // game_data->player_dir_x= cos(game_data->player_angle) * 5;
+    // game_data->player_dir_y = sin(game_data->player_angle) * 5;
     game_data->player_angle = M_PI / 2;
     game_data->player_turn_dir = 0;
     game_data->player_walk_dir = 0;
@@ -134,5 +146,4 @@ void init_wall(t_game *game_data)
 {
 	game_data->wall = malloc(sizeof(t_wall));
 	game_data->projection = malloc(sizeof(t_wall));
-
 }

@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 17:50:51 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 18:28:53 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,16 @@ void    draw_ray(t_game *game_data, double ray_angle)
             game_data->player->y, 
             game_data->player->x + cos(ray_angle) * 30 + 0.00001, 
             game_data->player->y + sin(ray_angle) * 30 + 0.00001, 
-            game_data->player->color); //why y + 2?
+            game_data->player->color);
 }
 
 double  distance_between_points(double x1, double y1, double x2, double y2)
 {
-
     return (sqrt((x2-x1) * (x2 - x1) + (y2-y1) * (y2 - y1)));
 }
+
+// TODO: needs to be split up in logical norminette-sized functions
+// TODO: potential bug with x and y offset (diagonal lines are empty) - need to check if this affects 3d game projection
 
 void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 {
@@ -111,10 +113,13 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     
         
     // increment xstep and ystep until we find a wall
-    while(next_hor_touch_x >= 0 && next_hor_touch_x <= WINDOW_WIDTH 
-        && next_hor_touch_y >= 0 && next_hor_touch_y <= WINDOW_HEIGHT
+    while(next_hor_touch_x >= 0 && next_hor_touch_y >= 0 
         && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
         && next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
+    // while(next_hor_touch_x >= 0 && next_hor_touch_x <= WINDOW_WIDTH 
+    //     && next_hor_touch_y >= 0 && next_hor_touch_y <= WINDOW_HEIGHT
+    //     && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
+    //     && next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
     {
         // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
     
@@ -184,8 +189,11 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     if (is_ray_facing_left)
         next_vert_touch_x--;
 
-    while(next_vert_touch_x >= 0 && next_vert_touch_x <= WINDOW_WIDTH 
-        && next_vert_touch_y >= 0 && next_vert_touch_y <= WINDOW_HEIGHT
+    // while(next_vert_touch_x >= 0 && next_vert_touch_x <= WINDOW_WIDTH 
+    //     && next_vert_touch_y >= 0 && next_vert_touch_y <= WINDOW_HEIGHT
+    //     && next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
+    //     && next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
+    while(next_vert_touch_x >= 0 && next_vert_touch_y >= 0
         && next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
         && next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
     {
@@ -265,12 +273,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     }
     if (distance_vert < distance_hor)
         was_hit_vertical = 1;
-        
+    
     drawLine(game_data->player->x, game_data->player->y, shortest_wall_hit_x, shortest_wall_hit_y, game_data->player->color);
-
-    
-
-    
 }
 
 void    draw_fov(t_game *game_data)
@@ -284,10 +288,10 @@ void    draw_fov(t_game *game_data)
     
     ray_angle = game_data->player_angle - (game_data->fov_angle/2);
     
-    while(i < game_data->num_rays)
+    while(i < 1)
     {
         game_data->redraw_minimap = 0;
-        ray_angle += game_data->fov_angle / game_data->num_rays;
+        ray_angle += game_data->fov_angle / 1;
         ray_angle = check_angle_overflow(game_data, ray_angle);
         cast_ray(game_data, ray_angle, i);
         i++;

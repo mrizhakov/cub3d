@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 16:02:11 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:55:13 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static mlx_image_t* image;
 // Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable
 void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color)
 {
-
     int32_t dx;
     int32_t dy;
 
@@ -217,5 +216,4 @@ int32_t mlx_demo(t_game *game_data)
 	mlx_loop(game_data->mlx);
 	mlx_terminate(game_data->mlx);
     return(EXIT_SUCCESS);
-
 }

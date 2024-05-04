@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/04/28 23:29:45 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:57:57 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ int skip_empty_line(char *map_line)
     return (0);
 }
 
-
 int maze_parse(t_game *game_data, char *map_line)
 {
     int i;
@@ -251,9 +250,6 @@ int maze_parse(t_game *game_data, char *map_line)
     {
         // printf("Entered loop\n");
         // printf("map_line[i] is %c, index %i\n", map_line[i], i);
-        
-
-
         if (skip_empty_line(map_line))
         {
             //y_axis++;
@@ -261,26 +257,20 @@ int maze_parse(t_game *game_data, char *map_line)
             return(0);
         }
         // printf("map_line[i] is %c, index %i\n", map_line[i], i);
-
         // printf("not an empty line\n");
         // printf("finding valid characters\n");
-
         if (map_line[i] == '\n' || map_line[i] == '\r')
         {
             // printf("NEWLINE\n");
-
             // printf("\n");
-
             y_axis++;
             //game_data->maze.g[y][i] = 0;
-            
             return (0);
         }
         //printf("map_line is :%c\n", map_line[i]);
         if (map_line[i] == '\t')
         {
             // printf("tab\n");
-            
             game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
             game_data->maze.g[y_axis][x_axis] = 'Z';
@@ -302,7 +292,6 @@ int maze_parse(t_game *game_data, char *map_line)
         if (map_line[i] == '0')
         {
             // printf("Empty space\n");
-
             game_data->maze.g[y_axis][x_axis] = '0';
             x_axis++;
             i++;
@@ -310,7 +299,6 @@ int maze_parse(t_game *game_data, char *map_line)
         if (map_line[i] == ' ')
         {
             // printf("Empty space\n");
-
             game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
             i++;
@@ -318,7 +306,6 @@ int maze_parse(t_game *game_data, char *map_line)
         if (map_line[i] == '1')
         {
             // printf("One\n");
-
             game_data->maze.g[y_axis][x_axis] = '1';
             x_axis++;
             i++;
@@ -326,7 +313,6 @@ int maze_parse(t_game *game_data, char *map_line)
         if (map_line[i] == '2')
         {
             // printf("tTo\n");
-
             game_data->maze.g[y_axis][x_axis] = 'Z';
             x_axis++;
             i++;
@@ -336,9 +322,6 @@ int maze_parse(t_game *game_data, char *map_line)
             // printf("Found player\n");
             game_data->player_init_loc[0] = x_axis;
             game_data->player_init_loc[1] = y_axis;
-
-            
-
             //game_data->maze.g[y_axis][x_axis] = 3;
             game_data->player->y = y_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN/2;
             game_data->player->x = x_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN/2;
@@ -376,9 +359,6 @@ int maze_parse(t_game *game_data, char *map_line)
     return (1);
 }
 
-
-
-
 int map_parsing(char *filename, t_game *game_data)
 {
     int fd;
@@ -389,7 +369,7 @@ int map_parsing(char *filename, t_game *game_data)
     if (fd == -1)
     {
         perror("Error opening map\n");
-        //close(fd);
+        // close(fd);
         exit(EXIT_FAILURE);
     }
     if (fd != -1)
@@ -451,7 +431,6 @@ int map_parsing(char *filename, t_game *game_data)
         // printf("Map line in main is %s", map_line);
         free(map_line);
     }
-
     close(fd);
     return (0);
 }
