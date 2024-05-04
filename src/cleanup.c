@@ -61,8 +61,6 @@ void	free_textures_images(mlx_t *mlx, t_textures *textures)
 	delete_image(mlx, (void **) &textures->south);
 	delete_image(mlx, (void **) &textures->west);
 	delete_image(mlx, (void **) &textures->east);
-	// delete_image(mlx, (void **) &textures->ceiling);
-    // delete_image(mlx, (void **) &textures->floor);
 	free(textures);
 }
 

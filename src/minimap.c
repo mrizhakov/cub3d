@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:54:27 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/29 01:25:06 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:45:01 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,36 +54,6 @@ int32_t draw_minimap_ff(t_game *game_data, t_double_pixel start, unsigned int si
     return(1);
 }
 
-
-// void sleep_for_0_3_seconds() {
-//     struct timespec ts;
-//     ts.tv_sec = 0;
-//     ts.tv_nsec = 300000000; // 0.3 seconds in nanoseconds
-
-//     nanosleep(&ts, NULL);
-// }
-
-// void    minimap_check_visualization(t_game *game_data)
-// {
-//     uint32_t color = ft_double_pixel(
-// 				rand() % 0xFF, // R
-// 				rand() % 0xFF, // G
-// 				rand() % 0xFF, // B
-// 				rand() % 0xFF  // A
-// 			);
-//     t_double_pixel h_start;
-//     h_start.y = 1;
-//     h_start.x = 1;
-//     h_start.color = color;
-//     draw_black_background(game_data);
-//     draw_minimap_ff(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-//     // Suspend execution for 0.1 second
-//     // sleep_for_0_3_seconds();
-//     // usleep(microseconds);    
-// }
-
-
-
 int fill(t_game *game_data, t_point size, t_point cur, int to_fill)
 {
         
@@ -100,31 +70,20 @@ int fill(t_game *game_data, t_point size, t_point cur, int to_fill)
             return(0);
         }
         return (1);
-        
-    }
-    // printf("Fill flood painting in squares position x %i, y %i\n", cur.x, cur.y);
-    
-
-	game_data->maze.g[cur.y][cur.x] = 'X';
-    // minimap_check_visualization(game_data);
-    
+    }    
+	game_data->maze.g[cur.y][cur.x] = 'X';    
 	fill(game_data, size, (t_point){cur.x - 1, cur.y}, to_fill);
 	fill(game_data, size, (t_point){cur.x + 1, cur.y}, to_fill);
 	fill(game_data, size, (t_point){cur.x, cur.y - 1}, to_fill);
 	fill(game_data, size, (t_point){cur.x, cur.y + 1}, to_fill);
     return(1);
 }
+
 //run as many times as needed on different parts of the matrix
 //returns 0 if it encounters non-closed spaces (spaces bordering with characters 9 or 8)
 
 int	flood_fill(t_game *game_data, t_point size, t_point begin)
 {
-    // int is_closed;
-    
-    // is_closed = -1;
-	// is_closed = fill(game_data, size, begin, 9);
-    // print_maze(game_data);
-
     return(fill(game_data, size, begin, 'Z'));
 }
 

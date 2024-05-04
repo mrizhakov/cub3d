@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/25 22:33:28 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:43:27 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,11 @@ int32_t main(int argc, const char *argv[])
 	error_handling(argc, argv);
 	initialise_game(game_data);
 	map_parsing((char *)argv[1], game_data);
-	// ft_print_parsed_map(game_data);
+	ft_print_parsed_map(game_data);
 	maze_check_closed(game_data);
-
 	print_maze(game_data);
-	// maze_check_closed(game_data);
 	// print_maze(game_data);
-
 	printf("Is map is closed %i\n", game_data->maze_closed);
-
-	
-
 	mlx_demo(game_data);
 	free_on_exit(game_data);
 	printf("Exiting\n");

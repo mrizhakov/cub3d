@@ -6,12 +6,13 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:55:17 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/24 21:06:51 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 16:03:04 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+// Bug-testing function for map parsing
 
 void ft_print_parsed_map(t_game *game_data)
 {

@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/29 02:08:09 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:41:21 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void draw_black_background(t_game *game_data)
 
     black_background.y = 0;
     black_background.x = 0;
-    black_background.color = 0x000000FF; //0x000000FF;
+    black_background.color = 0x000000FF;
     end.x = WINDOW_WIDTH - 1;
     end.y = WINDOW_HEIGHT - 1;
     draw_rectangle(game_data, black_background, end);
@@ -227,18 +227,12 @@ int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side
 int32_t	conv_x(int32_t x, int32_t y, double angle)
 {
 	return (x * cos(angle) - y * sin(angle));
-
-	// return ((x - y) * cos(0.523599));
 }
 
 int32_t	conv_y(int32_t x, int32_t y, double angle)
 {
 	return (x * sin(angle) + y * cos(angle));
-	// return ((x + y) * sin(0.523599));
-
-	
 }
-
 
 t_double_pixel rotatePoint(t_double_pixel p, t_double_pixel center, double angle) {
     t_double_pixel rotated;
@@ -246,8 +240,3 @@ t_double_pixel rotatePoint(t_double_pixel p, t_double_pixel center, double angle
     rotated.y = center.y + (p.x - center.x) * sin(angle) + (p.y - center.y) * cos(angle);
     return rotated;
 }
-
-// void draw_center_ray(t_game *game_data)
-// {
-    
-// }
