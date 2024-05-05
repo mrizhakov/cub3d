@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrizhakov <mrizhakov@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/05 23:03:27 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/06 00:13:37 by mrizhakov        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,27 +28,27 @@ double  distance_between_points(double x1, double y1, double x2, double y2)
 
 int is_ray_facing_down(double ray_angle)
 {
-    return (ray_angle > 0 && ray_angle < M_PI); // is_ray_facing_down and right are booleans 0
+    return (ray_angle > 0 && ray_angle < M_PI);
 }
 
 int is_ray_facing_right(double ray_angle)
 {
-    return (ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5); // is_ray_facing_down and right are booleans 0
+    return (ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5);
 }
 
 int is_ray_facing_up(double ray_angle)
 {
-    return (!is_ray_facing_down(ray_angle)); // is_ray_facing_down and right are booleans 0
+    return (!is_ray_facing_down(ray_angle));
 }
 
 int is_ray_facing_left(double ray_angle)
 {
-    return (!is_ray_facing_right(ray_angle)); // is_ray_facing_down and right are booleans 0
+    return (!is_ray_facing_right(ray_angle));
 }
 
 void ray_orientation(t_raycast *ray, double ray_angle)
 {
-    ray->is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI; // is_ray_facing_down and right are booleans 0
+    ray->is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
     ray->is_ray_facing_up = !ray->is_ray_facing_down;
     ray->is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
     ray->is_ray_facing_left = !ray->is_ray_facing_right;
@@ -58,8 +58,7 @@ void ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 {
     ray->yintercept = floor(game_data->player->y / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
     if (ray->is_ray_facing_down)
-        ray->yintercept += ray->is_ray_facing_down * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
-    
+        ray->yintercept += ray->is_ray_facing_down * MINIMAP_SQUARE_SIDE_LEN;
     ray->xintercept = game_data->player->x + (ray->yintercept - game_data->player->y) / tan(ray_angle);
     //Ystep
     ray->ystep = MINIMAP_SQUARE_SIDE_LEN;
@@ -83,63 +82,42 @@ void ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 
 void ray_horiz_loop(t_game *game_data, t_raycast *ray)
 {
-    
     // increment xstep and ystep until we find a wall
     while(ray->next_hor_touch_x >= 0 && ray->next_hor_touch_y >= 0 
         && ray->next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1
         && ray->next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1)
-    // while(next_hor_touch_x >= 0 && next_hor_touch_x <= WINDOW_WIDTH 
-    //     && next_hor_touch_y >= 0 && next_hor_touch_y <= WINDOW_HEIGHT
-    //     && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
-    //     && next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
     {
         // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
-    
         if (game_data->maze.g[(int)(ray->next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN)][(int)(ray->next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
         {
             //found a wall
             ray->found_hor_hit = 1;
             ray->hor_wall_hit_x = ray->next_hor_touch_x;
             ray->hor_wall_hit_y = ray->next_hor_touch_y;
-            // printf("Found horizontal wall hit!!! -> Player at x %f, y %f, Raycast endpoint x %f, y %f, square y %f, square x %f\n", game_data->player->x, game_data->player->y, hor_wall_hit_x, hor_wall_hit_y, next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN);
-            // drawLine(game_data->player->x, game_data->player->y, hor_wall_hit_x, hor_wall_hit_y, game_data->player->color);
             break;
         }
         else
         {
             ray->next_hor_touch_x += ray->xstep;
             ray->next_hor_touch_y += ray->ystep;
-            //drawLine(next_hor_touch_x, next_hor_touch_y, next_hor_touch_x, next_hor_touch_y, 0xFF00FFFF);
-            
-            // printf("Didnt find horizontal wall -> Player at x %f, y %f, Raycast endpoint x %f, y %f, square y %f, square x %f\n", game_data->player->x, game_data->player->y, next_hor_touch_x, next_hor_touch_y, next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN);
-
-            // mod_next_hor_touch_y += ystep;
         }
     }
- //////////////
 }
 
 
 void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 {
-    
     ray->xintercept = floor(game_data->player->x / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
     if (ray->is_ray_facing_right)
         ray->xintercept += ray->is_ray_facing_right * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
     
     ray->yintercept = game_data->player->y + (ray->xintercept - game_data->player->x) * tan(ray_angle);
-    
     //Xstep
     ray->xstep = MINIMAP_SQUARE_SIDE_LEN;
-    
-    if (ray->is_ray_facing_left)//invert if facing up
+    if (ray->is_ray_facing_left)
         ray->xstep *= ray->is_ray_facing_left * -1;
-
-    
     //Ystep
     ray->ystep = MINIMAP_SQUARE_SIDE_LEN * tan(ray_angle);
-    // if (is_ray_facing_up)
-    //     ystep = MINIMAP_SQUARE_SIDE_LEN / tan(ray_angle);
     if (ray->is_ray_facing_up && ray->ystep > 0)
         ray->ystep *= -1;
     if (ray->is_ray_facing_down && ray->ystep < 0)
@@ -147,15 +125,6 @@ void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 
     ray->next_vert_touch_x = ray->xintercept;
     ray->next_vert_touch_y = ray->yintercept;
-
-    
-    // double mod_next_vert_touch_x;
-
-    // mod_next_vert_touch_x = next_vert_touch_x;
-    
-    // if (is_ray_facing_left)
-    //     mod_next_vert_touch_x--;
-    
     if (ray->is_ray_facing_left)
         ray->next_vert_touch_x--;
 }
@@ -166,51 +135,31 @@ void ray_vert_loop(t_game *game_data, t_raycast *ray)
         && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1
         && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
     {
-        // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_vert_touch_x, next_vert_touch_y);
-        // printf("(next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN is %f, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN %f\n", next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
-
         if (game_data->maze.g[(int)(ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN)][(int)(ray->next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
         {
-            // printf("(next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN is %f, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN %f\n", next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
-
-            //found a wall
             ray->found_vert_hit = 1;
             ray->vert_wall_hit_x = ray->next_vert_touch_x;
             ray->vert_wall_hit_y = ray->next_vert_touch_y;
-            // printf("Found vertical wall hit!!! -> Player at x %f, y %f, Raycast endpoint x %f, y %f, square y %f, square x %f\n", game_data->player->x, game_data->player->y, vert_wall_hit_x, vert_wall_hit_y, next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);
-            // drawLine(game_data->player->x, game_data->playernext_hor_touch_x->y, vert_wall_hit_x, vert_wall_hit_y, game_data->player->color);
             break;
         }
         else
         {
             ray->next_vert_touch_x += ray->xstep;
             ray->next_vert_touch_y += ray->ystep;
-            // mod_next_vert_touch_x += xstep;
         }
     }
-    
 }
 
 void ray_shortest_distance(t_raycast *ray, t_game *game_data)
 {
-    
     if (ray->found_hor_hit)
-    {
         ray->distance_hor = distance_between_points(game_data->player->x, game_data->player->y, ray->hor_wall_hit_x, ray->hor_wall_hit_y);
-        // printf("found_hor_hit true\n");
-    }
     else
         ray->distance_hor = INT_MAX;
-
     if (ray->found_vert_hit)
-    {
         ray->distance_vert = distance_between_points(game_data->player->x, game_data->player->y, ray->vert_wall_hit_x, ray->vert_wall_hit_y);
-        // printf("found_vert_hit true\n");
-
-    }
     else
         ray->distance_vert = INT_MAX;
-
     if (ray->distance_hor < ray->distance_vert)
     {
         ray->shortest_wall_hit_x = ray->hor_wall_hit_x;
