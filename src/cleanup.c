@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:12 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 17:53:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:44:29 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ void	free_textures(t_textures *textures)
 	free(textures->south);
 	free(textures->east);
 	free(textures->west);
-	//free(textures->ceiling);
-    //free(textures->floor);
 	free(textures);
 }
 
@@ -41,9 +39,4 @@ void	free_textures_images(mlx_t *mlx, t_textures *textures)
 	delete_image(mlx, (void **) &textures->west);
 	delete_image(mlx, (void **) &textures->east);
 	free(textures);
-}
-
-void cleanup_game()
-{
-
 }

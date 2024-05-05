@@ -6,15 +6,9 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 22:27:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 17:53:02 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:44:48 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-
-int closed_maze(t_game game_data)
-{
-    (void)game_data;
-    return(0);
-}

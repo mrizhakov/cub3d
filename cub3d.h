@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/05 01:16:07 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:43:39 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
 # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
 
+//save textures here
 typedef struct s_textures
 {
 	mlx_texture_t		*north;
@@ -53,55 +54,21 @@ typedef struct s_textures
 	mlx_texture_t		*west;
 }						t_textures;
 
-typedef struct	s_map
-{
-	int	no;
-	int	we;
-	int	so;
-	int	ea;
-}				t_map;
-
+// used for colors
 typedef struct	s_rgb
 {
 	int	color[3];
 	int valid_rgb;
 }				t_rgb;
 
+//maze 
 typedef struct	s_maze
 {
 	char	g[MAZE_DIMENSION][MAZE_DIMENSION];
 	int		valid_maze;
 }				t_maze;
 
-// typedef struct s_raycast
-// {
-// 	double			cam;
-// 	double			ray_x;
-// 	double			ray_y;
-// 	double			first_intersection_x;
-// 	double			first_intersection_y;
-// 	double			grid_step_dist_x;
-// 	double			grid_step_dist_y;
-// 	int				map_x;
-// 	int				map_y;
-// 	double			step_x;
-// 	double			step_y;
-// 	double			side_dist_x;
-// 	double			side_dist_y;
-// }	t_raycast;
-
-//storing WINDOW_WIDTH number of elements,
-//each should contain x, y coordinates and color
-//both of the starting point and the end point
-
-
-typedef struct	s_pixel
-{
-	uint32_t	y;
-	uint32_t	x;
-	uint32_t	color;
-}				t_pixel;
-
+// player x and y position using doubles
 typedef struct	s_double_pixel
 {
 	double		y;
@@ -109,29 +76,20 @@ typedef struct	s_double_pixel
 	uint32_t	color;
 }				t_double_pixel;
 
+// used for flood_fill
 typedef struct 	s_point {
 	int			x;				// x : Width  | x-axis
 	int			y;				// y : Height | y-axis
 }				t_point;
 
-typedef struct	s_wall
-{
-	t_double_pixel	column_start[WINDOW_WIDTH];
-	t_double_pixel	column_end[WINDOW_WIDTH];
-}				t_wall;
-
 typedef struct	s_game
 {
-	// double			pl_pos_x;
-	// double			pl_pos_y;
-	// double			cam_plane_x;
-	// double			cam_plane_y;
-	// double			player_dir_x;
-	// double			player_dir_y;
+	// mlx
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
 	
+	// textures
 	char			*no_texture_filename;
 	char			*so_texture_filename;
 	char			*we_texture_filename;
@@ -141,37 +99,33 @@ typedef struct	s_game
 	int				we_texture_count;
 	int 			ea_texture_count;
 	int				all_textures_ok;
-	int				direction_count;
+	
+    // colors
 	t_rgb			floor;
 	t_rgb			ceiling;
 	int				floor_count;
 	int				ceiling_count;	
+	
+	// maze parse
 	int				player_count;
 	int				player_init_loc[2];
 	double			player_init_dir;
-	int				player_step;
-	int             redraw_minimap;
 	int             maze_closed;
-	int				direction;
+	
+	// player
+	t_double_pixel	*player;
 	double			player_angle;
 	int				player_turn_dir;
 	int				player_walk_dir;
 	int				player_turn_speed;
 	double			fov_angle;
 	int				num_rays;
-
-	t_point			maze_start;
-	t_point			maze_end;
-	t_maze			maze;
-	t_double_pixel	*player;
-	t_point			*minimap;
-
-
-	t_wall			*wall;
-	t_wall			*projection;
-	t_double_pixel	*center;
-
-	char			*whole_map;
+	
+	// draw 
+	int             redraw_minimap;
+	
+	// maze
+	t_maze			maze;  // the maze
 }				t_game;
 
 // Error handling and parsing

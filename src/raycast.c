@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/05 02:22:29 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 15:34:11 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
         
     // increment xstep and ystep until we find a wall
     while(next_hor_touch_x >= 0 && next_hor_touch_y >= 0 
-        && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION -1
-        && next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION -1)
+        && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1
+        && next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1)
     // while(next_hor_touch_x >= 0 && next_hor_touch_x <= WINDOW_WIDTH 
     //     && next_hor_touch_y >= 0 && next_hor_touch_y <= WINDOW_HEIGHT
     //     && next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
@@ -198,8 +198,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     //     && next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
     //     && next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
     while(next_vert_touch_x >= 0 && next_vert_touch_y >= 0
-        && next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION -1
-        && next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION -1)
+        && next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1
+        && next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
     {
         // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_vert_touch_x, next_vert_touch_y);
         // printf("(next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN is %f, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN %f\n", next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN, next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN);

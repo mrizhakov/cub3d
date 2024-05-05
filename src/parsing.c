@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/04 17:57:57 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 18:57:47 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,12 +350,12 @@ int maze_parse(t_game *game_data, char *map_line)
             x_axis++;
             i++;
         }
-        game_data->maze_end.y = y_axis;
-        game_data->maze_end.x = x_axis - 1;
+        // game_data->maze_end.y = y_axis;
+        // game_data->maze_end.x = x_axis - 1;
     }
     // game_data->maze_end.y = y_axis;
     // game_data->maze_end.x = x_axis - 1;
-    printf("---------------->>game MAZE end is x %i, y %i, x_axis is %x, y_axis is %i\n", game_data->maze_end.x, game_data->maze_end.y, x_axis, y_axis);
+    // printf("---------------->>game MAZE end is x %i, y %i, x_axis is %x, y_axis is %i\n", game_data->maze_end.x, game_data->maze_end.y, x_axis, y_axis);
     return (1);
 }
 

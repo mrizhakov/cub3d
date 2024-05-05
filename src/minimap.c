@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:54:27 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 17:45:01 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:14:39 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,15 @@ int	flood_fill(t_game *game_data, t_point size, t_point begin)
 int		maze_check_closed(t_game *game_data)
 {
     int is_closed;
-    is_closed = 0;
     t_point maze_end;
+    t_point maze_start;
+
+    is_closed = 0;
     maze_end.x = MAZE_DIMENSION;
     maze_end.y = MAZE_DIMENSION;
-    game_data->maze_closed = flood_fill(game_data, maze_end, game_data->maze_start);
+    maze_start.x = 0;
+    maze_start.y = 0;
+    game_data->maze_closed = flood_fill(game_data, maze_end, maze_start);
     printf("\nin maze check_closed------------> Is_closed is  %i\n", game_data->maze_closed);
     return(0);
 }

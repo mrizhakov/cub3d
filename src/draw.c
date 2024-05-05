@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/04 17:41:21 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 19:45:15 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,11 +215,10 @@ int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side
 {
     (void)player;
     t_double_pixel player_square;
+    
     player_square.x = game_data->player->x - 1;
     player_square.y = game_data->player->y - 1;
     player_square.color = game_data->player->color;
-
-
     draw_square(game_data, player_square, side_len);
     return(1);
 }
