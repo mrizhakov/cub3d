@@ -6,12 +6,13 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:55:17 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/04/24 21:06:51 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/04 17:56:20 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+// Bug-testing function for map parsing
 
 void ft_print_parsed_map(t_game *game_data)
 {
@@ -32,5 +33,4 @@ void ft_print_parsed_map(t_game *game_data)
     printf("parse_color game_data->ceiling.color[2] contains %i\n", game_data->ceiling.color[2]);
     printf("Is ceiling valid? parse_color game_data->ceiling.valid_rgb contains %i\n", game_data->ceiling.valid_rgb);
 	print_maze(game_data);
-    
 }
