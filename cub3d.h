@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/05 21:39:39 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 23:03:35 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,49 @@ typedef struct	s_game
 	t_maze			maze;  // the maze
 }				t_game;
 
+typedef struct 	s_raycast {
+	int is_ray_facing_down;
+    int is_ray_facing_right;
+    int is_ray_facing_up;
+    int is_ray_facing_left;
+	double xintercept;
+    double yintercept;
+	double xstep;
+    double ystep;
+
+	
+	double wallHitX;
+    double wallHitY;
+
+    double distance;
+    
+    // int is_ray_facing_down;
+    // int is_ray_facing_right;
+    // int is_ray_facing_up;
+    // int is_ray_facing_left;
+    double next_hor_touch_x;
+    double next_hor_touch_y;
+    int found_hor_hit;
+    double hor_wall_hit_x;
+    double hor_wall_hit_y;
+
+
+	int found_vert_hit;
+    double vert_wall_hit_x;
+    double vert_wall_hit_y;
+    double next_vert_touch_x;
+    double next_vert_touch_y;
+
+    double  shortest_wall_hit_x;
+    double  shortest_wall_hit_y; 
+    int     was_hit_vertical;
+
+	double distance_hor;
+    double distance_vert;
+    
+
+}				t_raycast;
+
 // Error handling and parsing
 int				error_handling(int argc, const char *argv[]);
 int				map_parsing(char *filename, t_game *game_data);
@@ -187,6 +230,13 @@ int				is_ray_facing_down(double ray_angle);
 int				is_ray_facing_right(double ray_angle);
 int				is_ray_facing_up(double ray_angle);
 int				is_ray_facing_left(double ray_angle);
+void			ray_orientation(t_raycast *ray, double ray_angle);
+void			ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle);
+void			ray_horiz_loop(t_game *game_data, t_raycast *ray);
+void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
+void			ray_vert_loop(t_game *game_data, t_raycast *ray);
+void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
+void			ray_init_data(t_raycast *ray);
 
 
 //Game logic
