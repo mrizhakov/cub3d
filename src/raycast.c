@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/05 15:34:11 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:43:57 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,28 @@ double  distance_between_points(double x1, double y1, double x2, double y2)
     return (sqrt((x2-x1) * (x2 - x1) + (y2-y1) * (y2 - y1)));
 }
 
+int is_ray_facing_down(double ray_angle)
+{
+    return (ray_angle > 0 && ray_angle < M_PI); // is_ray_facing_down and right are booleans 0
+}
+
+int is_ray_facing_right(double ray_angle)
+{
+    return (ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5); // is_ray_facing_down and right are booleans 0
+}
+
+int is_ray_facing_up(double ray_angle)
+{
+    return (!is_ray_facing_down(ray_angle)); // is_ray_facing_down and right are booleans 0
+}
+
+int is_ray_facing_left(double ray_angle)
+{
+    return (!is_ray_facing_right(ray_angle)); // is_ray_facing_down and right are booleans 0
+}
+
+
+
 // TODO: needs to be split up in logical norminette-sized functions
 // TODO: potential bug with x and y offset (diagonal lines are empty) - need to check if this affects 3d game projection
 
@@ -39,10 +61,10 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     double distance;
     double xintercept;
     double yintercept;
-    int is_ray_facing_down;
-    int is_ray_facing_right;
-    int is_ray_facing_up;
-    int is_ray_facing_left;
+    // int is_ray_facing_down;
+    // int is_ray_facing_right;
+    // int is_ray_facing_up;
+    // int is_ray_facing_left;
     double next_hor_touch_x;
     double next_hor_touch_y;
     int found_hor_hit;
@@ -61,11 +83,11 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 
     // ray direction logic
     
-    is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI; // is_ray_facing_down and right are booleans 0
-    is_ray_facing_up = !is_ray_facing_down;
+    // is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI; // is_ray_facing_down and right are booleans 0
+    // is_ray_facing_up = !is_ray_facing_down;
     
-    is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
-    is_ray_facing_left = !is_ray_facing_right;
+    // is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
+    // is_ray_facing_left = !is_ray_facing_right;
 
     // printf("is ray facing up? up %d down %d\n", is_ray_facing_up, is_ray_facing_down);
     // printf("is ray facing right or left? right %d left %d\n", is_ray_facing_right, is_ray_facing_left);
@@ -75,25 +97,25 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 
     // horizontal ray intersection logic
     yintercept = floor(game_data->player->y / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
-    if (is_ray_facing_down)
-        yintercept += is_ray_facing_down * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
+    if (is_ray_facing_down(ray_angle))
+        yintercept += is_ray_facing_down(ray_angle) * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
     
     xintercept = game_data->player->x + (yintercept - game_data->player->y) / tan(ray_angle);
     
     //Ystep
     ystep = MINIMAP_SQUARE_SIDE_LEN;
     
-    if (is_ray_facing_up)//invert if facing up
-        ystep *= is_ray_facing_up * -1;
+    if (is_ray_facing_up(ray_angle))   //invert if facing up
+        ystep *= is_ray_facing_up(ray_angle) * -1;
 
     
     //Xstep
     xstep = MINIMAP_SQUARE_SIDE_LEN / tan(ray_angle);
-    if (is_ray_facing_right)
+    if (is_ray_facing_right(ray_angle))
         xstep = MINIMAP_SQUARE_SIDE_LEN / tan(ray_angle);
-    if (is_ray_facing_left && xstep > 0)
+    if (is_ray_facing_left(ray_angle) && xstep > 0)
         xstep *= -1;
-    if (is_ray_facing_right && xstep < 0)
+    if (is_ray_facing_right(ray_angle) && xstep < 0)
         xstep *= -1;
 
     next_hor_touch_x = xintercept;
@@ -101,7 +123,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     
 
     // replace this decrement with a subtraction in the if condition for wall hit
-    if (is_ray_facing_up)
+    if (is_ray_facing_up(ray_angle))
         next_hor_touch_y--;
 
     // double mod_next_hor_touch_y;
@@ -158,25 +180,25 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     vert_wall_hit_y = 0;
     
     xintercept = floor(game_data->player->x / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
-    if (is_ray_facing_right)
-        xintercept += is_ray_facing_right * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
+    if (is_ray_facing_right(ray_angle))
+        xintercept += is_ray_facing_right(ray_angle) * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
     
     yintercept = game_data->player->y + (xintercept - game_data->player->x) * tan(ray_angle);
     
     //Xstep
     xstep = MINIMAP_SQUARE_SIDE_LEN;
     
-    if (is_ray_facing_left)//invert if facing up
-        xstep *= is_ray_facing_left * -1;
+    if (is_ray_facing_left(ray_angle))//invert if facing up
+        xstep *= is_ray_facing_left(ray_angle) * -1;
 
     
     //Ystep
     ystep = MINIMAP_SQUARE_SIDE_LEN * tan(ray_angle);
     // if (is_ray_facing_up)
     //     ystep = MINIMAP_SQUARE_SIDE_LEN / tan(ray_angle);
-    if (is_ray_facing_up && ystep > 0)
+    if (is_ray_facing_up(ray_angle) && ystep > 0)
         ystep *= -1;
-    if (is_ray_facing_down && ystep < 0)
+    if (is_ray_facing_down(ray_angle) && ystep < 0)
         ystep *= -1;
 
     next_vert_touch_x = xintercept;
@@ -190,7 +212,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     // if (is_ray_facing_left)
     //     mod_next_vert_touch_x--;
     
-    if (is_ray_facing_left)
+    if (is_ray_facing_left(ray_angle))
         next_vert_touch_x--;
 
     // while(next_vert_touch_x >= 0 && next_vert_touch_x <= WINDOW_WIDTH 

@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/05 19:43:39 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/05 21:39:39 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,11 +179,15 @@ int32_t			draw_square(t_game *game_data, t_double_pixel start, unsigned int side
 int32_t			draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
 
 //Raycast
-void			raycast(t_game *game_data);
 double			check_angle_overflow(t_game *game_data, double player_angle);
 void			draw_ray(t_game *game_data, double ray_angle);
 void			draw_fov(t_game *game_data);
 void			cast_ray(t_game *game_data, double ray_angle, int column_id);
+int				is_ray_facing_down(double ray_angle);
+int				is_ray_facing_right(double ray_angle);
+int				is_ray_facing_up(double ray_angle);
+int				is_ray_facing_left(double ray_angle);
+
 
 //Game logic
 int				prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int y_map_padding, int x_map_padding);
