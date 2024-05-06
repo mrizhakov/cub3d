@@ -23,6 +23,7 @@ LIBFT_OBJ = $(LIBFT_SOURCE:.c=.o)
 LIB := -Llibft -lft -ldl -lglfw -pthread -lm -LMLX42/build -lmlx42
 OBJ = $(EXE_SRCS:.c=.o)
 OBJ := $(addprefix $(OBJ_DIR), $(OBJ))
+TEST := maps/
 
 all: $(NAME)
 
@@ -51,8 +52,16 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
+	$(RM) -r $(TEST)
 	$(RM) -r $(LIBMLX)
 
 re: fclean all
+
+test: $(TEST)
+
+$(TEST):
+	@if ! [ -d "$(TEST)" ]; then \
+	git clone git@github.com:ddavlet/test_maps_cub3D.git $(TEST); \
+	fi
 
 .PHONY: all clean re
