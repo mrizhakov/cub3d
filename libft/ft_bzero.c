@@ -3,47 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 17:37:13 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/18 17:46:47 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 12:53:55 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/13 17:02:36 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*bzero is a function that sets all the bytes of a given block of memory to 0. 
-It takes two arguments: a pointer to the block of memory and the number 
-of bytes to set to 0. 
-This function is useful for initializing a block of memory to a 
-known value, such as 0, 
-without having to manually set each individual byte.*/
-
 #include "libft.h"
 
-void	ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, unsigned long n)
 {
-	char	*arr;
-	size_t	i;
+	unsigned char	*ptr;
 
-	arr = s;
-	i = 0;
-	while (i < n)
+	ptr = (unsigned char *)s;
+	while (n != 0)
 	{
-		arr[i] = '\0';
-		i++;
+		n--;
+		ptr[n] = '\0';
 	}
 }
-
-/*int main(void)
-{
-    unsigned char arr[10] = "hey ho";
-    int i; 
-    i = 0; 
-    ft_bzero(arr, 3);
-    printf("%s\n",arr);
-    while (i < 3 || arr[i])
-    {
-        printf("%c", arr[i]);
-        i++;
-    }
-    return (0);
-}*/

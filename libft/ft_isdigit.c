@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 18:08:09 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/18 18:09:04 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 11:47:06 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/13 17:02:50 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,7 @@
 int	ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+		return (c);
+	else
+		return (0);
 }
-/*
-int	main()
-{
-	int a; 
-
-	char str1[] = "string"; 
-	//char str2[] = "string with 123435";
-	//char str3[] ="0110";
-	//char str4[] = " "; 
-
-	a = isdigit(str1);
-	printf("%d", a); 
-}*/

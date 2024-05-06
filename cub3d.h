@@ -3,43 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/05 23:03:35 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/06 13:25:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#define cub3d_H
+#ifndef CUB3D_H
+# define CUB3D_H
 
-#include "./MLX42.h"
-#include "./libft/libft.h"
+# include "./MLX42.h"
+# include "./libft/libft.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <math.h>
-#include <limits.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <stdbool.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <math.h>
+# include <limits.h>
 
 
-#define WINDOW_WIDTH 1000
-#define WINDOW_HEIGHT 1000 // not sure why doesnt  work properly with non-square big window size
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 1000 // not sure why doesnt  work properly with non-square big window size
 // which one ?
 //#define WIDTH 1280
 //#define HEIGHT 1024 // change to window_heigh and window_width
-#define FILE_READ_BUFFER 1024
-#define MAZE_DIMENSION 40
-#define PLAYER_STEP 3
-#define MAP_PADDING 2
+# define FILE_READ_BUFFER 1024
+# define MAZE_DIMENSION 40
+# define PLAYER_STEP 3
+# define MAP_PADDING 2
 
-#define MINIMAP_SQUARE_SIDE_LEN 15
-#define MINIMAP_Y_OFFSET 10
-#define MINIMAP_X_OFFSET 10
-#define MAX_DEPTH_OF_FIELD 8
-#define FOV 60
-#define TURNING_SPEED 0.03
+# define MINIMAP_SQUARE_SIDE_LEN 15
+# define MINIMAP_Y_OFFSET 10
+# define MINIMAP_X_OFFSET 10
+# define MAX_DEPTH_OF_FIELD 8
+# define FOV 60
+# define TURNING_SPEED 0.03
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
 # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
@@ -61,7 +62,7 @@ typedef struct	s_rgb
 	int valid_rgb;
 }				t_rgb;
 
-//maze 
+//maze
 typedef struct	s_maze
 {
 	char	g[MAZE_DIMENSION][MAZE_DIMENSION];
@@ -88,7 +89,7 @@ typedef struct	s_game
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
-	
+
 	// textures
 	char			*no_texture_filename;
 	char			*so_texture_filename;
@@ -99,19 +100,19 @@ typedef struct	s_game
 	int				we_texture_count;
 	int 			ea_texture_count;
 	int				all_textures_ok;
-	
+
     // colors
 	t_rgb			floor;
 	t_rgb			ceiling;
 	int				floor_count;
-	int				ceiling_count;	
-	
+	int				ceiling_count;
+
 	// maze parse
 	int				player_count;
 	int				player_init_loc[2];
 	double			player_init_dir;
 	int             maze_closed;
-	
+
 	// player
 	t_double_pixel	*player;
 	double			player_angle;
@@ -120,10 +121,10 @@ typedef struct	s_game
 	int				player_turn_speed;
 	double			fov_angle;
 	int				num_rays;
-	
-	// draw 
+
+	// draw
 	int             redraw_minimap;
-	
+
 	// maze
 	t_maze			maze;  // the maze
 }				t_game;
@@ -138,12 +139,12 @@ typedef struct 	s_raycast {
 	double xstep;
     double ystep;
 
-	
+
 	double wallHitX;
     double wallHitY;
 
     double distance;
-    
+
     // int is_ray_facing_down;
     // int is_ray_facing_right;
     // int is_ray_facing_up;
@@ -162,12 +163,12 @@ typedef struct 	s_raycast {
     double next_vert_touch_y;
 
     double  shortest_wall_hit_x;
-    double  shortest_wall_hit_y; 
+    double  shortest_wall_hit_y;
     int     was_hit_vertical;
 
 	double distance_hor;
     double distance_vert;
-    
+
 
 }				t_raycast;
 
@@ -177,7 +178,7 @@ int				map_parsing(char *filename, t_game *game_data);
 void			init_data(t_game *game_data);
 void			initialise_game(t_game *game_data);
 int				load_textures(t_game *game_data);
-int				valid_file(char *filename);
+// int				valid_file(char *filename);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
 char			*parse_textures(char *map_line, char *direction);
@@ -250,4 +251,6 @@ void			print_maze(t_game *game_data);
 //Extra mlx
 int32_t			ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
-// #endif // cub3d_H
+//error_
+
+#endif

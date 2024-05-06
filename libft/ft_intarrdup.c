@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_intarrdup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 19:15:31 by ddavlety          #+#    #+#             */
-/*   Updated: 2023/11/20 15:27:12 by ddavlety         ###   ########.fr       */
+/*   Created: 2024/03/26 18:02:40 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/04/18 14:48:36 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+int	*ft_intarrdup(int *arr)
 {
-	size_t	i;
-	size_t	j;
+	int		*new_arr;
+	ssize_t	i;
 
 	i = 0;
-	j = 0;
-	while (size > i && dst[i])
+	while (arr[i])
 		i++;
-	if (size <= 0)
-		return (i + ft_strlen(src));
-	while (size - 1 > i && src[j])
-		dst[i++] = src[j++];
-	if (size > i)
-		dst[i] = '\0';
-	while (src[j])
-	{
-		i++;
-		j++;
-	}
-	return (i);
+	new_arr = (int *)ft_calloc(sizeof(int), i + 1);
+	i = -1;
+	while (arr[++i])
+		new_arr[i] = arr[i];
+	return (new_arr);
 }

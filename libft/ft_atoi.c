@@ -3,42 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 17:32:51 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/18 17:36:49 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 10:47:21 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/15 16:46:57 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_atoi(const char *str)
+int	ft_isspace(int c)
 {
-	int	res;
-	int	i;
+	if ((c >= '\t' && c <= '\r') || c == ' ')
+		return (1);
+	else
+		return (0);
+}
+
+static int	check_beyond_int(int nbr, char n, int sign)
+{
+	if (sign == 1)
+	{
+		if (nbr == 214748364 && n - '0' > 7)
+			return (2147483647);
+	}
+	else if (sign == -1)
+	{
+		if (nbr == 214748364 && n - '0' > 8)
+			return (-2147483648);
+	}
+	return (0);
+}
+
+int	ft_atoi(const char *nptr)
+{
+	int	nbr;
 	int	sign;
 
+	nbr = 0;
 	sign = 1;
-	i = 0;
-	res = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\f'
-		|| str[i] == '\r' || str[i] == '\n' || str[i] == '\v')
-		i++;
-	if (str[i] == '+' || str[i] == '-')
-		if (str[i++] == '-')
-			sign = -1;
-	while (str[i] >= '0' && str[i] <= '9')
+	while (ft_isspace(*nptr) != 0)
 	{
-		res = res * 10 + (str[i] - '0');
-		i++;
+		nptr++;
 	}
-	return ((int)(sign * res));
+	if (*nptr == '-')
+	{
+		sign *= -1;
+		nptr++;
+	}
+	else if (*nptr == '+')
+		nptr++;
+	while (ft_isdigit(*nptr))
+	{
+		if (check_beyond_int(nbr, *nptr, sign) != 0)
+			return (check_beyond_int(nbr, *nptr, sign));
+		nbr = nbr * 10 + (int)(*nptr - '0');
+		nptr++;
+	}
+	return (nbr * sign);
 }
-/*
-int main()
-{
-    printf("ft_atoi: %d\n", ft_atoi("   ---+---+123,4b567"));
-    printf("atoi: %d\n", atoi("   ---+---+123,4b567"));
-    printf("ft_atoi: %d\n", ft_atoi("  -123,4b567"));
-    printf("atoi: %d\n", atoi("  -123,4b567"));
-}*/

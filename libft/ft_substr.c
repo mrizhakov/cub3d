@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/04 16:47:39 by eltongid          #+#    #+#             */
-/*   Updated: 2023/01/04 16:51:10 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/18 13:30:24 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/20 13:14:25 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,26 @@
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	size_t	i;
-	size_t	j;
-	size_t	slen;
-	char	*substr;
+	char			*ptr;
+	unsigned int	i;
 
 	i = 0;
-	j = 0;
-	slen = ft_strlen(s);
-	if (slen < start)
-		return (ft_strdup(""));
-	if (slen - start < len)
-		len = slen - start;
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
-		return (NULL);
-	while (i < len)
-		substr[i++] = s[start + j++];
-	substr[i] = '\0';
-	return (substr);
+	if (len <= 0 || ft_strlen(s) <= start)
+	{
+		ptr = (char *)malloc(1 * sizeof(char));
+		*ptr = '\0';
+		return (ptr);
+	}
+	if (ft_strlen(s + start) < len)
+		len = ft_strlen(s + start);
+	ptr = (char *)malloc((len + 1) * sizeof(char));
+	if (!ptr)
+		return (0);
+	while (s[start] && len > 0)
+	{
+		ptr[i++] = s[start++];
+		len--;
+	}
+	ptr[i] = '\0';
+	return (ptr);
 }

@@ -1,36 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_new.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 19:15:31 by ddavlety          #+#    #+#             */
-/*   Updated: 2023/11/20 15:27:12 by ddavlety         ###   ########.fr       */
+/*   Created: 2024/03/18 16:19:56 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/03/18 16:20:05 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+char	**arrstr_copy(const char **envp)
 {
-	size_t	i;
-	size_t	j;
+	char		**copy_envp;
+	int32_t		len;
 
-	i = 0;
-	j = 0;
-	while (size > i && dst[i])
-		i++;
-	if (size <= 0)
-		return (i + ft_strlen(src));
-	while (size - 1 > i && src[j])
-		dst[i++] = src[j++];
-	if (size > i)
-		dst[i] = '\0';
-	while (src[j])
-	{
-		i++;
-		j++;
-	}
-	return (i);
+	len = 0;
+	while (envp[len])
+		len++;
+	copy_envp = (char **)ft_calloc(sizeof (char *), len + 1);
+	len = -1;
+	while (envp[++len])
+		copy_envp[len] = ft_strdup(envp[len]);
+	return (copy_envp);
 }

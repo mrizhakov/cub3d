@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 19:12:53 by eltongid          #+#    #+#             */
-/*   Updated: 2023/01/04 15:36:11 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 12:56:00 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/19 15:13:18 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,17 @@
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	char	*psrc;
-	char	*pdest;
-	size_t	i;
+	unsigned char	*ptr_src;
+	unsigned char	*ptr_dest;
 
-	psrc = (char *)src;
-	pdest = (char *)dest;
 	if (!dest && !src)
-		return (0);
-	i = 0;
-	while (i < n)
+		return (dest);
+	ptr_src = (unsigned char *)src;
+	ptr_dest = (unsigned char *)dest;
+	while (n != 0)
 	{
-		*(pdest + i) = *(psrc + i);
-		i++;
+		n--;
+		ptr_dest[n] = ptr_src[n];
 	}
 	return (dest);
 }
-/*
-int main()
-{
-    
-    char psrc[] = "uur ur";
-    char pdest[] = "xxxxxxx";
-
-    ft_memcpy(pdest, psrc, 5);
-
-    printf("%s\n", pdest);
-}*/

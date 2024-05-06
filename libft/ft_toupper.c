@@ -3,26 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 18:53:03 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/19 18:54:09 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/15 10:12:04 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/15 16:41:36 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_toupper(int c)
+static int	ft_islower(int c)
 {
 	if (c >= 'a' && c <= 'z')
-		return (c -= 32);
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_toupper(int c)
+{
+	if (ft_islower(c) == 1)
+		return (c - 32);
 	else
 		return (c);
 }
-/*
-int main(void) 
-{
-  char c = 'a';
-  printf("%c\n", ft_toupper(c));
-  return 0;
-}*/

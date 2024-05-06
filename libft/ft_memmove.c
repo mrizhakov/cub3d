@@ -3,46 +3,47 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 19:16:39 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/18 19:22:08 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 17:02:00 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/19 17:16:08 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+static void	ft_cpy(unsigned char *ptr_dest,
+					unsigned char *ptr_src, size_t n)
 {
 	size_t	i;
-	char	*s;
-	char	*d;
 
-	s = (char *)src;
-	d = (char *)dest;
 	i = 0;
-	if (!d && !s)
-		return (0);
-	if (d > s)
-		while (n-- > 0)
-			d[n] = s[n];
-	else
+	while (i < n)
 	{
-		while (i < n)
-		{
-			d[i] = s[i];
-			i++;
-		}
+		ptr_dest[i] = ptr_src[i];
+		i++;
 	}
-	return (d);
 }
-/*
-int main()
+
+static void	ft_cpy_reverse(unsigned char *ptr_dest,
+							unsigned char *ptr_src, size_t n)
 {
-    char psrc[] = "uur ur";
-    char pdest[] = "xxx";
+	while (n-- > 0)
+		ptr_dest[n] = ptr_src[n];
+}
 
-    ft_memmove(pdest, psrc, 3);
+void	*ft_memmove(void *dest, const void *src, size_t n)
+{
+	unsigned char	*ptr_dest;
+	unsigned char	*ptr_src;
 
-    printf("%s\n", pdest);
-}*/
+	if (!dest && !src)
+		return (NULL);
+	ptr_dest = (unsigned char *)dest;
+	ptr_src = (unsigned char *)src;
+	if (ptr_dest < ptr_src)
+		ft_cpy(ptr_dest, ptr_src, n);
+	else
+		ft_cpy_reverse(ptr_dest, ptr_src, n);
+	return (dest);
+}

@@ -3,63 +3,56 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/22 17:02:29 by eltongid          #+#    #+#             */
-/*   Updated: 2023/01/04 15:15:29 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/17 16:38:23 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/18 15:31:41 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_length(int n)
+static int	ft_counter(int n)
 {
-	int	len;
+	int	i;
 
-	len = 0;
+	i = 1;
+	if (n == INT_MIN)
+		return (11);
 	if (n < 0)
 	{
 		n *= -1;
-		len++;
+		i++;
 	}
-	while (n > 0)
-	{
-		n = n / 10;
-		len++;
-	}
-	return (len);
+	if (n >= 10)
+		i += ft_counter (n / 10);
+	return (i);
 }
 
 char	*ft_itoa(int n)
 {
-	char	*str;
-	int		len;
+	char	*ptr;
+	int		bytes;
+	long	i;
 
-	if (n == 0)
-		return (ft_strdup("0"));
-	if (n == -2147483648)
-		return (ft_strdup("-2147483648"));
-	len = ft_length(n);
-	str = (char *)malloc(sizeof(char) * len + 1);
-	if (!str)
+	i = (long)n;
+	bytes = ft_counter(n);
+	ptr = (char *)malloc((bytes + 1) * sizeof(char));
+	if (!ptr)
 		return (0);
-	if (n < 0)
+	ptr[bytes--] = '\0';
+	if (i == 0)
+		ptr[bytes] = '0';
+	if (i < 0)
 	{
-		n *= -1;
-		str[0] = '-';
+		ptr[0] = '-';
+		i *= -1;
 	}
-	str[len] = '\0';
-	while (n > 0)
+	while (i != 0 && bytes > -1)
 	{
-		str[--len] = n % 10 + '0';
-		n /= 10;
+		ptr[bytes] = i % 10 + 48;
+		bytes--;
+		i /= 10;
 	}
-	return (str);
+	return (ptr);
 }
-/* int main()
-{
-    int x = -2147483647;
-    printf("%s\n", ft_itoa(x));
-    return (0);
-}
- */

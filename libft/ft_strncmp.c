@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 18:23:43 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/19 18:25:16 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/15 12:43:13 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/04/18 14:49:27 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,16 @@
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned char	*str1;
-	unsigned char	*str2;
-	unsigned int	i;
+	size_t	i;
 
-	str1 = (unsigned char *)s1;
-	str2 = (unsigned char *)s2;
-	i = 0;
-	while (n--)
+	i = 1;
+	if (n == 0)
+		return (0);
+	while (*s1 && i < n && *s1 == *s2)
 	{
-		if (str1[i] != str2[i] || str1[i] == 0 || str2[i] == 0)
-			return (str1[i] - str2[i]);
 		i++;
+		s1++;
+		s2++;
 	}
-	return (0);
+	return ((unsigned char)*s1 - (unsigned char) *s2);
 }
-/*
-#include <string.h>
-#include <stdio.h>
-int main()
-{
-    char str1[] = "";
-    char str2[] = "";
-    printf("%i\n", ft_strncmp(str1, str2, 1));
-    printf("%i", strncmp(str1, str2, 1)); 
-}
-*/
