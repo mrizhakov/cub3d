@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 18:25:31 by eltongid          #+#    #+#             */
-/*   Updated: 2023/01/04 15:37:45 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/15 13:21:09 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/05/06 13:04:11 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,15 @@
 
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	size_t	i;
-	size_t	j;
-
-	i = 0;
-	j = 0;
-	if (little[0] == '\0')
+	if (!(*little))
 		return ((char *)big);
-	while (big[i] && (i < len))
+	while (*big && len != 0)
 	{
-		if (big[i] == little[j])
-		{
-			while ((big[i + j] == little[j] || little[j] == '\0')
-				&& (i + j) <= len)
-			{
-				if (!little[j])
-					return ((char *) &big[i]);
-				j++;
-			}	
-		}
-		j = 0;
-		i++;
+		if (ft_strncmp(big, little, ft_strlen(little)) == 0
+			&& len >= ft_strlen(little))
+			return ((char *)big);
+		big++;
+		len--;
 	}
 	return (0);
 }
-/*
-int main()
-{
-    char big[] = "there will be more time";
-    char little[] = "more";
-    char *more = ft_strnstr(big, little, 30);
-    printf("more: %s\n", more );
-}*/

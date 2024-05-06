@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 18:11:44 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/20 19:43:22 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 12:11:48 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/13 17:02:46 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 int	ft_isascii(int c)
 {
-	if (c >= 0 && c <= 127)
-	{
+	if (c >= '\0' && c <= 127)
 		return (1);
-	}
-	return (0);
+	else
+		return (0);
 }

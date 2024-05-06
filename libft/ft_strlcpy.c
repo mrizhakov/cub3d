@@ -3,39 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: vketteni <vketteni@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 18:16:41 by eltongid          #+#    #+#             */
-/*   Updated: 2023/01/04 16:53:49 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/14 15:16:29 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/02/23 21:56:56 by vketteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-size_t	ft_strlcpy(char *dst, char *src, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t	i;
-	size_t	len;
+	size_t	j;
+	size_t	k;
 
-	i = 0;
-	len = ft_strlen(src);
-	if (size > 0)
+	k = ft_strlen(src);
+	j = 0;
+	if (size <= 0)
+		return (k);
+	while ((size - 1) > j && *src)
 	{
-		while (src[i] != '\0' && i < (size - 1))
-		{
-			dst[i] = src[i];
-			i++;
-		}
-		dst[i] = '\0';
+		*dst++ = *src++;
+		j++;
 	}
-	return (len);
+	*dst = '\0';
+	return (k);
 }
-/*
-int main()
-{
-    char src[] = "this is source     ";
-    char dest[] = "this is destination";
-
-    printf("%d | %s", ft_strlcpy(dest, src, 11), dest);
-    //printf("%d | %s", strlcpy(dest, src, 10), dest);
-}*/

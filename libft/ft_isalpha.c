@@ -3,31 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalpha.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 18:05:14 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/20 18:05:21 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 10:45:26 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/15 16:41:19 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	ft_islower(int c)
+{
+	if (c >= 'a' && c <= 'z')
+		return (1);
+	else
+		return (0);
+}
+
+static int	ft_isupper(int c)
+{
+	if (c >= 'A' && c <= 'Z')
+		return (1);
+	else
+		return (0);
+}
+
 int	ft_isalpha(int c)
 {
-	if ((c >= 'a' && c <= 'z')
-		|| (c >= 'A' && c <= 'Z'))
-		return (1);
-	return (0);
+	if (ft_islower(c) != 0 || ft_isupper(c) != 0)
+		return (c);
+	else
+		return (0);
 }
-/*
-int main()
-{
-    char str1[] = "1111";
-    char str2[] = "dsgh12";
-    char str3[] = "123k4";
-
-    printf("%i\n", ft_isalpha(str1));
-    printf("%i\n", ft_isalpha(str2));
-    printf("%i\n", ft_isalpha(str3));
-}
-*/

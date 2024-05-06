@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/20 18:05:46 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/20 18:11:39 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/17 17:56:01 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/17 18:00:02 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 	unsigned int	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		f(i, s + i);
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 18:10:56 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/18 18:10:59 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 12:34:23 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/13 17:02:54 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,6 @@ int	ft_isprint(int c)
 {
 	if (c >= 32 && c <= 126)
 		return (1);
-	return (0);
+	else
+		return (0);
 }
-/*
-int main()
-{
-    char str1[] = "0000";
-    char str2[] = "dsg h12";
-    char str3[] = " $^#$%%^*";
-
-    printf("%i\n", ft_isprint(str1));
-    printf("%i\n", ft_isprint(str2));
-    printf("%i\n", ft_isprint(str3));
-}
-*/

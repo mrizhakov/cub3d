@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/18 17:54:25 by eltongid          #+#    #+#             */
-/*   Updated: 2023/01/04 15:28:28 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/13 12:09:28 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/13 17:02:35 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,8 @@
 
 int	ft_isalnum(int c)
 {
-	if (ft_isalpha(c) || ft_isdigit(c))
-		return (1);
-	return (0);
+	if (ft_isalpha(c) != 0 || ft_isdigit(c) != 0)
+		return (c);
+	else
+		return (0);
 }
-/*
-int main()
-{
-    char str1[] = "1111";
-    char str2[] = "dsgh12";
-    char str3[] = "  ";
-
-    printf("%i\n", ft_isalnum(str1));
-    printf("%i\n", ft_isalnum(str2));
-    printf("%i\n", ft_isalnum(str3));
-}*/

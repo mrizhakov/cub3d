@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eltongid <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/19 18:13:48 by eltongid          #+#    #+#             */
-/*   Updated: 2022/12/19 18:16:01 by eltongid         ###   ########.fr       */
+/*   Created: 2023/11/14 19:15:31 by ddavlety          #+#    #+#             */
+/*   Updated: 2023/11/20 15:27:12 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,30 +16,21 @@ size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	i;
 	size_t	j;
-	size_t	dstlen;
-	size_t	srclen;
 
 	i = 0;
 	j = 0;
-	dstlen = ft_strlen(dst);
-	srclen = ft_strlen(src);
-	j = dstlen;
-	if (size == 0 || size <= dstlen)
-		return (srclen + size);
-	while (src[i] != '\0' && i < size - dstlen - 1)
+	while (size > i && dst[i])
+		i++;
+	if (size <= 0)
+		return (i + ft_strlen(src));
+	while (size - 1 > i && src[j])
+		dst[i++] = src[j++];
+	if (size > i)
+		dst[i] = '\0';
+	while (src[j])
 	{
-		dst[j] = src[i];
 		i++;
 		j++;
 	}
-	dst[j] = '\0';
-	return (dstlen + srclen);
+	return (i);
 }
-/*
-int main() 
-{
-    char src[10] = "andthat";
-    char dest[20] = "this";
-    ft_strlcat(dest, src, 2);
-    printf("%s\n", dest);
-}*/
