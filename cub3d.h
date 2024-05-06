@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 13:25:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:11:00 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,6 @@ typedef struct 	s_raycast {
 int				error_handling(int argc, const char *argv[]);
 int				map_parsing(char *filename, t_game *game_data);
 void			init_data(t_game *game_data);
-void			initialise_game(t_game *game_data);
 int				load_textures(t_game *game_data);
 // int				valid_file(char *filename);
 int				check_read_file(int fd);
@@ -191,22 +190,17 @@ int				is_valid_int(int matrix_val);
 int				maze_check_closed(t_game *game_data);
 
 // Memory management
-void			initialise_to_null(t_game *game_data);
+int				initialise_game(t_game *game_data);
 void			init_maze(t_game *game_data);
 void			free_on_exit(t_game *game_data);
-void			free_to_null_string(char *str);
+void			free_to_null_string(char **str);
 void			free_to_null_char_arr(char **str);
-void			free_wall(t_game *game_data);
-void			init_wall(t_game *game_data);
 
 // Extra MLX testing functions
 int32_t			mlx_demo(t_game *game_data);
-void			ft_generate_rectangle_data(t_game *game_data);
-void			ft_draw_rectangle(mlx_image_t *image, t_game *game_data);
 int32_t			conv_x(int32_t x, int32_t y, double angle);
 int32_t			conv_y(int32_t x, int32_t y, double angle);
 t_double_pixel	rotatePoint(t_double_pixel p, t_double_pixel center, double angle);
-void			ft_projection_rectangle_data(t_game *game_data);
 
 //Drawing functions
 int32_t			draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel end);

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 13:38:43 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:05:28 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ t_rgb read_color(char *map_line, char *surface)
 		if (i > 3)
 		{
 			perror("Invalid color");
-			free_to_null_string(color_def);
+			free_to_null_string(&color_def);
 			rgb.valid_rgb = -1;
 			return (rgb);
 		}
@@ -139,7 +139,7 @@ t_rgb read_color(char *map_line, char *surface)
 		printf("Y is %i, triggered unvalidity check\n", y);
 	}
 	printf("Is it a valid RGB? r : %i, g: %i. b: %i, validity: %i\n", rgb.color[0], rgb.color[1], rgb.color[2], rgb.valid_rgb);
-	free_to_null_string(color_def);
+	free_to_null_string(&color_def);
 	free_to_null_char_arr(color_array);
 	return (rgb);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_demo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/05 01:28:40 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:11:13 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color
         dy = y1 - y0;
     else
         dy = y0 - y1;
-        
+
     // uint32_t dx = abs(x1 - x0);
     // uint32_t dy = abs(y1 - y0);
     int32_t sx = x0 < x1 ? 1 : -1;
@@ -76,7 +76,7 @@ int32_t draw_h_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
     {
         perror("Invalid horizontal line position");
         return(0);
-    }       
+    }
 }
 
 int32_t draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
@@ -104,7 +104,7 @@ int32_t draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
     {
         perror("Invalid vertical line position");
         return(0);
-    }       
+    }
 }
 
 // -----------------------------------------------------------------------------
@@ -116,7 +116,7 @@ int32_t ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 
 void ft_randomize(void* param)
 {
-	t_game *game_data; 
+	t_game *game_data;
 	game_data = (t_game *)param;
 	uint32_t color = ft_double_pixel(
 				rand() % 0xFF, // R
@@ -128,21 +128,21 @@ void ft_randomize(void* param)
     t_double_pixel h_start;
     h_start.y = 0;
     h_start.x = 0;
-    h_start.color = color;    
+    h_start.color = color;
     if (game_data->redraw_minimap == 0)
     {
         draw_black_background(game_data);
         draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         draw_player(game_data, game_data->player, 3);
         draw_fov(game_data);
-        
+
         // other potentially usefull drawing functions
-        
+
         // draw_grid(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         // draw_minimap_with_border(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         // game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         // draw_ray(game_data, game_data->player_angle);
-    }    
+    }
 }
 
 void ft_hook(void* param)
@@ -167,11 +167,6 @@ void ft_hook(void* param)
         game_data->player_turn_dir = 1;
     if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0)
         update_pos(game_data);
-}
-
-void initialise_game(t_game *game_data)
-{
-	initialise_to_null(game_data);
 }
 
 void	init_data(t_game *game_data)
@@ -203,7 +198,7 @@ int32_t mlx_demo(t_game *game_data)
 		return(EXIT_FAILURE);
 	}
     // Bug testing printout of the player position
-    
+
     // printf("Initial player pos in pixels: x %f and y %f\n", game_data->player->x,  game_data->player->y);
     // printf("Initial player pos in int[2] array is: init_loc[0] or y %i and init_loc[1] x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
     // printf("Initial player pos in int[2] array is: y %i and x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);

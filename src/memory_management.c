@@ -6,17 +6,17 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/06 13:30:50 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:11:24 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void free_to_null_string(char *str)
+void free_to_null_string(char **str)
 {
-	if (str)
-		free(str);
-	str = NULL;
+	if (*str)
+		free(*str);
+	*str = NULL;
 }
 
 void free_to_null_char_arr(char **str)
@@ -24,13 +24,11 @@ void free_to_null_char_arr(char **str)
 	int i;
 
 	i = 0;
-	while (str[i] != NULL)
-	{
-		free(str[i]);
-		i++;
-	}
-	if (str != NULL)
-		free(str);
+	if (!str)
+		return ;
+	while (str[i])
+		free(str[i++]);
+	free(str);
 }
 
 void init_maze(t_game *game_maze)
@@ -74,7 +72,7 @@ t_maze init_t_maze(t_maze maze)
 	return (maze);
 }
 
-void initialise_to_null(t_game *game_data)
+int	initialise_game(t_game *game_data)
 {
 	// textures
 
@@ -94,6 +92,8 @@ void initialise_to_null(t_game *game_data)
 
 	// player
 	game_data->player = (t_double_pixel *)ft_calloc(sizeof(t_double_pixel), 1);
+	if (!game_data->player)
+		return (1);
 	game_data->player->color = 0x00FF00FF;
 	game_data->player_angle = M_PI / 2;
 	game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
@@ -104,14 +104,15 @@ void initialise_to_null(t_game *game_data)
 
 	// maze
 	init_maze(game_data);
+	return (0);
 }
 
 void free_on_exit(t_game *game_data)
 {
-	free_to_null_string(game_data->no_texture_filename);
-	free_to_null_string(game_data->so_texture_filename);
-	free_to_null_string(game_data->we_texture_filename);
-	free_to_null_string(game_data->ea_texture_filename);
+	free_to_null_string(&game_data->no_texture_filename);
+	free_to_null_string(&game_data->so_texture_filename);
+	free_to_null_string(&game_data->we_texture_filename);
+	free_to_null_string(&game_data->ea_texture_filename);
 	free(game_data->player);
 	free(game_data);
 }
