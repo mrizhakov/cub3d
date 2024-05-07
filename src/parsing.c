@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 15:39:05 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:24:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,12 @@ char *parse_textures(char *map_line, char *direction)
 	int texture_fd;
 
 	texture_line = ft_strnstr(map_line, direction, ft_strlen(map_line));
-	if (texture_line == NULL)
-	{
-		free(map_line);
+	if (!texture_line)
 		return (NULL);
-	}
-	texture_line++;
-	texture_line++;
-
-	texture_filename = ft_strtrim(texture_line, " \n"); // malloc here
+	if (texture_line != map_line)
+		return (free(texture_line), NULL);
+	texture_line += 2;
+	texture_filename = ft_strtrim(texture_line, " \n");
 	texture_fd = open(texture_filename, O_RDONLY);
 	if (texture_fd == -1)
 	{
@@ -46,14 +43,23 @@ char *parse_textures(char *map_line, char *direction)
 	return (texture_filename);
 }
 
-void check_textures_ok(t_game *game_data)
+int	check_texture(char *texture, int texture_count)
 {
-	if (game_data->no_texture_filename && game_data->so_texture_filename && game_data->we_texture_filename && game_data->ea_texture_filename && game_data->no_texture_count == 1 && game_data->so_texture_count == 1 && game_data->we_texture_count == 1 && game_data->ea_texture_count == 1)
-		game_data->all_textures_ok = 1;
+	if (texture && texture_count == 1)
+		return (1);
 	else
-		game_data->all_textures_ok = 0;
-	if (game_data->no_texture_count > 1 && game_data->so_texture_count > 1 && game_data->we_texture_count > 1 && game_data->ea_texture_count > 1)
-		game_data->all_textures_ok = 0;
+		return (0);
+}
+
+int	check_textures_ok(t_game *game_data)
+{
+	int	i;
+
+	i = check_texture(game_data->no_texture_filename, game_data->no_texture_count);
+	i = check_texture(game_data->we_texture_filename, game_data->we_texture_count);
+	i = check_texture(game_data->ea_texture_filename, game_data->ea_texture_count);
+	game_data->all_textures_ok = i;
+	return (i);
 }
 
 int parse_directions(t_game *game_data, char *map_line)
@@ -62,32 +68,27 @@ int parse_directions(t_game *game_data, char *map_line)
 	{
 		if (!game_data->no_texture_filename)
 			game_data->no_texture_filename = parse_textures(map_line, "NO");
-		printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
 		game_data->no_texture_count++;
 	}
 	if (ft_strnstr(map_line, "SO", ft_strlen(map_line)))
 	{
 		if (game_data->so_texture_filename == NULL)
 			game_data->so_texture_filename = parse_textures(map_line, "SO");
-		printf("Inside parse_directions game_data.so_texture_filename contains %s\n", game_data->so_texture_filename);
 		game_data->so_texture_count++;
 	}
 	if (ft_strnstr(map_line, "WE", ft_strlen(map_line)))
 	{
 		if (game_data->we_texture_filename == NULL)
 			game_data->we_texture_filename = parse_textures(map_line, "WE");
-		printf("Inside parse_directions game_data.we_texture_filename contains %s\n", game_data->we_texture_filename);
 		game_data->we_texture_count++;
 	}
 	if (ft_strnstr(map_line, "EA", ft_strlen(map_line)))
 	{
 		if (game_data->ea_texture_filename == NULL)
 			game_data->ea_texture_filename = parse_textures(map_line, "EA");
-		printf("Inside parse_directions game_data.ea_texture_filename contains %s\n", game_data->ea_texture_filename);
 		game_data->ea_texture_count++;
 	}
-	check_textures_ok(game_data);
-	return (0);
+	return (check_textures_ok(game_data)); // why checking textures all the time?
 }
 
 t_rgb read_color(char *map_line, char *surface)
@@ -99,16 +100,10 @@ t_rgb read_color(char *map_line, char *surface)
 	char *color_def;
 
 	color_line = ft_strnstr(map_line, surface, ft_strlen(map_line));
-	if (color_line == NULL)
-	{
-		free(map_line);
-		rgb.valid_rgb = -1;
+	if (!color_line)
 		return (rgb);
-	}
 	color_line++;
-
 	color_def = ft_strtrim(color_line, " \n"); // malloc here
-	printf("Color line now is : |%s|\n", color_def);
 	char **color_array = ft_split(color_def, ',');
 
 	int i = 0;
@@ -151,27 +146,22 @@ int parse_color(t_game *game_data, char *map_line)
 		game_data->floor_count++;
 		if (game_data->floor.valid_rgb == -1)
 			game_data->floor = read_color(map_line, "F");
-		printf("Inside parse_color game_data->floor.color[0] contains %i\n", game_data->floor.color[0]);
-		printf("Inside parse_color game_data->floor.color[1] contains %i\n", game_data->floor.color[1]);
-		printf("Inside parse_color game_data->floor.color[2] contains %i\n", game_data->floor.color[2]);
-		printf("Inside parse_color game_data->floor.valid_rgb contains %i\n", game_data->floor.valid_rgb);
 	}
 	if (ft_strnstr(map_line, "C", ft_strlen(map_line)))
 	{
 		game_data->ceiling_count++;
 		if (game_data->ceiling.valid_rgb == -1)
 			game_data->ceiling = read_color(map_line, "C");
-		printf("Inside parse_color game_data->ceiling.color[0] contains %i\n", game_data->ceiling.color[0]);
-		printf("Inside parse_color game_data->ceiling.color[1] contains %i\n", game_data->ceiling.color[1]);
-		printf("Inside parse_color game_data->ceiling.color[2] contains %i\n", game_data->ceiling.color[2]);
-		printf("Inside parse_color game_data->ceiling.valid_rgb contains %i\n", game_data->ceiling.valid_rgb);
 	}
 	return (0);
 }
 
 int check_colors_ok(t_game *game_data)
 {
-	if (game_data->floor_count == 1 && game_data->ceiling_count == 1 && game_data->floor.valid_rgb == 1 && game_data->ceiling.valid_rgb == 1)
+	if (game_data->floor_count == 1
+		&& game_data->ceiling_count == 1
+		&& game_data->floor.valid_rgb == 1
+		&& game_data->ceiling.valid_rgb == 1)
 		return (1);
 	else
 		return (0);
@@ -346,64 +336,25 @@ int map_parsing(char *filename, t_game *game_data)
 {
 	int fd;
 	char *map_line;
-	printf("Parsing map\n");
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
 		return(perror("Error opening map"), EXIT_FAILURE);
-	printf("File : %s \n", filename);
-	printf("Map opened\n");
-	printf("Logging out map for debugging purposes\n");
-
-	// map_line = NULL; // no need to init
-	printf("Presto! Here is the map:\n");
 	while (1)
 	{
 		map_line = get_next_line(fd);
 		if (map_line == NULL)
 		{
-			//     printf("-------------------------------------\n");
-			//     printf("Map is finito!\n");
-			//     printf("Final check!\n");
-
-			check_textures_ok(game_data);
-			if (game_data->all_textures_ok == 1)
-				printf("Textures are ok!\n");
-			else
-				printf("Colors arent good!\n");
-			if (check_colors_ok(game_data))
-				printf("Colors are ok!\n");
-			else
-				printf("Colors arent good!\n");
+			if (!check_textures_ok(game_data)
+				|| !check_colors_ok(game_data))
+				return (1);
 			close(fd);
 			return (0);
 		}
-		parse_directions(game_data, map_line);
+		parse_directions(game_data, map_line); // returns 1 if everything correct
 		parse_color(game_data, map_line);
-		if (game_data->all_textures_ok == 1 && check_colors_ok(game_data))
-		{
-			// printf("Textures are ok!\n");
-			// printf("Colors are good!\n");
-			// printf("Time to parse the map!\n");
+		if (game_data->all_textures_ok == 1 && check_colors_ok(game_data)) // how many times you want to parse maze?
 			maze_parse(game_data, map_line);
-			// printf("After parsing, maze looks like --------->\n");
-			// print_maze(game_data);
-			// exit(0);
-
-			// print_maze(game_data);
-			// maze_check_closed(game_data);
-			// printf("After checking, maze looks like --------->\n");
-
-			// print_maze(game_data);
-			// printf("done!\n");
-		}
-		if (!(game_data->all_textures_ok == 1 && check_colors_ok(game_data)))
-		{
-			// printf("Textures are ok!\n");
-			// printf("Colors arent good!\n");
-			// printf("Dont even think about parsing the map!\n");
-		}
-		// printf("Map line in main is %s", map_line);
 		free(map_line);
 	}
 	close(fd);

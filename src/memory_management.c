@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/06 15:35:53 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:49:22 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void init_maze(t_game *game_maze)
 	game_maze->maze.valid_maze = -1;
 }
 
-t_maze init_t_maze(t_maze maze)
+t_maze init_t_maze(t_maze maze) // ?? do we need this function?
 {
 	int x;
 	int y;

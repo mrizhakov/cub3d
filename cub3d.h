@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 15:11:00 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/07 16:42:54 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ int				load_textures(t_game *game_data);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
 char			*parse_textures(char *map_line, char *direction);
-void			check_textures_ok(t_game *game_data);
+int				check_textures_ok(t_game *game_data);
 int				check_colors_ok(t_game *game_data);
 int				is_valid_char(char matrix_val);
 int				no_of_players(t_game *game_data, char matrix_val);
