@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 15:05:28 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:39:05 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int parse_directions(t_game *game_data, char *map_line)
 {
 	if (ft_strnstr(map_line, "NO", ft_strlen(map_line)))
 	{
-		if (game_data->no_texture_filename == NULL)
+		if (!game_data->no_texture_filename)
 			game_data->no_texture_filename = parse_textures(map_line, "NO");
 		printf("Inside parse_directions game_data.no_texture_filename contains %s\n", game_data->no_texture_filename);
 		game_data->no_texture_count++;
@@ -350,20 +350,13 @@ int map_parsing(char *filename, t_game *game_data)
 
 	fd = open(filename, O_RDONLY);
 	if (fd == -1)
-	{
-		perror("Error opening map");
-		exit(EXIT_FAILURE);
-	}
-	if (fd != -1)
-	{
-		printf("File : %s \n", filename);
-		printf("Map opened\n");
-		printf("Logging out map for debugging purposes\n");
-	}
+		return(perror("Error opening map"), EXIT_FAILURE);
+	printf("File : %s \n", filename);
+	printf("Map opened\n");
+	printf("Logging out map for debugging purposes\n");
 
 	// map_line = NULL; // no need to init
 	printf("Presto! Here is the map:\n");
-
 	while (1)
 	{
 		map_line = get_next_line(fd);

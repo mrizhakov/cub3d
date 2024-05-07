@@ -25,7 +25,7 @@ OBJ = $(EXE_SRCS:.c=.o)
 OBJ := $(addprefix $(OBJ_DIR), $(OBJ))
 TEST := maps/
 
-all: $(NAME)
+all: $(NAME) $(TEST)
 
 $(NAME): $(LIBMLX) $(OBJ_DIR) $(OBJ) $(LIBFT)
 	$(CC) $(FLAGS) $(INC) $(OBJ) $(LIB) -o $(NAME)
@@ -56,8 +56,6 @@ fclean: clean
 	$(RM) -r $(LIBMLX)
 
 re: fclean all
-
-test: $(TEST)
 
 $(TEST):
 	@if ! [ -d "$(TEST)" ]; then \

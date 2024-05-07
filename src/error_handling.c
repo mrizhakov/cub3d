@@ -6,28 +6,11 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:01:00 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 15:08:28 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:47:59 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-// int valid_file(char *filename)
-// {
-// 	int fd;
-
-// 	fd = open(filename, O_RDONLY);
-// 	if (fd == -1)
-// 	{
-// 		perror("Error opening file \n");
-// 		return (0);
-// 	}
-// 	else
-// 	{
-// 		printf("File opened : %s \n", filename);
-// 		return (fd);
-// 	}
-// }
 
 int check_read_file(int fd)
 {

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 10:54:44 by ddavlety          #+#    #+#             */
-/*   Updated: 2023/11/20 13:08:52 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/06 15:42:44 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(s1));
 	ptr = ft_substr(s1, i, k);
 	if (!ptr)
-		return (0);
+		return (NULL);
 	return (ptr);
 }
