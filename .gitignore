@@ -1,2 +1,5 @@
 *.o
 cub3d
+cub3D
+maps
+.vscode

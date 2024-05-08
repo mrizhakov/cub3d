@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/07 17:24:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/08 16:47:34 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char *parse_textures(char *map_line, char *direction)
 	if (!texture_line)
 		return (NULL);
 	if (texture_line != map_line)
-		return (free(texture_line), NULL);
+		return (NULL);
 	texture_line += 2;
 	texture_filename = ft_strtrim(texture_line, " \n");
 	texture_fd = open(texture_filename, O_RDONLY);
@@ -39,7 +39,6 @@ char *parse_textures(char *map_line, char *direction)
 		close(texture_fd);
 		return (NULL);
 	}
-	printf("texture %s opened!\n", texture_filename);
 	return (texture_filename);
 }
 
@@ -208,42 +207,17 @@ int maze_parse(t_game *game_data, char *map_line)
 
 	i = 0;
 	x_axis = 1;
-	// y_axis = 0;
-	// if (is)
-	//  printf("entered maze_parse\n");
-	//  printf("y_axis is %i\n", y_axis);
-
-	// if (skip_empty_line(map_line))
-	// {
-	//     //y_axis++;
-	//     printf("skiping empty line\n");
-	//     return(0);
-	// }
 	while (is_valid_char(map_line[i]))
 	{
-		// printf("Entered loop\n");
-		// printf("map_line[i] is %c, index %i\n", map_line[i], i);
 		if (skip_empty_line(map_line))
-		{
-			// y_axis++;
-			//  printf("skiping empty line\n");
 			return (0);
-		}
-		// printf("map_line[i] is %c, index %i\n", map_line[i], i);
-		// printf("not an empty line\n");
-		// printf("finding valid characters\n");
 		if (map_line[i] == '\n' || map_line[i] == '\r')
 		{
-			// printf("NEWLINE\n");
-			// printf("\n");
 			y_axis++;
-			// game_data->maze.g[y][i] = 0;
 			return (0);
 		}
-		// printf("map_line is :%c\n", map_line[i]);
 		if (map_line[i] == '\t')
 		{
-			// printf("tab\n");
 			game_data->maze.g[y_axis][x_axis] = 'Z';
 			x_axis++;
 			game_data->maze.g[y_axis][x_axis] = 'Z';
@@ -264,38 +238,32 @@ int maze_parse(t_game *game_data, char *map_line)
 		}
 		if (map_line[i] == '0')
 		{
-			// printf("Empty space\n");
 			game_data->maze.g[y_axis][x_axis] = '0';
 			x_axis++;
 			i++;
 		}
 		if (map_line[i] == ' ')
 		{
-			// printf("Empty space\n");
 			game_data->maze.g[y_axis][x_axis] = 'Z';
 			x_axis++;
 			i++;
 		}
 		if (map_line[i] == '1')
 		{
-			// printf("One\n");
 			game_data->maze.g[y_axis][x_axis] = '1';
 			x_axis++;
 			i++;
 		}
 		if (map_line[i] == '2')
 		{
-			// printf("tTo\n");
 			game_data->maze.g[y_axis][x_axis] = 'Z';
 			x_axis++;
 			i++;
 		}
 		if (map_line[i] == 'N' || map_line[i] == 'E' || map_line[i] == 'W' || map_line[i] == 'S')
 		{
-			// printf("Found player\n");
 			game_data->player_init_loc[0] = x_axis;
 			game_data->player_init_loc[1] = y_axis;
-			// game_data->maze.g[y_axis][x_axis] = 3;
 			game_data->player->y = y_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN / 2;
 			game_data->player->x = x_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN / 2;
 
@@ -323,12 +291,7 @@ int maze_parse(t_game *game_data, char *map_line)
 			x_axis++;
 			i++;
 		}
-		// game_data->maze_end.y = y_axis;
-		// game_data->maze_end.x = x_axis - 1;
 	}
-	// game_data->maze_end.y = y_axis;
-	// game_data->maze_end.x = x_axis - 1;
-	// printf("---------------->>game MAZE end is x %i, y %i, x_axis is %x, y_axis is %i\n", game_data->maze_end.x, game_data->maze_end.y, x_axis, y_axis);
 	return (1);
 }
 
@@ -376,19 +339,19 @@ int iffile_cub(char *map_file_name)
 
 int is_valid_char(char matrix_val)
 {
-	if (matrix_val && (matrix_val == '1' || matrix_val == '0' || matrix_val == '2' || matrix_val == 'N' || matrix_val == 'E' || matrix_val == 'W' || matrix_val == 'S' || matrix_val == ' ' || matrix_val == 'Z' || matrix_val == '\n' || matrix_val == '\t'))
-		return (1);
-	else
-		return (0);
+	char	set[] = "012NEWS Z\n\t";
+	int		i;
+
+	i = -1;
+	while (set[++i])
+		if (matrix_val == set[i])
+			return (1);
+	return (0);
 }
 
 int is_valid_int(int matrix_val)
 {
 	if (matrix_val == 1 || matrix_val == 0 || matrix_val == 3)
-		// if (matrix_val
-		//     && (matrix_val == 1 || matrix_val == 0 || matrix_val == 2
-		//     || matrix_val == 3 || matrix_val == 'E' || matrix_val == 'W'
-		//     || matrix_val == 'S' || matrix_val == ' ' || matrix_val == '\n' || matrix_val == '\t'))
 		return (1);
 	else
 		return (0);
