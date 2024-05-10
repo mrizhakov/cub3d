@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/07 16:42:54 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 13:55:37 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@
 # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
 # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
+
+
+typedef enum e_directions
+{
+	NO,
+	SO,
+	WE,
+	EA,
+}	t_direct;
+
+typedef enum e_colors
+{
+	F,
+	C,
+}	t_colors;
 
 //save textures here
 typedef struct s_textures
@@ -95,10 +110,7 @@ typedef struct	s_game
 	char			*so_texture_filename;
 	char			*we_texture_filename;
 	char			*ea_texture_filename;
-	int				no_texture_count;
-	int 			so_texture_count;
-	int				we_texture_count;
-	int 			ea_texture_count;
+	int				texture_count[4];
 	int				all_textures_ok;
 
     // colors

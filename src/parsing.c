@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/08 16:47:34 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 14:01:35 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ char *parse_textures(char *map_line, char *direction)
 	texture_filename = ft_strtrim(texture_line, " \n");
 	texture_fd = open(texture_filename, O_RDONLY);
 	if (texture_fd == -1)
-	{
-		free(texture_filename);
-		return(perror("Error opening texture files"), NULL);
-	}
+		return(free(texture_filename), perror("Error opening texture files"), NULL);
 	if (check_file_extension(texture_filename, ".png") || check_read_file(texture_fd))
 	{
 		perror("Texture files are no bueno. Bring your nice .png's!"); // perror does not contain error
@@ -54,9 +51,10 @@ int	check_textures_ok(t_game *game_data)
 {
 	int	i;
 
-	i = check_texture(game_data->no_texture_filename, game_data->no_texture_count);
-	i = check_texture(game_data->we_texture_filename, game_data->we_texture_count);
-	i = check_texture(game_data->ea_texture_filename, game_data->ea_texture_count);
+	i = check_texture(game_data->no_texture_filename, game_data->texture_count[NO]);
+	i = check_texture(game_data->so_texture_filename, game_data->texture_count[SO]);
+	i = check_texture(game_data->we_texture_filename, game_data->texture_count[WE]);
+	i = check_texture(game_data->ea_texture_filename, game_data->texture_count[EA]);
 	game_data->all_textures_ok = i;
 	return (i);
 }
@@ -67,25 +65,25 @@ int parse_directions(t_game *game_data, char *map_line)
 	{
 		if (!game_data->no_texture_filename)
 			game_data->no_texture_filename = parse_textures(map_line, "NO");
-		game_data->no_texture_count++;
+		game_data->texture_count[NO]++;
 	}
 	if (ft_strnstr(map_line, "SO", ft_strlen(map_line)))
 	{
-		if (game_data->so_texture_filename == NULL)
+		if (!game_data->so_texture_filename)
 			game_data->so_texture_filename = parse_textures(map_line, "SO");
-		game_data->so_texture_count++;
+		game_data->texture_count[SO]++;
 	}
 	if (ft_strnstr(map_line, "WE", ft_strlen(map_line)))
 	{
-		if (game_data->we_texture_filename == NULL)
+		if (!game_data->we_texture_filename)
 			game_data->we_texture_filename = parse_textures(map_line, "WE");
-		game_data->we_texture_count++;
+		game_data->texture_count[WE]++;
 	}
 	if (ft_strnstr(map_line, "EA", ft_strlen(map_line)))
 	{
-		if (game_data->ea_texture_filename == NULL)
+		if (!game_data->ea_texture_filename)
 			game_data->ea_texture_filename = parse_textures(map_line, "EA");
-		game_data->ea_texture_count++;
+		game_data->texture_count[EA]++;
 	}
 	return (check_textures_ok(game_data)); // why checking textures all the time?
 }
@@ -318,6 +316,7 @@ int map_parsing(char *filename, t_game *game_data)
 		parse_color(game_data, map_line);
 		if (game_data->all_textures_ok == 1 && check_colors_ok(game_data)) // how many times you want to parse maze?
 			maze_parse(game_data, map_line);
+
 		free(map_line);
 	}
 	close(fd);
