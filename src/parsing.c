@@ -6,38 +6,38 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 14:01:35 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:19:22 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-char *parse_textures(char *map_line, char *direction)
-{
-	char *texture_line;
-	char *texture_filename;
-	int texture_fd;
+// char *parse_textures(char *map_line, char *direction)
+// {
+// 	char *texture_line;
+// 	char *texture_filename;
+// 	int texture_fd;
 
-	texture_line = ft_strnstr(map_line, direction, ft_strlen(map_line));
-	if (!texture_line)
-		return (NULL);
-	if (texture_line != map_line)
-		return (NULL);
-	texture_line += 2;
-	texture_filename = ft_strtrim(texture_line, " \n");
-	texture_fd = open(texture_filename, O_RDONLY);
-	if (texture_fd == -1)
-		return(free(texture_filename), perror("Error opening texture files"), NULL);
-	if (check_file_extension(texture_filename, ".png") || check_read_file(texture_fd))
-	{
-		perror("Texture files are no bueno. Bring your nice .png's!"); // perror does not contain error
-		free(texture_filename);
-		free(map_line);
-		close(texture_fd);
-		return (NULL);
-	}
-	return (texture_filename);
-}
+// 	texture_line = ft_strnstr(map_line, direction, ft_strlen(map_line));
+// 	if (!texture_line)
+// 		return (NULL);
+// 	if (texture_line != map_line)
+// 		return (NULL);
+// 	texture_line += 2;
+// 	texture_filename = ft_strtrim(texture_line, " \n");
+// 	texture_fd = open(texture_filename, O_RDONLY);
+// 	if (texture_fd == -1)
+// 		return(free(texture_filename), perror("Error opening texture files"), NULL);
+// 	if (check_file_extension(texture_filename, ".png") || check_read_file(texture_fd))
+// 	{
+// 		perror("Texture files are no bueno. Bring your nice .png's!"); // perror does not contain error
+// 		free(texture_filename);
+// 		free(map_line);
+// 		close(texture_fd);
+// 		return (NULL);
+// 	}
+// 	return (texture_filename);
+// }
 
 int	check_texture(char *texture, int texture_count)
 {
@@ -51,114 +51,114 @@ int	check_textures_ok(t_game *game_data)
 {
 	int	i;
 
-	i = check_texture(game_data->no_texture_filename, game_data->texture_count[NO]);
-	i = check_texture(game_data->so_texture_filename, game_data->texture_count[SO]);
-	i = check_texture(game_data->we_texture_filename, game_data->texture_count[WE]);
-	i = check_texture(game_data->ea_texture_filename, game_data->texture_count[EA]);
+	i = check_texture(game_data->texture_filename[NO], game_data->texture_count[NO]);
+	i = check_texture(game_data->texture_filename[SO], game_data->texture_count[SO]);
+	i = check_texture(game_data->texture_filename[WE], game_data->texture_count[WE]);
+	i = check_texture(game_data->texture_filename[EA], game_data->texture_count[EA]);
 	game_data->all_textures_ok = i;
 	return (i);
 }
 
-int parse_directions(t_game *game_data, char *map_line)
-{
-	if (ft_strnstr(map_line, "NO", ft_strlen(map_line)))
-	{
-		if (!game_data->no_texture_filename)
-			game_data->no_texture_filename = parse_textures(map_line, "NO");
-		game_data->texture_count[NO]++;
-	}
-	if (ft_strnstr(map_line, "SO", ft_strlen(map_line)))
-	{
-		if (!game_data->so_texture_filename)
-			game_data->so_texture_filename = parse_textures(map_line, "SO");
-		game_data->texture_count[SO]++;
-	}
-	if (ft_strnstr(map_line, "WE", ft_strlen(map_line)))
-	{
-		if (!game_data->we_texture_filename)
-			game_data->we_texture_filename = parse_textures(map_line, "WE");
-		game_data->texture_count[WE]++;
-	}
-	if (ft_strnstr(map_line, "EA", ft_strlen(map_line)))
-	{
-		if (!game_data->ea_texture_filename)
-			game_data->ea_texture_filename = parse_textures(map_line, "EA");
-		game_data->texture_count[EA]++;
-	}
-	return (check_textures_ok(game_data)); // why checking textures all the time?
-}
+// int parse_directions(t_game *game_data, char *map_line)
+// {
+// 	if (ft_strnstr(map_line, "NO", ft_strlen(map_line)))
+// 	{
+// 		if (!game_data->texture_filename[NO])
+// 			game_data->texture_filename[NO] = parse_textures(map_line, "NO");
+// 		game_data->texture_count[NO]++;
+// 	}
+// 	if (ft_strnstr(map_line, "SO", ft_strlen(map_line)))
+// 	{
+// 		if (!game_data->texture_filename[NO])
+// 			game_data->texture_filename[NO] = parse_textures(map_line, "SO");
+// 		game_data->texture_count[SO]++;
+// 	}
+// 	if (ft_strnstr(map_line, "WE", ft_strlen(map_line)))
+// 	{
+// 		if (!game_data->texture_filename[NO])
+// 			game_data->texture_filename[NO] = parse_textures(map_line, "WE");
+// 		game_data->texture_count[WE]++;
+// 	}
+// 	if (ft_strnstr(map_line, "EA", ft_strlen(map_line)))
+// 	{
+// 		if (!game_data->texture_filename[NO])
+// 			game_data->texture_filename[NO] = parse_textures(map_line, "EA");
+// 		game_data->texture_count[EA]++;
+// 	}
+// 	return (check_textures_ok(game_data)); // why checking textures all the time?
+// }
 
-t_rgb read_color(char *map_line, char *surface)
-{
-	t_rgb rgb;
+// t_rgb read_color(char *map_line, char *surface)
+// {
+// 	t_rgb rgb;
 
-	rgb.valid_rgb = -1;
-	char *color_line;
-	char *color_def;
+// 	rgb.valid_rgb = -1;
+// 	char *color_line;
+// 	char *color_def;
 
-	color_line = ft_strnstr(map_line, surface, ft_strlen(map_line));
-	if (!color_line)
-		return (rgb);
-	color_line++;
-	color_def = ft_strtrim(color_line, " \n"); // malloc here
-	char **color_array = ft_split(color_def, ',');
+// 	color_line = ft_strnstr(map_line, surface, ft_strlen(map_line));
+// 	if (!color_line)
+// 		return (rgb);
+// 	color_line++;
+// 	color_def = ft_strtrim(color_line, " \n"); // malloc here
+// 	char **color_array = ft_split(color_def, ',');
 
-	int i = 0;
-	while (color_array[i] != NULL)
-	{
-		rgb.color[i] = ft_atoi(color_array[i]);
-		printf("Array %i is : |%d|\n", i, rgb.color[i]);
-		i++;
-		if (i > 3)
-		{
-			perror("Invalid color");
-			free_to_null_string(&color_def);
-			rgb.valid_rgb = -1;
-			return (rgb);
-		}
-	}
+// 	int i = 0;
+// 	while (color_array[i] != NULL)
+// 	{
+// 		rgb.color[i] = ft_atoi(color_array[i]);
+// 		printf("Array %i is : |%d|\n", i, rgb.color[i]);
+// 		i++;
+// 		if (i > 3)
+// 		{
+// 			perror("Invalid color");
+// 			free_to_null_string(&color_def);
+// 			rgb.valid_rgb = -1;
+// 			return (rgb);
+// 		}
+// 	}
 
-	int y = 0;
-	while (y != i && rgb.color[y] >= 0 && rgb.color[y] <= 255)
-	{
-		printf("Y is %i\n", y);
-		y++;
-	}
-	rgb.valid_rgb = 1;
-	if (y != 3)
-	{
-		rgb.valid_rgb = -1;
-		printf("Y is %i, triggered unvalidity check\n", y);
-	}
-	printf("Is it a valid RGB? r : %i, g: %i. b: %i, validity: %i\n", rgb.color[0], rgb.color[1], rgb.color[2], rgb.valid_rgb);
-	free_to_null_string(&color_def);
-	free_to_null_char_arr(color_array);
-	return (rgb);
-}
+// 	int y = 0;
+// 	while (y != i && rgb.color[y] >= 0 && rgb.color[y] <= 255)
+// 	{
+// 		printf("Y is %i\n", y);
+// 		y++;
+// 	}
+// 	rgb.valid_rgb = 1;
+// 	if (y != 3)
+// 	{
+// 		rgb.valid_rgb = -1;
+// 		printf("Y is %i, triggered unvalidity check\n", y);
+// 	}
+// 	printf("Is it a valid RGB? r : %i, g: %i. b: %i, validity: %i\n", rgb.color[0], rgb.color[1], rgb.color[2], rgb.valid_rgb);
+// 	free_to_null_string(&color_def);
+// 	free_char_arr(color_array);
+// 	return (rgb);
+// }
 
-int parse_color(t_game *game_data, char *map_line)
-{
-	if (ft_strnstr(map_line, "F", ft_strlen(map_line)))
-	{
-		game_data->floor_count++;
-		if (game_data->floor.valid_rgb == -1)
-			game_data->floor = read_color(map_line, "F");
-	}
-	if (ft_strnstr(map_line, "C", ft_strlen(map_line)))
-	{
-		game_data->ceiling_count++;
-		if (game_data->ceiling.valid_rgb == -1)
-			game_data->ceiling = read_color(map_line, "C");
-	}
-	return (0);
-}
+// int parse_color(t_game *game_data, char *map_line)
+// {
+// 	if (ft_strnstr(map_line, "F", ft_strlen(map_line)))
+// 	{
+// 		game_data->color_count[F]++;
+// 		if (game_data->color[F].valid_rgb == -1)
+// 			game_data->color[F] = read_color(map_line, "F");
+// 	}
+// 	if (ft_strnstr(map_line, "C", ft_strlen(map_line)))
+// 	{
+// 		game_data->color_count[C]++;
+// 		if (game_data->color[C].valid_rgb == -1)
+// 			game_data->color[C] = read_color(map_line, "C");
+// 	}
+// 	return (0);
+// }
 
 int check_colors_ok(t_game *game_data)
 {
-	if (game_data->floor_count == 1
-		&& game_data->ceiling_count == 1
-		&& game_data->floor.valid_rgb == 1
-		&& game_data->ceiling.valid_rgb == 1)
+	if (game_data->color_count[F] == 1
+		&& game_data->color_count[C] == 1
+		&& game_data->color[F].valid_rgb == 1
+		&& game_data->color[C].valid_rgb == 1)
 		return (1);
 	else
 		return (0);
@@ -308,15 +308,14 @@ int map_parsing(char *filename, t_game *game_data)
 		{
 			if (!check_textures_ok(game_data)
 				|| !check_colors_ok(game_data))
-				return (1);
+				return (ft_putendl_fd("settings are non-valid", 2), 1);
 			close(fd);
 			return (0);
 		}
-		parse_directions(game_data, map_line); // returns 1 if everything correct
-		parse_color(game_data, map_line);
-		if (game_data->all_textures_ok == 1 && check_colors_ok(game_data)) // how many times you want to parse maze?
+		if (router_parse_data(map_line, game_data))
+			return(free(map_line), close(fd), 1);
+		if (check_textures_ok(game_data) && check_colors_ok(game_data)) // how many times you want to parse maze?
 			maze_parse(game_data, map_line);
-
 		free(map_line);
 	}
 	close(fd);
@@ -356,7 +355,7 @@ int is_valid_int(int matrix_val)
 		return (0);
 }
 
-int no_of_players(t_game *game_data, char matrix_val)
+int of_players(t_game *game_data, char matrix_val)
 {
 	int i;
 

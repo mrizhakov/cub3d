@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 13:55:37 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 15:52:29 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,24 +106,19 @@ typedef struct	s_game
 	t_textures		*textures;
 
 	// textures
-	char			*no_texture_filename;
-	char			*so_texture_filename;
-	char			*we_texture_filename;
-	char			*ea_texture_filename;
+	char			*texture_filename[4];
 	int				texture_count[4];
 	int				all_textures_ok;
 
     // colors
-	t_rgb			floor;
-	t_rgb			ceiling;
-	int				floor_count;
-	int				ceiling_count;
+	t_rgb			color[2];
+	int				color_count[2];
 
 	// maze parse
 	int				player_count;
 	int				player_init_loc[2];
 	double			player_init_dir;
-	int             maze_closed;
+	int				maze_closed;
 
 	// player
 	t_double_pixel	*player;
@@ -206,7 +201,7 @@ int				initialise_game(t_game *game_data);
 void			init_maze(t_game *game_data);
 void			free_on_exit(t_game *game_data);
 void			free_to_null_string(char **str);
-void			free_to_null_char_arr(char **str);
+void			free_char_arr(char **str);
 
 // Extra MLX testing functions
 int32_t			mlx_demo(t_game *game_data);
@@ -258,5 +253,8 @@ void			print_maze(t_game *game_data);
 int32_t			ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //error_
+
+int	router_parse_data(char *line, t_game *game_data);
+
 
 #endif

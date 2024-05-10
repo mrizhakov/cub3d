@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/07 12:49:22 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 16:16:13 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void free_to_null_string(char **str)
 	*str = NULL;
 }
 
-void free_to_null_char_arr(char **str)
+void free_char_arr(char **str)
 {
 	int i;
 
@@ -77,14 +77,14 @@ int	initialise_game(t_game *game_data)
 	// textures
 
 	// colors
-	game_data->floor.color[0] = -1;
-	game_data->floor.color[1] = -1;
-	game_data->floor.color[2] = -1;
-	game_data->floor.valid_rgb = -1;
-	game_data->ceiling.color[0] = -1;
-	game_data->ceiling.color[1] = -1;
-	game_data->ceiling.color[2] = -1;
-	game_data->ceiling.valid_rgb = -1;
+	game_data->color[F].color[0] = -1;
+	game_data->color[F].color[1] = -1;
+	game_data->color[F].color[2] = -1;
+	game_data->color[F].valid_rgb = -1;
+	game_data->color[C].color[0] = -1;
+	game_data->color[C].color[1] = -1;
+	game_data->color[C].color[2] = -1;
+	game_data->color[C].valid_rgb = -1;
 
 	// maze parse
 	game_data->player_init_dir = 1.0;
@@ -111,10 +111,10 @@ void free_on_exit(t_game *game_data)
 {
 	if (!game_data)
 		return ;
-	free_to_null_string(&game_data->no_texture_filename);
-	free_to_null_string(&game_data->so_texture_filename);
-	free_to_null_string(&game_data->we_texture_filename);
-	free_to_null_string(&game_data->ea_texture_filename);
+	free_to_null_string(&game_data->texture_filename[NO]);
+	free_to_null_string(&game_data->texture_filename[SO]);
+	free_to_null_string(&game_data->texture_filename[WE]);
+	free_to_null_string(&game_data->texture_filename[EA]);
 	if (game_data->player)
 		free(game_data->player);
 	free(game_data);
