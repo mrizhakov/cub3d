@@ -14,8 +14,9 @@ print_result() {
 }
 
 for filename in ./maps/*; do
-    ./cub3D "$filename"
-    exit_code=$?
-
-    print_result "$filename" "$exit_code"
+	if [ "$filename" != "./maps/replace" ] && [ "$filename" != "./maps/replace.sh" ] && [ "$filename" != "./maps/README.md" ]; then
+    	./cub3D "$filename"
+    	exit_code=$?
+		print_result "$filename" "$exit_code"
+	fi
 done
