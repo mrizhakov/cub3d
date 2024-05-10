@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/07 16:42:54 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:26:22 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,6 @@
 # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.03
-# define NORTH "./textures/DarkAbstractBackgrounds_03.png"
-# define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
-# define EAST  "./textures/DarkAbstractBackgrounds_09.png"
-# define WEST  "./textures/DarkAbstractBackgrounds_10.png"
 
 //save textures here
 typedef struct s_textures
@@ -145,10 +141,7 @@ typedef struct 	s_raycast {
 
     double distance;
 
-    // int is_ray_facing_down;
-    // int is_ray_facing_right;
-    // int is_ray_facing_up;
-    // int is_ray_facing_left;
+    
     double next_hor_touch_x;
     double next_hor_touch_y;
     int found_hor_hit;
