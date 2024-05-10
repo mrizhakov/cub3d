@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 15:52:29 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:33:25 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
 # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
-
+# define MAP_TOKENS = "NEWS 10\n"
 
 typedef enum e_directions
 {
@@ -108,14 +108,14 @@ typedef struct	s_game
 	// textures
 	char			*texture_filename[4];
 	int				texture_count[4];
-	int				all_textures_ok;
+	bool				all_textures_ok;
 
     // colors
 	t_rgb			color[2];
 	int				color_count[2];
 
 	// maze parse
-	int				player_count;
+	// int				player_count;
 	int				player_init_loc[2];
 	double			player_init_dir;
 	int				maze_closed;
@@ -188,7 +188,7 @@ int				load_textures(t_game *game_data);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
 char			*parse_textures(char *map_line, char *direction);
-int				check_textures_ok(t_game *game_data);
+int				check_textures(t_game *game_data);
 int				check_colors_ok(t_game *game_data);
 int				is_valid_char(char matrix_val);
 int				no_of_players(t_game *game_data, char matrix_val);

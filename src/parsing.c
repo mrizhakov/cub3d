@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 16:19:22 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 21:38:20 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_texture(char *texture, int texture_count)
 		return (0);
 }
 
-int	check_textures_ok(t_game *game_data)
+int	check_textures(t_game *game_data)
 {
 	int	i;
 
@@ -293,6 +293,77 @@ int maze_parse(t_game *game_data, char *map_line)
 	return (1);
 }
 
+int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
+{
+	if (game_data->player_init_dir)
+		return (ft_putendl_fd("Error", 2), 1);
+	game_data->player_init_loc[0] = x_axis;
+	game_data->player_init_loc[1] = y_axis;
+	game_data->player->y = y_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN / 2;
+	game_data->player->x = x_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN / 2;
+	game_data->player_init_dir = direction;
+	return (0);
+}
+
+int	put_sign(char c, char *tokens)
+{
+	size_t	i;
+
+	i = 0;
+	while (tokens[i] && tokens[i] != c)
+		i++;
+	if (i > 5 && i < 9)
+		return ('Z');
+	else if (i <= 5)
+		return (tokens[i]);
+	else
+		return (0);
+}
+
+int	is_player(t_game *game_data, int y, int x, char *tokens)
+{
+	size_t	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		if (game_data->maze.g[y][x] == tokens[i])
+			break ;
+		i++;
+	}
+	if (i >= 4)
+		return (1);
+	else
+		return (0);
+}
+
+int	parse_maze(t_game *game_data, char *line)
+{
+	size_t			i;
+	static	size_t	j;
+
+	i = 1;
+	if (j + 1 == MAZE_DIMENSION)
+		return (1); //map is too big
+	game_data->maze.g[j + 1][0] = 'Z';
+	while (i < MAZE_DIMENSION && line[i - 1])
+	{
+		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], "NEWS10 \n");
+		if (game_data->maze.g[j + 1][i] == 0)
+			return (1); //??
+		if(!is_player(game_data, j + 1, i, "NEWS"))
+			if (init_player(game_data, game_data->maze.g[j + 1][i], i, j + 1))
+				return (ft_putendl_fd("Two or more players", 2), 1); //??
+		i++;
+	}
+	if (line[i - 1])
+		return (1); // map is too big
+	while (i < MAZE_DIMENSION)
+		game_data->maze.g[j + 1][i++] = 'Z';
+	j++;
+	return (0);
+}
+
 int map_parsing(char *filename, t_game *game_data)
 {
 	int fd;
@@ -304,18 +375,21 @@ int map_parsing(char *filename, t_game *game_data)
 	while (1)
 	{
 		map_line = get_next_line(fd);
-		if (map_line == NULL)
+		if (!map_line)
 		{
-			if (!check_textures_ok(game_data)
+			if (!check_textures(game_data)
 				|| !check_colors_ok(game_data))
-				return (ft_putendl_fd("settings are non-valid", 2), 1);
+				return (ft_putendl_fd("Error\nSettings are non-valid", 2), 1);
 			close(fd);
 			return (0);
 		}
-		if (router_parse_data(map_line, game_data))
-			return(free(map_line), close(fd), 1);
-		if (check_textures_ok(game_data) && check_colors_ok(game_data)) // how many times you want to parse maze?
-			maze_parse(game_data, map_line);
+		if (check_textures(game_data) && check_colors_ok(game_data))// how many times you want to parse maze?
+			parse_maze(game_data, map_line); // maze_parse(game_data, map_line);
+		else
+		{
+			if (router_parse_data(map_line, game_data))
+				return(free(map_line), close(fd), 1);
+		}
 		free(map_line);
 	}
 	close(fd);
@@ -355,15 +429,15 @@ int is_valid_int(int matrix_val)
 		return (0);
 }
 
-int of_players(t_game *game_data, char matrix_val)
-{
-	int i;
+// int of_players(t_game *game_data, char matrix_val)
+// {
+// 	int i;
 
-	i = 0;
-	if (matrix_val == 'N' || matrix_val == 'S' || matrix_val == 'W' || matrix_val == 'E')
-	{
-		i++;
-		game_data->player_count++;
-	}
-	return (i);
-} // just one player per map
+// 	i = 0;
+// 	if (matrix_val == 'N' || matrix_val == 'S' || matrix_val == 'W' || matrix_val == 'E')
+// 	{
+// 		i++;
+// 		game_data->player_count++;
+// 	}
+// 	return (i);
+// } // just one player per map

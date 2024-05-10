@@ -9,8 +9,8 @@ int	parse_texture_file(t_direct direction, t_game *game_data, char *link)
 		return (ft_putendl_fd("Empty file name for texture", 2), 1);
 	file_name = ft_strtrim(link, "\n");
 	texture_fd = open(file_name, O_RDONLY);
-	if (!texture_fd)
-		return(perror("Error opening texture files"), 2);
+	if (texture_fd == -1)
+		return(free(file_name), perror("Error opening texture files"), 2);
 	if (check_file_extension(file_name, ".png") || check_read_file(texture_fd))
 		return (free(file_name), close(texture_fd), ft_putendl_fd("Error reading png file", 2), 2);
 	game_data->texture_filename[direction] = file_name;

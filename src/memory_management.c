@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/10 16:16:13 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:50:40 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,27 +51,6 @@ void init_maze(t_game *game_maze)
 	game_maze->maze.valid_maze = -1;
 }
 
-t_maze init_t_maze(t_maze maze) // ?? do we need this function?
-{
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
-	while (y != MAZE_DIMENSION - 1)
-	{
-		while (x != MAZE_DIMENSION - 1)
-		{
-			maze.g[y][x] = 'Z';
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	maze.valid_maze = -1;
-	return (maze);
-}
-
 int	initialise_game(t_game *game_data)
 {
 	// textures
@@ -87,8 +66,8 @@ int	initialise_game(t_game *game_data)
 	game_data->color[C].valid_rgb = -1;
 
 	// maze parse
-	game_data->player_init_dir = 1.0;
-	game_data->maze_closed = -1;
+	// game_data->player_init_dir = 1.0;
+	// game_data->maze_closed = -1;
 
 	// player
 	game_data->player = (t_double_pixel *)ft_calloc(sizeof(t_double_pixel), 1);
@@ -103,7 +82,7 @@ int	initialise_game(t_game *game_data)
 	// draw
 
 	// maze
-	init_maze(game_data);
+	init_maze(game_data); // ??
 	return (0);
 }
 
