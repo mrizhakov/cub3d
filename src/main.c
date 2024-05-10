@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/06 15:12:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/07 17:20:53 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,12 @@ int32_t	main(int argc, const char *argv[])
 	if (!game_data)
 		return (perror("Error: Failed to allocate memory for game data"), EXIT_FAILURE);
 	if (error_handling(argc, argv) || initialise_game(game_data))
-		return (free(game_data), 1);
-	map_parsing((char *)argv[1], game_data);
-	ft_print_parsed_map(game_data);
+		return (free_on_exit(game_data), 1);
+	if (map_parsing((char *)argv[1], game_data))
+		return (free_on_exit(game_data), 1);
+	// ft_print_parsed_map(game_data);
 	maze_check_closed(game_data);
-	print_maze(game_data);
+	// print_maze(game_data);
 	// print_maze(game_data);
 	printf("Is map is closed %i\n", game_data->maze_closed);
 	mlx_demo(game_data);

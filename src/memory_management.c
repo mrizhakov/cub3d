@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/06 15:11:24 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/07 12:49:22 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void init_maze(t_game *game_maze)
 	game_maze->maze.valid_maze = -1;
 }
 
-t_maze init_t_maze(t_maze maze)
+t_maze init_t_maze(t_maze maze) // ?? do we need this function?
 {
 	int x;
 	int y;
@@ -109,10 +109,13 @@ int	initialise_game(t_game *game_data)
 
 void free_on_exit(t_game *game_data)
 {
+	if (!game_data)
+		return ;
 	free_to_null_string(&game_data->no_texture_filename);
 	free_to_null_string(&game_data->so_texture_filename);
 	free_to_null_string(&game_data->we_texture_filename);
 	free_to_null_string(&game_data->ea_texture_filename);
-	free(game_data->player);
+	if (game_data->player)
+		free(game_data->player);
 	free(game_data);
 }
