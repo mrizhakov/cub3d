@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/05 19:45:15 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:35:34 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,3 +239,5 @@ t_double_pixel rotatePoint(t_double_pixel p, t_double_pixel center, double angle
     rotated.y = center.y + (p.x - center.x) * sin(angle) + (p.y - center.y) * cos(angle);
     return rotated;
 }
+
+

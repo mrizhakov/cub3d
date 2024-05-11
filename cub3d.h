@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 20:33:25 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:37:19 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ typedef struct s_textures
 // used for colors
 typedef struct	s_rgb
 {
-	int	color[3];
-	int valid_rgb;
+	int			color[3];
+	int			valid_rgb;
+	uint32_t	rgb_color;
 }				t_rgb;
 
 //maze
@@ -152,10 +153,7 @@ typedef struct 	s_raycast {
 
     double distance;
 
-    // int is_ray_facing_down;
-    // int is_ray_facing_right;
-    // int is_ray_facing_up;
-    // int is_ray_facing_left;
+
     double next_hor_touch_x;
     double next_hor_touch_y;
     int found_hor_hit;
@@ -183,7 +181,6 @@ typedef struct 	s_raycast {
 int				error_handling(int argc, const char *argv[]);
 int				map_parsing(char *filename, t_game *game_data);
 void			init_data(t_game *game_data);
-int				load_textures(t_game *game_data);
 // int				valid_file(char *filename);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
@@ -202,6 +199,8 @@ void			init_maze(t_game *game_data);
 void			free_on_exit(t_game *game_data);
 void			free_to_null_string(char **str);
 void			free_char_arr(char **str);
+void			free_textures(t_game *game_data);
+
 
 // Extra MLX testing functions
 int32_t			mlx_demo(t_game *game_data);
@@ -251,6 +250,8 @@ void			print_maze(t_game *game_data);
 
 //Extra mlx
 int32_t			ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+int				load_textures(t_game *game_data);
+
 
 //error_
 

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 18:33:10 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:38:10 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ int32_t	main(int argc, const char *argv[])
 		return (free_on_exit(game_data), 1);
 	if (map_parsing((char *)argv[1], game_data))
 		return (free_on_exit(game_data), 1);
-	// print_maze(game_data);
+
+	printf("north texture is : %s", game_data->no_texture_filename);
 	if (maze_check_closed(game_data))
 		return(free_on_exit(game_data), 1);
-	// print_maze(game_data);
+
+	load_textures(game_data);
 	printf("Is map is closed %i\n", game_data->maze_closed);
 	mlx_demo(game_data);
 	free_on_exit(game_data);

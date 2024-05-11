@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 17:27:58 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:38:23 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,21 @@ int	initialise_game(t_game *game_data)
 	return (0);
 }
 
+void free_textures(t_game *game_data)
+{
+	if (game_data->textures->north)
+		mlx_delete_texture(game_data->textures->north);
+	if (game_data->textures->east)
+		mlx_delete_texture(game_data->textures->east);
+	if (game_data->textures->west)
+		mlx_delete_texture(game_data->textures->west);
+	if (game_data->textures->south)
+		mlx_delete_texture(game_data->textures->south);
+	if (game_data->textures)
+		free(game_data->textures);
+}
+
+
 void free_on_exit(t_game *game_data)
 {
 	if (!game_data)
@@ -73,5 +88,23 @@ void free_on_exit(t_game *game_data)
 	free_to_null_string(&game_data->texture_filename[EA]);
 	if (game_data->player)
 		free(game_data->player);
+	free_textures(game_data);
+
+	// if (game_data->textures->north)
+	// 	mlx_delete_texture(game_data->textures->north);
+	// if (game_data->textures->east)
+	// 	mlx_delete_texture(game_data->textures->east);
+	// if (game_data->textures->west)
+	// 	mlx_delete_texture(game_data->textures->west);
+	// if (game_data->textures->south)
+	// 	mlx_delete_texture(game_data->textures->south);
+	// // free(game_data->textures->north);
+	// // free(game_data->textures->east);
+	// // free(game_data->textures->west);
+	// // free(game_data->textures->south);
+	// free(game_data->textures);
+
+
+
 	free(game_data);
 }

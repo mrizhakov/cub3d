@@ -6,20 +6,12 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:12 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/05 19:44:29 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:14:42 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	free_textures(t_textures *textures)
-{
-	free(textures->north);
-	free(textures->south);
-	free(textures->east);
-	free(textures->west);
-	free(textures);
-}
 
 void	delete_image(mlx_t *mlx, void **img_ptr)
 {

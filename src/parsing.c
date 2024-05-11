@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/11 19:14:07 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 20:40:31 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ int check_colors_ok(t_game *game_data)
 		&& game_data->color_count[C] == 1
 		&& game_data->color[F].valid_rgb == 1
 		&& game_data->color[C].valid_rgb == 1)
+	{
+		game_data->color[F].rgb_color = (int32_t)ft_double_pixel(game_data->color[F].color[0] % 0xFF, game_data->color[F].color[1]% 0xFF, game_data->color[F].color[2]% 0xFF, 255);
+		game_data->color[C].rgb_color = (int32_t)ft_double_pixel(game_data->color[C].color[0] % 0xFF, game_data->color[C].color[1]% 0xFF, game_data->color[C].color[2]% 0xFF, 255);
 		return (1);
+	}
 	else
 		return (0);
 }
