@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/10 20:50:40 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:27:58 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,40 +36,21 @@ void init_maze(t_game *game_maze)
 	int x;
 	int y;
 
-	x = 0;
 	y = 0;
-	while (y != MAZE_DIMENSION - 1)
+	while (y < MAZE_DIMENSION)
 	{
-		while (x != MAZE_DIMENSION - 1)
+		x = 0;
+		while (x < MAZE_DIMENSION)
 		{
-			game_maze->maze.g[y][x] = 'Z';
+			game_maze->maze.g[y][x] = 'X';
 			x++;
 		}
-		x = 0;
 		y++;
 	}
-	game_maze->maze.valid_maze = -1;
 }
 
 int	initialise_game(t_game *game_data)
 {
-	// textures
-
-	// colors
-	game_data->color[F].color[0] = -1;
-	game_data->color[F].color[1] = -1;
-	game_data->color[F].color[2] = -1;
-	game_data->color[F].valid_rgb = -1;
-	game_data->color[C].color[0] = -1;
-	game_data->color[C].color[1] = -1;
-	game_data->color[C].color[2] = -1;
-	game_data->color[C].valid_rgb = -1;
-
-	// maze parse
-	// game_data->player_init_dir = 1.0;
-	// game_data->maze_closed = -1;
-
-	// player
 	game_data->player = (t_double_pixel *)ft_calloc(sizeof(t_double_pixel), 1);
 	if (!game_data->player)
 		return (1);
@@ -78,11 +59,7 @@ int	initialise_game(t_game *game_data)
 	game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
 	game_data->fov_angle = FOV * (M_PI / 180);
 	game_data->num_rays = WINDOW_WIDTH / 1;
-
-	// draw
-
-	// maze
-	init_maze(game_data); // ??
+	init_maze(game_data);
 	return (0);
 }
 
