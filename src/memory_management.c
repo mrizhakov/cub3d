@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/07 12:49:22 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 17:27:58 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void free_to_null_string(char **str)
 	*str = NULL;
 }
 
-void free_to_null_char_arr(char **str)
+void free_char_arr(char **str)
 {
 	int i;
 
@@ -36,61 +36,21 @@ void init_maze(t_game *game_maze)
 	int x;
 	int y;
 
-	x = 0;
 	y = 0;
-	while (y != MAZE_DIMENSION - 1)
+	while (y < MAZE_DIMENSION)
 	{
-		while (x != MAZE_DIMENSION - 1)
+		x = 0;
+		while (x < MAZE_DIMENSION)
 		{
-			game_maze->maze.g[y][x] = 'Z';
+			game_maze->maze.g[y][x] = 'X';
 			x++;
 		}
-		x = 0;
 		y++;
 	}
-	game_maze->maze.valid_maze = -1;
-}
-
-t_maze init_t_maze(t_maze maze) // ?? do we need this function?
-{
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
-	while (y != MAZE_DIMENSION - 1)
-	{
-		while (x != MAZE_DIMENSION - 1)
-		{
-			maze.g[y][x] = 'Z';
-			x++;
-		}
-		x = 0;
-		y++;
-	}
-	maze.valid_maze = -1;
-	return (maze);
 }
 
 int	initialise_game(t_game *game_data)
 {
-	// textures
-
-	// colors
-	game_data->floor.color[0] = -1;
-	game_data->floor.color[1] = -1;
-	game_data->floor.color[2] = -1;
-	game_data->floor.valid_rgb = -1;
-	game_data->ceiling.color[0] = -1;
-	game_data->ceiling.color[1] = -1;
-	game_data->ceiling.color[2] = -1;
-	game_data->ceiling.valid_rgb = -1;
-
-	// maze parse
-	game_data->player_init_dir = 1.0;
-	game_data->maze_closed = -1;
-
-	// player
 	game_data->player = (t_double_pixel *)ft_calloc(sizeof(t_double_pixel), 1);
 	if (!game_data->player)
 		return (1);
@@ -99,10 +59,6 @@ int	initialise_game(t_game *game_data)
 	game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
 	game_data->fov_angle = FOV * (M_PI / 180);
 	game_data->num_rays = WINDOW_WIDTH / 1;
-
-	// draw
-
-	// maze
 	init_maze(game_data);
 	return (0);
 }
@@ -111,10 +67,10 @@ void free_on_exit(t_game *game_data)
 {
 	if (!game_data)
 		return ;
-	free_to_null_string(&game_data->no_texture_filename);
-	free_to_null_string(&game_data->so_texture_filename);
-	free_to_null_string(&game_data->we_texture_filename);
-	free_to_null_string(&game_data->ea_texture_filename);
+	free_to_null_string(&game_data->texture_filename[NO]);
+	free_to_null_string(&game_data->texture_filename[SO]);
+	free_to_null_string(&game_data->texture_filename[WE]);
+	free_to_null_string(&game_data->texture_filename[EA]);
 	if (game_data->player)
 		free(game_data->player);
 	free(game_data);

@@ -1,0 +1,4 @@
+1. escape \n to draw only 2-3 lines of x in the bigining
+2. check filling of empty space of maze
+3. no players
+4. 11111111n1111111111111

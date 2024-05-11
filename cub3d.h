@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/07 16:42:54 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 20:33:25 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,21 @@
 # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
 # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
+# define MAP_TOKENS = "NEWS 10\n"
+
+typedef enum e_directions
+{
+	NO,
+	SO,
+	WE,
+	EA,
+}	t_direct;
+
+typedef enum e_colors
+{
+	F,
+	C,
+}	t_colors;
 
 //save textures here
 typedef struct s_textures
@@ -91,27 +106,19 @@ typedef struct	s_game
 	t_textures		*textures;
 
 	// textures
-	char			*no_texture_filename;
-	char			*so_texture_filename;
-	char			*we_texture_filename;
-	char			*ea_texture_filename;
-	int				no_texture_count;
-	int 			so_texture_count;
-	int				we_texture_count;
-	int 			ea_texture_count;
-	int				all_textures_ok;
+	char			*texture_filename[4];
+	int				texture_count[4];
+	bool				all_textures_ok;
 
     // colors
-	t_rgb			floor;
-	t_rgb			ceiling;
-	int				floor_count;
-	int				ceiling_count;
+	t_rgb			color[2];
+	int				color_count[2];
 
 	// maze parse
-	int				player_count;
+	// int				player_count;
 	int				player_init_loc[2];
 	double			player_init_dir;
-	int             maze_closed;
+	int				maze_closed;
 
 	// player
 	t_double_pixel	*player;
@@ -181,7 +188,7 @@ int				load_textures(t_game *game_data);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
 char			*parse_textures(char *map_line, char *direction);
-int				check_textures_ok(t_game *game_data);
+int				check_textures(t_game *game_data);
 int				check_colors_ok(t_game *game_data);
 int				is_valid_char(char matrix_val);
 int				no_of_players(t_game *game_data, char matrix_val);
@@ -194,7 +201,7 @@ int				initialise_game(t_game *game_data);
 void			init_maze(t_game *game_data);
 void			free_on_exit(t_game *game_data);
 void			free_to_null_string(char **str);
-void			free_to_null_char_arr(char **str);
+void			free_char_arr(char **str);
 
 // Extra MLX testing functions
 int32_t			mlx_demo(t_game *game_data);
@@ -246,5 +253,8 @@ void			print_maze(t_game *game_data);
 int32_t			ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
 //error_
+
+int	router_parse_data(char *line, t_game *game_data);
+
 
 #endif

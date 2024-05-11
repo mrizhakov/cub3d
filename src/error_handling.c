@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:01:00 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/06 15:47:59 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/10 19:27:46 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int check_read_file(int fd)
 	{
 		if (bytes_read == -1)
 		{
-			perror("Error reading file\n");
+			perror("Error reading file");
 			return (1);
 		}
 		bytes_read = read(fd, buf, FILE_READ_BUFFER);
