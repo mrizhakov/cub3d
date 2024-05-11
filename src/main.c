@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/07 17:20:53 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:40:24 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,10 @@ int32_t	main(int argc, const char *argv[])
 		return (free_on_exit(game_data), 1);
 	// ft_print_parsed_map(game_data);
 	maze_check_closed(game_data);
-	// print_maze(game_data);
-	// print_maze(game_data);
+
+	printf("north texture is : %s", game_data->no_texture_filename);
+
+	load_textures(game_data);
 	printf("Is map is closed %i\n", game_data->maze_closed);
 	mlx_demo(game_data);
 	free_on_exit(game_data);

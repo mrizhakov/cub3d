@@ -1,18 +1,20 @@
 #include "../cub3d.h"
 
-int	load_textures(t_game *game_data)
+int		load_textures(t_game *game_data)
 {
 	(void)game_data;
-	//t_textures	*textures;
-
-	//ft_printf("\n\nLoading textures\n\n");
-	//textures = ft_calloc(1, sizeof(t_textures));
-
-	//add function to read file and save it as char *
-	//textures->north = mlx_load_png(game_data->textures->mlx->NORTH );
-	// textures->south = mlx_load_png(game_data->textures->mlx->SOUTH);
-	// textures->east  = mlx_load_png(game_data->textures->mlx->EAST );
-	// textures->west  = mlx_load_png(game_data->textures->mlx->WEST);
-	//game_data->textures = textures;
-	return (0);
+	game_data->textures = malloc(sizeof (t_textures));
+	if (!game_data->textures)
+		return (1);
+    game_data->textures->north = mlx_load_png(game_data->no_texture_filename);
+	game_data->textures->east = mlx_load_png(game_data->ea_texture_filename);
+    game_data->textures->west = mlx_load_png(game_data->we_texture_filename);
+    game_data->textures->south = mlx_load_png(game_data->so_texture_filename);
+	if (!game_data->textures->north || !game_data->textures->east 
+		|| !game_data->textures->west || !game_data->textures->south)
+	{
+		free_textures(game_data);
+		return 1;
+	}
+    return 0;    
 }
