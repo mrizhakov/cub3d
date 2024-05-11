@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_demo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/06 15:11:13 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:13:00 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,10 @@ void ft_randomize(void* param)
     if (game_data->redraw_minimap == 0)
     {
         draw_black_background(game_data);
+        draw_fov(game_data);
         draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         draw_player(game_data, game_data->player, 3);
-        draw_fov(game_data);
+
 
         // other potentially usefull drawing functions
 

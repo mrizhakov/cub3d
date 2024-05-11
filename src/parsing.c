@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/08 16:47:34 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:09:59 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,11 @@ int check_colors_ok(t_game *game_data)
 		&& game_data->ceiling_count == 1
 		&& game_data->floor.valid_rgb == 1
 		&& game_data->ceiling.valid_rgb == 1)
+	{
+		game_data->floor.rgb_color = (int32_t)ft_double_pixel(game_data->floor.color[0] % 0xFF, game_data->floor.color[1]% 0xFF, game_data->floor.color[2]% 0xFF, 255);
+		game_data->ceiling.rgb_color = (int32_t)ft_double_pixel(game_data->ceiling.color[0] % 0xFF, game_data->ceiling.color[1]% 0xFF, game_data->ceiling.color[2]% 0xFF, 255);
 		return (1);
+	}
 	else
 		return (0);
 }

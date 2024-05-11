@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 20:26:22 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/11 18:10:18 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ typedef struct s_textures
 // used for colors
 typedef struct	s_rgb
 {
-	int	color[3];
-	int valid_rgb;
+	int			color[3];
+	int			valid_rgb;
+	uint32_t	rgb_color;
 }				t_rgb;
 
 //maze
