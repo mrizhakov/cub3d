@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 18:12:02 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/11 19:23:14 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,7 +218,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
         wall_top_pixel = 0;
     double wall_bottom_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
     if (wall_bottom_pixel > WINDOW_HEIGHT)
-        wall_bottom_pixel = WINDOW_HEIGHT;
+        wall_bottom_pixel = WINDOW_HEIGHT - 1;
     //draw wall projections
     drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel, 
             (uint32_t)column_id, (uint32_t)wall_bottom_pixel, 
