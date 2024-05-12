@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/11 20:37:19 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:55:52 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 //#define HEIGHT 1024 // change to window_heigh and window_width
 # define FILE_READ_BUFFER 1024
 # define MAZE_DIMENSION 40
-# define PLAYER_STEP 3
+# define PLAYER_STEP 1
 # define MAP_PADDING 2
 
 # define MINIMAP_SQUARE_SIDE_LEN 15
@@ -40,7 +40,7 @@
 # define MINIMAP_X_OFFSET 10
 # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
-# define TURNING_SPEED 0.03
+# define TURNING_SPEED 0.025
 # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
 # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
 # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
@@ -93,10 +93,12 @@ typedef struct	s_double_pixel
 	uint32_t	color;
 }				t_double_pixel;
 
+typedef struct	s_doors t_doors;
+
 // used for flood_fill
 typedef struct 	s_point {
-	int			x;				// x : Width  | x-axis
-	int			y;				// y : Height | y-axis
+	double		x;				// x : Width  | x-axis
+	double		y;				// y : Height | y-axis
 }				t_point;
 
 typedef struct	s_game
@@ -134,6 +136,7 @@ typedef struct	s_game
 	int             redraw_minimap;
 
 	// maze
+	t_point			cursor;
 	t_maze			maze;  // the maze
 }				t_game;
 

@@ -43,7 +43,7 @@ int parse_color_data(t_colors color, t_game *game_data, char *data)
 	if (i < 3)
 		return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
 	i = -1;
-	while (rgb.color[++i])
+	while (++i < 3)
 		if (rgb.color[i] < 0 || rgb.color[i] > 255)
 			return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
 	free_char_arr(colors);

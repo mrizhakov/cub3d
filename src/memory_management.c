@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 20:38:23 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:45:58 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,16 +65,19 @@ int	initialise_game(t_game *game_data)
 
 void free_textures(t_game *game_data)
 {
-	if (game_data->textures->north)
-		mlx_delete_texture(game_data->textures->north);
-	if (game_data->textures->east)
-		mlx_delete_texture(game_data->textures->east);
-	if (game_data->textures->west)
-		mlx_delete_texture(game_data->textures->west);
-	if (game_data->textures->south)
-		mlx_delete_texture(game_data->textures->south);
 	if (game_data->textures)
-		free(game_data->textures);
+	{
+		if (game_data->textures->north)
+			mlx_delete_texture(game_data->textures->north);
+		if (game_data->textures->east)
+			mlx_delete_texture(game_data->textures->east);
+		if (game_data->textures->west)
+			mlx_delete_texture(game_data->textures->west);
+		if (game_data->textures->south)
+			mlx_delete_texture(game_data->textures->south);
+		if (game_data->textures)
+			free(game_data->textures);
+	}
 }
 
 
