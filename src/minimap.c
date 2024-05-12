@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:54:27 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 18:01:01 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:05:19 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	check_close(char maze[40][40], int y, int x, char map_tok)
 {
 	if (maze[y][x + 1] == map_tok)
 		return (1);
-	if (maze[y + 1]
+	if (y + 1 < MAZE_DIMENSION && x + 1 < MAZE_DIMENSION
 		&& (maze[y + 1][x] == map_tok || maze[y + 1][x + 1] == map_tok))
 		return (1);
 	if (y > 0)
@@ -30,7 +30,7 @@ int	check_close(char maze[40][40], int y, int x, char map_tok)
 	{
 		if (maze[y][x - 1] == map_tok)
 			return (1);
-		if (maze[y + 1]
+		if (y + 1 < MAZE_DIMENSION
 			&& maze[y + 1][x - 1] == map_tok)
 			return (1);
 	}

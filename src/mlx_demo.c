@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_demo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 18:13:00 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/12 16:49:30 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ int32_t ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
     return (r << 24 | g << 16 | b << 8 | a);
 }
 
-void ft_randomize(void* param)
+void ft_draw_image(void* param)
 {
 	t_game *game_data;
 	game_data = (t_game *)param;
@@ -146,7 +146,7 @@ void ft_randomize(void* param)
     }
 }
 
-void ft_hook(void* param)
+void ft_keyboad_hook(void* param)
 {
     t_game *game_data = param;
 
@@ -168,6 +168,27 @@ void ft_hook(void* param)
         game_data->player_turn_dir = 1;
     if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0)
         update_pos(game_data);
+}
+
+void ft_cursor_hook(double xpos, double ypos, void* param)
+{
+	t_point	cursor;
+	t_game	*game_data;
+
+	cursor = ((t_game *)param)->cursor;
+	game_data = (t_game *)param;
+	if (cursor.x == 0)
+	{
+		game_data->cursor.x = xpos;
+		return ;
+	}
+	if (cursor.x > xpos)
+		game_data->player_turn_dir = -1;
+	else if (cursor.x < xpos)
+		game_data->player_turn_dir = 1;
+	game_data->cursor.x = xpos;
+	update_pos(game_data);
+	(void)ypos;
 }
 
 void	init_data(t_game *game_data)
@@ -206,8 +227,10 @@ int32_t mlx_demo(t_game *game_data)
     // printf("PLAYER STEP is %i\n", PLAYER_STEP);
     // printf("No offset\n");
     // printf("Initial player direction is %f\n", game_data->player_init_dir);
-	mlx_loop_hook(game_data->mlx, ft_randomize, game_data);
-	mlx_loop_hook(game_data->mlx, ft_hook, game_data);
+	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
+	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
+	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
 
 	mlx_loop(game_data->mlx);
 	mlx_terminate(game_data->mlx);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_logic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 18:34:51 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/12 15:47:26 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
     (void)game_data;
     if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
     {
-        if (game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == '0' 
+        if (game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == '0'
             || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'N'
             || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'E'
             || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'W'
@@ -30,7 +30,7 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
             return (0);
         }
     }
-    return(1);   
+    return(1);
 }
 
 double   check_angle_overflow(t_game *game_data, double player_angle)
@@ -49,7 +49,7 @@ void update_pos(t_game *game_data)
     double  player_y_check;
     double  player_x_check;
     double  move_step;
-    
+
     player_x_check = 0;
     player_y_check = 0;
     game_data->redraw_minimap = 0;
