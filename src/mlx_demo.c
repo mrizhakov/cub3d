@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/12 16:49:30 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:23:33 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,7 @@ void	init_data(t_game *game_data)
 	game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", 0);
 }
 
-int32_t mlx_demo(t_game *game_data)
+int32_t mlx_run(t_game *game_data)
 {
 	if (!(game_data->mlx = mlx_init(WINDOW_HEIGHT, WINDOW_WIDTH, "MLX42", true)))
 	{
