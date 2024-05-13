@@ -3,16 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_demo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/12 16:49:30 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:35:44 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 static mlx_image_t* image;
+
+uint32_t convertColors(uint8_t* pixels) {
+    uint32_t convertedColors;
+    
+
+    
+        uint8_t red   = pixels[0];
+        uint8_t green = pixels[1];
+        uint8_t blue  = pixels[2];
+        uint8_t alpha = pixels[3];
+
+        convertedColors = ((uint32_t)red   << 24) |
+                             ((uint32_t)green << 16) |
+                             ((uint32_t)blue  << 8)  |
+                             alpha;
+    
+
+    return convertedColors;
+}
+
+void    draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
+{
+    int i;
+    
+    i = 1;
+    while (wall_top_pixel != wall_bottom_pixel)
+    {
+    //printf("color is %i\n", game_data->images->north->pixels[i]);
+    // printf("Value: %" PRIu32 "\n", convertColors(&game_data->images->north->pixels[i]));
+
+    // printf("Wall top pixel is %i, color is %i\n", (int)wall_top_pixel, convertColors(&game_data->images->north->pixels[i]));
+    mlx_put_pixel(image, column_id, (int)wall_top_pixel, convertColors(&game_data->images->north->pixels[i]));
+
+    wall_top_pixel++;
+    i += game_data->images->north->width;
+    }
+    
+}
 
 // Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable
 void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color)

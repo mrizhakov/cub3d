@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/12 16:55:52 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:35:37 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <fcntl.h>
 # include <math.h>
 # include <limits.h>
+#include <inttypes.h> // For PRIu32 macro
+
 
 
 # define WINDOW_WIDTH 1000
@@ -70,6 +72,14 @@ typedef struct s_textures
 	mlx_texture_t		*west;
 }						t_textures;
 
+typedef struct s_text_images
+{
+	mlx_image_t		*north;
+	mlx_image_t		*south;
+	mlx_image_t		*east;
+	mlx_image_t		*west;
+}						t_text_images;
+
 // used for colors
 typedef struct	s_rgb
 {
@@ -107,6 +117,7 @@ typedef struct	s_game
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
+	t_text_images	*images;
 
 	// textures
 	char			*texture_filename[4];
@@ -241,6 +252,7 @@ void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			ray_init_data(t_raycast *ray);
+void    		draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel);
 
 
 //Game logic
