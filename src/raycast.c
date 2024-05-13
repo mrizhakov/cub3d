@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 20:43:02 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:27:23 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,9 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
     drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
             (uint32_t)column_id, (uint32_t)wall_bottom_pixel,
             game_data->player->color);
-    //draw floor
+
+    // draw_textures(game_data, column_id, wall_top_pixel, wall_bottom_pixel);
+// {    //draw floor
     drawLine((uint32_t)column_id, (uint32_t)wall_bottom_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
             game_data->color[F].rgb_color);
