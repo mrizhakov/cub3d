@@ -6,14 +6,14 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/13 14:35:37 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:26:08 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./MLX42.h"
+# include "./MLX42/include/MLX42/MLX42.h"
 # include "./libft/libft.h"
 
 # include <stdio.h>
@@ -217,7 +217,7 @@ void			free_textures(t_game *game_data);
 
 
 // Extra MLX testing functions
-int32_t			mlx_demo(t_game *game_data);
+int32_t			mlx_run(t_game *game_data);
 int32_t			conv_x(int32_t x, int32_t y, double angle);
 int32_t			conv_y(int32_t x, int32_t y, double angle);
 t_double_pixel	rotatePoint(t_double_pixel p, t_double_pixel center, double angle);

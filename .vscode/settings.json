@@ -6,6 +6,7 @@
 		"*.tcc": "c",
 		"cmath": "c",
 		"libft.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"*.c" : "c"
 	}
 }

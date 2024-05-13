@@ -6,17 +6,11 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/07 23:23:44 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 22:10:37 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/12 17:25:37 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-#include "../MLX42/include/MLX42/MLX42.h"
-
-// #define WIDTH 512
-// #define HEIGHT 512
-
-
 
 int32_t	main(int argc, const char *argv[])
 {
@@ -36,7 +30,7 @@ int32_t	main(int argc, const char *argv[])
 
 	load_textures(game_data);
 	printf("Is map is closed %i\n", game_data->maze_closed);
-	mlx_demo(game_data);
+	mlx_run(game_data);
 	free_on_exit(game_data);
 	printf("Exiting\n");
 
