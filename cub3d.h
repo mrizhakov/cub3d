@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/12 17:26:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:00:40 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ typedef struct	s_game
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
-	t_text_images	*images;
+	// t_text_images	*images;
 
 	// textures
 	char			*texture_filename[4];

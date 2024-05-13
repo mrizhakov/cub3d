@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   textures.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 14:16:43 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/13 14:16:44 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:12:16 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ int		load_textures(t_game *game_data)
 		return (1);
 	}
 	// game_data->images = malloc(sizeof(t_text_images));
-	if (!game_data->images)
-		return (1);
-	game_data->images->north = mlx_texture_to_image(game_data->mlx, game_data->textures->north);
-	game_data->images->south = mlx_texture_to_image(game_data->mlx, game_data->textures->south);
-	game_data->images->west = mlx_texture_to_image(game_data->mlx, game_data->textures->west);
-	game_data->images->east = mlx_texture_to_image(game_data->mlx, game_data->textures->east);
+	// if (!game_data->images)
+	// 	return (1);
+	// game_data->images->north = mlx_texture_to_image(game_data->mlx, game_data->textures->north);
+	// game_data->images->south = mlx_texture_to_image(game_data->mlx, game_data->textures->south);
+	// game_data->images->west = mlx_texture_to_image(game_data->mlx, game_data->textures->west);
+	// game_data->images->east = mlx_texture_to_image(game_data->mlx, game_data->textures->east);
 
     return 0;
 }
