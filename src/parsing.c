@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/12 15:46:39 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/13 13:40:38 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int	parse_maze(t_game *game_data, char *line)
 			return (ft_putendl_fd("Error\nMap error", 2), 1); //??
 		if(!is_player(game_data, j + 1, i, "NEWS"))
 			if (init_player(game_data, game_data->maze.g[j + 1][i], i, j + 1))
-				return (ft_putendl_fd("Two or more players", 2), 1); //??
+				return (ft_putendl_fd("Error\nTwo or more players", 2), 1); //??
 		i++;
 	}
 	if (line[i - 1])

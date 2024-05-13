@@ -69,12 +69,12 @@ int	router_parse_data(char *line, t_game *game_data)
 		while (token_texture[j])
 			if (!ft_strncmp(tokens[i], token_texture[j++], ft_strlen(tokens[i]))
 				&& parse_texture_file(j - 1, game_data, tokens[i + 1]))
-					return (free_char_arr(tokens), 1); // free memory
+					return (free_char_arr(tokens), 1);
 		j = 0;
 		while (token_color[j])
 			if (!ft_strncmp(tokens[i], token_color[j++], ft_strlen(tokens[i]))
 				&& parse_color_data(j - 1, game_data, tokens[i + 1]))
-					return (free_char_arr(tokens), 1); //free memory
+					return (free_char_arr(tokens), 1);
 		i++;
 	}
 	free_char_arr(tokens);
