@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/13 14:27:23 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/14 21:56:20 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void ray_orientation(t_raycast *ray, double ray_angle)
 void ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 {
     ray->yintercept = floor(game_data->player->y / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
+    // swap this to get pshycodelic effect
+    // ray->yintercept = (game_data->player->y / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
     if (ray->is_ray_facing_down)
         ray->yintercept += ray->is_ray_facing_down * MINIMAP_SQUARE_SIDE_LEN;
     ray->xintercept = game_data->player->x + (ray->yintercept - game_data->player->y) / tan(ray_angle);
@@ -83,12 +85,16 @@ void ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 void ray_horiz_loop(t_game *game_data, t_raycast *ray)
 {
     // increment xstep and ystep until we find a wall
+    // while(ray->next_hor_touch_x >= 0 && ray->next_hor_touch_y >= 0
+    //     && ray->next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1
+    //     && ray->next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1)
     while(ray->next_hor_touch_x >= 0 && ray->next_hor_touch_y >= 0
-        && ray->next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1
-        && ray->next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1)
+        && ray->next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION
+        && ray->next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION)
     {
         // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
-        if (game_data->maze.g[(int)(ray->next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN)][(int)(ray->next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
+        if (game_data->maze.g[(int)ray->next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN][(int)ray->next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN] == '1')
+        // if (game_data->maze.g[((int)ray->next_hor_touch_y - ray->is_ray_facing_up ? 1: 0) / MINIMAP_SQUARE_SIDE_LEN][(int)(ray->next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
         {
             //found a wall
             ray->found_hor_hit = 1;
@@ -108,6 +114,8 @@ void ray_horiz_loop(t_game *game_data, t_raycast *ray)
 void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 {
     ray->xintercept = floor(game_data->player->x / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
+    // swap this to get pshycodelic effect
+    // ray->xintercept = (game_data->player->x / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
     if (ray->is_ray_facing_right)
         ray->xintercept += ray->is_ray_facing_right * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
 
@@ -132,10 +140,14 @@ void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 void ray_vert_loop(t_game *game_data, t_raycast *ray)
 {
     while(ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
-        && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1
-        && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
+        && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
+        && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
+    // while(ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
+    //     && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1
+    //     && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
     {
-        if (game_data->maze.g[(int)(ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN)][(int)(ray->next_vert_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
+        if (game_data->maze.g[(int)ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN][(int)ray->next_vert_touch_x  / MINIMAP_SQUARE_SIDE_LEN] == '1')
+        // if (game_data->maze.g[(int)ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN][((int)ray->next_vert_touch_x  - ray->is_ray_facing_left ? 1 : 0)/ MINIMAP_SQUARE_SIDE_LEN] == '1')
         {
             ray->found_vert_hit = 1;
             ray->vert_wall_hit_x = ray->next_vert_touch_x;
@@ -219,11 +231,36 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
     double wall_bottom_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
     if (wall_bottom_pixel > WINDOW_HEIGHT)
         wall_bottom_pixel = WINDOW_HEIGHT - 1;
+
+
+    // X offset for finding where on the cube you should start drawing a texture
+    // each square is MINIMAP_SQUARE_SIDE_LEN long, texture_offset_X tells you how many pixels
+    // you have to offset on each particular tile tto start drawing textures
+    // texture_offset_x is NOT column_id, column_id is a value of FOV
+    // FOV has column_id * WINDOW_WIDTH, this is all the visible range in X
+    // 
+    int texture_offset_x;
+    if (ray->was_hit_vertical)
+        texture_offset_x = (int)ray->wallHitY % MINIMAP_SQUARE_SIDE_LEN;
+    else
+        texture_offset_x = (int)ray->wallHitX % MINIMAP_SQUARE_SIDE_LEN;
+
+    // Y offset for texure drawing
+    // get TEXTURE_HEIGHT from the textures
+    
+    // int texture_offset_y;
+    // int y = wall_top_pixel;
+    
+    // int distance_from_top  = y + (wall_strip_height / 2) - (WINDOW_HEIGHT / 2);
+    // texture_offset_y  = distance_from_top * (float)TEXTURE_HEIGHT / wall_strip_height;
+
+
+
     //draw wall projections
     drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
             (uint32_t)column_id, (uint32_t)wall_bottom_pixel,
             game_data->player->color);
-
+            
     // draw_textures(game_data, column_id, wall_top_pixel, wall_bottom_pixel);
 // {    //draw floor
     drawLine((uint32_t)column_id, (uint32_t)wall_bottom_pixel,

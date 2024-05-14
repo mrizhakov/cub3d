@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/12 17:23:33 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/14 17:36:22 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,10 +201,10 @@ void ft_keyboad_hook(void* param)
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_S))
         game_data->player_walk_dir = -1;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_A))
-        game_data->player_turn_dir = -1;
+        game_data->player_walk_strafe = -1;
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_D))
-        game_data->player_turn_dir = 1;
-    if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0)
+        game_data->player_walk_strafe = 1;
+    if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0 || game_data->player_walk_strafe != 0)
         update_pos(game_data);
 }
 

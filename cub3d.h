@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/12 17:26:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/13 14:48:55 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ typedef struct	s_game
 	double			player_angle;
 	int				player_turn_dir;
 	int				player_walk_dir;
+	int				player_walk_strafe;
 	int				player_turn_speed;
 	double			fov_angle;
 	int				num_rays;
