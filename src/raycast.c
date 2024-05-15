@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 15:42:59 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:46:01 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,7 +243,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
         texture_offset_x = (int)ray->wallHitY % MINIMAP_SQUARE_SIDE_LEN;
     else
         texture_offset_x = (int)ray->wallHitX % MINIMAP_SQUARE_SIDE_LEN;
-
+	(void)texture_offset_x;
     // Y offset for texure drawing
     // get TEXTURE_HEIGHT from the textures
 
