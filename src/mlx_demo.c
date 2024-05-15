@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 19:56:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:21:34 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,43 +301,34 @@ void	init_data(t_game *game_data)
 
 int32_t mlx_run(t_game *game_data)
 {
+	mlx_texture_t	*icon;
+
 	if (!(game_data->mlx = mlx_init(WINDOW_HEIGHT, WINDOW_WIDTH, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
-		free_on_exit(game_data); // added to the demo mlx42 implementation
 		return(EXIT_FAILURE);
 	}
 	if (!(image = mlx_new_image(game_data->mlx, WINDOW_HEIGHT, WINDOW_WIDTH))) //static image here
 	{
 		mlx_close_window(game_data->mlx);
 		puts(mlx_strerror(mlx_errno));
-		free_on_exit(game_data); //added to the demo mlx42 implementation
 		return(EXIT_FAILURE);
 	}
 	if (mlx_image_to_window(game_data->mlx, image, 0, 0) == -1) //static image here
 	{
 		mlx_close_window(game_data->mlx);
 		puts(mlx_strerror(mlx_errno));
-		free_on_exit(game_data); //added to the demo mlx42 implementation
 		return(EXIT_FAILURE);
 	}
-
-	// image 2 for walls
-    // Bug testing printout of the player position
-
-    // printf("Initial player pos in pixels: x %f and y %f\n", game_data->player->x,  game_data->player->y);
-    // printf("Initial player pos in int[2] array is: init_loc[0] or y %i and init_loc[1] x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
-    // printf("Initial player pos in int[2] array is: y %i and x %i\n", game_data->player_init_loc[0],  game_data->player_init_loc[1]);
-    // printf("PLAYER STEP is %i\n", PLAYER_STEP);
-    // printf("No offset\n");
-    // printf("Initial player direction is %f\n", game_data->player_init_dir);
-	mlx_texture_t *icon = mlx_load_png("/Users/HP/Documents/Programming/learning_C/cub3d/src/textures/icon.png");
-	mlx_set_icon(game_data->mlx, icon);
+	icon = mlx_load_png(ICON);
+	if (!icon)
+		ft_putendl_fd("Warning: icon is not set", 2);
+	else
+		mlx_set_icon(game_data->mlx, icon);
 	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
 	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
-
 	mlx_loop(game_data->mlx);
 	mlx_terminate(game_data->mlx);
     return(EXIT_SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/15 15:41:46 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 20:08:22 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,12 @@
 # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.025
-# define NORTH "./textures/DarkAbstractBackgrounds_03.png"
-# define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
-# define EAST  "./textures/DarkAbstractBackgrounds_09.png"
-# define WEST  "./textures/DarkAbstractBackgrounds_10.png"
-# define MAP_TOKENS = "NEWS 10\n"
+# define ICON "./src/textures/icon.png"
+// # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
+// # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
+// # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
+// # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
+// # define MAP_TOKENS = "NEWS 10\n"
 
 typedef enum e_directions
 {
