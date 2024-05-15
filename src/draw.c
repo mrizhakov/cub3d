@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/11 18:35:34 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:42:05 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int32_t draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel e
             start.x--;
         }
         if(start.x == end.x)
-        {   
+        {
             drawLine(start.x, start.y, start.x, end.y, start.color);
         }
         return(1);
@@ -82,7 +82,7 @@ int32_t draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel e
 int32_t draw_square(t_game *game_data, t_double_pixel start, unsigned int side_len)
 {
     unsigned int i;
-    
+
     i = 0;
     (void)game_data;
     if (check_pix(start))
@@ -107,8 +107,8 @@ int32_t draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len
 
     x = 0;
     y = 0;
-    t_double_pixel origin;
-    origin = start;
+    // t_double_pixel origin;
+    // origin = start;
     int border;
     border = 1;
     while (y != MAZE_DIMENSION - 1)
@@ -215,7 +215,7 @@ int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side
 {
     (void)player;
     t_double_pixel player_square;
-    
+
     player_square.x = game_data->player->x - 1;
     player_square.y = game_data->player->y - 1;
     player_square.color = game_data->player->color;

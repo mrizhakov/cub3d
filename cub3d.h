@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/13 22:09:15 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:42:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 
 
 
-# define WINDOW_WIDTH 1080
-# define WINDOW_HEIGHT 1080 // not sure why doesnt  work properly with non-square big window size
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 800 // not sure why doesnt  work properly with non-square big window size
 // which one ?
 //#define WIDTH 1280
 //#define HEIGHT 1024 // change to window_heigh and window_width

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/13 21:51:23 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/14 19:54:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,19 @@ t_color convertColors(mlx_texture_t* texture, uint32_t index)
 	return color;
 }
 
+double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uint32_t height)
+{
+    // static double   div;
+    double          step;
+
+    // div++;
+    step = wall_top_pixel + (wall_bottom_pixel - wall_top_pixel) / height;
+    if (step <= 1)
+        return (step);
+    else
+        return (step);
+}
+
 void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
 {
 	uint32_t	i;
@@ -78,9 +91,7 @@ void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, doub
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
 		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i));
-		// mlx_put_pixel(image, column_id, (int)wall_top_pixel,
-		// 	convertColors(game_data->textures->north, i));
-		wall_top_pixel++;
+		wall_top_pixel = calculate_pixel_move(wall_top_pixel, wall_bottom_pixel, game_data->textures->north->height);
 		if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
 			i = 0;
 		i += game_data->textures->north->width * 4;
@@ -226,11 +237,11 @@ void ft_keyboad_hook(void* param)
 {
     t_game *game_data = param;
 
-    int player_y_check;
-    int player_x_check;
+    // int player_y_check;
+    // int player_x_check;
 
-    player_y_check = game_data->player->y;
-    player_x_check = game_data->player->x;
+    // player_y_check = game_data->player->y;
+    // player_x_check = game_data->player->x;
 
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game_data->mlx);

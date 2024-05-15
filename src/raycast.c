@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/13 14:57:06 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/14 15:01:07 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,8 +224,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
     //         (uint32_t)column_id, (uint32_t)wall_bottom_pixel,
     //         game_data->player->color);
 
-    draw_textures(game_data, column_id, wall_top_pixel, wall_bottom_pixel);
-// {    //draw floor
+    draw_textures(game_data, column_id, wall_top_pixel, wall_bottom_pixel);    //draw floor
     drawLine((uint32_t)column_id, (uint32_t)wall_bottom_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
             game_data->color[F].rgb_color);
@@ -295,12 +294,12 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 
 void    draw_fov(t_game *game_data)
 {
-    unsigned int    column_id;
+    // unsigned int    column_id;
     double          ray_angle;
     int             i;
 
     i = 0;
-    column_id = 0;
+    // column_id = 0;
 
     ray_angle = game_data->player_angle - (game_data->fov_angle/2);
 
