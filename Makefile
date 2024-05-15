@@ -52,7 +52,8 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-# $(RM) -r $(TEST)
+	$(RM) -r $(TEST)
+	$(RM) test.sh
 # $(RM) -r $(LIBMLX)
 
 re: fclean all
@@ -60,6 +61,7 @@ re: fclean all
 $(TEST):
 	@if ! [ -d "$(TEST)" ]; then \
 	git clone git@github.com:ddavlet/test_maps_cub3D.git $(TEST); \
+	mv $(TEST)test.sh ./test.sh; \
 	fi
 
 .PHONY: all clean re fclean

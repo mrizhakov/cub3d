@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 15:41:58 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:56:13 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -323,7 +323,7 @@ int32_t mlx_run(t_game *game_data)
     // printf("Initial player direction is %f\n", game_data->player_init_dir);
 	mlx_texture_t *icon = mlx_load_png("./src/textures/icon.png");
 	mlx_set_icon(game_data->mlx, icon);
-	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
 	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
