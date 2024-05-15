@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 19:54:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:26:46 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,27 +71,34 @@ t_color convertColors(mlx_texture_t* texture, uint32_t index)
 
 double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uint32_t height)
 {
-    // static double   div;
-    double          step;
+	double	err;
 
-    // div++;
-    step = wall_top_pixel + (wall_bottom_pixel - wall_top_pixel) / height;
-    if (step <= 1)
-        return (step);
-    else
-        return (step);
+	err = (wall_bottom_pixel - wall_top_pixel) / height;
+	if (err <= 1)
+		return (wall_bottom_pixel + err);
+	else
+		return (wall_top_pixel + 1);
 }
 
 void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
 {
 	uint32_t	i;
+	uint32_t	height;
+	double		prev_pixel;
+	double		err;
 	static uint32_t	j;
 
 	i = 0 + j;
+	height = game_data->textures->north->height;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
+		prev_pixel = wall_top_pixel;
 		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i));
-		wall_top_pixel = calculate_pixel_move(wall_top_pixel, wall_bottom_pixel, game_data->textures->north->height);
+		err = (wall_bottom_pixel - wall_top_pixel) / height;
+		wall_top_pixel += err;
+		while ((int)(wall_top_pixel - prev_pixel > 1))
+			put_pixel(image, column_id, (int)++prev_pixel, convertColors(game_data->textures->north, i));
+		height--;
 		if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
 			i = 0;
 		i += game_data->textures->north->width * 4;
@@ -314,6 +321,8 @@ int32_t mlx_run(t_game *game_data)
     // printf("PLAYER STEP is %i\n", PLAYER_STEP);
     // printf("No offset\n");
     // printf("Initial player direction is %f\n", game_data->player_init_dir);
+	mlx_texture_t *icon = mlx_load_png("./src/textures/icon.png");
+	mlx_set_icon(game_data->mlx, icon);
 	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
