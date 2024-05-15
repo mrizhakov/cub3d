@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 15:56:13 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:56:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,30 +42,30 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 	draw_pixel(pixelstart, color);
 }
 
-t_color convertColors(mlx_texture_t* texture, uint32_t index)
+double sigmoid(double x) {
+    return 1 / (1 + exp(-x));
+}
+
+double transform(double value) {
+    const double center = 0.4; // Center of transformation
+    const double scale = 10.0; // Scale factor for significance
+    double shifted = value - center; // Shift to make center at 0
+    double transformed = sigmoid(scale * shifted); // Apply sigmoid function
+    return transformed;
+}
+
+t_color convertColors(mlx_texture_t* texture, uint32_t index, double distance)
 {
-	// uint32_t	convertedColors;
-	// uint8_t		red;
-	// uint8_t		green;
-	// uint8_t		blue;
-	// uint8_t		alpha;
 	t_color		color;
-	// red   = texture->pixels[index];
-	// green = texture->pixels[index + 1];
-	// blue  = texture->pixels[index + 2];
-	// alpha = texture->pixels[index + 3];
-	// // alpha = (uint8_t)256;
-	// convertedColors = (uint32_t)(red | green | blue | 0);
 
 	color.red = texture->pixels[index];
 	color.green = texture->pixels[index + 1];
 	color.blue = texture->pixels[index + 2];
 	color.alpha = texture->pixels[index + 3];
-	// *index = *index + 4;
-	// convertedColors = 0xFF00FFFF;
-	// (void)texture;
-	// printf("%x\n", convertedColors);
-	// convertedColors = 0xFF0000FF;
+	distance = transform(distance / WINDOW_HEIGHT);
+	color.red = distance * color.red;
+	color.green = distance * color.green;
+	color.blue = distance * color.blue;
 	return color;
 }
 
@@ -82,22 +82,24 @@ double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uin
 
 void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
 {
-	uint32_t	i;
-	uint32_t	height;
-	double		prev_pixel;
-	double		err;
+	uint32_t		i;
+	uint32_t		height;
+	double			prev_pixel;
+	double			err;
 	static uint32_t	j;
+	double			wall_height;
 
 	i = 0 + j;
 	height = game_data->textures->north->height;
+	wall_height = wall_bottom_pixel - wall_top_pixel;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
 		prev_pixel = wall_top_pixel;
-		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i));
+		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i, wall_height));
 		err = (wall_bottom_pixel - wall_top_pixel) / height;
 		wall_top_pixel += err;
 		while ((int)(wall_top_pixel - prev_pixel > 1))
-			put_pixel(image, column_id, (int)++prev_pixel, convertColors(game_data->textures->north, i));
+			put_pixel(image, column_id, (int)++prev_pixel, convertColors(game_data->textures->north, i, wall_height));
 		height--;
 		if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
 			i = 0;
@@ -260,6 +262,12 @@ void ft_keyboad_hook(void* param)
         game_data->player_walk_strafe = -1;
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_D))
         game_data->player_walk_strafe = 1;
+    if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
+		game_data->player_turn_dir = -1;
+	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
+		game_data->player_turn_dir = 1;
+	if (mlx_is_key_down(game_data->mlx, MLX_KEY_E))
+		printf("Action key triggered\n");
     if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0 || game_data->player_walk_strafe != 0)
         update_pos(game_data);
 }
@@ -313,6 +321,8 @@ int32_t mlx_run(t_game *game_data)
 		free_on_exit(game_data); //added to the demo mlx42 implementation
 		return(EXIT_FAILURE);
 	}
+
+	// image 2 for walls
     // Bug testing printout of the player position
 
     // printf("Initial player pos in pixels: x %f and y %f\n", game_data->player->x,  game_data->player->y);
@@ -321,7 +331,7 @@ int32_t mlx_run(t_game *game_data)
     // printf("PLAYER STEP is %i\n", PLAYER_STEP);
     // printf("No offset\n");
     // printf("Initial player direction is %f\n", game_data->player_init_dir);
-	mlx_texture_t *icon = mlx_load_png("./src/textures/icon.png");
+	mlx_texture_t *icon = mlx_load_png("/Users/HP/Documents/Programming/learning_C/cub3d/src/textures/icon.png");
 	mlx_set_icon(game_data->mlx, icon);
 	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);

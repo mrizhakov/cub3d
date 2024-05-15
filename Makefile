@@ -20,7 +20,7 @@ LIBFT_SRC := ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft
 		ft_chararr_len.c ft_chararr_append.c ft_chararr_dup.c ft_intarrdup.c ft_free_ptr.c
 LIBFT_SOURCE := $(addprefix $(LIB_DIR), $(LIBFT_SRC))
 LIBFT_OBJ = $(LIBFT_SOURCE:.c=.o)
-LIB := -Llibft -lft -ldl -L/usr/local/lib/glfw -lglfw -pthread -lm -LMLX42/build -lmlx42
+LIB := -Llibft -lft -ldl -lglfw -pthread -lm -LMLX42/build -lmlx42
 OBJ = $(EXE_SRCS:.c=.o)
 OBJ := $(addprefix $(OBJ_DIR), $(OBJ))
 TEST := maps/
@@ -52,9 +52,9 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) -r $(TEST)
-	$(RM) test.sh
-# $(RM) -r $(LIBMLX)
+#	$(RM) -r $(TEST)
+#	$(RM) test.sh
+#	$(RM) -r $(LIBMLX)
 
 re: fclean all
 

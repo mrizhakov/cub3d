@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 15:46:01 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/15 19:52:02 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,19 +189,19 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
 }
 
 
-void ray_init_data(t_raycast *ray)
-{
-    ray->found_hor_hit = 0;
-    ray->hor_wall_hit_x = 0;
-    ray->hor_wall_hit_y = 0;
-    ray->wallHitX = 0;
-    ray->wallHitY = 0;
-    ray->found_vert_hit = 0;
-    ray->vert_wall_hit_x = 0;
-    ray->vert_wall_hit_y = 0;
-    ray->was_hit_vertical = 0;
-    ray->distance = 0;
-}
+// void ray_init_data(t_raycast *ray)
+// {
+//     ray->found_hor_hit = 0;
+//     ray->hor_wall_hit_x = 0;
+//     ray->hor_wall_hit_y = 0;
+//     ray->wallHitX = 0;
+//     ray->wallHitY = 0;
+//     ray->found_vert_hit = 0;
+//     ray->vert_wall_hit_x = 0;
+//     ray->vert_wall_hit_y = 0;
+//     ray->was_hit_vertical = 0;
+//     ray->distance = 0;
+// }
 
 
 
@@ -277,7 +277,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     t_raycast ray;
 
     (void)column_id;
-    ray_init_data(&ray);
+    // ray_init_data(&ray);
+	ft_bzero(&ray, sizeof(ray));
     ray_orientation(&ray, ray_angle);
     ray_horiz_calc(game_data, &ray, ray_angle);
     ray_horiz_loop(game_data, &ray);
