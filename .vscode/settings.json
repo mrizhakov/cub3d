@@ -7,6 +7,10 @@
 		"cmath": "c",
 		"libft.h": "c",
 		"stdio.h": "c",
-		"*.c" : "c"
+		"*.c": "c",
+		"stdbool.h": "c",
+		"math.h": "c",
+		"unistd.h": "c",
+		"mlx42_int.h": "c"
 	}
 }

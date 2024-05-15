@@ -9,8 +9,8 @@ EXE_SOURCE :=	cleanup.c draw.c error_handling.c error_messages.c game_logic.c ma
 EXE_SRCS = $(addprefix $(SRC_DIR), $(EXE_SOURCE))
 OBJ_DIR := obj/
 INC := -I. -IMLX42/include -IMLX42/include/glad -IMLX42/include/KHR -IMLX42/include/lodepng -IMLX42/include/MLX42
-LIB_DIR := libft/
-LIBFT := $(LIB_DIR)libft.a
+LIB_DIR = libft/
+LIBFT = $(LIB_DIR)libft.a
 LIBFT_SRC := ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_isprint.c \
 		ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_memmove.c ft_strlcpy.c ft_strlcat.c \
 		ft_toupper.c ft_tolower.c ft_strchr.c ft_strrchr.c ft_strncmp.c ft_memchr.c ft_memcmp.c \
@@ -20,7 +20,7 @@ LIBFT_SRC := ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft
 		ft_chararr_len.c ft_chararr_append.c ft_chararr_dup.c ft_intarrdup.c ft_free_ptr.c
 LIBFT_SOURCE := $(addprefix $(LIB_DIR), $(LIBFT_SRC))
 LIBFT_OBJ = $(LIBFT_SOURCE:.c=.o)
-LIB := -Llibft -lft -ldl -lglfw -pthread -lm -LMLX42/build -lmlx42
+LIB := -Llibft -lft -ldl -L/usr/local/lib/glfw -lglfw -pthread -lm -LMLX42/build -lmlx42
 OBJ = $(EXE_SRCS:.c=.o)
 OBJ := $(addprefix $(OBJ_DIR), $(OBJ))
 TEST := maps/
@@ -52,8 +52,8 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	$(RM) -r $(TEST)
-	$(RM) -r $(LIBMLX)
+# $(RM) -r $(TEST)
+# $(RM) -r $(LIBMLX)
 
 re: fclean all
 
@@ -62,4 +62,4 @@ $(TEST):
 	git clone git@github.com:ddavlet/test_maps_cub3D.git $(TEST); \
 	fi
 
-.PHONY: all clean re
+.PHONY: all clean re fclean

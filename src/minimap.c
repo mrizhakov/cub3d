@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:54:27 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/12 17:05:19 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/14 13:42:31 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ int maze_check_closed(t_game *game_data)
 {
 	int	i;
 	int	j;
-	int	player;
 
 	j = 0;
-	player = 0;
 	while(j < MAZE_DIMENSION)
 	{
 		i = 0;

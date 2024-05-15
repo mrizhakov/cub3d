@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cub3D",
-            "args": ["maps/default_working.cub"],
+            "args": ["./maps/default_working.cub"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -27,6 +27,18 @@
                     "ignoreFailures": true
                 }
             ]
+        },
+        {
+            "name": "MAC_debug",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/cub3D",
+            "args": ["/Users/HP/Documents/Programming/learning_C/cub3d/maps/default_working.cub"],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb",
         }
     ]
 }

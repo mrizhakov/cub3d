@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_demo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 17:36:22 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:41:58 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,42 +14,98 @@
 
 static mlx_image_t* image;
 
-uint32_t convertColors(uint8_t* pixels) {
-    uint32_t convertedColors;
-    
-
-    
-        uint8_t red   = pixels[0];
-        uint8_t green = pixels[1];
-        uint8_t blue  = pixels[2];
-        uint8_t alpha = pixels[3];
-
-        convertedColors = ((uint32_t)red   << 24) |
-                             ((uint32_t)green << 16) |
-                             ((uint32_t)blue  << 8)  |
-                             alpha;
-    
-
-    return convertedColors;
+void	draw_pixel(uint8_t *pixel, t_color color)
+{
+	*(pixel++) = color.red;
+	*(pixel++) = color.green;
+	*(pixel++) = color.blue;
+	*(pixel++) = color.alpha;
 }
 
-void    draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
+void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 {
-    int i;
-    
-    i = 1;
-    while (wall_top_pixel != wall_bottom_pixel)
-    {
-    //printf("color is %i\n", game_data->images->north->pixels[i]);
-    // printf("Value: %" PRIu32 "\n", convertColors(&game_data->images->north->pixels[i]));
+	uint8_t		*pixelstart;
 
-    // printf("Wall top pixel is %i, color is %i\n", (int)wall_top_pixel, convertColors(&game_data->images->north->pixels[i]));
-    mlx_put_pixel(image, column_id, (int)wall_top_pixel, convertColors(&game_data->images->north->pixels[i]));
+	if (!img)
+		ft_putendl_fd("Image does not exist", 2);
+	if (!(x < img->width))
+	{
+		ft_putendl_fd("Pixel is out of bounds (axes x)", 2);
+		printf("iso_x: %u width: %u\n", x, img->width);
+	}
+	if (!(y < img->height))
+	{
+		ft_putendl_fd("Pixel is out of bounds (axes y)", 2);
+		printf("iso_y: %u height: %u\n", y, img->height);
+	}
+	pixelstart = &img->pixels[(y * img->width + x) * BPP];
+	draw_pixel(pixelstart, color);
+}
 
-    wall_top_pixel++;
-    i += game_data->images->north->width;
-    }
-    
+t_color convertColors(mlx_texture_t* texture, uint32_t index)
+{
+	// uint32_t	convertedColors;
+	// uint8_t		red;
+	// uint8_t		green;
+	// uint8_t		blue;
+	// uint8_t		alpha;
+	t_color		color;
+	// red   = texture->pixels[index];
+	// green = texture->pixels[index + 1];
+	// blue  = texture->pixels[index + 2];
+	// alpha = texture->pixels[index + 3];
+	// // alpha = (uint8_t)256;
+	// convertedColors = (uint32_t)(red | green | blue | 0);
+
+	color.red = texture->pixels[index];
+	color.green = texture->pixels[index + 1];
+	color.blue = texture->pixels[index + 2];
+	color.alpha = texture->pixels[index + 3];
+	// *index = *index + 4;
+	// convertedColors = 0xFF00FFFF;
+	// (void)texture;
+	// printf("%x\n", convertedColors);
+	// convertedColors = 0xFF0000FF;
+	return color;
+}
+
+double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uint32_t height)
+{
+	double	err;
+
+	err = (wall_bottom_pixel - wall_top_pixel) / height;
+	if (err <= 1)
+		return (wall_bottom_pixel + err);
+	else
+		return (wall_top_pixel + 1);
+}
+
+void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
+{
+	uint32_t	i;
+	uint32_t	height;
+	double		prev_pixel;
+	double		err;
+	static uint32_t	j;
+
+	i = 0 + j;
+	height = game_data->textures->north->height;
+	while (wall_top_pixel < wall_bottom_pixel - 1)
+	{
+		prev_pixel = wall_top_pixel;
+		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i));
+		err = (wall_bottom_pixel - wall_top_pixel) / height;
+		wall_top_pixel += err;
+		while ((int)(wall_top_pixel - prev_pixel > 1))
+			put_pixel(image, column_id, (int)++prev_pixel, convertColors(game_data->textures->north, i));
+		height--;
+		if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
+			i = 0;
+		i += game_data->textures->north->width * 4;
+	}
+	j = j + 4;
+	if (j == game_data->textures->north->width)
+		j = 0;
 }
 
 // Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable
@@ -188,11 +244,11 @@ void ft_keyboad_hook(void* param)
 {
     t_game *game_data = param;
 
-    int player_y_check;
-    int player_x_check;
+    // int player_y_check;
+    // int player_x_check;
 
-    player_y_check = game_data->player->y;
-    player_x_check = game_data->player->x;
+    // player_y_check = game_data->player->y;
+    // player_x_check = game_data->player->x;
 
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game_data->mlx);
@@ -265,7 +321,9 @@ int32_t mlx_run(t_game *game_data)
     // printf("PLAYER STEP is %i\n", PLAYER_STEP);
     // printf("No offset\n");
     // printf("Initial player direction is %f\n", game_data->player_init_dir);
-	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	mlx_texture_t *icon = mlx_load_png("./src/textures/icon.png");
+	mlx_set_icon(game_data->mlx, icon);
+	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
 	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);

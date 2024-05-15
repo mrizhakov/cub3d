@@ -3,17 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/13 14:48:55 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:41:46 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include "./MLX42/include/MLX42/MLX42.h"
+// # include "./MLX42/include/MLX42/MLX42.h"
+# include "./MLX42/include/MLX42/MLX42_Int.h"
 # include "./libft/libft.h"
 
 # include <stdio.h>
@@ -27,8 +28,8 @@
 
 
 
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 1000 // not sure why doesnt  work properly with non-square big window size
+# define WINDOW_WIDTH 800
+# define WINDOW_HEIGHT 800 // not sure why doesnt  work properly with non-square big window size
 // which one ?
 //#define WIDTH 1280
 //#define HEIGHT 1024 // change to window_heigh and window_width
@@ -111,13 +112,21 @@ typedef struct 	s_point {
 	double		y;				// y : Height | y-axis
 }				t_point;
 
+typedef struct s_color
+{
+	uint8_t	red;
+	uint8_t	green;
+	uint8_t	blue;
+	uint8_t	alpha;
+}			t_color;
+
 typedef struct	s_game
 {
 	// mlx
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	t_textures		*textures;
-	t_text_images	*images;
+	// t_text_images	*images;
 
 	// textures
 	char			*texture_filename[4];
@@ -146,7 +155,6 @@ typedef struct	s_game
 
 	// draw
 	int             redraw_minimap;
-
 	// maze
 	t_point			cursor;
 	t_maze			maze;  // the maze

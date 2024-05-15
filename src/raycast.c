@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 21:56:20 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/15 15:42:59 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,7 +214,6 @@ void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
             game_data->player->color);
 }
 
-
 void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
 {
     double distance_proj_plane;
@@ -238,7 +237,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
     // you have to offset on each particular tile tto start drawing textures
     // texture_offset_x is NOT column_id, column_id is a value of FOV
     // FOV has column_id * WINDOW_WIDTH, this is all the visible range in X
-    // 
+    //
     int texture_offset_x;
     if (ray->was_hit_vertical)
         texture_offset_x = (int)ray->wallHitY % MINIMAP_SQUARE_SIDE_LEN;
@@ -247,22 +246,21 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
 
     // Y offset for texure drawing
     // get TEXTURE_HEIGHT from the textures
-    
+
     // int texture_offset_y;
     // int y = wall_top_pixel;
-    
+
     // int distance_from_top  = y + (wall_strip_height / 2) - (WINDOW_HEIGHT / 2);
     // texture_offset_y  = distance_from_top * (float)TEXTURE_HEIGHT / wall_strip_height;
 
 
 
     //draw wall projections
-    drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
-            (uint32_t)column_id, (uint32_t)wall_bottom_pixel,
-            game_data->player->color);
-            
-    // draw_textures(game_data, column_id, wall_top_pixel, wall_bottom_pixel);
-// {    //draw floor
+    // drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
+    //         (uint32_t)column_id, (uint32_t)wall_bottom_pixel,
+    //         game_data->player->color);
+
+    draw_textures(game_data, column_id, wall_top_pixel, wall_bottom_pixel);
     drawLine((uint32_t)column_id, (uint32_t)wall_bottom_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
             game_data->color[F].rgb_color);
@@ -332,12 +330,12 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 
 void    draw_fov(t_game *game_data)
 {
-    unsigned int    column_id;
+    // unsigned int    column_id;
     double          ray_angle;
     int             i;
 
     i = 0;
-    column_id = 0;
+    // column_id = 0;
 
     ray_angle = game_data->player_angle - (game_data->fov_angle/2);
 
