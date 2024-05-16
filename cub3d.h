@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 20:36:00 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:45:17 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct	s_game
 	mlx_t			*mlx;
 	mlx_image_t		*img;
 	mlx_texture_t	*textures[4];
+	mlx_texture_t	*icon;
 	// t_text_images	*images;
 
 	// textures

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 20:36:41 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:46:23 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,8 +303,6 @@ void	init_data(t_game *game_data)
 
 int32_t mlx_run(t_game *game_data)
 {
-	mlx_texture_t	*icon;
-
 	if (!(game_data->mlx = mlx_init(WINDOW_HEIGHT, WINDOW_WIDTH, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
@@ -322,11 +320,8 @@ int32_t mlx_run(t_game *game_data)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	icon = mlx_load_png(ICON);
-	if (!icon)
-		ft_putendl_fd("Warning: icon is not set", 2);
-	else
-		mlx_set_icon(game_data->mlx, icon);
+	if (game_data->icon)
+		mlx_set_icon(game_data->mlx, game_data->icon);
 	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 20:27:17 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:48:25 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,9 @@ void free_textures(t_game *game_data)
 	i = 0;
 	while(i < 4)
 		game_data->textures[i++] = NULL;
+	if (game_data->icon)
+		mlx_delete_texture(game_data->icon);
+	game_data->icon = NULL;
 }
 
 
