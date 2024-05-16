@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 17:17:31 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:14:28 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,20 +217,17 @@ void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
 void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
 {
     double distance_proj_plane;
-    double projected_wall_height;
     double wall_strip_height;
     double wall_top_pixel;
 
     distance_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
-    projected_wall_height  = (MINIMAP_SQUARE_SIDE_LEN / ray->distance) * distance_proj_plane;
-    wall_strip_height = projected_wall_height;
+    wall_strip_height  = (MINIMAP_SQUARE_SIDE_LEN / ray->distance) * distance_proj_plane;
     wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
     if (wall_top_pixel < 0)
         wall_top_pixel = 0;
     double wall_bottom_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
     if (wall_bottom_pixel > WINDOW_HEIGHT)
         wall_bottom_pixel = WINDOW_HEIGHT - 1;
-
 
     // X offset for finding where on the cube you should start drawing a texture
     // each square is MINIMAP_SQUARE_SIDE_LEN long, texture_offset_X tells you how many pixels
@@ -239,15 +236,10 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
     // FOV has column_id * WINDOW_WIDTH, this is all the visible range in X
     //
     int texture_offset_x;
-	// static int prev_texture_offset_x;
     if (ray->was_hit_vertical)
         texture_offset_x = (int)ray->vert_wall_hit_y % MINIMAP_SQUARE_SIDE_LEN;
     else
         texture_offset_x = (int)ray->hor_wall_hit_x % MINIMAP_SQUARE_SIDE_LEN;
-	// if (texture_offset_x == prev_texture_offset_x)
-	// 	texture_offset_x++;
-	// prev_texture_offset_x = texture_offset_x;
-    //draw wall projections
     draw_textures(game_data, column_id, wall_top_pixel,
 					wall_bottom_pixel, texture_offset_x);
 	//draw floor

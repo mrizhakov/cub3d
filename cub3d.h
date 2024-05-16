@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 16:06:49 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:32:04 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,13 @@
 # define PLAYER_STEP 1
 # define MAP_PADDING 2
 
-# define MINIMAP_SQUARE_SIDE_LEN 15
+# define MINIMAP_SQUARE_SIDE_LEN 512
 # define MINIMAP_Y_OFFSET 10
 # define MINIMAP_X_OFFSET 10
 # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.025
 # define ICON "./src/textures/icon.png"
-// # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
-// # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
-// # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
-// # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
-// # define MAP_TOKENS = "NEWS 10\n"
 
 typedef enum e_directions
 {
@@ -66,21 +61,21 @@ typedef enum e_colors
 }	t_colors;
 
 //save textures here
-typedef struct s_textures
-{
-	mlx_texture_t		*north;
-	mlx_texture_t		*south;
-	mlx_texture_t		*east;
-	mlx_texture_t		*west;
-}						t_textures;
+// typedef struct s_textures
+// {
+// 	mlx_texture_t		*north;
+// 	mlx_texture_t		*south;
+// 	mlx_texture_t		*east;
+// 	mlx_texture_t		*west;
+// }						t_textures;
 
-typedef struct s_text_images
-{
-	mlx_image_t		*north;
-	mlx_image_t		*south;
-	mlx_image_t		*east;
-	mlx_image_t		*west;
-}						t_text_images;
+// typedef struct s_text_images
+// {
+// 	mlx_image_t		*north;
+// 	mlx_image_t		*south;
+// 	mlx_image_t		*east;
+// 	mlx_image_t		*west;
+// }						t_text_images;
 
 // used for colors
 typedef struct	s_rgb
@@ -126,7 +121,7 @@ typedef struct	s_game
 	// mlx
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	t_textures		*textures;
+	mlx_texture_t	*textures[4];
 	// t_text_images	*images;
 
 	// textures

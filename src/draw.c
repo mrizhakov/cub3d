@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 13:42:05 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:31:30 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int32_t check_pix(t_double_pixel pix)
 {
     if (pix.x < 0 || pix.y < 0 || pix.x > WINDOW_WIDTH - 1 || pix.y > WINDOW_HEIGHT -1)
     {
-        perror("Invalid pixel");
+        ft_putendl_fd("Invalid pixel", 2);
         return (0);
     }
     else
