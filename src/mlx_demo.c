@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 20:21:34 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 17:24:14 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,34 +80,36 @@ double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uin
 		return (wall_top_pixel + 1);
 }
 
-void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
+void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
+						double wall_bottom_pixel, int textOffX)
 {
 	uint32_t		i;
 	uint32_t		height;
 	double			prev_pixel;
 	double			err;
-	static uint32_t	j;
 	double			wall_height;
 
-	i = 0 + j;
+	i = 0 + ((textOffX) * 4);
 	height = game_data->textures->north->height;
 	wall_height = wall_bottom_pixel - wall_top_pixel;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
 		prev_pixel = wall_top_pixel;
-		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i, wall_height));
+		put_pixel(image, column_id, (int)wall_top_pixel,
+					convertColors(game_data->textures->north, i, wall_height));
 		err = (wall_bottom_pixel - wall_top_pixel) / height;
 		wall_top_pixel += err;
 		while ((int)(wall_top_pixel - prev_pixel > 1))
-			put_pixel(image, column_id, (int)++prev_pixel, convertColors(game_data->textures->north, i, wall_height));
+			put_pixel(image, column_id, (int)++prev_pixel,
+						convertColors(game_data->textures->north, i, wall_height));
 		height--;
-		if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
-			i = 0;
+		// if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
+		// 	i = 0 + ((15 - textOffX) * 4);
 		i += game_data->textures->north->width * 4;
 	}
-	j = j + 4;
-	if (j == game_data->textures->north->width)
-		j = 0;
+	// j = j + 4;
+	// if (j == game_data->textures->north->width)
+	// 	j = 0;
 }
 
 // Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/15 20:08:22 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 16:06:49 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,7 +262,7 @@ void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			ray_init_data(t_raycast *ray);
-void    		draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel);
+void    		draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
 
 
 //Game logic
