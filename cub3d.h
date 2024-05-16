@@ -6,14 +6,13 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 20:32:04 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:36:00 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// # include "./MLX42/include/MLX42/MLX42.h"
 # include "./MLX42/include/MLX42/MLX42_Int.h"
 # include "./libft/libft.h"
 
@@ -144,7 +143,7 @@ typedef struct	s_game
 	double			player_angle;
 	int				player_turn_dir;
 	int				player_walk_dir;
-	int				player_walk_strafe;
+	int				player_strafe_dir;
 	int				player_turn_speed;
 	double			fov_angle;
 	int				num_rays;
@@ -257,7 +256,7 @@ void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			ray_init_data(t_raycast *ray);
-void    		draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
+void			draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
 
 
 //Game logic
