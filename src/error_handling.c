@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:01:00 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/10 19:27:46 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:20:23 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int check_read_file(int fd)
 {
 	ssize_t bytes_read;
-	char *buf[FILE_READ_BUFFER];
+	char buf[FILE_READ_BUFFER];
 
 	bytes_read = read(fd, buf, FILE_READ_BUFFER);
 	while (bytes_read)

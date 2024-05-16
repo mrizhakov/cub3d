@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_logic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 19:16:37 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:58:32 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 int prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int y_map_padding, int x_map_padding)
 {
     (void)game_data;
-    if (player_x_check >= 0 && player_y_check >= 0 
-        && player_x_check <= game_data->texture_width * (MAZE_DIMENSION - 1) 
+    if (player_x_check >= 0 && player_y_check >= 0
+        && player_x_check <= game_data->texture_width * (MAZE_DIMENSION - 1)
         && player_y_check <= game_data->texture_width * (MAZE_DIMENSION - 1))
     {
         printf("Entered outside loop\n");
@@ -54,7 +54,7 @@ double   check_angle_overflow(t_game *game_data, double player_angle)
 
 // void strafing_movement(t_game *game_data, )
 // {
-    
+
 // }
 
 // Function too long, thinking how to split it without adding vars to the struct
@@ -69,12 +69,12 @@ void update_pos(t_game *game_data)
     game_data->redraw_minimap = 0;
     game_data->player_angle += game_data->player_turn_dir * TURNING_SPEED;
     game_data->player_angle = check_angle_overflow(game_data, game_data->player_angle);
-    if (game_data->player_walk_strafe == -1)
+    if (game_data->player_strafe_dir == -1)
     {
         player_x_check += sin(game_data->player_angle) * PLAYER_STEP ;
         player_y_check -= cos(game_data->player_angle) * PLAYER_STEP ;
     }
-    else if (game_data->player_walk_strafe == 1)
+    else if (game_data->player_strafe_dir == 1)
     {
         player_x_check -= sin(game_data->player_angle) * PLAYER_STEP ;
         player_y_check += cos(game_data->player_angle) * PLAYER_STEP ;
@@ -85,12 +85,12 @@ void update_pos(t_game *game_data)
         player_x_check += cos(game_data->player_angle) * move_step;
         player_y_check += sin(game_data->player_angle) * move_step;
     }
-    if (game_data->player_walk_dir != 0 || game_data->player_walk_strafe != 0)
+    if (game_data->player_walk_dir != 0 || game_data->player_strafe_dir != 0)
     {
         printf("Attempting move to pos x %f, y %f\n", game_data->player->x + player_x_check, game_data->player->y + player_y_check);
 
         prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 0, 0);
         game_data->player_walk_dir = 0;
-        game_data->player_walk_strafe = 0;
+        game_data->player_strafe_dir = 0;
     }
 }

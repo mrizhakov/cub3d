@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 20:34:38 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:57:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int32_t check_pix(t_double_pixel pix)
 {
     if (pix.x < 0 || pix.y < 0 || pix.x > WINDOW_WIDTH - 1 || pix.y > WINDOW_HEIGHT -1)
     {
-        printf("Invalid pixel, trying to draw pixel at x %f, y %f, color %u\n", pix.x, pix.y, pix.color);
+        ft_putendl_fd("Invalid pixel", 2);
         return (0);
     }
     else

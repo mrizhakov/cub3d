@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 20:32:54 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:57:06 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-// # include "./MLX42/include/MLX42/MLX42.h"
 # include "./MLX42/include/MLX42/MLX42_Int.h"
 # include "./libft/libft.h"
 
@@ -47,11 +46,6 @@
 # define TURNING_SPEED 0.025
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
-// # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
-// # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
-// # define EAST  "./textures/DarkAbstractBackgrounds_09.png"
-// # define WEST  "./textures/DarkAbstractBackgrounds_10.png"
-// # define MAP_TOKENS = "NEWS 10\n"
 
 typedef enum e_directions
 {
@@ -68,21 +62,21 @@ typedef enum e_colors
 }	t_colors;
 
 //save textures here
-typedef struct s_textures
-{
-	mlx_texture_t		*north;
-	mlx_texture_t		*south;
-	mlx_texture_t		*east;
-	mlx_texture_t		*west;
-}						t_textures;
+// typedef struct s_textures
+// {
+// 	mlx_texture_t		*north;
+// 	mlx_texture_t		*south;
+// 	mlx_texture_t		*east;
+// 	mlx_texture_t		*west;
+// }						t_textures;
 
-typedef struct s_text_images
-{
-	mlx_image_t		*north;
-	mlx_image_t		*south;
-	mlx_image_t		*east;
-	mlx_image_t		*west;
-}						t_text_images;
+// typedef struct s_text_images
+// {
+// 	mlx_image_t		*north;
+// 	mlx_image_t		*south;
+// 	mlx_image_t		*east;
+// 	mlx_image_t		*west;
+// }						t_text_images;
 
 // used for colors
 typedef struct	s_rgb
@@ -128,7 +122,8 @@ typedef struct	s_game
 	// mlx
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	t_textures		*textures;
+	mlx_texture_t	*textures[4];
+	mlx_texture_t	*icon;
 	// t_text_images	*images;
 
 	// textures
@@ -151,7 +146,7 @@ typedef struct	s_game
 	double			player_angle;
 	int				player_turn_dir;
 	int				player_walk_dir;
-	int				player_walk_strafe;
+	int				player_strafe_dir;
 	int				player_turn_speed;
 	double			fov_angle;
 	int				num_rays;
@@ -266,7 +261,7 @@ void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			ray_init_data(t_raycast *ray);
-void    		draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel);
+void			draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
 
 
 //Game logic

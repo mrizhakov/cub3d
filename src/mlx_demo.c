@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_demo.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 19:20:48 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:58:54 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,34 +80,36 @@ double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uin
 		return (wall_top_pixel + 1);
 }
 
-void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel)
+void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
+						double wall_bottom_pixel, int textOffX)
 {
 	uint32_t		i;
 	uint32_t		height;
 	double			prev_pixel;
 	double			err;
-	static uint32_t	j;
 	double			wall_height;
 
-	i = 0 + j;
-	height = game_data->textures->north->height;
+	i = 0 + ((textOffX) * 4);
+	height = game_data->textures[NO]->height;
 	wall_height = wall_bottom_pixel - wall_top_pixel;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
 		prev_pixel = wall_top_pixel;
-		put_pixel(image, column_id, (int)wall_top_pixel, convertColors(game_data->textures->north, i, wall_height));
+		put_pixel(image, column_id, (int)wall_top_pixel,
+					convertColors(game_data->textures[NO], i, wall_height));
 		err = (wall_bottom_pixel - wall_top_pixel) / height;
 		wall_top_pixel += err;
 		while ((int)(wall_top_pixel - prev_pixel > 1))
-			put_pixel(image, column_id, (int)++prev_pixel, convertColors(game_data->textures->north, i, wall_height));
+			put_pixel(image, column_id, (int)++prev_pixel,
+						convertColors(game_data->textures[NO], i, wall_height));
 		height--;
-		if (i >= game_data->textures->north->height * game_data->textures->north->width * 4)
-			i = 0;
-		i += game_data->textures->north->width * 4;
+		// if (i >= game_data->textures[NO]->height * game_data->textures[NO]->width * 4)
+		// 	i = 0 + ((15 - textOffX) * 4);
+		i += game_data->textures[NO]->width * 4;
 	}
-	j = j + 4;
-	if (j == game_data->textures->north->width)
-		j = 0;
+	// j = j + 4;
+	// if (j == game_data->textures[NO]->width)
+	// 	j = 0;
 }
 
 // Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable
@@ -259,16 +261,16 @@ void ft_keyboad_hook(void* param)
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_S))
         game_data->player_walk_dir = -1;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_A))
-        game_data->player_walk_strafe = -1;
+        game_data->player_strafe_dir = -1;
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_D))
-        game_data->player_walk_strafe = 1;
+        game_data->player_strafe_dir = 1;
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
 		game_data->player_turn_dir = -1;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
 		game_data->player_turn_dir = 1;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_E))
 		printf("Action key triggered\n");
-    if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0 || game_data->player_walk_strafe != 0)
+    if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0 || game_data->player_strafe_dir != 0)
         update_pos(game_data);
 }
 
@@ -301,8 +303,6 @@ void	init_data(t_game *game_data)
 
 int32_t mlx_run(t_game *game_data)
 {
-	mlx_texture_t	*icon;
-
 	if (!(game_data->mlx = mlx_init(WINDOW_HEIGHT, WINDOW_WIDTH, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
@@ -320,11 +320,8 @@ int32_t mlx_run(t_game *game_data)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	icon = mlx_load_png(ICON);
-	if (!icon)
-		ft_putendl_fd("Warning: icon is not set", 2);
-	else
-		mlx_set_icon(game_data->mlx, icon);
+	if (game_data->icon)
+		mlx_set_icon(game_data->mlx, game_data->icon);
 	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
