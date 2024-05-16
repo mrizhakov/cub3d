@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 17:39:16 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:16:37 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,28 @@
 int prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int y_map_padding, int x_map_padding)
 {
     (void)game_data;
-    if (player_x_check >= 0 && player_y_check >= 0 && player_x_check <= WINDOW_WIDTH - 1 && player_y_check <= WINDOW_HEIGHT - 1)
+    if (player_x_check >= 0 && player_y_check >= 0 
+        && player_x_check <= game_data->texture_width * (MAZE_DIMENSION - 1) 
+        && player_y_check <= game_data->texture_width * (MAZE_DIMENSION - 1))
     {
-        if (game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == '0'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'N'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'E'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'W'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / MINIMAP_SQUARE_SIDE_LEN][((int)player_x_check + x_map_padding)/ MINIMAP_SQUARE_SIDE_LEN] == 'S')
+        printf("Entered outside loop\n");
+
+        if (game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == '0'
+            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'N'
+            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'E'
+            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'W'
+            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'S')
         {
+            printf("Succesful move to pos x %f, y %f\n", player_x_check, player_y_check);
+
             game_data->player->y = player_y_check;
             game_data->player->x = player_x_check;
             game_data->player_walk_dir = 0;
             return (0);
         }
     }
+    printf("Unsuccesful move to pos x %f, y %f\n", player_x_check, player_y_check);
+
     return(1);
 }
 
@@ -79,6 +87,8 @@ void update_pos(t_game *game_data)
     }
     if (game_data->player_walk_dir != 0 || game_data->player_walk_strafe != 0)
     {
+        printf("Attempting move to pos x %f, y %f\n", game_data->player->x + player_x_check, game_data->player->y + player_y_check);
+
         prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 0, 0);
         game_data->player_walk_dir = 0;
         game_data->player_walk_strafe = 0;

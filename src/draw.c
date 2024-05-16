@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 13:42:05 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:34:38 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int32_t check_pix(t_double_pixel pix)
 {
     if (pix.x < 0 || pix.y < 0 || pix.x > WINDOW_WIDTH - 1 || pix.y > WINDOW_HEIGHT -1)
     {
-        perror("Invalid pixel");
+        printf("Invalid pixel, trying to draw pixel at x %f, y %f, color %u\n", pix.x, pix.y, pix.color);
         return (0);
     }
     else
@@ -216,8 +216,8 @@ int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side
     (void)player;
     t_double_pixel player_square;
 
-    player_square.x = game_data->player->x - 1;
-    player_square.y = game_data->player->y - 1;
+    player_square.x = (game_data->player->x / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
+    player_square.y = (game_data->player->y / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
     player_square.color = game_data->player->color;
     draw_square(game_data, player_square, side_len);
     return(1);
