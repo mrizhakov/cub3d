@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/15 20:08:22 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:32:54 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@
 //#define HEIGHT 1024 // change to window_heigh and window_width
 # define FILE_READ_BUFFER 1024
 # define MAZE_DIMENSION 40
-# define PLAYER_STEP 1
+# define PLAYER_STEP 30
 # define MAP_PADDING 2
 
 # define MINIMAP_SQUARE_SIDE_LEN 15
-# define MINIMAP_Y_OFFSET 10
-# define MINIMAP_X_OFFSET 10
+
+// # define MINIMAP_Y_OFFSET 10
+// # define MINIMAP_X_OFFSET 10
 # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.025
+// # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
 // # define NORTH "./textures/DarkAbstractBackgrounds_03.png"
 // # define SOUTH "./textures/DarkAbstractBackgrounds_06.png"
@@ -153,9 +155,11 @@ typedef struct	s_game
 	int				player_turn_speed;
 	double			fov_angle;
 	int				num_rays;
+	double			dist_proj_plane;
 
 	// draw
 	int             redraw_minimap;
+	int				texture_width;
 	// maze
 	t_point			cursor;
 	t_maze			maze;  // the maze

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 20:17:04 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 18:39:17 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,11 @@ int	initialise_game(t_game *game_data)
 	game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
 	game_data->fov_angle = FOV * (M_PI / 180);
 	game_data->num_rays = WINDOW_WIDTH / 1;
+	game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
+	// game_data->texture_width is the new MINIMAP_SQUARE_SIDE_LEN, please adjust to the correct size of texture width
+	game_data->texture_width = 512;
+	// uncomment this line to get a psychodelic effect
+    // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
 	init_maze(game_data);
 	return (0);
 }

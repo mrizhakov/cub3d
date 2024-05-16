@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/13 13:40:38 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 19:07:19 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,11 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 		return (ft_putendl_fd("Error", 2), 1);
 	game_data->player_init_loc[0] = x_axis;
 	game_data->player_init_loc[1] = y_axis;
-	game_data->player->y = y_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN / 2;
-	game_data->player->x = x_axis * MINIMAP_SQUARE_SIDE_LEN + MINIMAP_SQUARE_SIDE_LEN / 2;
+	game_data->player->y = y_axis * game_data->texture_width + game_data->texture_width / 2;
+	game_data->player->x = x_axis * game_data->texture_width + game_data->texture_width / 2;
+    printf("Player original position is  x %f, y %f\n", game_data->player->x, game_data->player->y);
+
+	
 	game_data->player_init_dir = direction;
 	return (0);
 }

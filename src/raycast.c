@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/15 19:52:02 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 20:40:43 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,21 +56,21 @@ void ray_orientation(t_raycast *ray, double ray_angle)
 
 void ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 {
-    ray->yintercept = floor(game_data->player->y / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
+    ray->yintercept = floor(game_data->player->y / game_data->texture_width) * game_data->texture_width;
     // swap this to get pshycodelic effect
     // ray->yintercept = (game_data->player->y / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
     if (ray->is_ray_facing_down)
-        ray->yintercept += ray->is_ray_facing_down * MINIMAP_SQUARE_SIDE_LEN;
+        ray->yintercept += ray->is_ray_facing_down * game_data->texture_width;
     ray->xintercept = game_data->player->x + (ray->yintercept - game_data->player->y) / tan(ray_angle);
     //Ystep
-    ray->ystep = MINIMAP_SQUARE_SIDE_LEN;
+    ray->ystep = game_data->texture_width;
 
     if (ray->is_ray_facing_up)   //invert if facing up
         ray->ystep *= ray->is_ray_facing_up * -1;
     //Xstep
-    ray->xstep = MINIMAP_SQUARE_SIDE_LEN / tan(ray_angle);
+    ray->xstep = game_data->texture_width / tan(ray_angle);
     if (ray->is_ray_facing_right)
-        ray->xstep = MINIMAP_SQUARE_SIDE_LEN / tan(ray_angle);
+        ray->xstep = game_data->texture_width / tan(ray_angle);
     if (ray->is_ray_facing_left && ray->xstep > 0)
         ray->xstep *= -1;
     if (ray->is_ray_facing_right && ray->xstep < 0)
@@ -89,11 +89,11 @@ void ray_horiz_loop(t_game *game_data, t_raycast *ray)
     //     && ray->next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1
     //     && ray->next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION - 1)
     while(ray->next_hor_touch_x >= 0 && ray->next_hor_touch_y >= 0
-        && ray->next_hor_touch_y /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION
-        && ray->next_hor_touch_x /  MINIMAP_SQUARE_SIDE_LEN < MAZE_DIMENSION)
+        && ray->next_hor_touch_y /  game_data->texture_width < MAZE_DIMENSION
+        && ray->next_hor_touch_x /  game_data->texture_width < MAZE_DIMENSION)
     {
         // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
-        if (game_data->maze.g[(int)ray->next_hor_touch_y / MINIMAP_SQUARE_SIDE_LEN][(int)ray->next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN] == '1')
+        if (game_data->maze.g[(int)ray->next_hor_touch_y / game_data->texture_width][(int)ray->next_hor_touch_x / game_data->texture_width] == '1')
         // if (game_data->maze.g[((int)ray->next_hor_touch_y - ray->is_ray_facing_up ? 1: 0) / MINIMAP_SQUARE_SIDE_LEN][(int)(ray->next_hor_touch_x / MINIMAP_SQUARE_SIDE_LEN)] == '1')
         {
             //found a wall
@@ -113,19 +113,19 @@ void ray_horiz_loop(t_game *game_data, t_raycast *ray)
 
 void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 {
-    ray->xintercept = floor(game_data->player->x / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
+    ray->xintercept = floor(game_data->player->x / game_data->texture_width) * game_data->texture_width;
     // swap this to get pshycodelic effect
     // ray->xintercept = (game_data->player->x / MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
     if (ray->is_ray_facing_right)
-        ray->xintercept += ray->is_ray_facing_right * MINIMAP_SQUARE_SIDE_LEN; // add 1 extra square if ray is pointing down
+        ray->xintercept += ray->is_ray_facing_right * game_data->texture_width; // add 1 extra square if ray is pointing down
 
     ray->yintercept = game_data->player->y + (ray->xintercept - game_data->player->x) * tan(ray_angle);
     //Xstep
-    ray->xstep = MINIMAP_SQUARE_SIDE_LEN;
+    ray->xstep = game_data->texture_width;
     if (ray->is_ray_facing_left)
         ray->xstep *= ray->is_ray_facing_left * -1;
     //Ystep
-    ray->ystep = MINIMAP_SQUARE_SIDE_LEN * tan(ray_angle);
+    ray->ystep = game_data->texture_width * tan(ray_angle);
     if (ray->is_ray_facing_up && ray->ystep > 0)
         ray->ystep *= -1;
     if (ray->is_ray_facing_down && ray->ystep < 0)
@@ -140,13 +140,13 @@ void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
 void ray_vert_loop(t_game *game_data, t_raycast *ray)
 {
     while(ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
-        && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION
-        && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION)
+        && ray->next_vert_touch_y /  game_data->texture_width <= MAZE_DIMENSION
+        && ray->next_vert_touch_x /  game_data->texture_width <= MAZE_DIMENSION)
     // while(ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
     //     && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1
     //     && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
     {
-        if (game_data->maze.g[(int)ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN][(int)ray->next_vert_touch_x  / MINIMAP_SQUARE_SIDE_LEN] == '1')
+        if (game_data->maze.g[(int)ray->next_vert_touch_y / game_data->texture_width][(int)ray->next_vert_touch_x  / game_data->texture_width] == '1')
         // if (game_data->maze.g[(int)ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN][((int)ray->next_vert_touch_x  - ray->is_ray_facing_left ? 1 : 0)/ MINIMAP_SQUARE_SIDE_LEN] == '1')
         {
             ray->found_vert_hit = 1;
@@ -209,20 +209,22 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
 // TODO: potential bug with x and y offset (diagonal lines are empty) - need to check if this affects 3d game projection
 void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
 {
-    drawLine((uint32_t)game_data->player->x, (uint32_t)game_data->player->y,
-            (uint32_t)ray->shortest_wall_hit_x, (uint32_t)ray->shortest_wall_hit_y,
+    drawLine((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+            (uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+            (uint32_t)ray->shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+            (uint32_t)ray->shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
             game_data->player->color);
 }
 
 void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
 {
-    double distance_proj_plane;
+    // double distance_proj_plane;
     double projected_wall_height;
     double wall_strip_height;
     double wall_top_pixel;
 
-    distance_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
-    projected_wall_height  = (MINIMAP_SQUARE_SIDE_LEN / ray->distance) * distance_proj_plane;
+    // distance_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
+    projected_wall_height  = (game_data->texture_width / ray->distance) * game_data->dist_proj_plane;
     wall_strip_height = projected_wall_height;
     wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
     if (wall_top_pixel < 0)
@@ -238,12 +240,12 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray)
     // texture_offset_x is NOT column_id, column_id is a value of FOV
     // FOV has column_id * WINDOW_WIDTH, this is all the visible range in X
     //
-    int texture_offset_x;
-    if (ray->was_hit_vertical)
-        texture_offset_x = (int)ray->wallHitY % MINIMAP_SQUARE_SIDE_LEN;
-    else
-        texture_offset_x = (int)ray->wallHitX % MINIMAP_SQUARE_SIDE_LEN;
-	(void)texture_offset_x;
+    // int texture_offset_x;
+    // if (ray->was_hit_vertical)
+    //     texture_offset_x = (int)ray->wallHitY % MINIMAP_SQUARE_SIDE_LEN;
+    // else
+    //     texture_offset_x = (int)ray->wallHitX % MINIMAP_SQUARE_SIDE_LEN;
+	// (void)texture_offset_x;
     // Y offset for texure drawing
     // get TEXTURE_HEIGHT from the textures
 
@@ -333,20 +335,29 @@ void    draw_fov(t_game *game_data)
 {
     // unsigned int    column_id;
     double          ray_angle;
-    int             i;
+    int             column_id;
+    // double          dist_proj_plane;
 
-    i = 0;
-    // column_id = 0;
+    // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
+    // uncomment this line to get a psychodelic effect
+    // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
+
+
+    // i = 0;
+    column_id = 0;
 
     ray_angle = game_data->player_angle - (game_data->fov_angle/2);
+    
 
-    while(i < game_data->num_rays)
+    while(column_id < game_data->num_rays)
     {
         game_data->redraw_minimap = 0;
-        ray_angle += game_data->fov_angle / game_data->num_rays;
+        // ray_angle += game_data->fov_angle / game_data->num_rays;
+        ray_angle = game_data->player_angle + atan((column_id - game_data->num_rays / 2) / game_data->dist_proj_plane);
+    
         ray_angle = check_angle_overflow(game_data, ray_angle);
-        cast_ray(game_data, ray_angle, i);
-        i++;
+        cast_ray(game_data, ray_angle, column_id);
+        column_id++;
     }
     game_data->redraw_minimap = 1;
 }
