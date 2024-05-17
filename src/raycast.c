@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/17 10:13:28 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:24:56 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,18 +219,18 @@ void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
 void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle)
 {
     // double distance_proj_plane;
-    double projected_wall_height;
+    // double projected_wall_height;
     double wall_strip_height;
     double wall_top_pixel;
     double perp_distance;
 
     // game_data->dist_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
     perp_distance = ray->distance * cos((ray_angle - game_data->player_angle)); // calculate ray.angle
-    projected_wall_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
-    wall_strip_height = projected_wall_height;
+    wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
+    // wall_strip_height = projected_wall_height;
     wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
     if (wall_top_pixel < 0)
-        wall_top_pixel = 0;
+        wall_top_pixel = 0; // ??
     double wall_bottom_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
     if (wall_bottom_pixel > WINDOW_HEIGHT)
         wall_bottom_pixel = WINDOW_HEIGHT - 1;

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/17 10:16:55 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 11:36:45 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void ft_draw_image(void* param)
         draw_fov(game_data);
         draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         draw_player(game_data, game_data->player, 3);
-
+		draw_sprites(game_data);
 
         // other potentially usefull drawing functions
 
@@ -245,6 +245,7 @@ int32_t mlx_run(t_game *game_data)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
+	game_data->img = image;
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
 	mlx_set_setting(MLX_FULLSCREEN, true);

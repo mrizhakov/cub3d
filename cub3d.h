@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/17 10:30:55 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:55:24 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ typedef enum e_directions
 	WE,
 	EA,
 }	t_direct;
+
+typedef enum e_textures
+{
+	MUSHR = 4,
+	TEX_NO,
+}			t_textures;
 
 typedef enum e_colors
 {
@@ -114,7 +120,7 @@ typedef struct e_sprite
 	double	x;
 	double	y;
 	double	distance;
-	char	*texture;
+	int		texture;
 }				t_sprite;
 
 typedef struct s_color
@@ -130,13 +136,13 @@ typedef struct	s_game
 	// mlx
 	mlx_t			*mlx;
 	mlx_image_t		*img;
-	mlx_texture_t	*textures[4];
+	mlx_texture_t	*textures[TEX_NO];
 	mlx_texture_t	*icon;
 	// t_text_images	*images;
 
 	// textures
-	char			*texture_filename[4];
-	int				texture_count[4];
+	char			*texture_filename[TEX_NO];
+	int				texture_count[TEX_NO];
 	bool				all_textures_ok;
 
     // colors
@@ -255,6 +261,8 @@ void			draw_black_background(t_game *game_data);
 int32_t			draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len);
 int32_t			draw_square(t_game *game_data, t_double_pixel start, unsigned int side_len);
 int32_t			draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
+void			draw_sprites(t_game	*game_data);
+
 
 //Raycast
 double			check_angle_overflow(t_game *game_data, double player_angle);
@@ -293,6 +301,10 @@ int				load_textures(t_game *game_data);
 void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
 t_color			convertColors(mlx_texture_t* texture, uint32_t index, double distance);
 int				router_parse_data(char *line, t_game *game_data);
+int				init_sprites(t_game *game_data, char t, int x, int y);
 
+
+//Utils
+double  distance_between_points(double x1, double y1, double x2, double y2);
 
 #endif

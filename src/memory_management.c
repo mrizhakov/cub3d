@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/17 10:01:46 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 12:57:29 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void free_textures(t_game *game_data)
 		mlx_delete_texture(game_data->textures[WE]);
 	if (game_data->textures[EA])
 		mlx_delete_texture(game_data->textures[EA]);
+	if (game_data->textures[MUSHR])
+		mlx_delete_texture(game_data->textures[MUSHR]);
 	i = 0;
 	while(i < 4)
 		game_data->textures[i++] = NULL;
@@ -97,6 +99,7 @@ void free_on_exit(t_game *game_data)
 	free_to_null_string(&game_data->texture_filename[SO]);
 	free_to_null_string(&game_data->texture_filename[WE]);
 	free_to_null_string(&game_data->texture_filename[EA]);
+	free_to_null_string(&game_data->texture_filename[MUSHR]);
 	if (game_data->player)
 		free(game_data->player);
 	free_textures(game_data);
