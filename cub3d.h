@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 20:57:06 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 23:43:16 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 
 // # define MINIMAP_Y_OFFSET 10
 // # define MINIMAP_X_OFFSET 10
-# define MAX_DEPTH_OF_FIELD 8
+// # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.025
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
@@ -262,6 +262,7 @@ void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			ray_init_data(t_raycast *ray);
 void			draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
+void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle);
 
 
 //Game logic
