@@ -6,12 +6,11 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 20:57:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:04:32 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
 
 int32_t check_pix(t_double_pixel pix)
 {
@@ -98,7 +97,6 @@ int32_t draw_square(t_game *game_data, t_double_pixel start, unsigned int side_l
     return(0);
 }
 
-
 int32_t draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len)
 {
     (void)game_data;
@@ -166,7 +164,6 @@ int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_
     }
     return(1);
 }
-
 
 int32_t draw_minimap_with_border(t_game *game_data, t_double_pixel start, unsigned int side_len)
 {
@@ -239,5 +236,3 @@ t_double_pixel rotatePoint(t_double_pixel p, t_double_pixel center, double angle
     rotated.y = center.y + (p.x - center.x) * sin(angle) + (p.y - center.y) * cos(angle);
     return rotated;
 }
-
-

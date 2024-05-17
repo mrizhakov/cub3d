@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 23:43:16 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:30:55 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,19 @@ typedef struct	s_double_pixel
 
 typedef struct	s_doors t_doors;
 
-// used for flood_fill
+// used for cursor movement
 typedef struct 	s_point {
 	double		x;				// x : Width  | x-axis
 	double		y;				// y : Height | y-axis
 }				t_point;
+
+typedef struct e_sprite
+{
+	double	x;
+	double	y;
+	double	distance;
+	char	*texture;
+}				t_sprite;
 
 typedef struct s_color
 {
@@ -156,7 +164,10 @@ typedef struct	s_game
 	int             redraw_minimap;
 	int				texture_width;
 	// maze
-	t_point			cursor;
+	t_sprite		sprites[10];
+	t_sprite		vis_sprite[10];
+	int				vis_sprites;
+	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
 }				t_game;
 
@@ -279,8 +290,9 @@ int				load_textures(t_game *game_data);
 
 
 //error_
-
-int	router_parse_data(char *line, t_game *game_data);
+void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
+t_color			convertColors(mlx_texture_t* texture, uint32_t index, double distance);
+int				router_parse_data(char *line, t_game *game_data);
 
 
 #endif

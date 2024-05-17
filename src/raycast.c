@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 23:44:37 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:13:28 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,9 +274,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     ray_vert_loop(game_data, &ray);
     ray_shortest_distance(&ray, game_data);
     draw_minimap_fov(game_data, &ray);
-    // drawLine((uint32_t)game_data->player->x, (uint32_t)game_data->player->y,
-    //         (uint32_t)ray.shortest_wall_hit_x, (uint32_t)ray.shortest_wall_hit_y,
-    //         game_data->player->color);
+
     draw_3d_projection(game_data, column_id, &ray, ray_angle);
 
     // double distance_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);

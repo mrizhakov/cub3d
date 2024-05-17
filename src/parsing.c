@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/16 19:07:19 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/17 09:59:47 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 	game_data->player->x = x_axis * game_data->texture_width + game_data->texture_width / 2;
     printf("Player original position is  x %f, y %f\n", game_data->player->x, game_data->player->y);
 
-	
+
 	game_data->player_init_dir = direction;
 	return (0);
 }
@@ -196,19 +196,6 @@ int map_parsing(char *filename, t_game *game_data)
 		free(map_line);
 	}
 	close(fd);
-	return (0);
-}
-
-int iffile_cub(char *map_file_name)
-{
-	char *find_ber;
-
-	find_ber = ft_strrchr(map_file_name, '.');
-	if (!find_ber || ft_strncmp(find_ber, ".cub", 5) != 0)
-	{
-		printf("Error: Not a .cub file.\n");
-		return (1);
-	}
 	return (0);
 }
 

@@ -6,79 +6,13 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 22:03:59 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:16:55 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 static mlx_image_t* image;
-
-void	draw_pixel(uint8_t *pixel, t_color color)
-{
-	*(pixel++) = color.red;
-	*(pixel++) = color.green;
-	*(pixel++) = color.blue;
-	*(pixel++) = color.alpha;
-}
-
-void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
-{
-	uint8_t		*pixelstart;
-
-	if (!img)
-		ft_putendl_fd("Image does not exist", 2);
-	if (!(x < img->width))
-	{
-		ft_putendl_fd("Pixel is out of bounds (axes x)", 2);
-		printf("iso_x: %u width: %u\n", x, img->width);
-	}
-	if (!(y < img->height))
-	{
-		ft_putendl_fd("Pixel is out of bounds (axes y)", 2);
-		printf("iso_y: %u height: %u\n", y, img->height);
-	}
-	pixelstart = &img->pixels[(y * img->width + x) * BPP];
-	draw_pixel(pixelstart, color);
-}
-
-double sigmoid(double x) {
-    return 1 / (1 + exp(-x));
-}
-
-double transform(double value) {
-    const double center = 0.4; // Center of transformation
-    const double scale = 10.0; // Scale factor for significance
-    double shifted = value - center; // Shift to make center at 0
-    double transformed = sigmoid(scale * shifted); // Apply sigmoid function
-    return transformed;
-}
-
-t_color convertColors(mlx_texture_t* texture, uint32_t index, double distance)
-{
-	t_color		color;
-
-	color.red = texture->pixels[index];
-	color.green = texture->pixels[index + 1];
-	color.blue = texture->pixels[index + 2];
-	color.alpha = texture->pixels[index + 3];
-	distance = transform(distance / WINDOW_HEIGHT);
-	color.red = distance * color.red;
-	color.green = distance * color.green;
-	color.blue = distance * color.blue;
-	return color;
-}
-
-double calculate_pixel_move(double wall_top_pixel, double wall_bottom_pixel, uint32_t height)
-{
-	double	err;
-
-	err = (wall_bottom_pixel - wall_top_pixel) / height;
-	if (err <= 1)
-		return (wall_bottom_pixel + err);
-	else
-		return (wall_top_pixel + 1);
-}
 
 void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
 						double wall_bottom_pixel, int textOffX)
@@ -98,18 +32,15 @@ void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
 		put_pixel(image, column_id, (int)wall_top_pixel,
 					convertColors(game_data->textures[NO], i, wall_height));
 		err = (wall_bottom_pixel - wall_top_pixel) / height;
+		// uncomment this to get pshycodelic effect
+		// err = (double)(random()/100 % 2);
 		wall_top_pixel += err;
 		while ((int)(wall_top_pixel - prev_pixel > 1))
 			put_pixel(image, column_id, (int)++prev_pixel,
 						convertColors(game_data->textures[NO], i, wall_height));
 		height--;
-		// if (i >= game_data->textures[NO]->height * game_data->textures[NO]->width * 4)
-		// 	i = 0 + ((15 - textOffX) * 4);
 		i += game_data->textures[NO]->width * 4;
 	}
-	// j = j + 4;
-	// if (j == game_data->textures[NO]->width)
-	// 	j = 0;
 }
 
 // Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable
@@ -249,12 +180,6 @@ void ft_keyboad_hook(void* param)
 {
     t_game *game_data = param;
 
-    // int player_y_check;
-    // int player_x_check;
-
-    // player_y_check = game_data->player->y;
-    // player_x_check = game_data->player->x;
-
     if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
 		mlx_close_window(game_data->mlx);
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_W))
@@ -298,7 +223,6 @@ void ft_cursor_hook(double xpos, double ypos, void* param)
 
 void	init_data(t_game *game_data)
 {
-
 	game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", 0);
 }
 

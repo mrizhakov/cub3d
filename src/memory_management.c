@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_management.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/04 17:53:41 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 22:49:20 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:01:46 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void free_textures(t_game *game_data)
 		mlx_delete_texture(game_data->icon);
 	game_data->icon = NULL;
 }
-
 
 void free_on_exit(t_game *game_data)
 {
