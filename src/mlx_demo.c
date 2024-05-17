@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 20:58:54 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/16 22:03:59 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,7 @@ void ft_draw_image(void* param)
         // game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         // draw_ray(game_data, game_data->player_angle);
     }
+	mlx_focus(game_data->mlx);
 }
 
 void ft_keyboad_hook(void* param)
@@ -322,6 +323,7 @@ int32_t mlx_run(t_game *game_data)
 	}
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
+	mlx_set_setting(MLX_FULLSCREEN, true);
 	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
