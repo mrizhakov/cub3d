@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_logic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 20:58:32 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/18 00:22:46 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
         && player_x_check <= game_data->texture_width * (MAZE_DIMENSION - 1)
         && player_y_check <= game_data->texture_width * (MAZE_DIMENSION - 1))
     {
-        printf("Entered outside loop\n");
-
-        if (game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == '0'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'N'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'E'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'W'
-            || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'S')
+        // printf("Entered outside loop\n");
+        if (game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] != '1')
+        // if (game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == '0'
+        //     || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'N'
+        //     || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'E'
+        //     || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'W'
+        //     || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'S')
         {
-            printf("Succesful move to pos x %f, y %f\n", player_x_check, player_y_check);
+            // printf("Succesful move to pos x %f, y %f\n", player_x_check, player_y_check);
 
             game_data->player->y = player_y_check;
             game_data->player->x = player_x_check;
@@ -36,7 +36,7 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
             return (0);
         }
     }
-    printf("Unsuccesful move to pos x %f, y %f\n", player_x_check, player_y_check);
+    // printf("Unsuccesful move to pos x %f, y %f\n", player_x_check, player_y_check);
 
     return(1);
 }
@@ -87,7 +87,7 @@ void update_pos(t_game *game_data)
     }
     if (game_data->player_walk_dir != 0 || game_data->player_strafe_dir != 0)
     {
-        printf("Attempting move to pos x %f, y %f\n", game_data->player->x + player_x_check, game_data->player->y + player_y_check);
+        // printf("Attempting move to pos x %f, y %f\n", game_data->player->x + player_x_check, game_data->player->y + player_y_check);
 
         prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 0, 0);
         game_data->player_walk_dir = 0;

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/17 13:01:47 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:04:08 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ int	parse_maze(t_game *game_data, char *line)
 		return (check_parse(j, game_data));
 	while (i < MAZE_DIMENSION && line[i - 1])
 	{
-		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], "MNEWS10 \n");
+		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], VALID_CHAR_MAP); // pleae use macro VALID_CHAR_MAP or similar
 		if (game_data->maze.g[j + 1][i] == 0)
 			return (ft_putendl_fd("Error\nMap error", 2), 1); //??
 		if(is_player(game_data, j + 1, i, "NEWSM") == 1)

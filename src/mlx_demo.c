@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/17 16:00:17 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/18 16:02:58 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
 
 	i = 0 + ((textOffX) * 4);
 	height = game_data->textures[NO]->height;
+
+
 	wall_height = wall_bottom_pixel - wall_top_pixel;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
@@ -228,12 +230,12 @@ void	init_data(t_game *game_data)
 
 int32_t mlx_run(t_game *game_data)
 {
-	if (!(game_data->mlx = mlx_init(WINDOW_HEIGHT, WINDOW_WIDTH, "MLX42", true)))
+	if (!(game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "MLX42", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(image = mlx_new_image(game_data->mlx, WINDOW_HEIGHT, WINDOW_WIDTH))) //static image here
+	if (!(image = mlx_new_image(game_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT))) //static image here
 	{
 		mlx_close_window(game_data->mlx);
 		puts(mlx_strerror(mlx_errno));
