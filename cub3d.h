@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/17 12:55:24 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:19:42 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,8 +119,15 @@ typedef struct e_sprite
 {
 	double	x;
 	double	y;
+	bool	visible;
 	double	distance;
 	int		texture;
+	double	angle;
+	double	dimentions;
+	double	bott_pixel;
+	double	to_pixel;
+	double	left_pixel;
+	double	right_pixel;
 }				t_sprite;
 
 typedef struct s_color
@@ -171,8 +178,8 @@ typedef struct	s_game
 	int				texture_width;
 	// maze
 	t_sprite		sprites[10];
-	t_sprite		vis_sprite[10];
-	int				vis_sprites;
+	// t_sprite		*vis_sprite[10];
+	// int				vis_sprites_no;
 	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
 }				t_game;
