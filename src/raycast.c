@@ -6,7 +6,7 @@
 /*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/16 23:44:37 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/18 00:55:12 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,8 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
         texture_offset_x = (int)ray->vert_wall_hit_y % game_data->texture_width;
     else
         texture_offset_x = (int)ray->hor_wall_hit_x % game_data->texture_width;
+    // draw_textures(game_data, column_id, wall_top_pixel,
+	// 				wall_bottom_pixel, texture_offset_x);
     draw_textures(game_data, column_id, wall_top_pixel,
 					wall_bottom_pixel, texture_offset_x);
 	//draw floor
