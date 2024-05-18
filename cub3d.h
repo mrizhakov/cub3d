@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/18 14:14:18 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:26:45 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 
 
-# define WINDOW_WIDTH 1500
-# define WINDOW_HEIGHT 1000 // not sure why doesnt  work properly with non-square big window size
+# define WINDOW_WIDTH 1000
+# define WINDOW_HEIGHT 700 // not sure why doesnt  work properly with non-square big window size
 // which one ?
 //#define WIDTH 1280
 //#define HEIGHT 1024 // change to window_heigh and window_width
@@ -128,7 +128,7 @@ typedef struct e_sprite
 	double	angle;
 	double	dimentions;
 	double	bott_pixel;
-	double	to_pixel;
+	double	top_pixel;
 	double	left_pixel;
 	double	right_pixel;
 }				t_sprite;
@@ -272,7 +272,7 @@ int32_t			draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_l
 int32_t			draw_square(t_game *game_data, t_double_pixel start, unsigned int side_len);
 int32_t			draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
 void			draw_sprites(t_game	*game_data);
-
+int32_t			draw_map_sprite(t_game *game_data, t_double_pixel *sprite, unsigned int side_len);
 
 //Raycast
 double			check_angle_overflow(t_game *game_data, double player_angle);

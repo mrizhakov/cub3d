@@ -25,6 +25,8 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 		printf("iso_y: %u height: %u\n", y, img->height);
 	}
 	pixelstart = &img->pixels[(y * img->width + x) * BPP];
+	if (color.alpha == 0)
+		return ;
 	draw_pixel(pixelstart, color);
 }
 

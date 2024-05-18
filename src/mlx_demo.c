@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/18 16:02:58 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:15:56 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
 		// uncomment this to get pshycodelic effect
 		// err = (double)(random()/100 % 2);
 		wall_top_pixel += err;
-		while ((int)(wall_top_pixel - prev_pixel > 1))
+		while (wall_top_pixel - prev_pixel > 1)
 			put_pixel(image, column_id, (int)++prev_pixel,
 						convertColors(game_data->textures[NO], i, wall_height));
 		height--;
@@ -167,6 +167,7 @@ void ft_draw_image(void* param)
         draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         draw_player(game_data, game_data->player, 3);
 		draw_sprites(game_data);
+		draw_map_sprite(game_data, NULL, 3);
 
         // other potentially usefull drawing functions
 
@@ -175,7 +176,7 @@ void ft_draw_image(void* param)
         // game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         // draw_ray(game_data, game_data->player_angle);
     }
-	mlx_focus(game_data->mlx);
+	// mlx_focus(game_data->mlx);
 }
 
 void ft_keyboad_hook(void* param)
@@ -250,11 +251,11 @@ int32_t mlx_run(t_game *game_data)
 	game_data->img = image;
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
-	mlx_set_setting(MLX_FULLSCREEN, true);
-	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	// mlx_set_setting(MLX_FULLSCREEN, true);
+	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
-	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
+	// mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
 	mlx_loop(game_data->mlx);
 	mlx_terminate(game_data->mlx);
     return(EXIT_SUCCESS);

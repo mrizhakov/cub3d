@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:44:08 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/18 16:02:46 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/18 17:54:35 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_
     origin = start;
     t_double_pixel player;
     player.color = 0xFF00FFFF;
+	t_double_pixel mushroom;
+	mushroom.color = 0xFFFF00FF;
     while (y != MAZE_DIMENSION - 1)
     {
         while (x != MAZE_DIMENSION - 1)
@@ -154,6 +156,12 @@ int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_
                 player.y = start.y;
                 draw_square(game_data, player, side_len);
             }
+			if (game_data->maze.g[y][x] == 'M')
+			{
+				mushroom.x = start.x;
+				mushroom.y = start.y;
+				// draw_square(game_data, mushroom, side_len);
+			}
             start.x += side_len;
             x++;
         }
@@ -235,4 +243,25 @@ t_double_pixel rotatePoint(t_double_pixel p, t_double_pixel center, double angle
     rotated.x = center.x + (p.x - center.x) * cos(angle) - (p.y - center.y) * sin(angle);
     rotated.y = center.y + (p.x - center.x) * sin(angle) + (p.y - center.y) * cos(angle);
     return rotated;
+}
+
+int32_t draw_map_sprite(t_game *game_data, t_double_pixel *sprite, unsigned int side_len)
+{
+    (void)sprite;
+    t_double_pixel sprite_square;
+	size_t	i;
+
+	i = 0;
+	while (game_data->sprites[i].texture)
+	{
+		sprite_square.x = (game_data->sprites[i].x / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
+		sprite_square.y = (game_data->sprites[i].y / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
+		if (game_data->sprites[i].visible)
+			sprite_square.color = 0xFFFF00FF;
+		else
+			sprite_square.color = 0xFFFFFFFF;
+		draw_square(game_data, sprite_square, side_len);
+		i++;
+	}
+	return(0);
 }
