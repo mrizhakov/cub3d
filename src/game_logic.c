@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_logic.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 20:59:45 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/18 00:22:46 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/05/19 21:36:57 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,5 @@ void update_pos(t_game *game_data)
         game_data->player_walk_dir = 0;
         game_data->player_strafe_dir = 0;
     }
+	sprites_calculations(game_data);
 }

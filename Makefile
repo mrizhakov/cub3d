@@ -1,5 +1,5 @@
 CC := cc #-fsanitize=address
-FLAGS := -Wall -Wextra -Werror -g
+FLAGS := -Wall -Wextra -Werror -g -O3
 NAME := cub3D
 RM := rm -f
 LIBMLX = ./MLX42

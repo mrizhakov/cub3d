@@ -48,8 +48,7 @@ void	detect_vis_sprites(t_game *game_data)
 	sprites = game_data->sprites;
 	player = game_data->player;
 	i = 0;
-	// game_data->vis_sprites_no = 0;
-	while (sprites[i].texture) // change to nu of sprites
+	while (sprites[i].texture)
 	{
 		angle_sprite = game_data->player_angle
 			- atan2(sprites[i].y - player->y, sprites[i].x - player->x);
@@ -102,11 +101,15 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	while (left < sprite.right_pixel)
 	{
 		color = convertColors(texture, index, sprite.dimentions);
-		put_pixel(game_data->img, left, line, color);
+		if (sprite.distance < game_data->z_buffer[(int)left])
+			put_pixel(game_data->img, left, line, color);
 		prev_left = left;
 		left += sprite.err_colon;
 		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel - 1)
-			put_pixel(game_data->img, ++prev_left, line, color);
+		{
+			if (sprite.distance < game_data->z_buffer[(int)++prev_left])
+				put_pixel(game_data->img, prev_left, line, color);
+		}
 		index += 4;
 	}
 }
@@ -135,10 +138,52 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 	}
 }
 
+void	sort_sprites(t_sprite sprites[10])
+{
+	uint32_t	i;
+	uint32_t	j;
+	t_sprite	tmp;
+
+	j = 0;
+	while (sprites[j].texture)
+	{
+		i = 0;
+		while (sprites[i + 1].texture)
+		{
+			if (sprites[i].distance == 0 || sprites[i].distance < sprites[i + 1].distance)
+			{
+				tmp = sprites[i];
+				sprites[i] = sprites[i + 1];
+				sprites[i + 1] = tmp;
+			}
+			i++;
+		}
+		j++;
+	}
+}
 void	draw_sprites(t_game	*game_data)
 {
 	int			i;
+	// t_sprite	vis_sprites[10];
 
+	// detect_vis_sprites(game_data);
+	i = 0;
+	while (game_data->sprites[i].texture)
+	{
+		if (game_data->sprites[i].visible)
+		{
+			// set_height(game_data, &game_data->sprites[i]);
+			// set_width(game_data, &game_data->sprites[i]);
+			// sort_sprites(game_data->sprites);
+			draw_sprite(game_data, game_data->sprites[i]);
+		}
+		i++;
+	}
+}
+
+void	sprites_calculations(t_game	*game_data)
+{
+	int			i;
 
 	detect_vis_sprites(game_data);
 	i = 0;
@@ -148,7 +193,8 @@ void	draw_sprites(t_game	*game_data)
 		{
 			set_height(game_data, &game_data->sprites[i]);
 			set_width(game_data, &game_data->sprites[i]);
-			draw_sprite(game_data, game_data->sprites[i]);
+			sort_sprites(game_data->sprites);
+			// draw_sprite(game_data, game_data->sprites[i]);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/19 17:31:54 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/19 21:28:08 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,23 +188,6 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
         ray->was_hit_vertical = 1;
 }
 
-
-// void ray_init_data(t_raycast *ray)
-// {
-//     ray->found_hor_hit = 0;
-//     ray->hor_wall_hit_x = 0;
-//     ray->hor_wall_hit_y = 0;
-//     ray->wallHitX = 0;
-//     ray->wallHitY = 0;
-//     ray->found_vert_hit = 0;
-//     ray->vert_wall_hit_x = 0;
-//     ray->vert_wall_hit_y = 0;
-//     ray->was_hit_vertical = 0;
-//     ray->distance = 0;
-// }
-
-
-
 // TODO: needs to be split up in logical norminette-sized functions
 // TODO: potential bug with x and y offset (diagonal lines are empty) - need to check if this affects 3d game projection
 void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
@@ -218,8 +201,6 @@ void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
 
 void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle)
 {
-    // double distance_proj_plane;
-    // double projected_wall_height;
     double wall_strip_height;
     double wall_top_pixel;
     double perp_distance;
@@ -228,7 +209,6 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     // game_data->dist_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
     perp_distance = ray->distance * cos((ray_angle - game_data->player_angle)); // calculate ray.angle
     wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
-    // wall_strip_height = projected_wall_height;
     wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
     if (wall_top_pixel < 0)
         wall_top_pixel = 0; // ??
@@ -259,6 +239,8 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
             (uint32_t)column_id, (uint32_t)0,
             game_data->color[C].rgb_color);
+	//drawing sprites
+	// draw_sprites(game_data);
 }
 
 
@@ -267,8 +249,6 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 {
     t_raycast ray;
 
-    (void)column_id;
-    // ray_init_data(&ray);
 	ft_bzero(&ray, sizeof(ray));
     ray_orientation(&ray, ray_angle);
     ray_horiz_calc(game_data, &ray, ray_angle);
@@ -277,24 +257,8 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     ray_vert_loop(game_data, &ray);
     ray_shortest_distance(&ray, game_data);
     draw_minimap_fov(game_data, &ray);
-
+	game_data->z_buffer[column_id] = ray.distance;
     draw_3d_projection(game_data, column_id, &ray, ray_angle);
-
-    // double distance_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
-    // double projected_wall_height  = (MINIMAP_SQUARE_SIDE_LEN / ray.distance) * distance_proj_plane;
-    // double wallstripheight = projected_wall_height;
-    // double wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wallstripheight / 2);
-    // if (wall_top_pixel < 0)
-    //     wall_top_pixel = 0;
-    // double wall_bott_pixel = (WINDOW_HEIGHT / 2)  + (wallstripheight / 2);
-    // if (wall_bott_pixel > WINDOW_HEIGHT)
-    //     wall_bott_pixel = WINDOW_HEIGHT;
-    // drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
-    //         (uint32_t)column_id, (uint32_t)wall_bott_pixel,
-    //         game_data->player->color);
-
-
-
 
 }
 

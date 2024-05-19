@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/19 11:26:25 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/19 21:36:27 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,23 +69,6 @@ typedef enum e_colors
 	F,
 	C,
 }	t_colors;
-
-//save textures here
-// typedef struct s_textures
-// {
-// 	mlx_texture_t		*north;
-// 	mlx_texture_t		*south;
-// 	mlx_texture_t		*east;
-// 	mlx_texture_t		*west;
-// }						t_textures;
-
-// typedef struct s_text_images
-// {
-// 	mlx_image_t		*north;
-// 	mlx_image_t		*south;
-// 	mlx_image_t		*east;
-// 	mlx_image_t		*west;
-// }						t_text_images;
 
 // used for colors
 typedef struct	s_rgb
@@ -150,7 +133,6 @@ typedef struct	s_game
 	mlx_image_t		*img;
 	mlx_texture_t	*textures[TEX_NO];
 	mlx_texture_t	*icon;
-	// t_text_images	*images;
 
 	// textures
 	char			*texture_filename[TEX_NO];
@@ -183,10 +165,9 @@ typedef struct	s_game
 	int				texture_width;
 	// maze
 	t_sprite		sprites[10];
-	// t_sprite		*vis_sprite[10];
-	// int				vis_sprites_no;
 	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
+	double			z_buffer[WINDOW_WIDTH];
 }				t_game;
 
 typedef struct 	s_raycast {
@@ -314,6 +295,8 @@ void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
 t_color			convertColors(mlx_texture_t* texture, uint32_t index, double distance);
 int				router_parse_data(char *line, t_game *game_data);
 int				init_sprites(t_game *game_data, char t, int x, int y);
+void			sprites_calculations(t_game	*game_data);
+
 
 
 //Utils
