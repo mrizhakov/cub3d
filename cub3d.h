@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/19 21:36:27 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/19 22:06:23 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,11 @@
 
 
 # define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 700 // not sure why doesnt  work properly with non-square big window size
-// which one ?
-//#define WIDTH 1280
-//#define HEIGHT 1024 // change to window_heigh and window_width
+# define WINDOW_HEIGHT 700
 # define FILE_READ_BUFFER 1024
 # define MAZE_DIMENSION 40
 # define PLAYER_STEP 30
 # define MAP_PADDING 2
-
 # define MINIMAP_SQUARE_SIDE_LEN 15
 
 // # define MINIMAP_Y_OFFSET 10
@@ -45,7 +41,6 @@
 # define FOV 60
 # define TURNING_SPEED 0.025
 # define VALID_CHAR_MAP "NEWS10M \n"
-
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
 
@@ -164,7 +159,7 @@ typedef struct	s_game
 	int             redraw_minimap;
 	int				texture_width;
 	// maze
-	t_sprite		sprites[10];
+	t_sprite		sprites[11];
 	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
 	double			z_buffer[WINDOW_WIDTH];
@@ -217,12 +212,12 @@ void			init_data(t_game *game_data);
 // int				valid_file(char *filename);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
-char			*parse_textures(char *map_line, char *direction);
+// char			*parse_textures(char *map_line, char *direction);
 int				check_textures(t_game *game_data);
 int				check_colors_ok(t_game *game_data);
 int				is_valid_char(char matrix_val);
-int				no_of_players(t_game *game_data, char matrix_val);
-int				parse_color(t_game *game_data, char *map_line);
+// int				no_of_players(t_game *game_data, char matrix_val);
+// int				parse_color(t_game *game_data, char *map_line);
 int				is_valid_int(int matrix_val);
 int				maze_check_closed(t_game *game_data);
 
@@ -272,7 +267,6 @@ void			ray_horiz_loop(t_game *game_data, t_raycast *ray);
 void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
-void			ray_init_data(t_raycast *ray);
 void			draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
 void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle);
 
