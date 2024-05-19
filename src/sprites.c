@@ -48,7 +48,8 @@ void	detect_vis_sprites(t_game *game_data)
 	sprites = game_data->sprites;
 	player = game_data->player;
 	i = 0;
-	while (sprites[i].texture)
+	// game_data->vis_sprites_no = 0;
+	while (sprites[i].texture) // change to nu of sprites
 	{
 		angle_sprite = game_data->player_angle
 			- atan2(sprites[i].y - player->y, sprites[i].x - player->x);
@@ -124,6 +125,8 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 	{
 		draw_sprite_line(game_data, sprite, texOffset, line);
 		texOffset += texture->width;
+		if (texOffset >= texture->width * texture->height)
+			break ;
 		prev_line = line;
 		line += sprite.err_line;
 		while ((line - prev_line) > 1 && prev_line < sprite.bott_pixel - 1)
