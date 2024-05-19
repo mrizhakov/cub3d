@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/18 21:26:45 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/19 11:26:25 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,9 @@ typedef struct e_sprite
 	double	bott_pixel;
 	double	top_pixel;
 	double	left_pixel;
+	double	err_line;
 	double	right_pixel;
+	double	err_colon;
 }				t_sprite;
 
 typedef struct s_color

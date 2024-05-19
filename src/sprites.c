@@ -17,6 +17,7 @@ void	set_height(t_game *game_data, t_sprite *vis_sprite)
 	vis_sprite->top_pixel = top_pixel;
 	vis_sprite->bott_pixel = bott_pixel;
 	vis_sprite->dimentions = sprite_height;
+	vis_sprite->err_line = sprite_height / game_data->textures[vis_sprite->texture]->height;
 }
 
 void	set_width(t_game *game_data, t_sprite *vis_sprite)
@@ -34,6 +35,7 @@ void	set_width(t_game *game_data, t_sprite *vis_sprite)
 		rightX = WINDOW_WIDTH - 1;
 	vis_sprite->left_pixel = leftX;
 	vis_sprite->right_pixel = rightX;
+	vis_sprite->err_colon = vis_sprite->dimentions / game_data->texture_width;
 }
 
 void	detect_vis_sprites(t_game *game_data)
@@ -58,7 +60,7 @@ void	detect_vis_sprites(t_game *game_data)
 		angle_sprite = fabs(angle_sprite);
 		if (angle_sprite < (game_data->fov_angle / 2))
 		{
-			sprites[i].distance = distance_between_points(sprites[i].x, sprites[i].y, player->x, player->y);
+			sprites[i].distance = distance_between_points(player->x, player->y, sprites[i].x, sprites[i].y);
 			sprites[i].angle = fmod(atan2(sprites[i].y - player->y, sprites[i].x - player->x) - game_data->player_angle + M_PI,
 									2 * M_PI) - M_PI;
 			sprites[i].visible = true;
@@ -85,10 +87,58 @@ int	init_sprites(t_game *game_data, char t, int x, int y)
 	return (0);
 }
 
+static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
+								double offset, double line)
+{
+	double			left;
+	mlx_texture_t	*texture;
+	uint32_t		index;
+	double			prev_left;
+	t_color			color;
+
+	texture = game_data->textures[sprite.texture];
+	index = offset * 4;
+	left = sprite.left_pixel;
+	while (left <= sprite.right_pixel)
+	{
+		color = convertColors(texture, index, sprite.dimentions);
+		put_pixel(game_data->img, left, line, color);
+		prev_left = left;
+		left += sprite.err_colon;
+		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel)
+			put_pixel(game_data->img, ++prev_left, line, color);
+		index += 4;
+	}
+}
+
+static void	draw_sprite(t_game *game_data, t_sprite	sprite)
+{
+	double			line;
+	double			prev_line;
+	uint32_t		texOffset;
+	mlx_texture_t	*texture;
+
+	line = sprite.top_pixel;
+	texOffset = 0;
+	texture = game_data->textures[sprite.texture];
+	while (line <= sprite.bott_pixel)
+	{
+		draw_sprite_line(game_data, sprite, texOffset, line);
+		texOffset += texture->width;
+		if (texOffset > texture->width * texture->height)
+			break ;
+		prev_line = line;
+		line += sprite.err_line;
+		while ((line - prev_line) > 1 && prev_line < sprite.bott_pixel)
+			draw_sprite_line(game_data, sprite, texOffset, ++prev_line);
+
+	}
+}
+
 void	draw_sprites(t_game	*game_data)
 {
 	int			i;
-	double		line;
+
 
 	detect_vis_sprites(game_data);
 	i = 0;
@@ -98,55 +148,7 @@ void	draw_sprites(t_game	*game_data)
 		{
 			set_height(game_data, &game_data->sprites[i]);
 			set_width(game_data, &game_data->sprites[i]);
-			line = game_data->sprites[i].top_pixel;
-			uint32_t	texOffset = 0;
-			// double err_line = (game_data->sprites[i].bott_pixel - game_data->sprites[i].top_pixel) / game_data->texture_width;
-			while (line < game_data->sprites[i].bott_pixel)
-			{
-
-				mlx_texture_t	*texture = game_data->textures[game_data->sprites[i].texture];
-				double	colon;
-				double	err_colon = (game_data->sprites[i].right_pixel - game_data->sprites[i].left_pixel)
-							/ game_data->texture_width;
-				colon = game_data->sprites[i].left_pixel;
-				while (colon < game_data->sprites[i].right_pixel)
-				{
-					uint32_t index = ((colon - game_data->sprites[i].left_pixel) + texOffset) * 4;
-					put_pixel(game_data->img, colon, line,
-								convertColors(texture, index, game_data->sprites[i].distance));
-					// double prev_colon = colon;
-					colon += err_colon;
-					// colon++;
-					// while (colon - prev_colon > 1)
-					// {
-					// 	printf("(int)(colon - prev_colon) > 1");
-					// 	put_pixel(game_data->img, prev_colon++, line,
-					// 			convertColors(texture, index, game_data->sprites[i].distance));
-					// }
-				}
-				texOffset += texture->width;
-				if (texOffset > texture->width * texture->height)
-					texOffset = 0;
-				// double prev_line = line;
-				// line += err_line;
-				line++;
-				// while ((int)(line - prev_line) > 1)
-				// {
-				// 	colon = 0;
-				// 	while (colon < game_data->sprites[i].right_pixel)
-				// 	{
-				// 		uint32_t index = ((colon - game_data->sprites[i].left_pixel) + texOffset) * 4;
-				// 		put_pixel(game_data->img, colon, line,
-				// 					convertColors(texture, index, game_data->sprites[i].distance));
-				// 		double prev_colon = colon;
-				// 		colon += err_colon;
-				// 		while ((int)(colon - prev_colon) > 1)
-				// 			put_pixel(game_data->img, prev_colon++, line,
-				// 					convertColors(texture, index, game_data->sprites[i].distance));
-				// 	}
-				// 	prev_line++;
-				// }
-			}
+			draw_sprite(game_data, game_data->sprites[i]);
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 13:48:34 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/18 22:15:56 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/19 16:43:02 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
 
 	i = 0 + ((textOffX) * 4);
 	height = game_data->textures[NO]->height;
-
-
 	wall_height = wall_bottom_pixel - wall_top_pixel;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{

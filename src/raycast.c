@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/18 16:32:18 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/19 17:31:54 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     double wall_strip_height;
     double wall_top_pixel;
     double perp_distance;
+	double wall_bott_pixel;
 
     // game_data->dist_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
     perp_distance = ray->distance * cos((ray_angle - game_data->player_angle)); // calculate ray.angle
@@ -231,9 +232,9 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
     if (wall_top_pixel < 0)
         wall_top_pixel = 0; // ??
-    double wall_bottom_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
-    if (wall_bottom_pixel > WINDOW_HEIGHT)
-        wall_bottom_pixel = WINDOW_HEIGHT - 1;
+    wall_bott_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
+    if (wall_bott_pixel > WINDOW_HEIGHT)
+        wall_bott_pixel = WINDOW_HEIGHT - 1; // ??
 
     // X offset for finding where on the cube you should start drawing a texture
     // each square is MINIMAP_SQUARE_SIDE_LEN long, texture_offset_X tells you how many pixels
@@ -247,11 +248,11 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     else
         texture_offset_x = (int)ray->hor_wall_hit_x % game_data->texture_width;
     // draw_textures(game_data, column_id, wall_top_pixel,
-	// 				wall_bottom_pixel, texture_offset_x);
+	// 				wall_bott_pixel, texture_offset_x);
     draw_textures(game_data, column_id, wall_top_pixel,
-					wall_bottom_pixel, texture_offset_x);
+					wall_bott_pixel, texture_offset_x);
 	//draw floor
-    drawLine((uint32_t)column_id, (uint32_t)wall_bottom_pixel,
+    drawLine((uint32_t)column_id, (uint32_t)wall_bott_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
             game_data->color[F].rgb_color);
     //draw celing
@@ -285,11 +286,11 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     // double wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wallstripheight / 2);
     // if (wall_top_pixel < 0)
     //     wall_top_pixel = 0;
-    // double wall_bottom_pixel = (WINDOW_HEIGHT / 2)  + (wallstripheight / 2);
-    // if (wall_bottom_pixel > WINDOW_HEIGHT)
-    //     wall_bottom_pixel = WINDOW_HEIGHT;
+    // double wall_bott_pixel = (WINDOW_HEIGHT / 2)  + (wallstripheight / 2);
+    // if (wall_bott_pixel > WINDOW_HEIGHT)
+    //     wall_bott_pixel = WINDOW_HEIGHT;
     // drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
-    //         (uint32_t)column_id, (uint32_t)wall_bottom_pixel,
+    //         (uint32_t)column_id, (uint32_t)wall_bott_pixel,
     //         game_data->player->color);
 
 
