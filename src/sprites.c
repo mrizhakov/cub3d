@@ -48,8 +48,7 @@ void	detect_vis_sprites(t_game *game_data)
 	sprites = game_data->sprites;
 	player = game_data->player;
 	i = 0;
-	// game_data->vis_sprites_no = 0;
-	while (sprites[i].texture) // change to nu of sprites
+	while (sprites[i].texture)
 	{
 		angle_sprite = game_data->player_angle
 			- atan2(sprites[i].y - player->y, sprites[i].x - player->x);
@@ -99,13 +98,13 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	texture = game_data->textures[sprite.texture];
 	index = offset * 4;
 	left = sprite.left_pixel;
-	while (left <= sprite.right_pixel)
+	while (left < sprite.right_pixel)
 	{
 		color = convertColors(texture, index, sprite.dimentions);
 		put_pixel(game_data->img, left, line, color);
 		prev_left = left;
 		left += sprite.err_colon;
-		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel)
+		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel - 1)
 			put_pixel(game_data->img, ++prev_left, line, color);
 		index += 4;
 	}
@@ -121,15 +120,13 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 	line = sprite.top_pixel;
 	texOffset = 0;
 	texture = game_data->textures[sprite.texture];
-	while (line <= sprite.bott_pixel)
+	while (line < sprite.bott_pixel)
 	{
 		draw_sprite_line(game_data, sprite, texOffset, line);
 		texOffset += texture->width;
-		if (texOffset > texture->width * texture->height)
-			break ;
 		prev_line = line;
 		line += sprite.err_line;
-		while ((line - prev_line) > 1 && prev_line < sprite.bott_pixel)
+		while ((line - prev_line) > 1 && prev_line < sprite.bott_pixel - 1)
 			draw_sprite_line(game_data, sprite, texOffset, ++prev_line);
 
 	}
