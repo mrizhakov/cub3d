@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/20 22:17:16 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/20 22:23:17 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,9 @@ int	put_sign(char c, char *tokens)
 	i = 0;
 	while (tokens[i] && tokens[i] != c)
 		i++;
-	if (i > 6 && i < 9)
+	if (i > 7 && i < 10)
 		return ('X');
-	else if (i <= 6)
+	else if (i <= 7)
 		return (tokens[i]);
 	else
 		return (0);
