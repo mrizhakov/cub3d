@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/18 16:04:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/20 22:17:16 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,19 @@ int	check_texture(char *texture, int texture_count)
 int	check_textures(t_game *game_data)
 {
 	int	i;
+	int	texture;
 
-	i = check_texture(game_data->texture_filename[NO], game_data->texture_count[NO]);
-	i = check_texture(game_data->texture_filename[SO], game_data->texture_count[SO]);
-	i = check_texture(game_data->texture_filename[WE], game_data->texture_count[WE]);
-	i = check_texture(game_data->texture_filename[EA], game_data->texture_count[EA]);
-	i = check_texture(game_data->texture_filename[MUSHR], game_data->texture_count[MUSHR]);
+	texture = 0;
+	while (texture < TEX_NO)
+	{
+		i = check_texture(game_data->texture_filename[texture], game_data->texture_count[texture]);
+		if (i == 0)
+		{
+			game_data->all_textures_ok = i;
+			return (i);
+		}
+		texture++;
+	}
 	game_data->all_textures_ok = i;
 	return (i);
 }
@@ -116,6 +123,11 @@ int	is_player(t_game *game_data, int y, int x, char *tokens)
 		if (init_sprites(game_data, tokens[i], x, y))
 			return (ft_putendl_fd("Error\nMax 10 sprites allowed", 2), 1);
 	}
+	else if (i == 5)
+	{
+		if (init_doors(game_data, tokens[i], x ,y))
+			return (ft_putendl_fd("Error\nMax 10 doors allowed", 2), 1);
+	}
 	else if (i > 4)
 		return (2);
 	else
@@ -164,10 +176,10 @@ int	parse_maze(t_game *game_data, char *line)
 		return (check_parse(j, game_data));
 	while (i < MAZE_DIMENSION && line[i - 1])
 	{
-		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], VALID_CHAR_MAP); // pleae use macro VALID_CHAR_MAP or similar
+		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], VALID_CHAR_MAP);
 		if (game_data->maze.g[j + 1][i] == 0)
 			return (ft_putendl_fd("Error\nMap error", 2), 1); //??
-		if(is_player(game_data, j + 1, i, "NEWSM") == 1)
+		if(is_player(game_data, j + 1, i, VALID_CHAR_MAP) == 1)
 			 return (1);
 		i++;
 	}

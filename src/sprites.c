@@ -54,7 +54,7 @@ void	detect_vis_sprites(t_game *game_data)
 			- atan2(sprites[i].y - player->y, sprites[i].x - player->x);
 		if (angle_sprite > M_PI)
 			angle_sprite -= 2 * M_PI;
-		if (angle_sprite < - M_PI)
+		if (angle_sprite < -M_PI)
 			angle_sprite += 2 * M_PI;
 		angle_sprite = fabs(angle_sprite);
 		if (angle_sprite < (game_data->fov_angle / 2))

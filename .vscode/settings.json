@@ -1,5 +1,8 @@
 {
     "files.associations": {
+		"*.c": "c",
+		"*.h": "c",
+		"*.rs": "rust",
 		"mlx42.h": "c",
 		"cub3d.h": "c",
 		"iterator": "c",
@@ -7,10 +10,21 @@
 		"cmath": "c",
 		"libft.h": "c",
 		"stdio.h": "c",
-		"*.c": "c",
 		"stdbool.h": "c",
 		"math.h": "c",
 		"unistd.h": "c",
-		"mlx42_int.h": "c"
+		"mlx42_int.h": "c",
+		"array": "c",
+		"atomic": "c",
+		"istream": "c",
+		"memory": "c",
+		"mutex": "c",
+		"ostream": "c",
+		"sstream": "c",
+		"string": "c",
+		"string_view": "c",
+		"tuple": "c",
+		"utility": "c",
+		"vector": "c"
 	}
 }

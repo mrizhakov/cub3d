@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/19 22:06:23 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/20 22:16:57 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 // # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.025
-# define VALID_CHAR_MAP "NEWS10M \n"
+# define VALID_CHAR_MAP "NEWSMC10 \n"
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
 
@@ -56,14 +56,15 @@ typedef enum e_directions
 typedef enum e_textures
 {
 	MUSHR = 4,
+	DOOR,
 	TEX_NO,
 }			t_textures;
 
-typedef enum e_colors
+typedef enum e_surface
 {
 	F,
 	C,
-}	t_colors;
+}	t_surface;
 
 // used for colors
 typedef struct	s_rgb
@@ -88,7 +89,13 @@ typedef struct	s_double_pixel
 	uint32_t	color;
 }				t_double_pixel;
 
-typedef struct	s_doors t_doors;
+typedef struct	s_doors
+{
+	double	x;
+	double	y;
+	double	distance;
+	int texture;
+}				t_doors;
 
 // used for cursor movement
 typedef struct 	s_point {
@@ -160,6 +167,7 @@ typedef struct	s_game
 	int				texture_width;
 	// maze
 	t_sprite		sprites[11];
+	t_doors			doors[11];
 	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
 	double			z_buffer[WINDOW_WIDTH];
@@ -288,8 +296,11 @@ int				load_textures(t_game *game_data);
 void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
 t_color			convertColors(mlx_texture_t* texture, uint32_t index, double distance);
 int				router_parse_data(char *line, t_game *game_data);
+//sprites
 int				init_sprites(t_game *game_data, char t, int x, int y);
 void			sprites_calculations(t_game	*game_data);
+//doors
+int				init_doors(t_game *game_data, char t, int x, int y);
 
 
 

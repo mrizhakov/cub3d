@@ -18,7 +18,7 @@ int	parse_texture_file(t_direct direction, t_game *game_data, char *link)
 	return (0);
 }
 
-int parse_color_data(t_colors color, t_game *game_data, char *data)
+int parse_color_data(t_surface surface, t_game *game_data, char *data)
 {
 	char	**colors;
 	t_rgb	rgb;
@@ -47,9 +47,9 @@ int parse_color_data(t_colors color, t_game *game_data, char *data)
 		if (rgb.color[i] < 0 || rgb.color[i] > 255)
 			return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
 	free_char_arr(colors);
-	game_data->color[color] = rgb;
-	game_data->color_count[color]++;
-	game_data->color[color].valid_rgb = 1;
+	game_data->color[surface] = rgb;
+	game_data->color_count[surface]++;
+	game_data->color[surface].valid_rgb = 1;
 	return (0);
 }
 
