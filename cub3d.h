@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/21 20:06:52 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/21 22:52:21 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef enum e_directions
 typedef enum e_textures
 {
 	TEX_MUSHR = 4,
+	TEX_MUSHR_2,
 	TEX_DOOR_0,
 	TEX_DOOR_1,
 	TEX_DOOR_2,

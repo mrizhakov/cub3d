@@ -237,17 +237,22 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     if (ray->was_hit_vertical)
 	{
 		texture_wall = game_data->textures[SO]; //temp
+        texture_offset_x = (int)ray->vert_wall_hit_y % game_data->texture_width;
 		if (ray->door[VERT])
 			texture_wall = game_data->textures[TEX_DOOR_0];
-        texture_offset_x = (int)ray->vert_wall_hit_y % game_data->texture_width;
 	}
     else
 	{
 		texture_wall = game_data->textures[NO]; //temp
-		if (ray->door[HOR])
-			texture_wall = game_data->textures[TEX_DOOR_0];
         texture_offset_x = (int)ray->hor_wall_hit_x % game_data->texture_width;
+		if (ray->door[HOR])
+				texture_wall = game_data->textures[TEX_DOOR_0];
 	}
+	// if (texture_wall == game_data->textures[TEX_DOOR_0])
+	// {
+	// 	wall_top_pixel += wall_strip_height / 8;
+	// 	wall_bott_pixel -= wall_strip_height / 8;
+	// }
 	// if (ray->door[1])
 	// 	texture_wall = texture_door;
 	//draw walls

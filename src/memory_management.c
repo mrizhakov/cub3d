@@ -61,19 +61,13 @@ void free_textures(t_game *game_data)
 {
 	int	i;
 
-	if (game_data->textures[NO])
-		mlx_delete_texture(game_data->textures[NO]);
-	if (game_data->textures[SO])
-		mlx_delete_texture(game_data->textures[SO]);
-	if (game_data->textures[WE])
-		mlx_delete_texture(game_data->textures[WE]);
-	if (game_data->textures[EA])
-		mlx_delete_texture(game_data->textures[EA]);
-	if (game_data->textures[TEX_MUSHR])
-		mlx_delete_texture(game_data->textures[TEX_MUSHR]);
 	i = 0;
-	while(i < 4)
+	while (i < TEX_NO)
+	{
+		if (game_data->textures[i])
+			mlx_delete_texture(game_data->textures[i]);
 		game_data->textures[i++] = NULL;
+	}
 	if (game_data->icon)
 		mlx_delete_texture(game_data->icon);
 	game_data->icon = NULL;
@@ -81,13 +75,13 @@ void free_textures(t_game *game_data)
 
 void free_on_exit(t_game *game_data)
 {
+	int	i;
+
 	if (!game_data)
 		return ;
-	free_to_null_string(&game_data->texture_filename[NO]);
-	free_to_null_string(&game_data->texture_filename[SO]);
-	free_to_null_string(&game_data->texture_filename[WE]);
-	free_to_null_string(&game_data->texture_filename[EA]);
-	free_to_null_string(&game_data->texture_filename[TEX_MUSHR]);
+	i = 0;
+	while (i < TEX_NO)
+		free_to_null_string(&game_data->texture_filename[i++]);
 	if (game_data->player)
 		free(game_data->player);
 	free_textures(game_data);

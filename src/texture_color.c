@@ -56,24 +56,24 @@ int parse_color_data(t_surface surface, t_game *game_data, char *data)
 int	router_parse_data(char *line, t_game *game_data)
 {
 	char	**tokens;
-	char	*token_texture[] = {"NO", "SO", "WE", "EA", "MU", "DO0", "DO1", "DO2", NULL};
+	char	*token_texture[] = {"NO", "SO", "WE", "EA", "MU", "MU2", "DO0", "DO1", "DO2", NULL};
 	char	*token_color[] = {"F", "C", NULL};
-	size_t	i;
-	size_t	j;
+	int	i;
+	int	j;
 
 	i = 0;
 	tokens = ft_split(line, ' ');
 	while (tokens[i])
 	{
-		j = 0;
-		while (token_texture[j])
-			if (!ft_strncmp(tokens[i], token_texture[j++], ft_strlen(tokens[i]))
-				&& parse_texture_file(j - 1, game_data, tokens[i + 1]))
+		j = -1;
+		while (token_texture[++j])
+			if (!ft_strncmp(tokens[i], token_texture[j], 3) // why 3?
+				&& parse_texture_file(j, game_data, tokens[i + 1]))
 					return (free_char_arr(tokens), 1);
-		j = 0;
-		while (token_color[j])
-			if (!ft_strncmp(tokens[i], token_color[j++], ft_strlen(tokens[i]))
-				&& parse_color_data(j - 1, game_data, tokens[i + 1]))
+		j = -1;
+		while (token_color[++j])
+			if (!ft_strncmp(tokens[i], token_color[j], 3) // why 3?
+				&& parse_color_data(j, game_data, tokens[i + 1]))
 					return (free_char_arr(tokens), 1);
 		i++;
 	}
