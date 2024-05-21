@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 16:58:52 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/19 21:28:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/21 15:04:37 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -210,11 +210,11 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
     perp_distance = ray->distance * cos((ray_angle - game_data->player_angle)); // calculate ray.angle
     wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
     wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
-    if (wall_top_pixel < 0)
-        wall_top_pixel = 0; // ??
+    // if (wall_top_pixel < 0)
+    //     wall_top_pixel = 0; // ??
     wall_bott_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
-    if (wall_bott_pixel > WINDOW_HEIGHT)
-        wall_bott_pixel = WINDOW_HEIGHT - 1; // ??
+    // if (wall_bott_pixel > WINDOW_HEIGHT)
+    //     wall_bott_pixel = WINDOW_HEIGHT - 1; // ??
 
     // X offset for finding where on the cube you should start drawing a texture
     // each square is MINIMAP_SQUARE_SIDE_LEN long, texture_offset_X tells you how many pixels
@@ -309,7 +309,8 @@ void    draw_fov(t_game *game_data)
         ray_angle = game_data->player_angle + atan((column_id - game_data->num_rays / 2) / game_data->dist_proj_plane);
 
         ray_angle = check_angle_overflow(game_data, ray_angle);
-        cast_ray(game_data, ray_angle, column_id);
+		if (column_id < game_data->num_rays)
+       		cast_ray(game_data, ray_angle, column_id);
         column_id++;
     }
     game_data->redraw_minimap = 1;

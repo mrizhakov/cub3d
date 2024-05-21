@@ -31,3 +31,38 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 		game_data->doors[i].texture = DOOR;
 	return (0);
 }
+
+// void	draw_door(t_game *game_data)
+// {
+
+// }
+void	detect_vis_door(t_game *game_data)
+{
+	t_doors	*doors;
+	t_double_pixel	*player;
+	double		angle_sprite;
+	int			i;
+
+	doors = game_data->doors;
+	player = game_data->player;
+	i = 0;
+	while (doors[i].texture)
+	{
+		angle_sprite = game_data->player_angle
+			- atan2(doors[i].y - player->y, doors[i].x - player->x);
+		if (angle_sprite > M_PI)
+			angle_sprite -= 2 * M_PI;
+		if (angle_sprite < -M_PI)
+			angle_sprite += 2 * M_PI;
+		angle_sprite = fabs(angle_sprite);
+		if (angle_sprite < (game_data->fov_angle / 2) && !doors[i].open)
+		{
+			doors[i].distance = distance_between_points(player->x, player->y, doors[i].x, doors[i].y);
+			doors[i].angle = atan2(doors[i].y - player->y, doors[i].x - player->x) - game_data->player_angle + M_PI;
+			doors[i].visible = true;
+		}
+		else
+			doors[i].visible = false;
+		i++;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/20 22:16:57 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/21 18:28:01 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@
 
 
 
-# define WINDOW_WIDTH 1000
-# define WINDOW_HEIGHT 700
+# define WINDOW_WIDTH 1080
+# define WINDOW_HEIGHT 740
 # define FILE_READ_BUFFER 1024
 # define MAZE_DIMENSION 40
 # define PLAYER_STEP 30
@@ -89,13 +89,6 @@ typedef struct	s_double_pixel
 	uint32_t	color;
 }				t_double_pixel;
 
-typedef struct	s_doors
-{
-	double	x;
-	double	y;
-	double	distance;
-	int texture;
-}				t_doors;
 
 // used for cursor movement
 typedef struct 	s_point {
@@ -103,7 +96,25 @@ typedef struct 	s_point {
 	double		y;				// y : Height | y-axis
 }				t_point;
 
-typedef struct e_sprite
+typedef struct	s_doors
+{
+	double	x;
+	double	y;
+	bool	open;
+	bool	visible;
+	double	distance;
+	int		texture;
+	double	angle;
+	double	dimentions;
+	double	bott_pixel;
+	double	top_pixel;
+	double	left_pixel;
+	double	err_line;
+	double	right_pixel;
+	double	err_colon;
+}				t_doors;
+
+typedef struct s_sprite
 {
 	double	x;
 	double	y;
@@ -182,35 +193,27 @@ typedef struct 	s_raycast {
     double yintercept;
 	double xstep;
     double ystep;
-
-
-	double wallHitX;
-    double wallHitY;
-
+	// double wallHitX;
+    // double wallHitY;
     double distance;
-
-
     double next_hor_touch_x;
     double next_hor_touch_y;
     int found_hor_hit;
     double hor_wall_hit_x;
     double hor_wall_hit_y;
-
-
 	int found_vert_hit;
     double vert_wall_hit_x;
     double vert_wall_hit_y;
     double next_vert_touch_x;
     double next_vert_touch_y;
-
     double  shortest_wall_hit_x;
     double  shortest_wall_hit_y;
     int     was_hit_vertical;
-
 	double distance_hor;
     double distance_vert;
-
-
+	//added by ddavlety 21.05
+	bool	door;
+	//added by ddavlety 21.05
 }				t_raycast;
 
 // Error handling and parsing
@@ -301,6 +304,7 @@ int				init_sprites(t_game *game_data, char t, int x, int y);
 void			sprites_calculations(t_game	*game_data);
 //doors
 int				init_doors(t_game *game_data, char t, int x, int y);
+int				check_door_place(t_game *game_data, int y, int x);
 
 
 

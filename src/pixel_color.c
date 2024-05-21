@@ -14,14 +14,25 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 
 	if (!img)
 		ft_putendl_fd("Image does not exist", 2);
-	if (!(x < img->width))
-		ft_putendl_fd("Pixel is out of bounds (axes x)", 2);
-	else if (!(y < img->height))
-		ft_putendl_fd("Pixel is out of bounds (axes y)", 2);
-	pixelstart = &img->pixels[(y * img->width + x) * BPP];
-	if (color.alpha == 0)
-		return ;
-	draw_pixel(pixelstart, color);
+	if (x < img->width && y < img->height)
+	{
+		pixelstart = &img->pixels[(y * img->width + x) * BPP];
+		if (color.alpha == 0)
+		{
+			//tmp
+			// t_color color;
+			// color.blue = 0xFF;
+			// color.alpha = 0XFF;
+			// draw_pixel(pixelstart, color);
+			//tmp
+			return ;
+		}
+		draw_pixel(pixelstart, color);
+	}
+	// if (!(x < img->width))
+	// 	ft_putendl_fd("Pixel is out of bounds (axes x)", 2);
+	// else if (!(y < img->height))
+	// 	ft_putendl_fd("Pixel is out of bounds (axes y)", 2);
 }
 
 static double sigmoid(double x)

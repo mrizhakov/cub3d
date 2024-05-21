@@ -27,12 +27,12 @@ void	set_width(t_game *game_data, t_sprite *vis_sprite)
 	double	rightX;
 
 	posX = tan(vis_sprite->angle) * game_data->dist_proj_plane;
-	leftX = (WINDOW_WIDTH / 2) + posX;
+	leftX = (WINDOW_WIDTH / 2) + posX - vis_sprite->dimentions / 2;
 	rightX = leftX + vis_sprite->dimentions;
-	if (leftX < 0)
-		leftX = 0;
-	if (rightX >= WINDOW_WIDTH)
-		rightX = WINDOW_WIDTH - 1;
+	// if (leftX < 0)
+	// 	leftX = 0;
+	// if (rightX >= WINDOW_WIDTH)
+	// 	rightX = WINDOW_WIDTH - 1;
 	vis_sprite->left_pixel = leftX;
 	vis_sprite->right_pixel = rightX;
 	vis_sprite->err_colon = vis_sprite->dimentions / game_data->texture_width;
@@ -60,8 +60,7 @@ void	detect_vis_sprites(t_game *game_data)
 		if (angle_sprite < (game_data->fov_angle / 2))
 		{
 			sprites[i].distance = distance_between_points(player->x, player->y, sprites[i].x, sprites[i].y);
-			sprites[i].angle = fmod(atan2(sprites[i].y - player->y, sprites[i].x - player->x) - game_data->player_angle + M_PI,
-									2 * M_PI) - M_PI;
+			sprites[i].angle = atan2(sprites[i].y - player->y, sprites[i].x - player->x) - game_data->player_angle + M_PI;
 			sprites[i].visible = true;
 		}
 		else
