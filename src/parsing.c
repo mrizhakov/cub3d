@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 17:00:24 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/20 22:23:17 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:10:29 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	put_sign(char c, char *tokens)
 		return (0);
 }
 
-int	is_player(t_game *game_data, int y, int x, char *tokens)
+int	tokenize(t_game *game_data, int y, int x, char *tokens)
 {
 	size_t	i;
 
@@ -179,7 +179,7 @@ int	parse_maze(t_game *game_data, char *line)
 		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], VALID_CHAR_MAP);
 		if (game_data->maze.g[j + 1][i] == 0)
 			return (ft_putendl_fd("Error\nMap error", 2), 1); //??
-		if(is_player(game_data, j + 1, i, VALID_CHAR_MAP) == 1)
+		if(tokenize(game_data, j + 1, i, VALID_CHAR_MAP) == 1)
 			 return (1);
 		i++;
 	}

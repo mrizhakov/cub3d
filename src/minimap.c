@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 12:54:27 by mrizakov          #+#    #+#             */
-/*   Updated: 2024/05/14 13:42:31 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/21 11:09:59 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ int maze_check_closed(t_game *game_data)
 				if (check_close(game_data->maze.g, j ,i - 1, '0')
 					|| check_close(game_data->maze.g, j ,i - 1, 'N'))
 						return (ft_putendl_fd("Error\nWall not closed", 2), 1);
+			if (game_data->maze.g[j][i] == 'C' && check_door_place(game_data, j, i))
+				return (ft_putendl_fd("Error\nDoor is in wrong place", 2), 1);
 		}
 		j++;
 	}
