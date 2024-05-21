@@ -81,7 +81,7 @@ int	init_sprites(t_game *game_data, char t, int x, int y)
 	game_data->sprites[i].x = x * game_data->texture_width + game_data->texture_width / 2;
 	game_data->sprites[i].y = y * game_data->texture_width + game_data->texture_width / 2;
 	if (t == 'M')
-		game_data->sprites[i].texture = MUSHR;
+		game_data->sprites[i].texture = TEX_MUSHR;
 	return (0);
 }
 

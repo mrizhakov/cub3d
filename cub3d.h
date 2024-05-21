@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/21 18:28:01 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/21 20:06:52 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,16 @@
 // # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.025
-# define VALID_CHAR_MAP "NEWSMC10 \n"
+# define VALID_CHAR_MAP "NEWSMD10 \n"
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
 
+typedef enum e_orientation
+{
+	HOR,
+	VERT,
+	ORIENT,
+}			t_orientation;
 
 typedef enum e_directions
 {
@@ -55,8 +61,10 @@ typedef enum e_directions
 
 typedef enum e_textures
 {
-	MUSHR = 4,
-	DOOR,
+	TEX_MUSHR = 4,
+	TEX_DOOR_0,
+	TEX_DOOR_1,
+	TEX_DOOR_2,
 	TEX_NO,
 }			t_textures;
 
@@ -65,6 +73,13 @@ typedef enum e_surface
 	F,
 	C,
 }	t_surface;
+
+typedef enum e_walltype
+{
+	W_NONE,
+	W_WALL,
+	W_DOOR,
+}			t_walltype;
 
 // used for colors
 typedef struct	s_rgb
@@ -212,7 +227,7 @@ typedef struct 	s_raycast {
 	double distance_hor;
     double distance_vert;
 	//added by ddavlety 21.05
-	bool	door;
+	bool	door[ORIENT];
 	//added by ddavlety 21.05
 }				t_raycast;
 
@@ -278,7 +293,7 @@ void			ray_horiz_loop(t_game *game_data, t_raycast *ray);
 void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
-void			draw_textures(t_game *game_data, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
+void			draw_textures(mlx_texture_t *, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
 void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle);
 
 

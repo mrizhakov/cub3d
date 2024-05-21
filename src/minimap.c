@@ -40,7 +40,7 @@ int maze_check_closed(t_game *game_data)
 				if (check_close(game_data->maze.g, j ,i - 1, '0')
 					|| check_close(game_data->maze.g, j ,i - 1, 'N'))
 						return (ft_putendl_fd("Error\nWall not closed", 2), 1);
-			if (game_data->maze.g[j][i] == 'C' && check_door_place(game_data, j, i))
+			if (game_data->maze.g[j][i] == 'D' && check_door_place(game_data, j, i))
 				return (ft_putendl_fd("Error\nDoor is in wrong place", 2), 1);
 		}
 		j++;

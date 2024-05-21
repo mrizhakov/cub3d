@@ -2,7 +2,7 @@
 
 static mlx_image_t* image;
 
-void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
+void	draw_textures(mlx_texture_t *texture, int column_id, double wall_top_pixel,
 						double wall_bottom_pixel, int textOffX)
 {
 	uint32_t		i;
@@ -12,22 +12,20 @@ void	draw_textures(t_game *game_data, int column_id, double wall_top_pixel,
 	double			wall_height;
 
 	i = 0 + ((textOffX) * 4);
-	height = game_data->textures[NO]->height;
+	height = texture->height;
 	wall_height = wall_bottom_pixel - wall_top_pixel;
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
 		prev_pixel = wall_top_pixel;
 		put_pixel(image, column_id, (int)wall_top_pixel,
-					convertColors(game_data->textures[NO], i, wall_height));
+					convertColors(texture, i, wall_height));
 		err = (wall_bottom_pixel - wall_top_pixel) / height;
-		// uncomment this to get pshycodelic effect
-		// err = (double)(random()/100 % 2);
 		wall_top_pixel += err;
 		while (wall_top_pixel - prev_pixel > 1)
 			put_pixel(image, column_id, (int)++prev_pixel,
-						convertColors(game_data->textures[NO], i, wall_height));
+						convertColors(texture, i, wall_height));
 		height--;
-		i += game_data->textures[NO]->width * 4;
+		i += texture->width * 4;
 	}
 }
 

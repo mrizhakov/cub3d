@@ -27,8 +27,8 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 		return (1);
 	game_data->doors[i].x = x * game_data->texture_width + game_data->texture_width / 2;
 	game_data->doors[i].y = y * game_data->texture_width + game_data->texture_width / 2;
-	if (t == 'C')
-		game_data->doors[i].texture = DOOR;
+	if (t == 'D')
+		game_data->doors[i].texture = TEX_DOOR_0;
 	return (0);
 }
 
