@@ -213,9 +213,31 @@ void	init_data(t_game *game_data)
 	game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", 0);
 }
 
+void	ft_animation(void *param)
+{
+	t_game	*game_data;
+	int		i;
+
+	game_data = (t_game *)param;
+	i = 0;
+	if (mlx_get_time() - game_data->animat_time > 1)
+	{
+		while (game_data->sprites[i].texture)
+		{
+			if (game_data->sprites[i].texture == TEX_MUSHR)
+				game_data->sprites[i].texture = TEX_MUSHR_2;
+			else
+				game_data->sprites[i].texture = TEX_MUSHR;
+			i++;
+		}
+		game_data->animat_time = mlx_get_time();
+		update_pos(game_data);
+	}
+}
+
 int32_t mlx_run(t_game *game_data)
 {
-	if (!(game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "MLX42", true)))
+	if (!(game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", true)))
 	{
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
@@ -233,10 +255,12 @@ int32_t mlx_run(t_game *game_data)
 		return(EXIT_FAILURE);
 	}
 	game_data->img = image;
+	game_data->animat_time = mlx_get_time();
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
 	// mlx_set_setting(MLX_FULLSCREEN, true);
 	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	mlx_loop_hook(game_data->mlx, ft_animation, game_data);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
 	// mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);

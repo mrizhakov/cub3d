@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/21 22:52:21 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:41:31 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ typedef struct	s_game
 	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
 	double			z_buffer[WINDOW_WIDTH];
+	double			animat_time;
 }				t_game;
 
 typedef struct 	s_raycast {
