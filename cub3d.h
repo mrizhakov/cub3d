@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/22 16:23:00 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:31:10 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,9 +295,9 @@ int				is_ray_facing_up(double ray_angle);
 int				is_ray_facing_left(double ray_angle);
 void			ray_orientation(t_raycast *ray, double ray_angle);
 void			ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle);
-void			ray_horiz_loop(t_game *game_data, t_raycast *ray);
+void			ray_horiz_loop(t_game *game_data, t_raycast *ray, bool wall);
 void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
-void			ray_vert_loop(t_game *game_data, t_raycast *ray);
+void			ray_vert_loop(t_game *game_data, t_raycast *ray, bool wall);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			draw_textures(mlx_texture_t *, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
 void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle);

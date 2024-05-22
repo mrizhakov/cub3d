@@ -80,7 +80,7 @@ int	is_wall(char c)
 		return (W_NONE);
 }
 
-void ray_horiz_loop(t_game *game_data, t_raycast *ray)
+void ray_horiz_loop(t_game *game_data, t_raycast *ray, bool wall)
 {
 	int	wall_type;
     // increment xstep and ystep until we find a wall
@@ -93,14 +93,16 @@ void ray_horiz_loop(t_game *game_data, t_raycast *ray)
     {
         // printf("Looking for a wall -> Raycast endpoint x %f, y %f\n", next_hor_touch_x, next_hor_touch_y);
 		wall_type = is_wall(game_data->maze.g[(int)ray->next_hor_touch_y / game_data->texture_width][(int)ray->next_hor_touch_x / game_data->texture_width]);
+		if (wall_type == W_DOOR && wall == true)
+			wall_type = W_NONE;
         if (wall_type)
         {
             //found a wall
             ray->found_hor_hit = 1;
             ray->hor_wall_hit_x = ray->next_hor_touch_x;
             ray->hor_wall_hit_y = ray->next_hor_touch_y;
-			if (wall_type == W_DOOR)
-				ray->door[HOR] = true;
+			// if (wall_type == W_DOOR)
+			// 	ray->door[HOR] = true;
             break;
         }
         else
@@ -138,7 +140,7 @@ void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
         ray->next_vert_touch_x--;
 }
 
-void ray_vert_loop(t_game *game_data, t_raycast *ray)
+void ray_vert_loop(t_game *game_data, t_raycast *ray, bool wall)
 {
 	int	wall_type;
 
@@ -150,14 +152,16 @@ void ray_vert_loop(t_game *game_data, t_raycast *ray)
     //     && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
     {
 		wall_type = is_wall(game_data->maze.g[(int)ray->next_vert_touch_y / game_data->texture_width][(int)ray->next_vert_touch_x  / game_data->texture_width]);
+		if (wall_type == W_DOOR && wall == true)
+			wall_type = W_NONE;
         if (wall_type)
         // if (game_data->maze.g[(int)ray->next_vert_touch_y / MINIMAP_SQUARE_SIDE_LEN][((int)ray->next_vert_touch_x  - ray->is_ray_facing_left ? 1 : 0)/ MINIMAP_SQUARE_SIDE_LEN] == '1')
         {
             ray->found_vert_hit = 1;
             ray->vert_wall_hit_x = ray->next_vert_touch_x;
             ray->vert_wall_hit_y = ray->next_vert_touch_y;
-			if (wall_type == W_DOOR)
-				ray->door[VERT] = true;
+			// if (wall_type == W_DOOR)
+			// 	ray->door[VERT] = true;
             break;
         }
         else
@@ -232,39 +236,24 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 		for the door */
     int texture_offset_x;
 	mlx_texture_t	*texture_wall;
-	// mlx_texture_t	*texture_door;
-	// texture_door = game_data->textures[TEX_DOOR_0];
+	texture_wall = game_data->textures[TEX_MUSHR];
     if (ray->was_hit_vertical)
 	{
-		texture_wall = game_data->textures[SO]; //temp
+		if (ray->is_ray_facing_left)
+			texture_wall = game_data->textures[WE]; //temp
+		else if (ray->is_ray_facing_right)
+			texture_wall = game_data->textures[EA];
         texture_offset_x = (int)ray->vert_wall_hit_y % game_data->texture_width;
-		// if (ray->door[VERT])
-		// 	texture_wall = game_data->textures[TEX_DOOR_0];
 	}
     else
 	{
-		texture_wall = game_data->textures[NO]; //temp
+		if (ray->is_ray_facing_up)
+			texture_wall = game_data->textures[NO]; //temp
+		else if (ray->is_ray_facing_down)
+			texture_wall = game_data->textures[SO];
         texture_offset_x = (int)ray->hor_wall_hit_x % game_data->texture_width;
-		// if (ray->door[HOR])
-		// 		texture_wall = game_data->textures[TEX_DOOR_0];
-	}
-	// if (texture_wall == game_data->textures[TEX_DOOR_0])
-	// {
-	// 	wall_top_pixel += wall_strip_height / 8;
-	// 	wall_bott_pixel -= wall_strip_height / 8;
-	// }
-	// if (ray->door[1])
-	// 	texture_wall = texture_door;
-	//draw doors
-	if ((ray->was_hit_vertical && ray->door[VERT])
-		|| (!ray->was_hit_vertical && ray->door[HOR]))
-	{
-		texture_wall = game_data->textures[game_data->doors[0].texture];
-		draw_textures(texture_wall, column_id, wall_top_pixel,
-						wall_bott_pixel, texture_offset_x);
 	}
 	//draw walls
-	else
     draw_textures(texture_wall, column_id, wall_top_pixel,
 					wall_bott_pixel, texture_offset_x);
 	// //draw floor
@@ -279,21 +268,32 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 	// draw_sprites(game_data);
 }
 
-
+void	ray_calculations(t_raycast *ray, t_game *game_data, double ray_angle, bool wall)
+{
+	ft_bzero(ray, sizeof(*ray));
+	ray_orientation(ray, ray_angle);
+	ray_horiz_calc(game_data, ray, ray_angle);
+	ray_horiz_loop(game_data, ray, wall);
+	ray_vert_calc(game_data, ray, ray_angle);
+	ray_vert_loop(game_data, ray, wall);
+	ray_shortest_distance(ray, game_data);
+}
 
 void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 {
     t_raycast ray;
 	t_raycast ray_door;
 
-	ft_bzero(&ray, sizeof(ray));
-    ray_orientation(&ray, ray_angle);
-    ray_horiz_calc(game_data, &ray, ray_angle);
-    ray_horiz_loop(game_data, &ray);
-    ray_vert_calc(game_data, &ray, ray_angle);
-    ray_vert_loop(game_data, &ray);
-    ray_shortest_distance(&ray, game_data);
-    draw_minimap_fov(game_data, &ray);
+	// ft_bzero(&ray, sizeof(ray));
+    // ray_orientation(&ray, ray_angle);
+    // ray_horiz_calc(game_data, &ray, ray_angle);
+    // ray_horiz_loop(game_data, &ray, true);
+    // ray_vert_calc(game_data, &ray, ray_angle);
+    // ray_vert_loop(game_data, &ray, true);
+    // ray_shortest_distance(&ray, game_data);
+	ray_calculations(&ray, game_data, ray_angle, true);
+	ray_calculations(&ray_door, game_data, ray_angle, false);
+    draw_minimap_fov(game_data, &ray_door);
 	game_data->z_buffer[column_id] = ray.distance;
     draw_3d_projection(game_data, column_id, &ray, ray_angle);
 
