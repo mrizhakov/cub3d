@@ -76,7 +76,7 @@ void update_pos(t_game *game_data)
     {
         // printf("Attempting move to pos x %f, y %f\n", game_data->player->x + player_x_check, game_data->player->y + player_y_check);
 
-        prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 0, 0);
+        prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 240, 240);
         game_data->player_walk_dir = 0;
         game_data->player_strafe_dir = 0;
     }
