@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/22 18:26:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/22 21:34:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,7 +306,7 @@ void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, doub
 
 
 //Game logic
-int				prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int y_map_padding, int x_map_padding);
+int				prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int map_padding);
 void			update_pos(t_game *game_data);
 
 //Testing functions, remove for final version

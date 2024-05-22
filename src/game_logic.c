@@ -1,6 +1,29 @@
 #include "../cub3d.h"
 
-int prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int y_map_padding, int x_map_padding)
+static int	find_wall(t_maze maze, int y, int x, int pad, int del)
+{
+	if (maze.g[(y + pad) / del][(x + pad) / del] == '1')
+		return (1);
+	if (maze.g[(y) / del][(x + pad) / del] == '1')
+		return (1);
+	if (maze.g[(y) / del][(x - pad) / del] == '1')
+		return (1);
+	if (maze.g[(y) / del][(x) / del] == '1')
+		return (1);
+	if (maze.g[(y - pad) / del][(x + pad) / del] == '1')
+		return (1);
+	if (maze.g[(y + pad) / del][(x - pad) / del] == '1')
+		return (1);
+	if (maze.g[(y + pad) / del][(x - pad) / del] == '1')
+		return (1);
+	if (maze.g[(y - pad) / del][(x) / del] == '1')
+		return (1);
+	if (maze.g[(y + pad) / del][(x) / del] == '1')
+		return (1);
+	return (0);
+}
+
+int prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int map_padding)
 {
     (void)game_data;
     if (player_x_check >= 0 && player_y_check >= 0
@@ -8,7 +31,9 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
         && player_y_check <= game_data->texture_width * (MAZE_DIMENSION - 1))
     {
         // printf("Entered outside loop\n");
-        if (game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] != '1')
+        if (!find_wall(game_data->maze, game_data->player->y, player_x_check, map_padding, game_data->texture_width))
+			game_data->player->x = player_x_check;
+		if (!find_wall(game_data->maze, player_y_check, game_data->player->x, map_padding, game_data->texture_width))
         // if (game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == '0'
         //     || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'N'
         //     || game_data->maze.g[((int)player_y_check + y_map_padding) / game_data->texture_width][((int)player_x_check + x_map_padding)/ game_data->texture_width] == 'E'
@@ -18,9 +43,8 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
             // printf("Succesful move to pos x %f, y %f\n", player_x_check, player_y_check);
 
             game_data->player->y = player_y_check;
-            game_data->player->x = player_x_check;
-            game_data->player_walk_dir = 0;
-            return (0);
+            // game_data->player->x = player_x_check;
+            // return (0);
         }
     }
     // printf("Unsuccesful move to pos x %f, y %f\n", player_x_check, player_y_check);
@@ -34,7 +58,6 @@ double   check_angle_overflow(t_game *game_data, double player_angle)
         player_angle += 2 * M_PI;
     if (player_angle > (2 * M_PI))
         player_angle -= 2 * M_PI;
-    // printf("Player angle is %f\n", player_angle);
     game_data->player_turn_dir = 0;
     return (player_angle);
 }
@@ -76,7 +99,8 @@ void update_pos(t_game *game_data)
     {
         // printf("Attempting move to pos x %f, y %f\n", game_data->player->x + player_x_check, game_data->player->y + player_y_check);
 
-        prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check, 240, 240);
+        prevent_wall_collisions(game_data, game_data->player->y + player_y_check,  game_data->player->x + player_x_check,
+								120);
         game_data->player_walk_dir = 0;
         game_data->player_strafe_dir = 0;
     }

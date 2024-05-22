@@ -296,7 +296,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 	//draw walls
     draw_textures(texture_wall, column_id, wall_top_pixel,
 					wall_bott_pixel, texture_offset_x);
-	// //draw floor
+	//draw floor
     drawLine((uint32_t)column_id, (uint32_t)wall_bott_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
             game_data->color[F].rgb_color);

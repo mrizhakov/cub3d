@@ -6,26 +6,33 @@ void	draw_textures(mlx_texture_t *texture, int column_id, double wall_top_pixel,
 						double wall_bottom_pixel, int textOffX)
 {
 	uint32_t		i;
-	uint32_t		height;
+	// uint32_t		height;
 	double			prev_pixel;
 	double			err;
 	double			wall_height;
 
 	i = 0 + ((textOffX) * 4);
-	height = texture->height;
+	// height = texture->height;
 	wall_height = wall_bottom_pixel - wall_top_pixel;
+	err = wall_height / texture->height;
+	while (wall_top_pixel < - 10)
+	{
+		wall_top_pixel += err;
+		i += texture->width * 4;
+	}
 	while (wall_top_pixel < wall_bottom_pixel - 1)
 	{
 		prev_pixel = wall_top_pixel;
 		put_pixel(image, column_id, (int)wall_top_pixel,
 					convertColors(texture, i, wall_height));
-		err = (wall_bottom_pixel - wall_top_pixel) / height;
+		// err = (wall_bottom_pixel - wall_top_pixel) / height;
 		wall_top_pixel += err;
 		while (wall_top_pixel - prev_pixel > 1)
 			put_pixel(image, column_id, (int)++prev_pixel,
 						convertColors(texture, i, wall_height));
-		height--;
 		i += texture->width * 4;
+		if (wall_top_pixel > WINDOW_HEIGHT + 10)
+			break;
 	}
 }
 

@@ -97,6 +97,11 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	texture = game_data->textures[sprite.texture];
 	index = offset * 4;
 	left = sprite.left_pixel;
+	while (left < 0)
+	{
+		index += 4;
+		left += sprite.err_colon;
+	}
 	while (left < sprite.right_pixel)
 	{
 		color = convertColors(texture, index, sprite.dimentions);
@@ -110,6 +115,8 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
+		if (left > WINDOW_WIDTH)
+			break ;
 	}
 }
 
@@ -123,6 +130,8 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 	line = sprite.top_pixel;
 	texOffset = 0;
 	texture = game_data->textures[sprite.texture];
+	while (line < 0)
+		line += sprite.err_line;
 	while (line < sprite.bott_pixel)
 	{
 		draw_sprite_line(game_data, sprite, texOffset, line);
@@ -133,7 +142,8 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 		line += sprite.err_line;
 		while ((line - prev_line) > 1 && prev_line < sprite.bott_pixel - 1)
 			draw_sprite_line(game_data, sprite, texOffset, ++prev_line);
-
+		if (line > WINDOW_HEIGHT)
+			break ;
 	}
 }
 
