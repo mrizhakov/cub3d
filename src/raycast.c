@@ -324,17 +324,10 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
     t_raycast ray;
 	t_raycast ray_door;
 
-	// ft_bzero(&ray, sizeof(ray));
-    // ray_orientation(&ray, ray_angle);
-    // ray_horiz_calc(game_data, &ray, ray_angle);
-    // ray_horiz_loop(game_data, &ray, true);
-    // ray_vert_calc(game_data, &ray, ray_angle);
-    // ray_vert_loop(game_data, &ray, true);
-    // ray_shortest_distance(&ray, game_data);
 	ray_calculations(&ray, game_data, ray_angle, true);
 	ray_calculations(&ray_door, game_data, ray_angle, false);
-    draw_minimap_fov(game_data, &ray);
-    draw_3d_projection(game_data, column_id, &ray, ray_angle);
+	draw_minimap_fov(game_data, &ray);
+	draw_3d_projection(game_data, column_id, &ray, ray_angle);
 	game_data->z_buffer[column_id] = ray.distance;
 	if (ray_door.door)
 		draw_3d_door(game_data,column_id,ray_door, ray_angle, ray);
