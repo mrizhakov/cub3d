@@ -163,76 +163,11 @@ void ft_draw_image(void* param)
 	// mlx_focus(game_data->mlx);
 }
 
-void ft_keyboad_hook(void* param)
-{
-    t_game *game_data = param;
 
-    if (mlx_is_key_down(game_data->mlx, MLX_KEY_ESCAPE))
-		mlx_close_window(game_data->mlx);
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_W))
-        game_data->player_walk_dir = 1;
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_S))
-        game_data->player_walk_dir = -1;
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_A))
-        game_data->player_strafe_dir = -1;
-    if (mlx_is_key_down(game_data->mlx, MLX_KEY_D))
-        game_data->player_strafe_dir = 1;
-    if (mlx_is_key_down(game_data->mlx, MLX_KEY_LEFT))
-		game_data->player_turn_dir = -1;
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_RIGHT))
-		game_data->player_turn_dir = 1;
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_E))
-		printf("Action key triggered\n");
-    if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0 || game_data->player_strafe_dir != 0)
-        update_pos(game_data);
-}
-
-void ft_cursor_hook(double xpos, double ypos, void* param)
-{
-	t_point	cursor;
-	t_game	*game_data;
-
-	cursor = ((t_game *)param)->cursor;
-	game_data = (t_game *)param;
-	if (cursor.x == 0)
-	{
-		game_data->cursor.x = xpos;
-		return ;
-	}
-	if (cursor.x > xpos)
-		game_data->player_turn_dir = -1;
-	else if (cursor.x < xpos)
-		game_data->player_turn_dir = 1;
-	game_data->cursor.x = xpos;
-	update_pos(game_data);
-	(void)ypos;
-}
 
 void	init_data(t_game *game_data)
 {
 	game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", 0);
-}
-
-void	ft_animation(void *param)
-{
-	t_game	*game_data;
-	int		i;
-
-	game_data = (t_game *)param;
-	i = 0;
-	if (mlx_get_time() - game_data->animat_time > 1)
-	{
-		while (game_data->sprites[i].texture)
-		{
-			if (game_data->sprites[i].texture == TEX_MUSHR)
-				game_data->sprites[i].texture = TEX_MUSHR_2;
-			else
-				game_data->sprites[i].texture = TEX_MUSHR;
-			i++;
-		}
-		game_data->animat_time = mlx_get_time();
-		update_pos(game_data);
-	}
 }
 
 int32_t mlx_run(t_game *game_data)

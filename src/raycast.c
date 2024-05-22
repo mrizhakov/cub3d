@@ -238,15 +238,15 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 	{
 		texture_wall = game_data->textures[SO]; //temp
         texture_offset_x = (int)ray->vert_wall_hit_y % game_data->texture_width;
-		if (ray->door[VERT])
-			texture_wall = game_data->textures[TEX_DOOR_0];
+		// if (ray->door[VERT])
+		// 	texture_wall = game_data->textures[TEX_DOOR_0];
 	}
     else
 	{
 		texture_wall = game_data->textures[NO]; //temp
         texture_offset_x = (int)ray->hor_wall_hit_x % game_data->texture_width;
-		if (ray->door[HOR])
-				texture_wall = game_data->textures[TEX_DOOR_0];
+		// if (ray->door[HOR])
+		// 		texture_wall = game_data->textures[TEX_DOOR_0];
 	}
 	// if (texture_wall == game_data->textures[TEX_DOOR_0])
 	// {
@@ -255,14 +255,19 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 	// }
 	// if (ray->door[1])
 	// 	texture_wall = texture_door;
+	//draw doors
+	if ((ray->was_hit_vertical && ray->door[VERT])
+		|| (!ray->was_hit_vertical && ray->door[HOR]))
+	{
+		texture_wall = game_data->textures[game_data->doors[0].texture];
+		draw_textures(texture_wall, column_id, wall_top_pixel,
+						wall_bott_pixel, texture_offset_x);
+	}
 	//draw walls
+	else
     draw_textures(texture_wall, column_id, wall_top_pixel,
 					wall_bott_pixel, texture_offset_x);
-	//draw doors
-	// if (ray->door[0]) // test
-	// 	draw_textures(texture_door, column_id, wall_top_pixel,
-	// 					wall_bott_pixel, texture_offset_x);
-	//draw floor
+	// //draw floor
     drawLine((uint32_t)column_id, (uint32_t)wall_bott_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
             game_data->color[F].rgb_color);
@@ -279,6 +284,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 {
     t_raycast ray;
+	t_raycast ray_door;
 
 	ft_bzero(&ray, sizeof(ray));
     ray_orientation(&ray, ray_angle);

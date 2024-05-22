@@ -28,14 +28,10 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 	game_data->doors[i].x = x * game_data->texture_width + game_data->texture_width / 2;
 	game_data->doors[i].y = y * game_data->texture_width + game_data->texture_width / 2;
 	if (t == 'D')
-		game_data->doors[i].texture = TEX_DOOR_0;
+		game_data->doors[i].texture = TEX_DOOR_CL;
 	return (0);
 }
 
-// void	draw_door(t_game *game_data)
-// {
-
-// }
 void	detect_vis_door(t_game *game_data)
 {
 	t_doors	*doors;
@@ -55,7 +51,7 @@ void	detect_vis_door(t_game *game_data)
 		if (angle_sprite < -M_PI)
 			angle_sprite += 2 * M_PI;
 		angle_sprite = fabs(angle_sprite);
-		if (angle_sprite < (game_data->fov_angle / 2) && !doors[i].open)
+		if (angle_sprite < (game_data->fov_angle / 2))
 		{
 			doors[i].distance = distance_between_points(player->x, player->y, doors[i].x, doors[i].y);
 			doors[i].angle = atan2(doors[i].y - player->y, doors[i].x - player->x) - game_data->player_angle + M_PI;
@@ -65,4 +61,48 @@ void	detect_vis_door(t_game *game_data)
 			doors[i].visible = false;
 		i++;
 	}
+}
+
+void	open_door(t_game *game_data)
+{
+	int	i;
+	int	closiest;
+	double	distance;
+
+	distance = FLT_MAX;
+	i = 0;
+	detect_vis_door(game_data);
+	while (game_data->doors[i].texture)
+	{
+		if (game_data->doors[i].distance < distance &&
+			game_data->doors[i].visible)
+		{
+			distance = game_data->doors[i].distance;
+			closiest = i;
+		}
+		i++;
+	}
+	if (distance < (float)737 && !game_data->doors[closiest].isopen
+		&& mlx_get_time() - game_data->doors[closiest].animation_time > 2)
+	{
+		game_data->doors[closiest].isopen = true;
+		// while (game_data->doors[closiest].texture < TEX_NO - 1)
+		// {
+		// 	game_data->doors[closiest].texture++;
+		// 	update_pos(game_data);
+		// }
+		game_data->doors[closiest].animation_time = mlx_get_time();
+	}
+	else if (distance < (float)737
+			&& mlx_get_time() - game_data->doors[closiest].animation_time > 2)
+	{
+		game_data->doors[closiest].isopen = false;
+		// while (game_data->doors[closiest].texture > TEX_DOOR_0)
+		// {
+		// 	game_data->doors[closiest].texture--;
+		// 	update_pos(game_data);
+		// }
+		game_data->doors[closiest].animation_time = mlx_get_time();
+	}
+	printf("%f\n", distance);
 }

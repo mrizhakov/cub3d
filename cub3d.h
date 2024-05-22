@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/22 13:41:31 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/22 16:23:00 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <fcntl.h>
 # include <math.h>
 # include <limits.h>
+# include <float.h>
 #include <inttypes.h> // For PRIu32 macro
 
 
@@ -63,9 +64,9 @@ typedef enum e_textures
 {
 	TEX_MUSHR = 4,
 	TEX_MUSHR_2,
-	TEX_DOOR_0,
+	TEX_DOOR_CL,
 	TEX_DOOR_1,
-	TEX_DOOR_2,
+	TEX_DOOR_OP,
 	TEX_NO,
 }			t_textures;
 
@@ -116,7 +117,8 @@ typedef struct	s_doors
 {
 	double	x;
 	double	y;
-	bool	open;
+	bool	isopen;
+	double	action_time;
 	bool	visible;
 	double	distance;
 	int		texture;
@@ -128,6 +130,7 @@ typedef struct	s_doors
 	double	err_line;
 	double	right_pixel;
 	double	err_colon;
+	double	animation_time;
 }				t_doors;
 
 typedef struct s_sprite
@@ -230,6 +233,7 @@ typedef struct 	s_raycast {
     double distance_vert;
 	//added by ddavlety 21.05
 	bool	door[ORIENT];
+
 	//added by ddavlety 21.05
 }				t_raycast;
 
@@ -322,8 +326,11 @@ void			sprites_calculations(t_game	*game_data);
 //doors
 int				init_doors(t_game *game_data, char t, int x, int y);
 int				check_door_place(t_game *game_data, int y, int x);
-
-
+void			open_door(t_game *game_data);
+//hooks
+void			ft_animation(void *param);
+void			ft_keyboad_hook(void* param);
+void			ft_cursor_hook(double xpos, double ypos, void* param);
 
 //Utils
 double  distance_between_points(double x1, double y1, double x2, double y2);
