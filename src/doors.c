@@ -27,6 +27,8 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 		return (1);
 	game_data->doors[i].x = x * game_data->texture_width + game_data->texture_width / 2;
 	game_data->doors[i].y = y * game_data->texture_width + game_data->texture_width / 2;
+	game_data->doors[i].map_x = x;
+	game_data->doors[i].map_y = y;
 	if (t == 'D')
 		game_data->doors[i].texture = TEX_DOOR_CL;
 	return (0);
@@ -82,27 +84,16 @@ void	open_door(t_game *game_data)
 		}
 		i++;
 	}
-	if (distance < (float)737 && !game_data->doors[closiest].isopen
+	if (distance < (float)800 && !game_data->doors[closiest].isopen
 		&& mlx_get_time() - game_data->doors[closiest].animation_time > 2)
 	{
 		game_data->doors[closiest].isopen = true;
-		// while (game_data->doors[closiest].texture < TEX_NO - 1)
-		// {
-		// 	game_data->doors[closiest].texture++;
-		// 	update_pos(game_data);
-		// }
 		game_data->doors[closiest].animation_time = mlx_get_time();
 	}
-	else if (distance < (float)737
+	else if (distance < (float)800
 			&& mlx_get_time() - game_data->doors[closiest].animation_time > 2)
 	{
 		game_data->doors[closiest].isopen = false;
-		// while (game_data->doors[closiest].texture > TEX_DOOR_0)
-		// {
-		// 	game_data->doors[closiest].texture--;
-		// 	update_pos(game_data);
-		// }
 		game_data->doors[closiest].animation_time = mlx_get_time();
 	}
-	printf("%f\n", distance);
 }

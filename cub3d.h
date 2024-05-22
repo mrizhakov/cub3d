@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/22 16:31:10 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/22 18:26:08 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,8 @@ typedef struct	s_doors
 {
 	double	x;
 	double	y;
+	int		map_x;
+	int		map_y;
 	bool	isopen;
 	double	action_time;
 	bool	visible;
@@ -232,7 +234,7 @@ typedef struct 	s_raycast {
 	double distance_hor;
     double distance_vert;
 	//added by ddavlety 21.05
-	bool	door[ORIENT];
+	t_doors	*door;
 
 	//added by ddavlety 21.05
 }				t_raycast;
