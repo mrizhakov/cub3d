@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 14:24:43 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:27:06 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 # include <math.h>
 # include <limits.h>
 # include <float.h>
-#include <inttypes.h> // For PRIu32 macro
+// #include <integer.h>
+// #include <inttypes.h> // For PRIu32 macro
 
 
 
