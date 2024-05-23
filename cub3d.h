@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 12:59:47 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:24:43 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,31 +207,29 @@ typedef struct	s_game
 
 typedef struct 	s_raycast {
 	int is_ray_facing_down;
-    int is_ray_facing_right;
-    int is_ray_facing_up;
-    int is_ray_facing_left;
+	int is_ray_facing_right;
+	int is_ray_facing_up;
+	int is_ray_facing_left;
 	float xintercept;
-    float yintercept;
+	float yintercept;
 	float xstep;
-    float ystep;
-	// float wallHitX;
-    // float wallHitY;
-    float distance;
-    float next_hor_touch_x;
-    float next_hor_touch_y;
-    int found_hor_hit;
-    float hor_wall_hit_x;
-    float hor_wall_hit_y;
+	float ystep;
+	float distance;
+	float next_hor_touch_x;
+	float next_hor_touch_y;
+	int found_hor_hit;
+	float hor_wall_hit_x;
+	float hor_wall_hit_y;
 	int found_vert_hit;
-    float vert_wall_hit_x;
-    float vert_wall_hit_y;
-    float next_vert_touch_x;
-    float next_vert_touch_y;
-    float  shortest_wall_hit_x;
-    float  shortest_wall_hit_y;
-    int     was_hit_vertical;
+	float vert_wall_hit_x;
+	float vert_wall_hit_y;
+	float next_vert_touch_x;
+	float next_vert_touch_y;
+	float  shortest_wall_hit_x;
+	float  shortest_wall_hit_y;
+	int		was_hit_vertical;
 	float distance_hor;
-    float distance_vert;
+	float distance_vert;
 	t_doors	*door;
 }				t_raycast;
 
