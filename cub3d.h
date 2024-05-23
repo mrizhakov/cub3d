@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 12:18:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:31:46 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,27 +233,20 @@ typedef struct 	s_raycast {
     int     was_hit_vertical;
 	float distance_hor;
     float distance_vert;
-	//added by ddavlety 21.05
 	t_doors	*door;
-
-	//added by ddavlety 21.05
 }				t_raycast;
 
 // Error handling and parsing
 int				error_handling(int argc, const char *argv[]);
 int				map_parsing(char *filename, t_game *game_data);
 void			init_data(t_game *game_data);
-// int				valid_file(char *filename);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
-// char			*parse_textures(char *map_line, char *direction);
 int				check_textures(t_game *game_data);
 int				check_colors_ok(t_game *game_data);
 int				is_valid_char(char matrix_val);
-// int				no_of_players(t_game *game_data, char matrix_val);
-// int				parse_color(t_game *game_data, char *map_line);
 int				is_valid_int(int matrix_val);
-int				maze_check_closed(t_game *game_data);
+int				maze_check(t_game *game_data);
 
 // Memory management
 int				initialise_game(t_game *game_data);
@@ -340,6 +333,6 @@ void			ft_keyboad_hook(void* param);
 void			ft_cursor_hook(float xpos, float ypos, void* param);
 
 //Utils
-float  distance_between_points(float x1, float y1, float x2, float y2);
+float			distance_between_points(float x1, float y1, float x2, float y2);
 
 #endif

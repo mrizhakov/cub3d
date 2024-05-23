@@ -6,13 +6,11 @@ void	draw_textures(mlx_texture_t *texture, int column_id, float wall_top_pixel,
 						float wall_bottom_pixel, int textOffX)
 {
 	uint32_t		i;
-	// uint32_t		height;
 	float			prev_pixel;
 	float			err;
 	float			wall_height;
 
 	i = 0 + ((textOffX) * 4);
-	// height = texture->height;
 	wall_height = wall_bottom_pixel - wall_top_pixel;
 	err = wall_height / texture->height;
 	while (wall_top_pixel < - 10)
@@ -25,7 +23,6 @@ void	draw_textures(mlx_texture_t *texture, int column_id, float wall_top_pixel,
 		prev_pixel = wall_top_pixel;
 		put_pixel(image, column_id, (int)wall_top_pixel,
 					convertColors(texture, i, wall_height));
-		// err = (wall_bottom_pixel - wall_top_pixel) / height;
 		wall_top_pixel += err;
 		while (wall_top_pixel - prev_pixel > 1)
 			put_pixel(image, column_id, (int)++prev_pixel,
@@ -36,7 +33,6 @@ void	draw_textures(mlx_texture_t *texture, int column_id, float wall_top_pixel,
 	}
 }
 
-// Function to draw a line between two points (x0, y0) and (x1, y1), need to be made norm-compliant and readable
 void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color)
 {
     int32_t dx;

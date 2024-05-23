@@ -25,7 +25,7 @@ int	check_close(char maze[40][40], int y, int x, char map_tok)
 	return (0);
 }
 
-int maze_check_closed(t_game *game_data)
+int maze_check(t_game *game_data)
 {
 	int	i;
 	int	j;

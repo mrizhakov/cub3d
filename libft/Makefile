@@ -2,8 +2,7 @@ CC = cc
 AR = ar rcs
 NAME = libft.a
 FLAGS = -Wall -Werror -Wextra -g
-OPTION = -c -I
-INC_DIR = .
+INC_DIR = -I.
 RM = rm -f
 RANNAME = ranlib $(NAME)
 SRC = ft_isalpha.c ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_isprint.c \
@@ -27,7 +26,7 @@ $(NAME): $(OBJ) $(OBJ_BONUS)
 	$(RANNAME)
 
 %.o: %.c
-	$(CC) $(FLAGS) $(OPTION) $(INC_DIR) $< -o $@
+	$(CC) $(FLAGS) $(INC_DIR) -c $< -o $@
 
 clean:
 		$(RM) $(OBJ) $(OBJ_BONUS)
@@ -36,5 +35,3 @@ fclean: clean
 		$(RM) $(NAME)
 
 re: fclean all
-
-# $(CC) $(FLAGS) $(OPTION) $(INC_DIR)

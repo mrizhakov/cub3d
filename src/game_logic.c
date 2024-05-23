@@ -8,7 +8,15 @@ static int	find_wall(t_maze maze, int y, int x, int pad, int del)
 		return (1);
 	if (maze.g[(y - pad) / del][(x) / del] == '1')
 		return (1);
+	if (maze.g[(y - pad) / del][(x + pad) / del] == '1')
+		return (1);
+	if (maze.g[(y - pad) / del][(x - pad) / del] == '1')
+		return (1);
 	if (maze.g[(y + pad) / del][(x) / del] == '1')
+		return (1);
+	if (maze.g[(y + pad) / del][(x + pad) / del] == '1')
+		return (1);
+	if (maze.g[(y + pad) / del][(x - pad) / del] == '1')
 		return (1);
 	return (0);
 }

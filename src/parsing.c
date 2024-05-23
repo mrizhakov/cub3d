@@ -74,8 +74,6 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 	game_data->player->y = y_axis * game_data->texture_width + game_data->texture_width / 2;
 	game_data->player->x = x_axis * game_data->texture_width + game_data->texture_width / 2;
     printf("Player original position is  x %f, y %f\n", game_data->player->x, game_data->player->y);
-
-
 	game_data->player_init_dir = direction;
 	return (0);
 }
@@ -130,7 +128,7 @@ int	check_parse(size_t j, t_game *game_data)
 {
 	if (j == 0)
 		return (0);
-	if (maze_check_closed(game_data))
+	if (maze_check(game_data))
 		return (1);
 	else
 		return (0);

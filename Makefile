@@ -1,4 +1,4 @@
-CC := cc #-fsanitize=address
+CC := cc -fsanitize=address
 FLAGS := -g -Wall -Wextra -Werror
 NAME := cub3D
 RM := rm -f

@@ -11,11 +11,8 @@ int32_t	main(int argc, const char *argv[])
 		return (free_on_exit(game_data), 1);
 	if (map_parsing((char *)argv[1], game_data))
 		return (free_on_exit(game_data), 1);
-
-	// printf("north texture is : %s", game_data->texture_filename[NO]);
-	if (maze_check_closed(game_data))
+	if (maze_check(game_data))
 		return(free_on_exit(game_data), 1);
-
 	if (load_textures(game_data))
 		return(free_on_exit(game_data), 1);
 	mlx_run(game_data);

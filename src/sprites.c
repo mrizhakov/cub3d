@@ -96,7 +96,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	texture = game_data->textures[sprite.texture];
 	index = offset * 4;
 	left = sprite.left_pixel;
-	while (left < 0 || texture->pixels[index + 3] == 0)
+	while (left < 0)
 	{
 		index += 4;
 		left += sprite.err_colon;
@@ -116,7 +116,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
-		if (left > WINDOW_WIDTH)
+		if (left > WINDOW_WIDTH || index + 3 > texture->width * texture->height * 4)
 			break ;
 	}
 }
