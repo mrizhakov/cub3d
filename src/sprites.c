@@ -79,6 +79,8 @@ int	init_sprites(t_game *game_data, char t, int x, int y)
 		return (1);
 	game_data->sprites[i].x = x * game_data->texture_width + game_data->texture_width / 2;
 	game_data->sprites[i].y = y * game_data->texture_width + game_data->texture_width / 2;
+	game_data->sprites[i].map_x = x;
+	game_data->sprites[i].map_y = y;
 	if (t == 'M')
 		game_data->sprites[i].texture = TEX_MUSHR;
 	return (0);
@@ -208,4 +210,22 @@ void	sprites_calculations(t_game	*game_data)
 		}
 		i++;
 	}
+}
+
+t_sprite	*which_sprite(t_game *game_data, int y, int x)
+{
+	int i;
+
+	i = 0;
+	if (y >= MAZE_DIMENSION || x >= MAZE_DIMENSION)
+		return (NULL);
+	while (game_data->sprites[i].texture)
+	{
+		if (game_data->sprites[i].map_x == x
+			&& game_data->sprites[i].map_y == y)
+			return (&game_data->sprites[i]);
+		i++;
+	}
+	ft_putendl_fd("Warning\nsprite not found", 2);
+	return (NULL);
 }

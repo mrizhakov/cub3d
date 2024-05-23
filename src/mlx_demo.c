@@ -149,7 +149,7 @@ void ft_draw_image(void* param)
         draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
         draw_player(game_data, game_data->player, 4);
 		draw_sprites(game_data);
-		draw_map_sprite(game_data, NULL, 3);
+		draw_map_sprite(game_data, NULL, 4);
 
         // other potentially usefull drawing functions
 

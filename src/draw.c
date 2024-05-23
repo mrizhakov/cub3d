@@ -247,7 +247,7 @@ int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int s
 		if (game_data->sprites[i].visible)
 			sprite_square.color = 0xFFFF00FF;
 		else
-			sprite_square.color = 0xFFFFFFFF;
+			sprite_square.color = 0x00FFFFFF;
 		draw_square(game_data, sprite_square, side_len);
 		i++;
 	}

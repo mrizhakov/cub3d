@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 14:27:06 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 14:35:38 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,13 @@ typedef enum e_surface
 	C,
 }	t_surface;
 
-typedef enum e_walltype
+typedef enum e_casttype
 {
 	W_NONE,
 	W_WALL,
 	W_DOOR,
-}			t_walltype;
+	W_SPRITE,
+}			t_casttype;
 
 // used for colors
 typedef struct	s_rgb
@@ -139,6 +140,8 @@ typedef struct s_sprite
 {
 	float	x;
 	float	y;
+	int		map_x;
+	int		map_y;
 	bool	visible;
 	float	distance;
 	int		texture;
@@ -231,7 +234,8 @@ typedef struct 	s_raycast {
 	int		was_hit_vertical;
 	float distance_hor;
 	float distance_vert;
-	t_doors	*door;
+	t_doors		*door;
+	t_sprite	*sprite;
 }				t_raycast;
 
 // Error handling and parsing
@@ -288,9 +292,9 @@ int				is_ray_facing_up(float ray_angle);
 int				is_ray_facing_left(float ray_angle);
 void			ray_orientation(t_raycast *ray, float ray_angle);
 void			ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle);
-void			ray_horiz_loop(t_game *game_data, t_raycast *ray, bool wall);
+void			ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void			ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle);
-void			ray_vert_loop(t_game *game_data, t_raycast *ray, bool wall);
+void			ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void			draw_textures(mlx_texture_t *, int column_id, float wall_top_pixel, float wall_bottom_pixel, int texOffsetX);
 void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle);
@@ -318,6 +322,8 @@ void			put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 //sprites
 int				init_sprites(t_game *game_data, char t, int x, int y);
 void			sprites_calculations(t_game	*game_data);
+t_sprite		*which_sprite(t_game *game_data, int y, int x);
+
 //doors
 int				init_doors(t_game *game_data, char t, int x, int y);
 int				check_door_place(t_game *game_data, int y, int x);
