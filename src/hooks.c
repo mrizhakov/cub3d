@@ -4,9 +4,13 @@ void	ft_animation(void *param)
 {
 	t_game	*game_data;
 	int		i;
+	float	anim_time;
 
+	anim_time = ANIM_TIME;
 	game_data = (t_game *)param;
-	if (mlx_get_time() - game_data->animat_time > 0.5)
+	if (game_data->psycho)
+		anim_time = 0.001;
+	if (mlx_get_time() - game_data->animat_time > anim_time)
 	{
 		i = 0;
 		while (game_data->sprites[i].texture)

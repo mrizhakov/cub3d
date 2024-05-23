@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 21:24:50 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:39:45 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 #  define PSYCHO 7
 # endif
 
+# define ANIM_TIME 0.5
 # define WINDOW_WIDTH 1080
 # define WINDOW_HEIGHT 740
 # define FILE_READ_BUFFER 1024

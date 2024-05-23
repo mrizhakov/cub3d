@@ -95,8 +95,8 @@ void ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 		y = (int)ray->next_hor_touch_y / game_data->texture_width;
 		x = (int)ray->next_hor_touch_x / game_data->texture_width;
 		ray_type = cast_type(game_data->maze.g[y][x], type);
-        if (ray_type)
-        {
+		if (ray_type)
+		{
 			if (ray_type == W_DOOR)
 				ray->door = which_door(game_data, y, x);
 			if (ray_type == W_DOOR && ray->door->isopen)
@@ -286,13 +286,20 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, flo
     draw_textures(texture_wall, column_id, wall_top_pixel,
 					wall_bott_pixel, texture_offset_x);
 	//draw floor
+	uint32_t color;
+	color = game_data->color[F].rgb_color;
+	if (game_data->psycho)
+		color = ft_float_pixel(150, 75, 0, 255);;
     drawLine((uint32_t)column_id, (uint32_t)wall_bott_pixel,
             (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
-            game_data->color[F].rgb_color);
+            color);
     //draw celing
+	color = game_data->color[C].rgb_color;
+	if (game_data->psycho)
+		color = ft_float_pixel(255, 192, 203, 255);
     drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
             (uint32_t)column_id, (uint32_t)0,
-            game_data->color[C].rgb_color);
+            color);
 	//drawing sprites
 	// draw_sprites(game_data);
 }
