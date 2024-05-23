@@ -62,7 +62,7 @@ void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color
         // Plot current point
         // printf("Putting pixel at (%d, %d), color %d\n", x0, y0, color);
 
-        mlx_put_pixel(image, x0, y0, color);
+        put_pixel_uint(image, x0, y0, color);
 
         // Check if we've reached the end point
         if (x0 == x1 && y0 == y1) break;
@@ -80,17 +80,17 @@ int32_t draw_h_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
     {
         while (start.x < end.x)
         {
-            mlx_put_pixel(image, start.x, start.y, start.color);
+            put_pixel_uint(image, start.x, start.y, start.color);
             start.x++;
         }
         while (start.x > end.x)
         {
-            mlx_put_pixel(image, start.x, start.y, start.color);
+            put_pixel_uint(image, start.x, start.y, start.color);
             start.x--;
         }
         if (start.x == end.x)
         {
-            mlx_put_pixel(image, start.x, start.y, start.color);
+            put_pixel_uint(image, start.x, start.y, start.color);
         }
         return(1);
     }
@@ -108,17 +108,17 @@ int32_t draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
     {
         while (start.y < end.y)
         {
-            mlx_put_pixel(image, start.x, start.y, start.color);
+            put_pixel_uint(image, start.x, start.y, start.color);
             start.y++;
         }
         while (start.y > end.y)
         {
-            mlx_put_pixel(image, start.x, start.y, start.color);
+            put_pixel_uint(image, start.x, start.y, start.color);
             start.y--;
         }
         if (start.y == end.y)
         {
-            mlx_put_pixel(image, start.x, start.y, start.color);
+            put_pixel_uint(image, start.x, start.y, start.color);
         }
         return(1);
     }

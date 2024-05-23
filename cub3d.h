@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 09:40:47 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 11:48:51 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,13 @@
 # define VALID_CHAR_MAP "NEWSMD10 \n"
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
+
+// typedef union u_rgba
+// {
+// 	uint32_t	color_int;
+// 	t_color		color_t;
+// }				t_rgba;
+
 
 typedef enum e_orientation
 {
@@ -318,10 +325,12 @@ int32_t			ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 int				load_textures(t_game *game_data);
 
 
-//error_
+//pixels and colors
 void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
 t_color			convertColors(mlx_texture_t* texture, uint32_t index, double distance);
 int				router_parse_data(char *line, t_game *game_data);
+void			put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+
 //sprites
 int				init_sprites(t_game *game_data, char t, int x, int y);
 void			sprites_calculations(t_game	*game_data);

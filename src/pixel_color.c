@@ -8,6 +8,28 @@ static void	draw_pixel(uint8_t *pixel, t_color color)
 	*(pixel++) = color.alpha;
 }
 
+static void	draw_pixel_uint(uint8_t *pixel, uint32_t color)
+{
+	*(pixel++) = color >> 24;
+	*(pixel++) = color >> 16;
+	*(pixel++) = color >> 8;
+	*(pixel++) = color & 0xFF;
+}
+
+void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
+{
+	uint8_t		*pixelstart;
+
+	if (!img)
+		ft_putendl_fd("Image does not exist", 2);
+	if (x < img->width - 1 && y < img->height - 1)
+	{
+		pixelstart = &img->pixels[(y * img->width + x) * BPP];
+		if (color & 0xFF)
+			draw_pixel_uint(pixelstart, color);
+	}
+}
+
 void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 {
 	uint8_t		*pixelstart;
