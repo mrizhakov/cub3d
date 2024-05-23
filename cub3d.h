@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 11:48:51 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:12:15 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,6 @@
 # define VALID_CHAR_MAP "NEWSMD10 \n"
 // # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
-
-// typedef union u_rgba
-// {
-// 	uint32_t	color_int;
-// 	t_color		color_t;
-// }				t_rgba;
-
 
 typedef enum e_orientation
 {

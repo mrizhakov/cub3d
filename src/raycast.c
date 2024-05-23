@@ -188,7 +188,7 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
         ray->shortest_wall_hit_y = ray->vert_wall_hit_y;
         ray->distance = ray->distance_vert;
     }
-    if (ray->distance_vert <= ray->distance_hor)
+    if (ray->distance_vert < ray->distance_hor)
         ray->was_hit_vertical = 1;
 }
 
