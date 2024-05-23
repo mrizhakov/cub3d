@@ -2,14 +2,14 @@
 
 static mlx_image_t* image;
 
-void	draw_textures(mlx_texture_t *texture, int column_id, double wall_top_pixel,
-						double wall_bottom_pixel, int textOffX)
+void	draw_textures(mlx_texture_t *texture, int column_id, float wall_top_pixel,
+						float wall_bottom_pixel, int textOffX)
 {
 	uint32_t		i;
 	// uint32_t		height;
-	double			prev_pixel;
-	double			err;
-	double			wall_height;
+	float			prev_pixel;
+	float			err;
+	float			wall_height;
 
 	i = 0 + ((textOffX) * 4);
 	// height = texture->height;
@@ -73,7 +73,7 @@ void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color
     }
 }
 
-int32_t draw_h_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
+int32_t draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
 {
     (void)game_data;
     if (check_pix(start) && check_pix(end) && start.y == end.y)
@@ -101,7 +101,7 @@ int32_t draw_h_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
     }
 }
 
-int32_t draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
+int32_t draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
 {
     (void)game_data;
     if (check_pix(start) && check_pix(end) && start.x == end.x)
@@ -131,7 +131,7 @@ int32_t draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
 
 // -----------------------------------------------------------------------------
 
-int32_t ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
+int32_t ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 {
     return (r << 24 | g << 16 | b << 8 | a);
 }
@@ -140,14 +140,14 @@ void ft_draw_image(void* param)
 {
 	t_game *game_data;
 	game_data = (t_game *)param;
-	uint32_t color = ft_double_pixel(
+	uint32_t color = ft_float_pixel(
 				rand() % 0xFF, // R
 				rand() % 0xFF, // G
 				rand() % 0xFF, // B
 				rand() % 0xFF  // A
 			);
 
-    t_double_pixel h_start;
+    t_float_pixel h_start;
     h_start.y = 0;
     h_start.x = 0;
     h_start.color = color;

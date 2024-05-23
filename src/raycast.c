@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void    draw_ray(t_game *game_data, double ray_angle)
+void    draw_ray(t_game *game_data, float ray_angle)
 {
     drawLine(game_data->player->x,
             game_data->player->y,
@@ -9,32 +9,32 @@ void    draw_ray(t_game *game_data, double ray_angle)
             game_data->player->color);
 }
 
-double  distance_between_points(double x1, double y1, double x2, double y2)
+float  distance_between_points(float x1, float y1, float x2, float y2)
 {
     return (sqrt((x2-x1) * (x2 - x1) + (y2-y1) * (y2 - y1)));
 }
 
-int is_ray_facing_down(double ray_angle)
+int is_ray_facing_down(float ray_angle)
 {
     return (ray_angle > 0 && ray_angle < M_PI);
 }
 
-int is_ray_facing_right(double ray_angle)
+int is_ray_facing_right(float ray_angle)
 {
     return (ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5);
 }
 
-int is_ray_facing_up(double ray_angle)
+int is_ray_facing_up(float ray_angle)
 {
     return (!is_ray_facing_down(ray_angle));
 }
 
-int is_ray_facing_left(double ray_angle)
+int is_ray_facing_left(float ray_angle)
 {
     return (!is_ray_facing_right(ray_angle));
 }
 
-void ray_orientation(t_raycast *ray, double ray_angle)
+void ray_orientation(t_raycast *ray, float ray_angle)
 {
     ray->is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
     ray->is_ray_facing_up = !ray->is_ray_facing_down;
@@ -42,7 +42,7 @@ void ray_orientation(t_raycast *ray, double ray_angle)
     ray->is_ray_facing_left = !ray->is_ray_facing_right;
 }
 
-void ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle)
+void ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 {
     ray->yintercept = floor(game_data->player->y / game_data->texture_width) * game_data->texture_width;
     // swap this to get pshycodelic effect
@@ -110,7 +110,7 @@ void ray_horiz_loop(t_game *game_data, t_raycast *ray, bool wall)
     }
 }
 
-void ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle)
+void ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 {
     ray->xintercept = floor(game_data->player->x / game_data->texture_width) * game_data->texture_width;
     // swap this to get pshycodelic effect
@@ -203,12 +203,12 @@ void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
             game_data->player->color);
 }
 
-void    draw_3d_door(t_game *game_data, int column_id, t_raycast ray, double ray_angle, t_raycast ray_wall)
+void    draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle, t_raycast ray_wall)
 {
-    double wall_strip_height;
-    double wall_top_pixel;
-    double perp_distance;
-	double wall_bott_pixel;
+    float wall_strip_height;
+    float wall_top_pixel;
+    float perp_distance;
+	float wall_bott_pixel;
 
     perp_distance = ray.distance * cos((ray_angle - game_data->player_angle));
     wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
@@ -232,12 +232,12 @@ void    draw_3d_door(t_game *game_data, int column_id, t_raycast ray, double ray
 	}
 }
 
-void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle)
+void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle)
 {
-    double wall_strip_height;
-    double wall_top_pixel;
-    double perp_distance;
-	double wall_bott_pixel;
+    float wall_strip_height;
+    float wall_top_pixel;
+    float perp_distance;
+	float wall_bott_pixel;
 
     // game_data->dist_proj_plane = (WINDOW_WIDTH / 2)/ tan(game_data->fov_angle / 2);
     perp_distance = ray->distance * cos((ray_angle - game_data->player_angle)); // calculate ray.angle
@@ -291,7 +291,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 	// draw_sprites(game_data);
 }
 
-void	ray_calculations(t_raycast *ray, t_game *game_data, double ray_angle, bool wall)
+void	ray_calculations(t_raycast *ray, t_game *game_data, float ray_angle, bool wall)
 {
 	ft_bzero(ray, sizeof(*ray));
 	ray_orientation(ray, ray_angle);
@@ -302,7 +302,7 @@ void	ray_calculations(t_raycast *ray, t_game *game_data, double ray_angle, bool 
 	ray_shortest_distance(ray, game_data);
 }
 
-void    cast_ray(t_game *game_data, double ray_angle, int column_id)
+void    cast_ray(t_game *game_data, float ray_angle, int column_id)
 {
     t_raycast ray;
 	t_raycast ray_door;
@@ -320,7 +320,7 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 // void    draw_walls(t_game *game_data)
 // {
 //     unsigned int    column_id;
-//     double          ray_angle;
+//     float          ray_angle;
 //     int             i;
 
 //     i = 0;
@@ -339,9 +339,9 @@ void    cast_ray(t_game *game_data, double ray_angle, int column_id)
 void    draw_fov(t_game *game_data)
 {
     // unsigned int    column_id;
-    double          ray_angle;
+    float          ray_angle;
     int             column_id;
-    // double          dist_proj_plane;
+    // float          dist_proj_plane;
 
     // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
     // uncomment this line to get a psychodelic effect

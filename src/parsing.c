@@ -35,8 +35,8 @@ int check_colors_ok(t_game *game_data)
 		&& game_data->color[F].valid_rgb == 1
 		&& game_data->color[C].valid_rgb == 1)
 	{
-		game_data->color[F].rgb_color = (int32_t)ft_double_pixel(game_data->color[F].color[0] % 0xFF, game_data->color[F].color[1]% 0xFF, game_data->color[F].color[2]% 0xFF, 255);
-		game_data->color[C].rgb_color = (int32_t)ft_double_pixel(game_data->color[C].color[0] % 0xFF, game_data->color[C].color[1]% 0xFF, game_data->color[C].color[2]% 0xFF, 255);
+		game_data->color[F].rgb_color = (int32_t)ft_float_pixel(game_data->color[F].color[0] % 0xFF, game_data->color[F].color[1]% 0xFF, game_data->color[F].color[2]% 0xFF, 255);
+		game_data->color[C].rgb_color = (int32_t)ft_float_pixel(game_data->color[C].color[0] % 0xFF, game_data->color[C].color[1]% 0xFF, game_data->color[C].color[2]% 0xFF, 255);
 		return (1);
 	}
 	else

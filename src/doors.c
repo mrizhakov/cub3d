@@ -37,8 +37,8 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 void	detect_vis_door(t_game *game_data)
 {
 	t_doors	*doors;
-	t_double_pixel	*player;
-	double		angle_sprite;
+	t_float_pixel	*player;
+	float		angle_sprite;
 	int			i;
 
 	doors = game_data->doors;
@@ -69,7 +69,7 @@ void	open_door(t_game *game_data)
 {
 	int	i;
 	int	closiest;
-	double	distance;
+	float	distance;
 
 	distance = FLT_MAX;
 	i = 0;

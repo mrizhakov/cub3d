@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 12:12:15 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:18:48 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,58 +98,58 @@ typedef struct	s_maze
 	int		valid_maze;
 }				t_maze;
 
-// player x and y position using doubles
-typedef struct	s_double_pixel
+// player x and y position using floats
+typedef struct	s_float_pixel
 {
-	double		y;
-	double		x;
+	float		y;
+	float		x;
 	uint32_t	color;
-}				t_double_pixel;
+}				t_float_pixel;
 
 
 // used for cursor movement
 typedef struct 	s_point {
-	double		x;				// x : Width  | x-axis
-	double		y;				// y : Height | y-axis
+	float		x;				// x : Width  | x-axis
+	float		y;				// y : Height | y-axis
 }				t_point;
 
 typedef struct	s_doors
 {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 	int		map_x;
 	int		map_y;
 	bool	isopen;
-	double	action_time;
+	float	action_time;
 	bool	visible;
-	double	distance;
+	float	distance;
 	int		texture;
-	double	angle;
-	double	dimentions;
-	double	bott_pixel;
-	double	top_pixel;
-	double	left_pixel;
-	double	err_line;
-	double	right_pixel;
-	double	err_colon;
-	double	animation_time;
+	float	angle;
+	float	dimentions;
+	float	bott_pixel;
+	float	top_pixel;
+	float	left_pixel;
+	float	err_line;
+	float	right_pixel;
+	float	err_colon;
+	float	animation_time;
 }				t_doors;
 
 typedef struct s_sprite
 {
-	double	x;
-	double	y;
+	float	x;
+	float	y;
 	bool	visible;
-	double	distance;
+	float	distance;
 	int		texture;
-	double	angle;
-	double	dimentions;
-	double	bott_pixel;
-	double	top_pixel;
-	double	left_pixel;
-	double	err_line;
-	double	right_pixel;
-	double	err_colon;
+	float	angle;
+	float	dimentions;
+	float	bott_pixel;
+	float	top_pixel;
+	float	left_pixel;
+	float	err_line;
+	float	right_pixel;
+	float	err_colon;
 }				t_sprite;
 
 typedef struct s_color
@@ -180,19 +180,19 @@ typedef struct	s_game
 	// maze parse
 	// int				player_count;
 	int				player_init_loc[2];
-	double			player_init_dir;
+	float			player_init_dir;
 	int				maze_closed;
 
 	// player
-	t_double_pixel	*player;
-	double			player_angle;
+	t_float_pixel	*player;
+	float			player_angle;
 	int				player_turn_dir;
 	int				player_walk_dir;
 	int				player_strafe_dir;
 	int				player_turn_speed;
-	double			fov_angle;
+	float			fov_angle;
 	int				num_rays;
-	double			dist_proj_plane;
+	float			dist_proj_plane;
 
 	// draw
 	int             redraw_minimap;
@@ -202,8 +202,8 @@ typedef struct	s_game
 	t_doors			doors[11];
 	t_point			cursor; //cursor position
 	t_maze			maze;  // the maze
-	double			z_buffer[WINDOW_WIDTH];
-	double			animat_time;
+	float			z_buffer[WINDOW_WIDTH];
+	float			animat_time;
 }				t_game;
 
 typedef struct 	s_raycast {
@@ -211,28 +211,28 @@ typedef struct 	s_raycast {
     int is_ray_facing_right;
     int is_ray_facing_up;
     int is_ray_facing_left;
-	double xintercept;
-    double yintercept;
-	double xstep;
-    double ystep;
-	// double wallHitX;
-    // double wallHitY;
-    double distance;
-    double next_hor_touch_x;
-    double next_hor_touch_y;
+	float xintercept;
+    float yintercept;
+	float xstep;
+    float ystep;
+	// float wallHitX;
+    // float wallHitY;
+    float distance;
+    float next_hor_touch_x;
+    float next_hor_touch_y;
     int found_hor_hit;
-    double hor_wall_hit_x;
-    double hor_wall_hit_y;
+    float hor_wall_hit_x;
+    float hor_wall_hit_y;
 	int found_vert_hit;
-    double vert_wall_hit_x;
-    double vert_wall_hit_y;
-    double next_vert_touch_x;
-    double next_vert_touch_y;
-    double  shortest_wall_hit_x;
-    double  shortest_wall_hit_y;
+    float vert_wall_hit_x;
+    float vert_wall_hit_y;
+    float next_vert_touch_x;
+    float next_vert_touch_y;
+    float  shortest_wall_hit_x;
+    float  shortest_wall_hit_y;
     int     was_hit_vertical;
-	double distance_hor;
-    double distance_vert;
+	float distance_hor;
+    float distance_vert;
 	//added by ddavlety 21.05
 	t_doors	*door;
 
@@ -266,47 +266,47 @@ void			free_textures(t_game *game_data);
 
 // Extra MLX testing functions
 int32_t			mlx_run(t_game *game_data);
-int32_t			conv_x(int32_t x, int32_t y, double angle);
-int32_t			conv_y(int32_t x, int32_t y, double angle);
-t_double_pixel	rotatePoint(t_double_pixel p, t_double_pixel center, double angle);
+int32_t			conv_x(int32_t x, int32_t y, float angle);
+int32_t			conv_y(int32_t x, int32_t y, float angle);
+t_float_pixel	rotatePoint(t_float_pixel p, t_float_pixel center, float angle);
 
 //Drawing functions
-int32_t			draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel end);
+int32_t			draw_rectangle(t_game *game_data, t_float_pixel start, t_float_pixel end);
 void			drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
-int32_t			draw_h_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
-int32_t			draw_v_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
-int32_t			check_pix(t_double_pixel pix);
-int32_t			draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_len);
-int32_t			draw_minimap_with_border(t_game *game_data, t_double_pixel start, unsigned int side_len);
-int32_t			draw_player(t_game *game_data, t_double_pixel *player, unsigned int side_len);
+int32_t			draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
+int32_t			draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
+int32_t			check_pix(t_float_pixel pix);
+int32_t			draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len);
+int32_t			draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len);
+int32_t			draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len);
 void			draw_black_background(t_game *game_data);
-int32_t			draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len);
-int32_t			draw_square(t_game *game_data, t_double_pixel start, unsigned int side_len);
-int32_t			draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end);
+int32_t			draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len);
+int32_t			draw_square(t_game *game_data, t_float_pixel start, unsigned int side_len);
+int32_t			draw_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
 void			draw_sprites(t_game	*game_data);
-int32_t			draw_map_sprite(t_game *game_data, t_double_pixel *sprite, unsigned int side_len);
+int32_t			draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len);
 
 //Raycast
-double			check_angle_overflow(t_game *game_data, double player_angle);
-void			draw_ray(t_game *game_data, double ray_angle);
+float			check_angle_overflow(t_game *game_data, float player_angle);
+void			draw_ray(t_game *game_data, float ray_angle);
 void			draw_fov(t_game *game_data);
-void			cast_ray(t_game *game_data, double ray_angle, int column_id);
-int				is_ray_facing_down(double ray_angle);
-int				is_ray_facing_right(double ray_angle);
-int				is_ray_facing_up(double ray_angle);
-int				is_ray_facing_left(double ray_angle);
-void			ray_orientation(t_raycast *ray, double ray_angle);
-void			ray_horiz_calc(t_game *game_data, t_raycast *ray, double ray_angle);
+void			cast_ray(t_game *game_data, float ray_angle, int column_id);
+int				is_ray_facing_down(float ray_angle);
+int				is_ray_facing_right(float ray_angle);
+int				is_ray_facing_up(float ray_angle);
+int				is_ray_facing_left(float ray_angle);
+void			ray_orientation(t_raycast *ray, float ray_angle);
+void			ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle);
 void			ray_horiz_loop(t_game *game_data, t_raycast *ray, bool wall);
-void			ray_vert_calc(t_game *game_data, t_raycast *ray, double ray_angle);
+void			ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray, bool wall);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
-void			draw_textures(mlx_texture_t *, int column_id, double wall_top_pixel, double wall_bottom_pixel, int texOffsetX);
-void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, double ray_angle);
+void			draw_textures(mlx_texture_t *, int column_id, float wall_top_pixel, float wall_bottom_pixel, int texOffsetX);
+void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle);
 
 
 //Game logic
-int				prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int map_padding);
+int				prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check, int map_padding);
 void			update_pos(t_game *game_data);
 
 //Testing functions, remove for final version
@@ -314,13 +314,13 @@ void			ft_print_parsed_map(t_game *game_data);
 void			print_maze(t_game *game_data);
 
 //Extra mlx
-int32_t			ft_double_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+int32_t			ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 int				load_textures(t_game *game_data);
 
 
 //pixels and colors
 void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
-t_color			convertColors(mlx_texture_t* texture, uint32_t index, double distance);
+t_color			convertColors(mlx_texture_t* texture, uint32_t index, float distance);
 int				router_parse_data(char *line, t_game *game_data);
 void			put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 
@@ -337,9 +337,9 @@ t_doors			*which_door(t_game *game_data, int y, int x);
 //hooks
 void			ft_animation(void *param);
 void			ft_keyboad_hook(void* param);
-void			ft_cursor_hook(double xpos, double ypos, void* param);
+void			ft_cursor_hook(float xpos, float ypos, void* param);
 
 //Utils
-double  distance_between_points(double x1, double y1, double x2, double y2);
+float  distance_between_points(float x1, float y1, float x2, float y2);
 
 #endif

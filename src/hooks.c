@@ -56,7 +56,7 @@ void ft_keyboad_hook(void* param)
         update_pos(game_data);
 }
 
-void ft_cursor_hook(double xpos, double ypos, void* param)
+void ft_cursor_hook(float xpos, float ypos, void* param)
 {
 	t_point	cursor;
 	t_game	*game_data;

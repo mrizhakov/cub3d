@@ -39,7 +39,7 @@ void init_maze(t_game *game_maze)
 
 int	initialise_game(t_game *game_data)
 {
-	game_data->player = (t_double_pixel *)ft_calloc(sizeof(t_double_pixel), 1);
+	game_data->player = (t_float_pixel *)ft_calloc(sizeof(t_float_pixel), 1);
 	if (!game_data->player)
 		return (1);
 	game_data->player->color = 0x00FF00FF;

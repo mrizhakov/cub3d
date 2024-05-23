@@ -1,9 +1,9 @@
 #include "../cub3d.h"
 void	set_height(t_game *game_data, t_sprite *vis_sprite)
 {
-	double	sprite_height;
-	double	top_pixel;
-	double	bott_pixel;
+	float	sprite_height;
+	float	top_pixel;
+	float	bott_pixel;
 
 	sprite_height = (game_data->texture_width
 						/ vis_sprite->distance) * game_data->dist_proj_plane;
@@ -21,9 +21,9 @@ void	set_height(t_game *game_data, t_sprite *vis_sprite)
 
 void	set_width(t_game *game_data, t_sprite *vis_sprite)
 {
-	double	posX;
-	double	leftX;
-	double	rightX;
+	float	posX;
+	float	leftX;
+	float	rightX;
 
 	posX = tan(vis_sprite->angle) * game_data->dist_proj_plane;
 	leftX = (WINDOW_WIDTH / 2) + posX - vis_sprite->dimentions / 2;
@@ -40,8 +40,8 @@ void	set_width(t_game *game_data, t_sprite *vis_sprite)
 void	detect_vis_sprites(t_game *game_data)
 {
 	t_sprite	*sprites;
-	t_double_pixel	*player;
-	double		angle_sprite;
+	t_float_pixel	*player;
+	float		angle_sprite;
 	int			i;
 
 	sprites = game_data->sprites;
@@ -85,12 +85,12 @@ int	init_sprites(t_game *game_data, char t, int x, int y)
 }
 
 static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
-								double offset, double line)
+								float offset, float line)
 {
-	double			left;
+	float			left;
 	mlx_texture_t	*texture;
 	uint32_t		index;
-	double			prev_left;
+	float			prev_left;
 	t_color			color;
 
 	texture = game_data->textures[sprite.texture];
@@ -123,8 +123,8 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 
 static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 {
-	double			line;
-	double			prev_line;
+	float			line;
+	float			prev_line;
 	uint32_t		texOffset;
 	mlx_texture_t	*texture;
 

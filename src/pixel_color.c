@@ -48,21 +48,21 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 	// 	ft_putendl_fd("Pixel is out of bounds (axes y)", 2);
 }
 
-static double sigmoid(double x)
+static float sigmoid(float x)
 {
 	return 1 / (1 + exp(-x));
 }
 
-static double transform(double value)
+static float transform(float value)
 {
-	const double center = 0.4; // Center of transformation
-	const double scale = 10.0; // Scale factor for significance
-	double shifted = value - center; // Shift to make center at 0
-	double transformed = sigmoid(scale * shifted); // Apply sigmoid function
+	const float center = 0.4; // Center of transformation
+	const float scale = 10.0; // Scale factor for significance
+	float shifted = value - center; // Shift to make center at 0
+	float transformed = sigmoid(scale * shifted); // Apply sigmoid function
 	return transformed;
 }
 
-t_color convertColors(mlx_texture_t* texture, uint32_t index, double distance)
+t_color convertColors(mlx_texture_t* texture, uint32_t index, float distance)
 {
 	t_color	color;
 

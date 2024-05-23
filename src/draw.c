@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-int32_t check_pix(t_double_pixel pix)
+int32_t check_pix(t_float_pixel pix)
 {
     if (pix.x < 0 || pix.y < 0 || pix.x > WINDOW_WIDTH - 1 || pix.y > WINDOW_HEIGHT -1)
     {
@@ -11,7 +11,7 @@ int32_t check_pix(t_double_pixel pix)
         return(1);
 }
 
-int32_t draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
+int32_t draw_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
 {
     (void)game_data;
     if (check_pix(start) && check_pix(end))
@@ -31,8 +31,8 @@ int32_t draw_line(t_game *game_data, t_double_pixel start, t_double_pixel end)
 
 void draw_black_background(t_game *game_data)
 {
-    t_double_pixel black_background;
-    t_double_pixel end;
+    t_float_pixel black_background;
+    t_float_pixel end;
 
     black_background.y = 0;
     black_background.x = 0;
@@ -42,7 +42,7 @@ void draw_black_background(t_game *game_data)
     draw_rectangle(game_data, black_background, end);
 }
 
-int32_t draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel end)
+int32_t draw_rectangle(t_game *game_data, t_float_pixel start, t_float_pixel end)
 {
     (void)game_data;
     if (check_pix(start) && check_pix(end))
@@ -66,7 +66,7 @@ int32_t draw_rectangle(t_game *game_data, t_double_pixel start, t_double_pixel e
     return(0);
 }
 
-int32_t draw_square(t_game *game_data, t_double_pixel start, unsigned int side_len)
+int32_t draw_square(t_game *game_data, t_float_pixel start, unsigned int side_len)
 {
     unsigned int i;
 
@@ -85,7 +85,7 @@ int32_t draw_square(t_game *game_data, t_double_pixel start, unsigned int side_l
     return(0);
 }
 
-int32_t draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len)
+int32_t draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len)
 {
     (void)game_data;
     int x;
@@ -93,7 +93,7 @@ int32_t draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len
 
     x = 0;
     y = 0;
-    // t_double_pixel origin;
+    // t_float_pixel origin;
     // origin = start;
     int border;
     border = 1;
@@ -113,7 +113,7 @@ int32_t draw_grid(t_game *game_data, t_double_pixel start, unsigned int side_len
     return(1);
 }
 
-int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_len)
+int32_t draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len)
 {
     (void)game_data;
     int x;
@@ -121,11 +121,11 @@ int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_
 
     x = 0;
     y = 0;
-    t_double_pixel origin;
+    t_float_pixel origin;
     origin = start;
-    t_double_pixel player;
+    t_float_pixel player;
     player.color = 0xFF00FFFF;
-	t_double_pixel mushroom;
+	t_float_pixel mushroom;
 	mushroom.color = 0xFFFF00FF;
     while (y != MAZE_DIMENSION - 1)
     {
@@ -161,7 +161,7 @@ int32_t draw_minimap(t_game *game_data, t_double_pixel start, unsigned int side_
     return(1);
 }
 
-int32_t draw_minimap_with_border(t_game *game_data, t_double_pixel start, unsigned int side_len)
+int32_t draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len)
 {
     (void)game_data;
     int x;
@@ -169,10 +169,10 @@ int32_t draw_minimap_with_border(t_game *game_data, t_double_pixel start, unsign
 
     x = 0;
     y = 0;
-    t_double_pixel origin;
+    t_float_pixel origin;
     origin = start;
 
-    t_double_pixel player;
+    t_float_pixel player;
     player.color = 0xFF00FFFF;
     int border;
     border = 1;
@@ -204,10 +204,10 @@ int32_t draw_minimap_with_border(t_game *game_data, t_double_pixel start, unsign
     return(1);
 }
 
-int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side_len)
+int32_t draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len)
 {
     (void)player;
-    t_double_pixel player_square;
+    t_float_pixel player_square;
 
     player_square.x = (game_data->player->x / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
     player_square.y = (game_data->player->y / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
@@ -216,27 +216,27 @@ int32_t draw_player(t_game *game_data, t_double_pixel *player, unsigned int side
     return(1);
 }
 
-int32_t	conv_x(int32_t x, int32_t y, double angle)
+int32_t	conv_x(int32_t x, int32_t y, float angle)
 {
 	return (x * cos(angle) - y * sin(angle));
 }
 
-int32_t	conv_y(int32_t x, int32_t y, double angle)
+int32_t	conv_y(int32_t x, int32_t y, float angle)
 {
 	return (x * sin(angle) + y * cos(angle));
 }
 
-t_double_pixel rotatePoint(t_double_pixel p, t_double_pixel center, double angle) {
-    t_double_pixel rotated;
+t_float_pixel rotatePoint(t_float_pixel p, t_float_pixel center, float angle) {
+    t_float_pixel rotated;
     rotated.x = center.x + (p.x - center.x) * cos(angle) - (p.y - center.y) * sin(angle);
     rotated.y = center.y + (p.x - center.x) * sin(angle) + (p.y - center.y) * cos(angle);
     return rotated;
 }
 
-int32_t draw_map_sprite(t_game *game_data, t_double_pixel *sprite, unsigned int side_len)
+int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len)
 {
     (void)sprite;
-    t_double_pixel sprite_square;
+    t_float_pixel sprite_square;
 	size_t	i;
 
 	i = 0;

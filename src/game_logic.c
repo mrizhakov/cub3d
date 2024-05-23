@@ -33,7 +33,7 @@ static int	find_door(t_game *game_data, int y, int x, int pad, int del)
 	return (i);
 }
 
-int prevent_wall_collisions(t_game *game_data, double player_y_check, double player_x_check, int map_padding)
+int prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check, int map_padding)
 {
     (void)game_data;
     if (player_x_check >= 0 && player_y_check >= 0
@@ -52,7 +52,7 @@ int prevent_wall_collisions(t_game *game_data, double player_y_check, double pla
     return(1);
 }
 
-double   check_angle_overflow(t_game *game_data, double player_angle)
+float   check_angle_overflow(t_game *game_data, float player_angle)
 {
     if (player_angle < 0)
         player_angle += 2 * M_PI;
@@ -70,9 +70,9 @@ double   check_angle_overflow(t_game *game_data, double player_angle)
 // Function too long, thinking how to split it without adding vars to the struct
 void update_pos(t_game *game_data)
 {
-    double  player_y_check;
-    double  player_x_check;
-    double  move_step;
+    float  player_y_check;
+    float  player_x_check;
+    float  move_step;
 
     player_x_check = 0;
     player_y_check = 0;
