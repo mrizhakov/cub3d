@@ -113,5 +113,5 @@ t_doors	*which_door(t_game *game_data, int y, int x)
 		i++;
 	}
 	ft_putendl_fd("Warning\ndoor not found", 2);
-	return (NULL);
+	return (game_data->doors);
 }

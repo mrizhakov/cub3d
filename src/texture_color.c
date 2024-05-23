@@ -56,7 +56,7 @@ int parse_color_data(t_surface surface, t_game *game_data, char *data)
 int	router_parse_data(char *line, t_game *game_data)
 {
 	char	**tokens;
-	char	*token_texture[] = {"NO", "SO", "WE", "EA", "MU", "MU2", "DO0", "DO1", "DO2", NULL};
+	char	*token_texture[] = {"NO", "SO", "WE", "EA", "MU", "MU2", "DO0", "DO1", "DO2", "PS1", "PS2", "PS3", NULL};
 	char	*token_color[] = {"F", "C", NULL};
 	int	i;
 	int	j;

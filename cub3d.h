@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 14:35:38 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 21:24:50 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 // #include <inttypes.h> // For PRIu32 macro
 
 
+# ifndef PSYCHO
+#  define PSYCHO 7
+# endif
 
 # define WINDOW_WIDTH 1080
 # define WINDOW_HEIGHT 740
@@ -67,6 +70,9 @@ typedef enum e_textures
 	TEX_DOOR_CL,
 	TEX_DOOR_1,
 	TEX_DOOR_OP,
+	TEX_PSY_1,
+	TEX_PSY_2,
+	TEX_PSY_3,
 	TEX_NO,
 }			t_textures;
 
@@ -110,8 +116,8 @@ typedef struct	s_float_pixel
 
 // used for cursor movement
 typedef struct 	s_point {
-	float		x;				// x : Width  | x-axis
-	float		y;				// y : Height | y-axis
+	float		x;
+	float		y;
 }				t_point;
 
 typedef struct	s_doors
@@ -143,6 +149,7 @@ typedef struct s_sprite
 	int		map_x;
 	int		map_y;
 	bool	visible;
+	bool	taken;
 	float	distance;
 	int		texture;
 	float	angle;
@@ -181,7 +188,6 @@ typedef struct	s_game
 	int				color_count[2];
 
 	// maze parse
-	// int				player_count;
 	int				player_init_loc[2];
 	float			player_init_dir;
 	int				maze_closed;
@@ -198,15 +204,18 @@ typedef struct	s_game
 	float			dist_proj_plane;
 
 	// draw
-	int             redraw_minimap;
+	int				redraw_minimap;
 	int				texture_width;
 	// maze
 	t_sprite		sprites[11];
 	t_doors			doors[11];
-	t_point			cursor; //cursor position
-	t_maze			maze;  // the maze
+	t_point			cursor;
+	t_maze			maze;
 	float			z_buffer[WINDOW_WIDTH];
 	float			animat_time;
+	// psycho
+	bool			psycho;
+	float			phycho_time;
 }				t_game;
 
 typedef struct 	s_raycast {
@@ -241,7 +250,7 @@ typedef struct 	s_raycast {
 // Error handling and parsing
 int				error_handling(int argc, const char *argv[]);
 int				map_parsing(char *filename, t_game *game_data);
-void			init_data(t_game *game_data);
+int				init_data(t_game *game_data);
 int				check_read_file(int fd);
 int				check_file_extension(char *filename, char *file_extension);
 int				check_textures(t_game *game_data);
@@ -296,7 +305,7 @@ void			ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void			ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
-void			draw_textures(mlx_texture_t *, int column_id, float wall_top_pixel, float wall_bottom_pixel, int texOffsetX);
+void			draw_textures(mlx_texture_t *, int column, float top_pixel, float bott_pixel, int offSetX);
 void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle);
 
 
@@ -318,6 +327,9 @@ void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
 t_color			convertColors(mlx_texture_t* texture, uint32_t index, float distance);
 int				router_parse_data(char *line, t_game *game_data);
 void			put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+int32_t			ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
+
+
 
 //sprites
 int				init_sprites(t_game *game_data, char t, int x, int y);
@@ -335,6 +347,9 @@ t_doors			*which_door(t_game *game_data, int y, int x);
 void			ft_animation(void *param);
 void			ft_keyboad_hook(void* param);
 void			ft_cursor_hook(float xpos, float ypos, void* param);
+
+//psycho
+void			psycho_trigger(t_game *game_data);
 
 //Utils
 float			distance_between_points(float x1, float y1, float x2, float y2);

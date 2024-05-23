@@ -1,4 +1,5 @@
 #include "../cub3d.h"
+
 void	set_height(t_game *game_data, t_sprite *vis_sprite)
 {
 	float	sprite_height;
@@ -37,6 +38,20 @@ void	set_width(t_game *game_data, t_sprite *vis_sprite)
 	vis_sprite->err_colon = vis_sprite->dimentions / game_data->texture_width;
 }
 
+static float	calculate_angle(float p_angle, t_sprite *sprite, t_float_pixel *player)
+{
+	float angle_sprite;
+
+	angle_sprite = p_angle
+		- atan2(sprite->y - player->y, sprite->x - player->x);
+	if (angle_sprite > M_PI)
+		angle_sprite -= 2 * M_PI;
+	if (angle_sprite < -M_PI)
+		angle_sprite += 2 * M_PI;
+	angle_sprite = fabs(angle_sprite);
+	return (angle_sprite);
+}
+
 void	detect_vis_sprites(t_game *game_data)
 {
 	t_sprite	*sprites;
@@ -46,25 +61,21 @@ void	detect_vis_sprites(t_game *game_data)
 
 	sprites = game_data->sprites;
 	player = game_data->player;
-	i = 0;
-	while (sprites[i].texture)
+	i = -1;
+	while (sprites[++i].texture)
 	{
-		angle_sprite = game_data->player_angle
-			- atan2(sprites[i].y - player->y, sprites[i].x - player->x);
-		if (angle_sprite > M_PI)
-			angle_sprite -= 2 * M_PI;
-		if (angle_sprite < -M_PI)
-			angle_sprite += 2 * M_PI;
-		angle_sprite = fabs(angle_sprite);
-		if (angle_sprite < (game_data->fov_angle / 2))
+		if (sprites[i].taken)
+			continue ;
+		sprites[i].visible = false;
+		angle_sprite = calculate_angle(game_data->player_angle, &sprites[i], player);
+		sprites[i].distance = distance_between_points(player->x, player->y, sprites[i].x, sprites[i].y);
+		if (sprites[i].distance < 500)
+			sprites[i].taken = true;
+		else if (angle_sprite < (game_data->fov_angle / 2))
 		{
-			sprites[i].distance = distance_between_points(player->x, player->y, sprites[i].x, sprites[i].y);
 			sprites[i].angle = atan2(sprites[i].y - player->y, sprites[i].x - player->x) - game_data->player_angle + M_PI;
 			sprites[i].visible = true;
 		}
-		else
-			sprites[i].visible = false;
-		i++;
 	}
 }
 
@@ -118,7 +129,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
-		if (left > WINDOW_WIDTH || index + 3 > texture->width * texture->height * 4)
+		if (left >= WINDOW_WIDTH || index + 3 >= texture->width * texture->height * 4)
 			break ;
 	}
 }
@@ -179,9 +190,7 @@ void	sort_sprites(t_sprite sprites[10])
 void	draw_sprites(t_game	*game_data)
 {
 	int			i;
-	// t_sprite	vis_sprites[10];
 
-	// detect_vis_sprites(game_data);
 	i = 0;
 	while (game_data->sprites[i].texture)
 	{
@@ -206,7 +215,6 @@ void	sprites_calculations(t_game	*game_data)
 			set_height(game_data, &game_data->sprites[i]);
 			set_width(game_data, &game_data->sprites[i]);
 			sort_sprites(game_data->sprites);
-			// draw_sprite(game_data, game_data->sprites[i]);
 		}
 		i++;
 	}

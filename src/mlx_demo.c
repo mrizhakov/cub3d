@@ -2,8 +2,8 @@
 
 static mlx_image_t* image;
 
-void	draw_textures(mlx_texture_t *texture, int column_id, float wall_top_pixel,
-						float wall_bottom_pixel, int textOffX)
+void	draw_textures(mlx_texture_t *texture, int column_id, float top_pixel,
+						float wall_bott_pixel, int textOffX)
 {
 	uint32_t		i;
 	float			prev_pixel;
@@ -11,24 +11,24 @@ void	draw_textures(mlx_texture_t *texture, int column_id, float wall_top_pixel,
 	float			wall_height;
 
 	i = 0 + ((textOffX) * 4);
-	wall_height = wall_bottom_pixel - wall_top_pixel;
+	wall_height = wall_bott_pixel - top_pixel;
 	err = wall_height / texture->height;
-	while (wall_top_pixel < - 10)
+	while (top_pixel < - 10)
 	{
-		wall_top_pixel += err;
+		top_pixel += err;
 		i += texture->width * 4;
 	}
-	while (wall_top_pixel < wall_bottom_pixel - 1)
+	while (top_pixel < wall_bott_pixel - 1)
 	{
-		prev_pixel = wall_top_pixel;
-		put_pixel(image, column_id, (int)wall_top_pixel,
+		prev_pixel = top_pixel;
+		put_pixel(image, column_id, (int)top_pixel,
 					convertColors(texture, i, wall_height));
-		wall_top_pixel += err;
-		while (wall_top_pixel - prev_pixel > 1)
+		top_pixel += err;
+		while (top_pixel - prev_pixel > 1)
 			put_pixel(image, column_id, (int)++prev_pixel,
 						convertColors(texture, i, wall_height));
 		i += texture->width * 4;
-		if (wall_top_pixel > WINDOW_HEIGHT + 10)
+		if (top_pixel > WINDOW_HEIGHT + 10)
 			break;
 	}
 }
@@ -163,12 +163,7 @@ void ft_draw_image(void* param)
 
 
 
-void	init_data(t_game *game_data)
-{
-	game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", 0);
-}
-
-int32_t mlx_run(t_game *game_data)
+int	init_data(t_game *game_data)
 {
 	if (!(game_data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", true)))
 	{
@@ -189,6 +184,13 @@ int32_t mlx_run(t_game *game_data)
 	}
 	game_data->img = image;
 	game_data->animat_time = mlx_get_time();
+	return (EXIT_SUCCESS);
+}
+
+int32_t mlx_run(t_game *game_data)
+{
+	if (init_data(game_data))
+		return (EXIT_FAILURE);
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
 	// mlx_set_setting(MLX_FULLSCREEN, true);
