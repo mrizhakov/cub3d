@@ -1,0 +1,668 @@
+CPU     ID                    FUNCTION:NAME
+  5  15869               draw_sprite:return draw_sprite took 2396834 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2321416 ns
+
+  5  15869               draw_sprite:return draw_sprite took 13083 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2522833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8598208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8793458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8501666 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8722917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 12458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8733750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8704042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8546625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8824250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8724250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8632167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8759250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8734167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8683500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8817875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8697041 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8703500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8770000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8703500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8776416 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8757916 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8706667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2708000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2781584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2698625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2697875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2725500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2717708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2724250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2703750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2697042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2699875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2716458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2720584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6071958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2781416 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2706292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6167667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2710208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2709042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6066625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2703208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2711792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6137042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2700583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6029583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702166 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6031416 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8700625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8753209 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17843625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8689167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8704416 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17865125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8754167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8749833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17846542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8689375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8648583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17561542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8437708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8429750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 14679125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8176792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8222417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2907792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 504292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 14833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1990459 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2015416 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2246042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2242375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4834 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8621000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8484167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8744500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8622000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 9000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8693208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8684083 ns
+
+  5  15869               draw_sprite:return draw_sprite took 9083 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8699666 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8732833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8717958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8709875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8691834 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8732708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5084 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8788791 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8706375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5125 ns
+
+  7  15869               draw_sprite:return draw_sprite took 8688042 ns
+
+  7  15869               draw_sprite:return draw_sprite took 8804666 ns
+
+  7  15869               draw_sprite:return draw_sprite took 4875 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8747500 ns
+
+  6  15869               draw_sprite:return draw_sprite took 17916250 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2713917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6029417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2706542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6030250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2707542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6034833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2707666 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6022584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2712417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6050042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2731875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6026166 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2706750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6023708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2707042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6113209 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2699750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5770542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2750666 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2528458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8690875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1018917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8741041 ns
+
+  5  15869               draw_sprite:return draw_sprite took 154667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8741542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4792 ns
+
+  4  15869               draw_sprite:return draw_sprite took 8708042 ns
+
+  4  15869               draw_sprite:return draw_sprite took 7125 ns
+
+  4  15869               draw_sprite:return draw_sprite took 8783375 ns
+
+  4  15869               draw_sprite:return draw_sprite took 4875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17909042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17831250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8959 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17843166 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 17870500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6101791 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6348125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6014500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6034125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6022125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 5041 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6051583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 3371542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 7083 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2125416 ns
+
+  6  15869               draw_sprite:return draw_sprite took 1193375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 303292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 7209 ns
+
+  5  15869               draw_sprite:return draw_sprite took 14000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 10250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 11875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 12125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 10667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 7125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 9709 ns
+
+  5  15869               draw_sprite:return draw_sprite took 10166 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 10583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 13417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 13834 ns
+
+  5  15869               draw_sprite:return draw_sprite took 14792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2602542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 12958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2721458 ns
+
+  4  15869               draw_sprite:return draw_sprite took 12750 ns
+
+  4  15869               draw_sprite:return draw_sprite took 2708458 ns
+
+  4  15869               draw_sprite:return draw_sprite took 2750500 ns
+
+  4  15869               draw_sprite:return draw_sprite took 8829459 ns
+
+  4  15869               draw_sprite:return draw_sprite took 8837709 ns
+
+  4  15869               draw_sprite:return draw_sprite took 2095875 ns
+
+  4  15869               draw_sprite:return draw_sprite took 8934792 ns
+
+  4  15869               draw_sprite:return draw_sprite took 8833291 ns
+
+  4  15869               draw_sprite:return draw_sprite took 2315625 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8687583 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8696708 ns
+
+  6  15869               draw_sprite:return draw_sprite took 2092500 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8723250 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8757417 ns
+
+  6  15869               draw_sprite:return draw_sprite took 2127375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8689334 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8686958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2107042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8711041 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8733958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2107041 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8760875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8706084 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2126583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8724125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8679250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2107875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2701583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2734208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2768375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2703167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2705375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2757292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2710875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2696791 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2741750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2711584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2697917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2752792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2703125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2701334 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2752708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2710541 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2712000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2746000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2701958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2744625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2707333 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2695500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2751291 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2702708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2700541 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2759084 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2726792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2698208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2776333 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2736084 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2701458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2751417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8697167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8727291 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2126333 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8737542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8722291 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2104000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8696042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8690125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2097042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8736625 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8716875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2106917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8717458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8754125 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2107958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8695500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8744834 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2074833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8755208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8751209 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1978792 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8702042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8750917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1881250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8726833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8732667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1791208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2764875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2701000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2226958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2703584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2699542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2061292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2699208 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2724250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1933708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2698375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2703000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1798042 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2732417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2701417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1666167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2699084 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2628084 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1511708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2697375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2533666 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1382875 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2697583 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2450417 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1210750 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2604167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2308667 ns
+
+  5  15869               draw_sprite:return draw_sprite took 1057458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2498541 ns
+
+  5  15869               draw_sprite:return draw_sprite took 2208500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 862292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8894917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8251375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 459167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8231292 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8171250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8181083 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8099833 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8150375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8090000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 309958 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8093250 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8090542 ns
+
+  5  15869               draw_sprite:return draw_sprite took 239167 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8148500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 118584 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8095459 ns
+
+  5  15869               draw_sprite:return draw_sprite took 4833 ns
+
+  6  15869               draw_sprite:return draw_sprite took 8072500 ns
+
+  6  15869               draw_sprite:return draw_sprite took 4792 ns
+
+Player original position is  x 13568.000000, y 1792.000000
+Exiting
+  5  15869               draw_sprite:return draw_sprite took 8106917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 7917 ns
+
+  5  15869               draw_sprite:return draw_sprite took 13083 ns
+
+  5  15869               draw_sprite:return draw_sprite took 10000 ns
+
+  5  15869               draw_sprite:return draw_sprite took 12334 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8959 ns
+
+  5  15869               draw_sprite:return draw_sprite took 10375 ns
+
+  5  15869               draw_sprite:return draw_sprite took 8458 ns
+
+  5  15869               draw_sprite:return draw_sprite took 7500 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6041 ns
+
+  5  15869               draw_sprite:return draw_sprite took 7291 ns
+
+  5  15869               draw_sprite:return draw_sprite took 9708 ns
+
+  5  15869               draw_sprite:return draw_sprite took 6000 ns
+
+

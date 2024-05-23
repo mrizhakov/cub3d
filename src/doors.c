@@ -97,3 +97,21 @@ void	open_door(t_game *game_data)
 		game_data->doors[closiest].animation_time = mlx_get_time();
 	}
 }
+
+t_doors	*which_door(t_game *game_data, int y, int x)
+{
+	int i;
+
+	i = 0;
+	if (y >= MAZE_DIMENSION || x >= MAZE_DIMENSION)
+		return (NULL);
+	while (game_data->doors[i].texture)
+	{
+		if (game_data->doors[i].map_x == x
+			&& game_data->doors[i].map_y == y)
+			return (&game_data->doors[i]);
+		i++;
+	}
+	ft_putendl_fd("Warning\ndoor not found", 2);
+	return (NULL);
+}

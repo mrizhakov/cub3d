@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/22 21:34:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 09:40:47 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -329,6 +329,9 @@ void			sprites_calculations(t_game	*game_data);
 int				init_doors(t_game *game_data, char t, int x, int y);
 int				check_door_place(t_game *game_data, int y, int x);
 void			open_door(t_game *game_data);
+t_doors			*which_door(t_game *game_data, int y, int x);
+
+
 //hooks
 void			ft_animation(void *param);
 void			ft_keyboad_hook(void* param);

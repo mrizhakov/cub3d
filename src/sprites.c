@@ -1,5 +1,4 @@
 #include "../cub3d.h"
-
 void	set_height(t_game *game_data, t_sprite *vis_sprite)
 {
 	double	sprite_height;
@@ -97,7 +96,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	texture = game_data->textures[sprite.texture];
 	index = offset * 4;
 	left = sprite.left_pixel;
-	while (left < 0)
+	while (left < 0 || texture->pixels[index + 3] == 0)
 	{
 		index += 4;
 		left += sprite.err_colon;
@@ -105,13 +104,15 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	while (left < sprite.right_pixel)
 	{
 		color = convertColors(texture, index, sprite.dimentions);
-		if (sprite.distance < game_data->z_buffer[(int)left])
+		if (sprite.distance < game_data->z_buffer[(int)left]
+		&& texture->pixels[index + 3] != 0)
 			put_pixel(game_data->img, left, line, color);
 		prev_left = left;
 		left += sprite.err_colon;
 		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel - 1)
 		{
-			if (sprite.distance < game_data->z_buffer[(int)++prev_left])
+			if (sprite.distance < game_data->z_buffer[(int)++prev_left]
+				&& texture->pixels[index + 3] != 0)
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
@@ -130,8 +131,11 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 	line = sprite.top_pixel;
 	texOffset = 0;
 	texture = game_data->textures[sprite.texture];
-	while (line < 0)
+	while (line < 0 || texture->pixels[texOffset * 4 + (texture->width * 2) + 3] == 0)
+	{
 		line += sprite.err_line;
+		texOffset += texture->width;
+	}
 	while (line < sprite.bott_pixel)
 	{
 		draw_sprite_line(game_data, sprite, texOffset, line);
@@ -181,9 +185,6 @@ void	draw_sprites(t_game	*game_data)
 	{
 		if (game_data->sprites[i].visible)
 		{
-			// set_height(game_data, &game_data->sprites[i]);
-			// set_width(game_data, &game_data->sprites[i]);
-			// sort_sprites(game_data->sprites);
 			draw_sprite(game_data, game_data->sprites[i]);
 		}
 		i++;

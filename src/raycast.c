@@ -80,22 +80,6 @@ int	is_wall(char c, bool wall)
 		return (W_NONE);
 }
 
-t_doors	*which_door(t_game *game_data, int y, int x)
-{
-	int i;
-
-	i = 0;
-	while (game_data->doors[i].texture)
-	{
-		if (game_data->doors[i].map_x == x
-			&& game_data->doors[i].map_y == y)
-			return (&game_data->doors[i]);
-		i++;
-	}
-	ft_putendl_fd("Warning\ndoor not found", 2);
-	return (NULL);
-}
-
 void ray_horiz_loop(t_game *game_data, t_raycast *ray, bool wall)
 {
 	int	wall_type;
@@ -161,9 +145,6 @@ void ray_vert_loop(t_game *game_data, t_raycast *ray, bool wall)
     while(ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
         && ray->next_vert_touch_y /  game_data->texture_width <= MAZE_DIMENSION
         && ray->next_vert_touch_x /  game_data->texture_width <= MAZE_DIMENSION)
-    // while(ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
-    //     && ray->next_vert_touch_y /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1
-    //     && ray->next_vert_touch_x /  MINIMAP_SQUARE_SIDE_LEN <= MAZE_DIMENSION - 1)
     {
 		y = (int)ray->next_vert_touch_y / game_data->texture_width;
 		x = (int)ray->next_vert_touch_x  / game_data->texture_width;
@@ -207,7 +188,7 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
         ray->shortest_wall_hit_y = ray->vert_wall_hit_y;
         ray->distance = ray->distance_vert;
     }
-    if (ray->distance_vert < ray->distance_hor)
+    if (ray->distance_vert <= ray->distance_hor)
         ray->was_hit_vertical = 1;
 }
 
@@ -236,6 +217,8 @@ void    draw_3d_door(t_game *game_data, int column_id, t_raycast ray, double ray
     int texture_offset_x;
 	mlx_texture_t	*texture;
 	texture = game_data->textures[ray.door->texture];
+	if (texture == game_data->textures[TEX_DOOR_OP])
+		return ;
     if (ray.was_hit_vertical)
 		texture_offset_x = (int)ray.vert_wall_hit_y % game_data->texture_width;
 	else
@@ -276,7 +259,7 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, dou
 		for the door */
     int texture_offset_x;
 	mlx_texture_t	*texture_wall;
-	texture_wall = game_data->textures[TEX_MUSHR];
+	texture_wall = game_data->textures[TEX_DOOR_OP];
     if (ray->was_hit_vertical)
 	{
 		if (ray->is_ray_facing_left)
