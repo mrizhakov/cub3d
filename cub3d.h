@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 12:31:46 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/23 12:59:47 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,8 @@
 // # define MINIMAP_X_OFFSET 10
 // # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
-# define TURNING_SPEED 0.025
+# define TURNING_SPEED 0.05
 # define VALID_CHAR_MAP "NEWSMD10 \n"
-// # define DIST_PROJ_PLANE ((WINDOW_WIDTH / 2 ))
 # define ICON "./src/textures/icon.png"
 
 typedef enum e_orientation

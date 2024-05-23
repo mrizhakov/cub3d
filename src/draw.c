@@ -142,7 +142,7 @@ int32_t draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_l
             {
                 player.x = start.x;
                 player.y = start.y;
-                draw_square(game_data, player, side_len);
+                // draw_square(game_data, player, side_len);
             }
 			if (game_data->maze.g[y][x] == 'M')
 			{

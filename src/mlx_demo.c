@@ -135,15 +135,10 @@ int32_t ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
 void ft_draw_image(void* param)
 {
 	t_game *game_data;
-	game_data = (t_game *)param;
-	uint32_t color = ft_float_pixel(
-				rand() % 0xFF, // R
-				rand() % 0xFF, // G
-				rand() % 0xFF, // B
-				rand() % 0xFF  // A
-			);
-
     t_float_pixel h_start;
+	uint32_t color = ft_float_pixel(56, 56, 56 ,255);
+
+	game_data = (t_game *)param;
     h_start.y = 0;
     h_start.x = 0;
     h_start.color = color;
@@ -152,7 +147,7 @@ void ft_draw_image(void* param)
         draw_black_background(game_data);
         draw_fov(game_data);
         draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-        draw_player(game_data, game_data->player, 3);
+        draw_player(game_data, game_data->player, 4);
 		draw_sprites(game_data);
 		draw_map_sprite(game_data, NULL, 3);
 

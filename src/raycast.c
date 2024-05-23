@@ -194,13 +194,20 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
 
 // TODO: needs to be split up in logical norminette-sized functions
 // TODO: potential bug with x and y offset (diagonal lines are empty) - need to check if this affects 3d game projection
-void    draw_minimap_fov(t_game *game_data, t_raycast *ray)
+void    draw_minimap_fov(t_game *game_data, t_raycast ray, t_raycast ray_door)
 {
-    drawLine((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-            (uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-            (uint32_t)ray->shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-            (uint32_t)ray->shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-            game_data->player->color);
+	if (ray.distance > ray_door.distance && !ray_door.door->isopen)
+		drawLine((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+			(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+			(uint32_t)ray_door.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+			(uint32_t)ray_door.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+			game_data->player->color);
+	else
+		drawLine((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)ray.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)ray.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				game_data->player->color);
 }
 
 void    draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle, t_raycast ray_wall)
@@ -309,7 +316,7 @@ void    cast_ray(t_game *game_data, float ray_angle, int column_id)
 
 	ray_calculations(&ray, game_data, ray_angle, true);
 	ray_calculations(&ray_door, game_data, ray_angle, false);
-	draw_minimap_fov(game_data, &ray);
+	draw_minimap_fov(game_data, ray, ray_door);
 	draw_3d_projection(game_data, column_id, &ray, ray_angle);
 	game_data->z_buffer[column_id] = ray.distance;
 	if (ray_door.door)
