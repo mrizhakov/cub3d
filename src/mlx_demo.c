@@ -1,34 +1,27 @@
 #include "../cub3d.h"
 
-static mlx_image_t* image;
-
-void	draw_textures(mlx_texture_t *texture, int column_id, float top_pixel,
-						float wall_bott_pixel, int textOffX)
+void	draw_textures(t_raycast data)
 {
 	uint32_t		i;
 	float			prev_pixel;
-	float			err;
-	float			wall_height;
 
-	i = 0 + ((textOffX) * 4);
-	wall_height = wall_bott_pixel - top_pixel;
-	err = wall_height / texture->height;
-	while (top_pixel < - 10)
+	i = data.offSet * 4;
+	while (data.top < - 10)
 	{
-		top_pixel += err;
-		i += texture->width * 4;
+		data.top += data.err;
+		i += data.texture->width * 4;
 	}
-	while (top_pixel < wall_bott_pixel - 1)
+	while (data.top < data.bott - 1)
 	{
-		prev_pixel = top_pixel;
-		put_pixel(image, column_id, (int)top_pixel,
-					convertColors(texture, i, wall_height));
-		top_pixel += err;
-		while (top_pixel - prev_pixel > 1)
-			put_pixel(image, column_id, (int)++prev_pixel,
-						convertColors(texture, i, wall_height));
-		i += texture->width * 4;
-		if (top_pixel > WINDOW_HEIGHT + 10)
+		prev_pixel = data.top;
+		put_pixel(data.img, data.column, (int)data.top,
+					convertColors(data.texture, i, data.height));
+		data.top += data.err;
+		while (data.top - prev_pixel > 1)
+			put_pixel(data.img, data.column, (int)++prev_pixel,
+						convertColors(data.texture, i, data.height));
+		i += data.texture->width * 4;
+		if (data.top > WINDOW_HEIGHT + 10)
 			break;
 	}
 }
@@ -38,11 +31,13 @@ void	draw_textures(mlx_texture_t *texture, int column_id, float top_pixel,
 
 // }
 
-t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1)
+t_slope	init_slope_data(uint32_t x0, uint32_t y0,
+		uint32_t x1, uint32_t y1, mlx_image_t* image)
 {
 	t_slope slope;
 
 	bzero(&slope, sizeof(slope));
+	slope.img = image;
 	slope.x0 = x0;
 	slope.y0 = y0;
 	slope.x1 = x1;
@@ -69,7 +64,7 @@ void drawLine(t_slope data, uint32_t color)
 {
 	while (1)
 	{
-		put_pixel_uint(image, data.x0, data.y0, color);
+		put_pixel_uint(data.img, data.x0, data.y0, color);
 		if (data.x0 == data.x1 && data.y0 == data.y1)
 			break;
 		data.e2 = data.err;
@@ -86,61 +81,61 @@ void drawLine(t_slope data, uint32_t color)
 	}
 }
 
-int32_t draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
-{
-    (void)game_data;
-    if (check_pix(start) && check_pix(end) && start.y == end.y)
-    {
-        while (start.x < end.x)
-        {
-            put_pixel_uint(image, start.x, start.y, start.color);
-            start.x++;
-        }
-        while (start.x > end.x)
-        {
-            put_pixel_uint(image, start.x, start.y, start.color);
-            start.x--;
-        }
-        if (start.x == end.x)
-        {
-            put_pixel_uint(image, start.x, start.y, start.color);
-        }
-        return(1);
-    }
-    else
-    {
-        perror("Invalid horizontal line position");
-        return(0);
-    }
-}
+// int32_t draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
+// {
+//     (void)game_data;
+//     if (check_pix(start) && check_pix(end) && start.y == end.y)
+//     {
+//         while (start.x < end.x)
+//         {
+//             put_pixel_uint(image, start.x, start.y, start.color);
+//             start.x++;
+//         }
+//         while (start.x > end.x)
+//         {
+//             put_pixel_uint(image, start.x, start.y, start.color);
+//             start.x--;
+//         }
+//         if (start.x == end.x)
+//         {
+//             put_pixel_uint(image, start.x, start.y, start.color);
+//         }
+//         return(1);
+//     }
+//     else
+//     {
+//         perror("Invalid horizontal line position");
+//         return(0);
+//     }
+// }
 
-int32_t draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
-{
-    (void)game_data;
-    if (check_pix(start) && check_pix(end) && start.x == end.x)
-    {
-        while (start.y < end.y)
-        {
-            put_pixel_uint(image, start.x, start.y, start.color);
-            start.y++;
-        }
-        while (start.y > end.y)
-        {
-            put_pixel_uint(image, start.x, start.y, start.color);
-            start.y--;
-        }
-        if (start.y == end.y)
-        {
-            put_pixel_uint(image, start.x, start.y, start.color);
-        }
-        return(1);
-    }
-    else
-    {
-        perror("Invalid vertical line position");
-        return(0);
-    }
-}
+// int32_t draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
+// {
+//     (void)game_data;
+//     if (check_pix(start) && check_pix(end) && start.x == end.x)
+//     {
+//         while (start.y < end.y)
+//         {
+//             put_pixel_uint(image, start.x, start.y, start.color);
+//             start.y++;
+//         }
+//         while (start.y > end.y)
+//         {
+//             put_pixel_uint(image, start.x, start.y, start.color);
+//             start.y--;
+//         }
+//         if (start.y == end.y)
+//         {
+//             put_pixel_uint(image, start.x, start.y, start.color);
+//         }
+//         return(1);
+//     }
+//     else
+//     {
+//         perror("Invalid vertical line position");
+//         return(0);
+//     }
+// }
 
 // -----------------------------------------------------------------------------
 
@@ -187,19 +182,18 @@ int	init_data(t_game *game_data)
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (!(image = mlx_new_image(game_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT))) //static image here
+	if (!(game_data->img = mlx_new_image(game_data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT))) //static image here
 	{
 		mlx_close_window(game_data->mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	if (mlx_image_to_window(game_data->mlx, image, 0, 0) == -1) //static image here
+	if (mlx_image_to_window(game_data->mlx, game_data->img, 0, 0) == -1) //static image here
 	{
 		mlx_close_window(game_data->mlx);
 		puts(mlx_strerror(mlx_errno));
 		return(EXIT_FAILURE);
 	}
-	game_data->img = image;
 	game_data->animat_time = mlx_get_time();
 	return (EXIT_SUCCESS);
 }

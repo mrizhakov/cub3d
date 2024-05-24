@@ -34,7 +34,10 @@ void	ft_animation(void *param)
 		update_pos(game_data);
 	}
 	if (mlx_get_time() - game_data->phycho_time > PSYCHO)
+	{
+		check_colors_ok(game_data);
 		game_data->psycho = false;
+	}
 }
 
 void ft_keyboad_hook(void* param)

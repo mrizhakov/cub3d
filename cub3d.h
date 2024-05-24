@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/24 10:16:21 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/24 15:44:23 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,11 @@
 # include <math.h>
 # include <limits.h>
 # include <float.h>
-// #include <integer.h>
-// #include <inttypes.h> // For PRIu32 macro
-
 
 # ifndef PSYCHO
 #  define PSYCHO 7
 # endif
-
+# define ACTION_DIST 600
 # define ANIM_TIME 0.5
 # define WINDOW_WIDTH 1080
 # define WINDOW_HEIGHT 740
@@ -91,6 +88,18 @@ typedef enum e_casttype
 	W_SPRITE,
 }			t_casttype;
 
+//draw texture data
+typedef struct s_draw
+{
+	mlx_texture_t	*texture;
+	int				column;
+	float			top;
+	float			bott;
+	float			height;
+	int				offSet;
+	float			err;
+	mlx_image_t		*img;
+}					t_draw;
 //bresenhams data
 typedef struct s_slope
 {
@@ -105,6 +114,7 @@ typedef struct s_slope
 	int32_t		sy;
 	int32_t		err;
 	int32_t		e2;
+	mlx_image_t *img;
 }				t_slope;
 
 // used for colors
@@ -130,7 +140,6 @@ typedef struct	s_float_pixel
 	uint32_t	color;
 }				t_float_pixel;
 
-
 // used for cursor movement
 typedef struct 	s_point {
 	float		x;
@@ -155,7 +164,7 @@ typedef struct	s_doors
 	float	left_pixel;
 	float	err_line;
 	float	right_pixel;
-	float	err_colon;
+	float	err_column;
 	float	animation_time;
 }				t_doors;
 
@@ -176,7 +185,7 @@ typedef struct s_sprite
 	float	left_pixel;
 	float	err_line;
 	float	right_pixel;
-	float	err_colon;
+	float	err_column;
 }				t_sprite;
 
 typedef struct s_color
@@ -258,8 +267,17 @@ typedef struct 	s_raycast {
 	float  shortest_wall_hit_x;
 	float  shortest_wall_hit_y;
 	int		was_hit_vertical;
-	float distance_hor;
-	float distance_vert;
+	float	distance_hor;
+	float	distance_vert;
+	//for drawing
+	mlx_texture_t	*texture;
+	int				column;
+	float			top;
+	float			bott;
+	float			height;
+	int				offSet;
+	float			err;
+	mlx_image_t		*img;
 	t_doors		*door;
 	t_sprite	*sprite;
 }				t_raycast;
@@ -292,10 +310,7 @@ int32_t			conv_y(int32_t x, int32_t y, float angle);
 t_float_pixel	rotatePoint(t_float_pixel p, t_float_pixel center, float angle);
 
 //Drawing functions
-int32_t			draw_rectangle(t_game *game_data, t_float_pixel start, t_float_pixel end);
 void			drawLine(t_slope slope_data, uint32_t color);
-int32_t			draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
-int32_t			draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
 int32_t			check_pix(t_float_pixel pix);
 int32_t			draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len);
 int32_t			draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len);
@@ -303,29 +318,31 @@ int32_t			draw_player(t_game *game_data, t_float_pixel *player, unsigned int sid
 void			draw_black_background(t_game *game_data);
 int32_t			draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len);
 int32_t			draw_square(t_game *game_data, t_float_pixel start, unsigned int side_len);
-int32_t			draw_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
 void			draw_sprites(t_game	*game_data);
 int32_t			draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len);
-t_slope			init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
+t_slope			init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, mlx_image_t *);
+void			draw_textures(t_raycast data);
 
 //Raycast
 float			check_angle_overflow(t_game *game_data, float player_angle);
 void			draw_ray(t_game *game_data, float ray_angle);
 void			draw_fov(t_game *game_data);
 void			cast_ray(t_game *game_data, float ray_angle, int column_id);
-int				is_ray_facing_down(float ray_angle);
-int				is_ray_facing_right(float ray_angle);
-int				is_ray_facing_up(float ray_angle);
-int				is_ray_facing_left(float ray_angle);
 void			ray_orientation(t_raycast *ray, float ray_angle);
 void			ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle);
 void			ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void			ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle);
 void			ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void			ray_shortest_distance(t_raycast *ray, t_game *game_data);
-void			draw_textures(mlx_texture_t *, int column, float top_pixel, float bott_pixel, int offSetX);
-void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle);
-
+/* Ray_utils */
+float			distance_between_points(float x1, float y1, float x2, float y2);
+int				is_ray_facing_down(float ray_angle);
+int				is_ray_facing_right(float ray_angle);
+int				is_ray_facing_up(float ray_angle);
+int				is_ray_facing_left(float ray_angle);
+// void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle);
+// t_draw			init_draw_data(mlx_texture_t *, int, float, float, int);
+//drawing
 
 //Game logic
 int				prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check, int map_padding);
@@ -369,7 +386,6 @@ void			ft_cursor_hook(float xpos, float ypos, void* param);
 //psycho
 void			psycho_trigger(t_game *game_data);
 
-//Utils
-float			distance_between_points(float x1, float y1, float x2, float y2);
+
 
 #endif

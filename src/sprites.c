@@ -35,7 +35,7 @@ void	set_width(t_game *game_data, t_sprite *vis_sprite)
 	// 	rightX = WINDOW_WIDTH - 1;
 	vis_sprite->left_pixel = leftX;
 	vis_sprite->right_pixel = rightX;
-	vis_sprite->err_colon = vis_sprite->dimentions / game_data->texture_width;
+	vis_sprite->err_column = vis_sprite->dimentions / game_data->texture_width;
 }
 
 static float	calculate_angle(float p_angle, t_sprite *sprite, t_float_pixel *player)
@@ -69,7 +69,7 @@ void	detect_vis_sprites(t_game *game_data)
 		sprites[i].visible = false;
 		angle_sprite = calculate_angle(game_data->player_angle, &sprites[i], player);
 		sprites[i].distance = distance_between_points(player->x, player->y, sprites[i].x, sprites[i].y);
-		if (sprites[i].distance < 500)
+		if (sprites[i].distance < ACTION_DIST)
 			sprites[i].taken = true;
 		else if (angle_sprite < (game_data->fov_angle / 2))
 		{
@@ -112,7 +112,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	while (left < 0)
 	{
 		index += 4;
-		left += sprite.err_colon;
+		left += sprite.err_column;
 	}
 	while (left < sprite.right_pixel)
 	{
@@ -121,7 +121,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 		&& texture->pixels[index + 3] != 0)
 			put_pixel(game_data->img, left, line, color);
 		prev_left = left;
-		left += sprite.err_colon;
+		left += sprite.err_column;
 		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel - 1)
 		{
 			if (sprite.distance < game_data->z_buffer[(int)++prev_left]
@@ -220,20 +220,20 @@ void	sprites_calculations(t_game	*game_data)
 	}
 }
 
-t_sprite	*which_sprite(t_game *game_data, int y, int x)
-{
-	int i;
+// t_sprite	*which_sprite(t_game *game_data, int y, int x)
+// {
+// 	int i;
 
-	i = 0;
-	if (y >= MAZE_DIMENSION || x >= MAZE_DIMENSION)
-		return (NULL);
-	while (game_data->sprites[i].texture)
-	{
-		if (game_data->sprites[i].map_x == x
-			&& game_data->sprites[i].map_y == y)
-			return (&game_data->sprites[i]);
-		i++;
-	}
-	ft_putendl_fd("Warning\nsprite not found", 2);
-	return (NULL);
-}
+// 	i = 0;
+// 	if (y >= MAZE_DIMENSION || x >= MAZE_DIMENSION)
+// 		return (NULL);
+// 	while (game_data->sprites[i].texture)
+// 	{
+// 		if (game_data->sprites[i].map_x == x
+// 			&& game_data->sprites[i].map_y == y)
+// 			return (&game_data->sprites[i]);
+// 		i++;
+// 	}
+// 	ft_putendl_fd("Warning\nsprite not found", 2);
+// 	return (NULL);
+// }

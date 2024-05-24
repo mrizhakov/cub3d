@@ -34,29 +34,59 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 	return (0);
 }
 
+static float	calculate_angle(float p_angle, t_doors *door, t_float_pixel *player)
+{
+	float angle_door;
+
+	angle_door = p_angle
+		- atan2(door->y - player->y, door->x - player->x);
+	if (angle_door > M_PI)
+		angle_door -= 2 * M_PI;
+	if (angle_door < -M_PI)
+		angle_door += 2 * M_PI;
+	angle_door = fabs(angle_door);
+	return (angle_door);
+}
+
+t_doors	*closiest_door(t_game *game_data)
+{
+	int		i;
+	int		closiest;
+	float	distance;
+
+	distance = FLT_MAX;
+	i = 0;
+	while (game_data->doors[i].texture)
+	{
+		if (game_data->doors[i].distance < distance
+			&& game_data->doors[i].visible)
+		{
+			distance = game_data->doors[i].distance;
+			closiest = i;
+		}
+		i++;
+	}
+	return (&game_data->doors[closiest]);
+}
+
 void	detect_vis_door(t_game *game_data)
 {
-	t_doors	*doors;
+	t_doors			*doors;
 	t_float_pixel	*player;
-	float		angle_sprite;
-	int			i;
+	float			angle_sprite;
+	int				i;
 
 	doors = game_data->doors;
 	player = game_data->player;
 	i = 0;
 	while (doors[i].texture)
 	{
-		angle_sprite = game_data->player_angle
-			- atan2(doors[i].y - player->y, doors[i].x - player->x);
-		if (angle_sprite > M_PI)
-			angle_sprite -= 2 * M_PI;
-		if (angle_sprite < -M_PI)
-			angle_sprite += 2 * M_PI;
-		angle_sprite = fabs(angle_sprite);
+		angle_sprite = calculate_angle(game_data->player_angle, &doors[i], player);
 		if (angle_sprite < (game_data->fov_angle / 2))
 		{
 			doors[i].distance = distance_between_points(player->x, player->y, doors[i].x, doors[i].y);
-			doors[i].angle = atan2(doors[i].y - player->y, doors[i].x - player->x) - game_data->player_angle + M_PI;
+			doors[i].angle = atan2(doors[i].y - player->y, doors[i].x - player->x)
+									- game_data->player_angle + M_PI;
 			doors[i].visible = true;
 		}
 		else
@@ -67,34 +97,22 @@ void	detect_vis_door(t_game *game_data)
 
 void	open_door(t_game *game_data)
 {
-	int	i;
-	int	closiest;
-	float	distance;
 
-	distance = FLT_MAX;
-	i = 0;
+	t_doors	*door;
+
 	detect_vis_door(game_data);
-	while (game_data->doors[i].texture)
+	door = closiest_door(game_data);
+	if (door->distance < (float)ACTION_DIST && !door->isopen
+		&& mlx_get_time() - door->animation_time > 2)
 	{
-		if (game_data->doors[i].distance < distance &&
-			game_data->doors[i].visible)
-		{
-			distance = game_data->doors[i].distance;
-			closiest = i;
-		}
-		i++;
+		door->isopen = true;
+		door->animation_time = mlx_get_time();
 	}
-	if (distance < (float)800 && !game_data->doors[closiest].isopen
-		&& mlx_get_time() - game_data->doors[closiest].animation_time > 2)
+	else if (door->distance < (float)ACTION_DIST
+			&& mlx_get_time() - door->animation_time > 2)
 	{
-		game_data->doors[closiest].isopen = true;
-		game_data->doors[closiest].animation_time = mlx_get_time();
-	}
-	else if (distance < (float)800
-			&& mlx_get_time() - game_data->doors[closiest].animation_time > 2)
-	{
-		game_data->doors[closiest].isopen = false;
-		game_data->doors[closiest].animation_time = mlx_get_time();
+		door->isopen = false;
+		door->animation_time = mlx_get_time();
 	}
 }
 

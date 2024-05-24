@@ -20,3 +20,12 @@ int		load_textures(t_game *game_data)
 	}
 	return (0);
 }
+
+// void	init_draw_data(t_raycast *data, t_game game_data, mlx_texture_t *texture)
+// {
+
+// 	data->column = column_id;
+// 	data->height = bott_pixel - top_pixel;
+// 	data->err = data->height / texture->height;
+// 	data->img = game_data.img
+// }

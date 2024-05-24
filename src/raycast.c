@@ -1,48 +1,22 @@
 #include "../cub3d.h"
 
-void    draw_ray(t_game *game_data, float ray_angle)
+void	draw_ray(t_game *game_data, float ray_angle)
 {
-    drawLine(init_slope_data(game_data->player->x,
-            game_data->player->y,
-            game_data->player->x + cos(ray_angle) * 30 + 0.00001,
-            game_data->player->y + sin(ray_angle) * 30 + 0.00001),
-            game_data->player->color);
+	drawLine(init_slope_data(game_data->player->x,
+			game_data->player->y, game_data->player->x + cos(ray_angle) * 30 + 0.00001,
+			game_data->player->y + sin(ray_angle) * 30 + 0.00001, game_data->img),
+			game_data->player->color);
 }
 
-float  distance_between_points(float x1, float y1, float x2, float y2)
+void	ray_orientation(t_raycast *ray, float ray_angle)
 {
-    return (sqrt((x2-x1) * (x2 - x1) + (y2-y1) * (y2 - y1)));
+	ray->is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
+	ray->is_ray_facing_up = !ray->is_ray_facing_down;
+	ray->is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
+	ray->is_ray_facing_left = !ray->is_ray_facing_right;
 }
 
-int is_ray_facing_down(float ray_angle)
-{
-    return (ray_angle > 0 && ray_angle < M_PI);
-}
-
-int is_ray_facing_right(float ray_angle)
-{
-    return (ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5);
-}
-
-int is_ray_facing_up(float ray_angle)
-{
-    return (!is_ray_facing_down(ray_angle));
-}
-
-int is_ray_facing_left(float ray_angle)
-{
-    return (!is_ray_facing_right(ray_angle));
-}
-
-void ray_orientation(t_raycast *ray, float ray_angle)
-{
-    ray->is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
-    ray->is_ray_facing_up = !ray->is_ray_facing_down;
-    ray->is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
-    ray->is_ray_facing_left = !ray->is_ray_facing_right;
-}
-
-void ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle)
+void	ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 {
     ray->yintercept = floor(game_data->player->y / game_data->texture_width) * game_data->texture_width;
     // swap this to get pshycodelic effect
@@ -209,96 +183,93 @@ void	draw_minimap_fov(t_game *game_data, t_raycast ray, t_raycast ray_door)
 		drawLine(init_slope_data((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
 				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
 				(uint32_t)ray_door.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-				(uint32_t)ray_door.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width),
+				(uint32_t)ray_door.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width, game_data->img),
 				game_data->player->color);
 	else
 		drawLine(init_slope_data((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
 				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
 				(uint32_t)ray.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-				(uint32_t)ray.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width),
+				(uint32_t)ray.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width, game_data->img),
 				game_data->player->color);
 }
 
-void    draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle)
+void	fill_ray_data(t_game *game_data, int column_id, t_raycast *ray, float ray_angle)
 {
-    float wall_strip_height;
-    float wall_top_pixel;
-    float perp_distance;
-	float wall_bott_pixel;
-	mlx_texture_t	*texture;
+	float wall_strip_height;
+	float perp_distance;
 
-    perp_distance = ray.distance * cos((ray_angle - game_data->player_angle));
-    wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
-    wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
-    wall_bott_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
-    int texture_offset_x;
-	texture = game_data->textures[ray.door->texture];
-	if (texture == game_data->textures[TEX_DOOR_OP])
-		return ;
-    if (ray.was_hit_vertical)
-		texture_offset_x = (int)ray.vert_wall_hit_y % game_data->texture_width;
+	perp_distance = ray->distance * cos((ray_angle - game_data->player_angle));
+	wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
+	ray->top = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
+	ray->bott = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
+	ray->height = ray->bott - ray->top;
+	ray->img = game_data->img;
+	ray->err = ray->height / ray->texture->height;
+	ray->column = column_id;
+}
+
+static void	wall_texture_calc(t_raycast *ray, t_game *game_data)
+{
+	if (ray->was_hit_vertical)
+	{
+		if (ray->is_ray_facing_left)
+			ray->texture = game_data->textures[WE];
+		else if (ray->is_ray_facing_right)
+			ray->texture = game_data->textures[EA];
+		ray->offSet = (int)ray->vert_wall_hit_y % game_data->texture_width;
+	}
 	else
-		texture_offset_x = (int)ray.hor_wall_hit_x % game_data->texture_width;
+	{
+		if (ray->is_ray_facing_up)
+			ray->texture = game_data->textures[NO];
+		else if (ray->is_ray_facing_down)
+			ray->texture = game_data->textures[SO];
+		ray->offSet = (int)ray->hor_wall_hit_x % game_data->texture_width;
+	}
+}
+
+void	draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle)
+{
+	ray.texture = game_data->textures[ray.door->texture];
+	if (ray.texture == game_data->textures[TEX_DOOR_OP])
+		return ;
+	if (ray.was_hit_vertical)
+		ray.offSet = (int)ray.vert_wall_hit_y % game_data->texture_width;
+	else
+		ray.offSet = (int)ray.hor_wall_hit_x % game_data->texture_width;
+	fill_ray_data(game_data, column_id, &ray, ray_angle);
 	if (game_data->psycho)
-		texture = game_data->textures[TEX_PSY_2];
+	{
+		ray.offSet = rand() % 1000;
+		ray.texture = game_data->textures[TEX_PSY_2];
+	}
 	if (ray.distance < game_data->z_buffer[column_id])
 	{
-		draw_textures(texture, column_id, wall_top_pixel,
-						wall_bott_pixel, texture_offset_x);
+		draw_textures(ray);
 		if (!ray.door->isopen)
 			game_data->z_buffer[column_id] = ray.distance;
 	}
 }
 
-void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle)
+void	draw_3d_projection(t_game *game_data, int column_id, t_raycast ray, float ray_angle)
 {
-    float wall_strip_height;
-    float wall_top_pixel;
-    float perp_distance;
-	float wall_bott_pixel;
-
-    perp_distance = ray->distance * cos((ray_angle - game_data->player_angle)); // calculate ray.angle
-    wall_strip_height  = (game_data->texture_width / perp_distance) * game_data->dist_proj_plane;
-    wall_top_pixel = (WINDOW_HEIGHT / 2)  - (wall_strip_height / 2);
-    wall_bott_pixel = (WINDOW_HEIGHT / 2)  + (wall_strip_height / 2);
-    int texture_offset_x;
-	mlx_texture_t	*texture_wall;
-	texture_wall = game_data->textures[TEX_DOOR_OP];
-    if (ray->was_hit_vertical)
+	ray.texture = game_data->textures[TEX_DOOR_OP];
+	wall_texture_calc(&ray, game_data);
+	fill_ray_data(game_data, column_id, &ray, ray_angle);
+	if (game_data->psycho)
 	{
-		if (ray->is_ray_facing_left)
-			texture_wall = game_data->textures[WE];
-		else if (ray->is_ray_facing_right)
-			texture_wall = game_data->textures[EA];
-        texture_offset_x = (int)ray->vert_wall_hit_y % game_data->texture_width;
+		ray.offSet = rand() % 1000;
+		ray.texture = game_data->textures[TEX_PSY_1];
+		game_data->color[C].rgb_color = ft_float_pixel(227, 61, 148, 255);
+		game_data->color[F].rgb_color = ft_float_pixel(130, 94, 9, 255);
 	}
-    else
-	{
-		if (ray->is_ray_facing_up)
-			texture_wall = game_data->textures[NO];
-		else if (ray->is_ray_facing_down)
-			texture_wall = game_data->textures[SO];
-		texture_offset_x = (int)ray->hor_wall_hit_x % game_data->texture_width;
-	}
-	if (game_data->psycho)
-		texture_wall = game_data->textures[TEX_PSY_1];
-	//draw walls
-    draw_textures(texture_wall, column_id, wall_top_pixel,
-					wall_bott_pixel, texture_offset_x);
-	//draw floor
-	uint32_t color;
-	color = game_data->color[F].rgb_color;
-	if (game_data->psycho)
-		color = ft_float_pixel(150, 75, 0, 255);
-    drawLine(init_slope_data((uint32_t)column_id, (uint32_t)wall_bott_pixel,
-            (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1),
-            color);
-    //draw celing
-	color = game_data->color[C].rgb_color;
-	if (game_data->psycho)
-		color = ft_float_pixel(255, 192, 203, 255);
-	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)wall_top_pixel,
-			(uint32_t)column_id, (uint32_t)0), color);
+	draw_textures(ray);
+	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.bott,
+			(uint32_t)column_id, (uint32_t)WINDOW_HEIGHT - 1, game_data->img),
+			game_data->color[F].rgb_color);
+	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.top,
+			(uint32_t)column_id, (uint32_t)0, game_data->img),
+			game_data->color[C].rgb_color);
 }
 
 void	ray_calculations(t_raycast *ray, t_game *game_data, float ray_angle, t_casttype type)
@@ -312,67 +283,36 @@ void	ray_calculations(t_raycast *ray, t_game *game_data, float ray_angle, t_cast
 	ray_shortest_distance(ray, game_data);
 }
 
-void    cast_ray(t_game *game_data, float ray_angle, int column_id)
+void	cast_ray(t_game *game_data, float ray_angle, int column_id)
 {
-    t_raycast ray;
+	t_raycast ray;
 	t_raycast ray_door;
 
 	ray_calculations(&ray, game_data, ray_angle, W_WALL);
 	ray_calculations(&ray_door, game_data, ray_angle, W_DOOR);
 	draw_minimap_fov(game_data, ray, ray_door);
-	draw_3d_projection(game_data, column_id, &ray, ray_angle);
+	draw_3d_projection(game_data, column_id, ray, ray_angle);
 	game_data->z_buffer[column_id] = ray.distance;
 	if (ray_door.door)
 		draw_3d_door(game_data, column_id, ray_door, ray_angle);
 }
 
-
-// void    draw_walls(t_game *game_data)
-// {
-//     unsigned int    column_id;
-//     float          ray_angle;
-//     int             i;
-
-//     i = 0;
-//     column_id = 0;
-
-
-//     while(i < game_data->num_rays)
-//     {
-//         game_data->redraw_minimap = 0;
-//         cast_ray(game_data, ray_angle, i);
-//         i++;
-//     }
-//     game_data->redraw_minimap = 1;
-// }
-
-void    draw_fov(t_game *game_data)
+void	draw_fov(t_game *game_data)
 {
-    // unsigned int    column_id;
-    float          ray_angle;
-    int             column_id;
-    // float          dist_proj_plane;
+	float	ray_angle;
+	int		column_id;
 
-    // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
-    // uncomment this line to get a psychodelic effect
-    // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
-
-
-    // i = 0;
-    column_id = 0;
-
-    ray_angle = game_data->player_angle - (game_data->fov_angle/2);
-
-
-    while(column_id < game_data->num_rays)
-    {
-        game_data->redraw_minimap = 0;
-        // ray_angle += game_data->fov_angle / game_data->num_rays;
-        ray_angle = game_data->player_angle + atan((column_id - game_data->num_rays / 2) / game_data->dist_proj_plane);
-        ray_angle = check_angle_overflow(game_data, ray_angle);
+	column_id = 0;
+	ray_angle = game_data->player_angle - (game_data->fov_angle/2);
+	while(column_id < game_data->num_rays)
+	{
+		game_data->redraw_minimap = 0;
+		ray_angle = game_data->player_angle + atan((column_id - game_data->num_rays / 2)
+				/ game_data->dist_proj_plane);
+		ray_angle = check_angle_overflow(game_data, ray_angle);
 		if (column_id < game_data->num_rays)
-       		cast_ray(game_data, ray_angle, column_id);
-        column_id++;
-    }
-    game_data->redraw_minimap = 1;
+			cast_ray(game_data, ray_angle, column_id);
+		column_id++;
+	}
+	game_data->redraw_minimap = 1;
 }
