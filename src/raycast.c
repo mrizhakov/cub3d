@@ -2,10 +2,10 @@
 
 void    draw_ray(t_game *game_data, float ray_angle)
 {
-    drawLine(game_data->player->x,
+    drawLine(init_slope_data(game_data->player->x,
             game_data->player->y,
             game_data->player->x + cos(ray_angle) * 30 + 0.00001,
-            game_data->player->y + sin(ray_angle) * 30 + 0.00001,
+            game_data->player->y + sin(ray_angle) * 30 + 0.00001),
             game_data->player->color);
 }
 
@@ -206,16 +206,16 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
 void	draw_minimap_fov(t_game *game_data, t_raycast ray, t_raycast ray_door)
 {
 	if (ray.distance > ray_door.distance && ray_door.door && !ray_door.door->isopen)
-		drawLine((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-			(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-			(uint32_t)ray_door.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-			(uint32_t)ray_door.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-			game_data->player->color);
+		drawLine(init_slope_data((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)ray_door.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)ray_door.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width),
+				game_data->player->color);
 	else
-		drawLine((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+		drawLine(init_slope_data((uint32_t)game_data->player->x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
 				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
 				(uint32_t)ray.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
-				(uint32_t)ray.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)ray.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width),
 				game_data->player->color);
 }
 
@@ -289,19 +289,16 @@ void    draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, flo
 	uint32_t color;
 	color = game_data->color[F].rgb_color;
 	if (game_data->psycho)
-		color = ft_float_pixel(150, 75, 0, 255);;
-    drawLine((uint32_t)column_id, (uint32_t)wall_bott_pixel,
-            (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1,
+		color = ft_float_pixel(150, 75, 0, 255);
+    drawLine(init_slope_data((uint32_t)column_id, (uint32_t)wall_bott_pixel,
+            (uint32_t)column_id, (uint32_t)WINDOW_HEIGHT-1),
             color);
     //draw celing
 	color = game_data->color[C].rgb_color;
 	if (game_data->psycho)
 		color = ft_float_pixel(255, 192, 203, 255);
-    drawLine((uint32_t)column_id, (uint32_t)wall_top_pixel,
-            (uint32_t)column_id, (uint32_t)0,
-            color);
-	//drawing sprites
-	// draw_sprites(game_data);
+	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)wall_top_pixel,
+			(uint32_t)column_id, (uint32_t)0), color);
 }
 
 void	ray_calculations(t_raycast *ray, t_game *game_data, float ray_angle, t_casttype type)

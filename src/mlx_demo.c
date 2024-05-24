@@ -33,40 +33,57 @@ void	draw_textures(mlx_texture_t *texture, int column_id, float top_pixel,
 	}
 }
 
-void drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color)
+// void	drawLine_neg(int32_t dx)
+// {
+
+// }
+
+t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1)
 {
-    int32_t dx;
-    int32_t dy;
+	t_slope slope;
 
-    if (x1 > x0)
-        dx = x1 - x0;
-    else
-        dx = x0 - x1;
-    if (y1 > y0)
-        dy = y1 - y0;
-    else
-        dy = y0 - y1;
-
-    // uint32_t dx = abs(x1 - x0);
-    // uint32_t dy = abs(y1 - y0);
-    int32_t sx = x0 < x1 ? 1 : -1;
-    int32_t sy = y0 < y1 ? 1 : -1;
-    int32_t err = (dx > dy ? dx : -dy) / 2;
-    int32_t e2;
-
-    while (1) {
-        // Plot current point
-        // printf("Putting pixel at (%d, %d), color %d\n", x0, y0, color);
-
-        put_pixel_uint(image, x0, y0, color);
-
-        // Check if we've reached the end point
-        if (x0 == x1 && y0 == y1) break;
-        // Calculate next point
-        e2 = err;
-        if (e2 > -dx) { err -= dy; x0 += sx; }
-        if (e2 < dy) { err += dx; y0 += sy; }
-    }
+	bzero(&slope, sizeof(slope));
+	slope.x0 = x0;
+	slope.y0 = y0;
+	slope.x1 = x1;
+	slope.y1 = y1;
+	slope.dx = x0 - x1;
+	if (x0 < x1)
+		slope.dx = x1 - x0;
+	slope.dy = y0 - y1;
+	if (y0 < y1)
+		slope.dy = y1 - y0;
+	slope.sx = -1;
+	if (x0 < x1)
+		slope.sx = 1;
+	slope.sy = -1;
+	if (y0 < y1)
+		slope.sy = 1;
+	if (slope.dx > slope.dy)
+		slope.err = slope.dx / 2;
+	else
+		slope.err = -slope.dy / 2;
+	return (slope);
+}
+void drawLine(t_slope data, uint32_t color)
+{
+	while (1)
+	{
+		put_pixel_uint(image, data.x0, data.y0, color);
+		if (data.x0 == data.x1 && data.y0 == data.y1)
+			break;
+		data.e2 = data.err;
+		if (data.e2 > -data.dx)
+		{
+			data.err -= data.dy;
+			data.x0 += data.sx;
+		}
+		if (data.e2 < data.dy)
+		{
+			data.err += data.dx;
+			data.y0 += data.sy;
+		}
+	}
 }
 
 int32_t draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end)

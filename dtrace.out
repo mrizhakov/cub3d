@@ -1,74 +1,232 @@
 CPU     ID                    FUNCTION:NAME
-  4  16289      sprites_calculations:return sprites_calculations took 17917 ns
+  4   9964      sprites_calculations:return sprites_calculations took 16833 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 8792 ns
+  4   9964      sprites_calculations:return sprites_calculations took 9458 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 3792 ns
+  4   9964      sprites_calculations:return sprites_calculations took 4625 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 6166 ns
+  4   9964      sprites_calculations:return sprites_calculations took 4667 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2666 ns
+  4   9964      sprites_calculations:return sprites_calculations took 5709 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2750 ns
+  4   9964      sprites_calculations:return sprites_calculations took 5750 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 6167 ns
+  4   9964      sprites_calculations:return sprites_calculations took 3250 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2916 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2667 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2417 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2917 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 6125 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2292 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 6167 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2583 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2333 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2500 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 4542 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2625 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2917 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2583 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 5917 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2292 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2459 ns
+  4   9964      sprites_calculations:return sprites_calculations took 7125 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 4042 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2500 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 3500 ns
+  4   9964      sprites_calculations:return sprites_calculations took 4375 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 4500 ns
+  4   9964      sprites_calculations:return sprites_calculations took 8209 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 4209 ns
+  4   9964      sprites_calculations:return sprites_calculations took 2917 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 3125 ns
+  4   9964      sprites_calculations:return sprites_calculations took 5500 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 6500 ns
+  4   9964      sprites_calculations:return sprites_calculations took 3500 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2625 ns
+  4   9964      sprites_calculations:return sprites_calculations took 3625 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 3000 ns
+  4   9964      sprites_calculations:return sprites_calculations took 5541 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 3041 ns
+  4   9964      sprites_calculations:return sprites_calculations took 3500 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 3958 ns
+  4   9964      sprites_calculations:return sprites_calculations took 6792 ns
 
-  4  16289      sprites_calculations:return sprites_calculations took 2708 ns
+  4   9964      sprites_calculations:return sprites_calculations took 3750 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2958 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3583 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3500 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3333 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3042 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3458 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3333 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3208 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5333 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3625 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3500 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 6500 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3250 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3583 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3292 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3083 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5959 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3083 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3000 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3333 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2958 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3167 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3084 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3542 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 11833 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3291 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5417 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3458 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2667 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3125 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3083 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3666 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2875 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3125 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3084 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3208 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3000 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 4833 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3458 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3167 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2875 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3334 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3084 ns
+
+  6   9964      sprites_calculations:return sprites_calculations took 9459 ns
+
+  6   9964      sprites_calculations:return sprites_calculations took 4208 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3250 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3000 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3417 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2917 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 4792 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3375 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3584 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3333 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 9833 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3375 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3291 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3875 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3708 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 4334 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3375 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3834 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5667 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3333 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3708 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 6000 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3875 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3417 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3541 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 6209 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3959 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5209 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3542 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 6042 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3875 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3625 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3334 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 6042 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3666 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5708 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 3458 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5375 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2916 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 4500 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 2667 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 5417 ns
+
+  4   9964      sprites_calculations:return sprites_calculations took 7000 ns
 
 Player original position is  x 13568.000000, y 1792.000000
 Exiting
-  4  16289      sprites_calculations:return sprites_calculations took 6292 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 2458 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 3875 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 2583 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 2667 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 2625 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 8250 ns
-
-  4  16289      sprites_calculations:return sprites_calculations took 9292 ns
+  4   9964      sprites_calculations:return sprites_calculations took 10375 ns
 
 

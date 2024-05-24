@@ -22,7 +22,7 @@ int32_t draw_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
             draw_h_line(game_data, start, end);
         else
         {
-            drawLine(start.x, start.y, end.x, end.y, start.color);
+            drawLine(init_slope_data(start.x, start.y, end.x, end.y), start.color);
         }
         return (1);
     }
@@ -49,17 +49,17 @@ int32_t draw_rectangle(t_game *game_data, t_float_pixel start, t_float_pixel end
     {
         while(start.x < end.x)
         {
-            drawLine(start.x, start.y, start.x, end.y, start.color);
+            drawLine(init_slope_data(start.x, start.y, start.x, end.y), start.color);
             start.x++;
         }
         while(start.x > end.x)
         {
-            drawLine(start.x, start.y, start.x, end.y, start.color);
+            drawLine(init_slope_data(start.x, start.y, start.x, end.y), start.color);
             start.x--;
         }
         if(start.x == end.x)
         {
-            drawLine(start.x, start.y, start.x, end.y, start.color);
+            drawLine(init_slope_data(start.x, start.y, start.x, end.y), start.color);
         }
         return(1);
     }
@@ -76,7 +76,7 @@ int32_t draw_square(t_game *game_data, t_float_pixel start, unsigned int side_le
     {
         while (i != side_len)
         {
-            drawLine(start.x, start.y, start.x, start.y + side_len, start.color);
+            drawLine(init_slope_data(start.x, start.y, start.x, start.y + side_len), start.color);
             i++;
             start.x++;
         }
@@ -101,8 +101,8 @@ int32_t draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len)
     {
         while (x != MAZE_DIMENSION - 1)
         {
-            drawLine(start.x, start.y, start.x + side_len, start.y, start.color);
-            drawLine(start.x, start.y, start.x, start.y + side_len, start.color);
+            drawLine(init_slope_data(start.x, start.y, start.x + side_len, start.y), start.color);
+            drawLine(init_slope_data(start.x, start.y, start.x, start.y + side_len), start.color);
             start.x += side_len;
             x++;
         }
@@ -133,8 +133,8 @@ int32_t draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_l
         {
             if (is_valid_char(game_data->maze.g[y][x]))
             {
-                drawLine(start.x, start.y, start.x + side_len - 1, start.y, start.color);
-                drawLine(start.x, start.y, start.x , start.y + side_len, start.color);
+                drawLine(init_slope_data(start.x, start.y, start.x + side_len - 1, start.y), start.color);
+                drawLine(init_slope_data(start.x, start.y, start.x , start.y + side_len), start.color);
             }
             if (game_data->maze.g[y][x] == '1')
                 draw_square(game_data, start, side_len);
@@ -182,8 +182,8 @@ int32_t draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigne
         {
             if (is_valid_int(game_data->maze.g[y][x]))
             {
-                drawLine(start.x, start.y, start.x + side_len, start.y, start.color);
-                drawLine(start.x, start.y, start.x , start.y + side_len, start.color);
+                drawLine(init_slope_data(start.x, start.y, start.x + side_len, start.y), start.color);
+                drawLine(init_slope_data(start.x, start.y, start.x , start.y + side_len), start.color);
             }
             if (game_data->maze.g[y][x] == 1)
                 draw_square(game_data, start, side_len);

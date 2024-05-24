@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/23 21:39:45 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/24 10:16:21 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,22 @@ typedef enum e_casttype
 	W_DOOR,
 	W_SPRITE,
 }			t_casttype;
+
+//bresenhams data
+typedef struct s_slope
+{
+	uint32_t	x0;
+	uint32_t	y0;
+	uint32_t	x1;
+	uint32_t	y1;
+	uint32_t	color;
+	int32_t		dx;
+	int32_t		dy;
+	int32_t		sx;
+	int32_t		sy;
+	int32_t		err;
+	int32_t		e2;
+}				t_slope;
 
 // used for colors
 typedef struct	s_rgb
@@ -277,7 +293,7 @@ t_float_pixel	rotatePoint(t_float_pixel p, t_float_pixel center, float angle);
 
 //Drawing functions
 int32_t			draw_rectangle(t_game *game_data, t_float_pixel start, t_float_pixel end);
-void			drawLine(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, uint32_t color);
+void			drawLine(t_slope slope_data, uint32_t color);
 int32_t			draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
 int32_t			draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
 int32_t			check_pix(t_float_pixel pix);
@@ -290,6 +306,7 @@ int32_t			draw_square(t_game *game_data, t_float_pixel start, unsigned int side_
 int32_t			draw_line(t_game *game_data, t_float_pixel start, t_float_pixel end);
 void			draw_sprites(t_game	*game_data);
 int32_t			draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len);
+t_slope			init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
 
 //Raycast
 float			check_angle_overflow(t_game *game_data, float player_angle);
