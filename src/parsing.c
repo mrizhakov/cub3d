@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-int	check_texture(char *texture, int texture_count)
+int	check_texture(const char *texture, int texture_count)
 {
 	if (texture && texture_count == 1)
 		return (1);
@@ -71,14 +71,14 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 		return (ft_putendl_fd("Error", 2), 1);
 	game_data->player_init_loc[0] = x_axis;
 	game_data->player_init_loc[1] = y_axis;
-	game_data->player->y = y_axis * game_data->texture_width + game_data->texture_width / 2;
-	game_data->player->x = x_axis * game_data->texture_width + game_data->texture_width / 2;
+	game_data->player->y = y_axis * game_data->texture_width + game_data->texture_width / 2; // NOLINT(*-narrowing-conversions, *-integer-division)
+	game_data->player->x = x_axis * game_data->texture_width + game_data->texture_width / 2; // NOLINT(*-narrowing-conversions, *-integer-division)
     printf("Player original position is  x %f, y %f\n", game_data->player->x, game_data->player->y);
 	game_data->player_init_dir = direction;
 	return (0);
 }
 
-int	put_sign(char c, char *tokens)
+char	put_sign(char c, char *tokens)
 {
 	size_t	i;
 
@@ -152,8 +152,8 @@ int	ft_istabs(char *line)
 
 int	parse_maze(t_game *game_data, char *line)
 {
-	size_t			i;
-	static	size_t	j;
+	int			i;
+	static	int	j;
 
 	i = 1;
 	if (j + 1 == MAZE_DIMENSION)

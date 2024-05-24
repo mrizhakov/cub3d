@@ -209,8 +209,8 @@ int32_t mlx_run(t_game *game_data)
 	mlx_loop_hook(game_data->mlx, ft_animation, game_data);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
-	// mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
+	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);
 	mlx_loop(game_data->mlx);
 	mlx_terminate(game_data->mlx);
-    return(EXIT_SUCCESS);
+	return(EXIT_SUCCESS);
 }

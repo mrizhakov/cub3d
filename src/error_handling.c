@@ -9,10 +9,7 @@ int check_read_file(int fd)
 	while (bytes_read)
 	{
 		if (bytes_read == -1)
-		{
-			perror("Error reading file");
-			return (1);
-		}
+			return (perror("Error reading file"), 1);
 		bytes_read = read(fd, buf, FILE_READ_BUFFER);
 	}
 	close(fd);

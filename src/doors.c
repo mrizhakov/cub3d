@@ -56,6 +56,7 @@ t_doors	*closiest_door(t_game *game_data)
 
 	distance = FLT_MAX;
 	i = 0;
+    closiest = 0;
 	while (game_data->doors[i].texture)
 	{
 		if (game_data->doors[i].distance < distance
@@ -101,7 +102,9 @@ void	open_door(t_game *game_data)
 	t_doors	*door;
 
 	detect_vis_door(game_data);
-	door = closiest_door(game_data);
+	door = closiest_door(game_data); // visible door is defferent from closiest
+    if (!door)
+        return ;
 	if (door->distance < (float)ACTION_DIST && !door->isopen
 		&& mlx_get_time() - door->animation_time > 2)
 	{
