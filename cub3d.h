@@ -312,8 +312,8 @@ t_float_pixel	rotatePoint(t_float_pixel p, t_float_pixel center, float angle);
 //Drawing functions
 void			drawLine(t_slope slope_data, uint32_t color);
 int32_t			check_pix(t_float_pixel pix);
-int32_t			draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len);
-int32_t			draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len);
+void			draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len);
+void			draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len);
 int32_t			draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len);
 void			draw_black_background(t_game *game_data);
 int32_t			draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len);

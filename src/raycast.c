@@ -156,11 +156,11 @@ void ray_shortest_distance(t_raycast *ray, t_game *game_data)
     if (ray->found_hor_hit)
         ray->distance_hor = distance_between_points(game_data->player->x, game_data->player->y, ray->hor_wall_hit_x, ray->hor_wall_hit_y);
     else
-        ray->distance_hor = INT_MAX;
+        ray->distance_hor = FLT_MAX;
     if (ray->found_vert_hit)
         ray->distance_vert = distance_between_points(game_data->player->x, game_data->player->y, ray->vert_wall_hit_x, ray->vert_wall_hit_y);
     else
-        ray->distance_vert = INT_MAX;
+        ray->distance_vert = FLT_MAX;
     if (ray->distance_hor < ray->distance_vert)
     {
         ray->shortest_wall_hit_x = ray->hor_wall_hit_x;
@@ -303,7 +303,7 @@ void	draw_fov(t_game *game_data)
 	int		column_id;
 
 	column_id = 0;
-	ray_angle = game_data->player_angle - (game_data->fov_angle/2);
+//	ray_angle = game_data->player_angle - (game_data->fov_angle/2);
 	while(column_id < game_data->num_rays)
 	{
 		game_data->redraw_minimap = 0;

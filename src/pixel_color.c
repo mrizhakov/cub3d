@@ -5,7 +5,7 @@ static void	draw_pixel(uint8_t *pixel, t_color color)
 	*(pixel++) = color.red;
 	*(pixel++) = color.green;
 	*(pixel++) = color.blue;
-	*(pixel++) = color.alpha;
+	*(pixel) = color.alpha;
 }
 
 static void	draw_pixel_uint(uint8_t *pixel, uint32_t color)
@@ -13,7 +13,7 @@ static void	draw_pixel_uint(uint8_t *pixel, uint32_t color)
 	*(pixel++) = color >> 24;
 	*(pixel++) = color >> 16;
 	*(pixel++) = color >> 8;
-	*(pixel++) = color & 0xFF;
+	*(pixel) = color & 0xFF;
 }
 
 void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)

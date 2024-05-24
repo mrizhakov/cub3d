@@ -202,8 +202,6 @@ int map_parsing(char *filename, t_game *game_data)
 				return(free(map_line), close(fd), 1);
 		free(map_line);
 	}
-	close(fd);
-	return (0);
 }
 
 int is_valid_char(char matrix_val)

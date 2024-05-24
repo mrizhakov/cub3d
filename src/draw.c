@@ -68,34 +68,34 @@ int32_t draw_square(t_game *game_data, t_float_pixel start, unsigned int side_le
     }
     return(0);
 }
+//
+//int32_t draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len)
+//{
+//	(void)game_data;
+//	int x;
+//	int y;
+//
+//	x = 0;
+//	y = 0;
+//	int border;
+//	border = 1;
+//	while (y != MAZE_DIMENSION - 1)
+//	{
+//		while (x != MAZE_DIMENSION - 1)
+//		{
+//			drawLine(init_slope_data(start.x, start.y, start.x + side_len, start.y, game_data->img), start.color);
+//			drawLine(init_slope_data(start.x, start.y, start.x, start.y + side_len, game_data->img), start.color);
+//			start.x += side_len;
+//			x++;
+//		}
+//		x = 0;
+//		start.x = (side_len + border) * x;
+//		start.y += side_len + border *2;
+//	}
+//	return(1);
+//}
 
-int32_t draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len)
-{
-	(void)game_data;
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
-	int border;
-	border = 1;
-	while (y != MAZE_DIMENSION - 1)
-	{
-		while (x != MAZE_DIMENSION - 1)
-		{
-			drawLine(init_slope_data(start.x, start.y, start.x + side_len, start.y, game_data->img), start.color);
-			drawLine(init_slope_data(start.x, start.y, start.x, start.y + side_len, game_data->img), start.color);
-			start.x += side_len;
-			x++;
-		}
-		x = 0;
-		start.x = (side_len + border) * x;
-		start.y += side_len + border *2;
-	}
-	return(1);
-}
-
-int32_t draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len)
+void draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len)
 {
     (void)game_data;
     int x;
@@ -140,10 +140,9 @@ int32_t draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_l
         start.y += side_len;
         y++;
     }
-    return(1);
 }
 
-int32_t draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len)
+void draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len)
 {
     (void)game_data;
     int x;
@@ -183,7 +182,6 @@ int32_t draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigne
         start.y += side_len + border *2;
         y++;
     }
-    return(1);
 }
 
 int32_t draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len)

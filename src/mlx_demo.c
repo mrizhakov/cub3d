@@ -26,11 +26,6 @@ void	draw_textures(t_raycast data)
 	}
 }
 
-// void	drawLine_neg(int32_t dx)
-// {
-
-// }
-
 t_slope	init_slope_data(uint32_t x0, uint32_t y0,
 		uint32_t x1, uint32_t y1, mlx_image_t* image)
 {
@@ -81,62 +76,6 @@ void drawLine(t_slope data, uint32_t color)
 	}
 }
 
-// int32_t draw_h_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
-// {
-//     (void)game_data;
-//     if (check_pix(start) && check_pix(end) && start.y == end.y)
-//     {
-//         while (start.x < end.x)
-//         {
-//             put_pixel_uint(image, start.x, start.y, start.color);
-//             start.x++;
-//         }
-//         while (start.x > end.x)
-//         {
-//             put_pixel_uint(image, start.x, start.y, start.color);
-//             start.x--;
-//         }
-//         if (start.x == end.x)
-//         {
-//             put_pixel_uint(image, start.x, start.y, start.color);
-//         }
-//         return(1);
-//     }
-//     else
-//     {
-//         perror("Invalid horizontal line position");
-//         return(0);
-//     }
-// }
-
-// int32_t draw_v_line(t_game *game_data, t_float_pixel start, t_float_pixel end)
-// {
-//     (void)game_data;
-//     if (check_pix(start) && check_pix(end) && start.x == end.x)
-//     {
-//         while (start.y < end.y)
-//         {
-//             put_pixel_uint(image, start.x, start.y, start.color);
-//             start.y++;
-//         }
-//         while (start.y > end.y)
-//         {
-//             put_pixel_uint(image, start.x, start.y, start.color);
-//             start.y--;
-//         }
-//         if (start.y == end.y)
-//         {
-//             put_pixel_uint(image, start.x, start.y, start.color);
-//         }
-//         return(1);
-//     }
-//     else
-//     {
-//         perror("Invalid vertical line position");
-//         return(0);
-//     }
-// }
-
 // -----------------------------------------------------------------------------
 
 int32_t ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a)
@@ -162,13 +101,6 @@ void ft_draw_image(void* param)
         draw_player(game_data, game_data->player, 4);
 		draw_sprites(game_data);
 		draw_map_sprite(game_data, NULL, 4);
-
-        // other potentially usefull drawing functions
-
-        // draw_grid(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-        // draw_minimap_with_border(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-        // game_data->redraw_minimap = draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
-        // draw_ray(game_data, game_data->player_angle);
     }
 	// mlx_focus(game_data->mlx);
 }
