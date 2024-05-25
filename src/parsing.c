@@ -75,6 +75,15 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 	game_data->player->x = x_axis * game_data->texture_width + game_data->texture_width / 2; // NOLINT(*-narrowing-conversions, *-integer-division)
     printf("Player original position is  x %f, y %f\n", game_data->player->x, game_data->player->y);
 	game_data->player_init_dir = direction;
+	game_data->player->color = 0x00FF00FF;
+	if (direction == 'N')
+		game_data->player_angle = - M_PI / 2;
+	else if (direction == 'S')
+		game_data->player_angle = M_PI / 2;
+	else if (direction == 'E')
+		game_data->player_angle = 0;
+	else
+		game_data->player_angle = M_PI;
 	return (0);
 }
 

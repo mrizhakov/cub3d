@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/24 20:07:01 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/25 10:59:29 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,7 +215,7 @@ typedef struct	s_game
 
 	// maze parse
 	int				player_init_loc[2];
-	float			player_init_dir;
+	char			player_init_dir;
 	int				maze_closed;
 
 	// player

@@ -42,8 +42,6 @@ int	initialise_game(t_game *game_data)
 	game_data->player = (t_float_pixel *)ft_calloc(sizeof(t_float_pixel), 1);
 	if (!game_data->player)
 		return (1);
-	game_data->player->color = 0x00FF00FF;
-	game_data->player_angle = M_PI / 2;
 	game_data->player_turn_speed = TURNING_SPEED * (M_PI / 180);
 	game_data->fov_angle = FOV * (M_PI / 180);
 	game_data->num_rays = WINDOW_WIDTH / 1;
