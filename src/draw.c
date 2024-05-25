@@ -1,6 +1,6 @@
 #include "../cub3d.h"
 
-void draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len)
+void draw_minimap(t_game *game_data, t_float_pixel start, uint32_t side_len)
 {
 	t_float_pixel	origin;
 	int				x;
@@ -24,7 +24,7 @@ void draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len)
 	}
 }
 
-int32_t draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len)
+int32_t draw_player(t_game *game_data, t_float_pixel *player, uint32_t side_len)
 {
 	(void)player;
 	t_float_pixel player_square;
@@ -37,7 +37,7 @@ int32_t draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_
 	return(1);
 }
 
-// int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len)
+// int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_len)
 // {
 // 	(void)sprite;
 // 	t_float_pixel sprite_square;

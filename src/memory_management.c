@@ -47,7 +47,7 @@ int	initialise_game(t_game *game_data)
 	game_data->num_rays = WINDOW_WIDTH / 1;
 	// game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
 	// game_data->texture_width is the new MINIMAP_SQUARE_SIDE_LEN, please adjust to the correct size of texture width
-	game_data->texture_width = 512;
+	game_data->texture_width = TEXTURE_WINDTH;
 	game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
 	// uncomment this line to get a psychodelic effect
     // dist_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);

@@ -37,9 +37,9 @@ void draw_black_background(t_game *game_data)
 	draw_rectangle(game_data, black_background, end);
 }
 
-int32_t draw_square(t_game *game_data, t_float_pixel start, unsigned int side_len)
+int32_t draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len)
 {
-	unsigned int i;
+	uint32_t i;
 
 	i = 0;
 	(void)game_data;

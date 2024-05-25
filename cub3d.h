@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/25 22:02:52 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:45:11 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # ifndef PSYCHO
 #  define PSYCHO 7
 # endif
+# define TEXTURE_WINDTH 512
 # define ACTION_DIST 600
 # define ANIM_TIME 0.5
 # define WINDOW_WIDTH 1080
@@ -37,10 +38,6 @@
 # define PLAYER_STEP 30
 # define MAP_PADDING 2
 # define MINIMAP_SQUARE_SIDE_LEN 15
-
-// # define MINIMAP_Y_OFFSET 10
-// # define MINIMAP_X_OFFSET 10
-// # define MAX_DEPTH_OF_FIELD 8
 # define FOV 60
 # define TURNING_SPEED 0.05
 # define VALID_CHAR_MAP "NEWSMD10 \n"
@@ -304,19 +301,18 @@ void			free_to_null_string(char **str);
 void			free_char_arr(char **str);
 void			free_textures(t_game *game_data);
 
-
 // MLX run
 int32_t			mlx_run(t_game *game_data);
 
 //Drawing functions
 void			drawLine(t_slope slope_data, uint32_t color);
 int32_t			check_pix(t_float_pixel pix);
-void			draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len);
-int32_t			draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len);
+void			draw_minimap(t_game *game_data, t_float_pixel start, uint32_t side_len);
+int32_t			draw_player(t_game *game_data, t_float_pixel *player, uint32_t side_len);
 void			draw_black_background(t_game *game_data);
-int32_t			draw_square(t_game *game_data, t_float_pixel start, unsigned int side_len);
+int32_t			draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len);
 void			draw_sprites(t_game	*game_data);
-int32_t			draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len);
+int32_t			draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_len);
 t_slope			init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, mlx_image_t *);
 void			draw_textures(t_raycast data);
 
@@ -336,13 +332,11 @@ int				is_ray_facing_down(float ray_angle);
 int				is_ray_facing_right(float ray_angle);
 int				is_ray_facing_up(float ray_angle);
 int				is_ray_facing_left(float ray_angle);
-// void			draw_3d_projection(t_game *game_data, int column_id, t_raycast *ray, float ray_angle);
-// t_draw			init_draw_data(mlx_texture_t *, int, float, float, int);
-//drawing
 
 //Game logic
 int				prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check, int map_padding);
 void			update_pos(t_game *game_data);
+void			psycho_trigger(t_game *game_data);
 
 //Testing functions, remove for final version
 void			ft_print_parsed_map(t_game *game_data);
@@ -351,7 +345,6 @@ void			print_maze(t_game *game_data);
 //Extra mlx
 int32_t			ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 int				load_textures(t_game *game_data);
-
 
 //pixels and colors
 void			put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
@@ -363,6 +356,7 @@ int32_t			ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 //sprites
 int				init_sprites(t_game *game_data, char t, int x, int y);
 void			sprites_calculations(t_game	*game_data);
+
 //doors
 int				init_doors(t_game *game_data, char t, int x, int y);
 int				check_door_place(t_game *game_data, int y, int x);
@@ -373,10 +367,5 @@ t_doors			*which_door(t_game *game_data, int y, int x);
 void			ft_animation(void *param);
 void			ft_keyboad_hook(void* param);
 void			ft_cursor_hook(double xpos, double ypos, void* param);
-
-//psycho
-void			psycho_trigger(t_game *game_data);
-
-
 
 #endif
