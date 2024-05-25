@@ -242,7 +242,7 @@ void	draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_ang
 	fill_ray_data(game_data, column_id, &ray, ray_angle);
 	if (game_data->psycho)
 	{
-		ray.offSet = rand() % 1000;
+		ray.offSet = arc4random() % 1000;
 		ray.texture = game_data->textures[TEX_PSY_2];
 	}
 	if (ray.distance < game_data->z_buffer[column_id])
@@ -260,7 +260,7 @@ void	draw_3d_projection(t_game *game_data, int column_id, t_raycast ray, float r
 	fill_ray_data(game_data, column_id, &ray, ray_angle);
 	if (game_data->psycho)
 	{
-		ray.offSet = rand() % 1000;
+		ray.offSet = arc4random() % 1000;
 		ray.texture = game_data->textures[TEX_PSY_1];
 		game_data->color[C].rgb_color = ft_float_pixel(227, 61, 148, 255);
 		game_data->color[F].rgb_color = ft_float_pixel(130, 94, 9, 255);

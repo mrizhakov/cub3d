@@ -22,7 +22,7 @@ void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 
 	if (!img)
 		ft_putendl_fd("Image does not exist", 2);
-	if (x < img->width - 1 && y < img->height - 1)
+	if (img && x < img->width - 1 && y < img->height - 1)
 	{
 		pixelstart = &img->pixels[(y * img->width + x) * BPP];
 		if (color & 0xFF)
@@ -36,7 +36,7 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 
 	if (!img)
 		ft_putendl_fd("Image does not exist", 2);
-	if (x < img->width - 1 && y < img->height - 1)
+	if (img && x < img->width - 1 && y < img->height - 1)
 	{
 		pixelstart = &img->pixels[(y * img->width + x) * BPP];
 		if (color.alpha != 0)

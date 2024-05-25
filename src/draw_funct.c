@@ -34,6 +34,7 @@ void draw_black_background(t_game *game_data)
 	black_background.color = game_data->color[C].rgb_color;
 	end.x = WINDOW_WIDTH - 1;
 	end.y = WINDOW_HEIGHT - 1;
+	end.color = 0;
 	draw_rectangle(game_data, black_background, end);
 }
 
