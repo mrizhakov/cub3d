@@ -2,8 +2,8 @@
 
 void	draw_textures(t_raycast data)
 {
-	uint32_t		i;
-	float			prev_pixel;
+	float	i;
+	float	prev_pixel;
 
 	i = data.offSet * 4;
 	while (data.top < - 10)

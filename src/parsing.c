@@ -37,10 +37,10 @@ int check_colors_ok(t_game *game_data)
 	{
 		game_data->color[F].rgb_color = (int32_t)ft_float_pixel(game_data->color[F].color[0] % 0xFF, game_data->color[F].color[1]% 0xFF, game_data->color[F].color[2]% 0xFF, 255);
 		game_data->color[C].rgb_color = (int32_t)ft_float_pixel(game_data->color[C].color[0] % 0xFF, game_data->color[C].color[1]% 0xFF, game_data->color[C].color[2]% 0xFF, 255);
-		return (1);
+		return (EXIT_FAILURE);
 	}
 	else
-		return (0);
+		return (EXIT_SUCCESS);
 }
 
 void print_maze(t_game *game_data)
@@ -83,7 +83,7 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 		game_data->player_angle = 0;
 	else
 		game_data->player_angle = M_PI;
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 char	put_sign(char c, char *tokens)
@@ -165,24 +165,24 @@ int	parse_maze(t_game *game_data, char *line)
 
 	i = 1;
 	if (j + 1 == MAZE_DIMENSION)
-		return (1);
+		return (EXIT_FAILURE);
 	if (ft_istabs(line))
 		return (check_parse(j, game_data));
 	while (i < MAZE_DIMENSION && line[i - 1])
 	{
 		game_data->maze.g[j + 1][i] = put_sign(line[i - 1], VALID_CHAR_MAP);
 		if (game_data->maze.g[j + 1][i] == 0)
-			return (ft_putendl_fd("Error\nMap error", 2), 1); //??
+			return (EXIT_FAILURE);
 		if(tokenize(game_data, j + 1, i, VALID_CHAR_MAP) == 1)
-			 return (1);
+			 return (EXIT_FAILURE);
 		i++;
 	}
 	if (line[i - 1])
-		return (1); // map is too big
+		return (EXIT_FAILURE);
 	while (i < MAZE_DIMENSION)
 		game_data->maze.g[j + 1][i++] = 'X';
 	j++;
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int map_parsing(char *filename, t_game *game_data)
@@ -199,15 +199,15 @@ int map_parsing(char *filename, t_game *game_data)
 		if (!map_line)
 		{
 			if (!check_textures(game_data) || !check_colors_ok(game_data))
-				return (ft_putendl_fd("Error\nSettings are non-valid", 2), 1);
+				return (parsing_error("Error\nSettings are non-valid", fd));
 			return (close(fd), 0);
 		}
 		if (check_textures(game_data) && check_colors_ok(game_data)
 			&& parse_maze(game_data, map_line))
-				return(free(map_line), close(fd), 1);
+				return(free(map_line), parsing_error("Error\nWrong maze", fd));
 		else
 			if (router_parse_data(map_line, game_data))
-				return(free(map_line), close(fd), 1);
+				return(free(map_line), parsing_error("Error\nWrong textures", fd));
 		free(map_line);
 	}
 }

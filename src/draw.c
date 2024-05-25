@@ -60,8 +60,8 @@ int32_t draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_
 
 void	put_sprite_map(t_raycast data, uint32_t len)
 {
-	uint32_t	i;
-	uint32_t	j;
+	float	i;
+	float	j;
 
 	j = 0;
 	while (j <= len)
@@ -98,7 +98,7 @@ int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_
 			data.img = game_data->img;
 			data.column = (game_data->sprites[i].map_y * MINIMAP_SQUARE_SIDE_LEN) - 1;
 			data.texture = game_data->textures[TEX_MUSHR_M];
-			data.err = side_len / data.texture->height;
+			data.err = side_len / (float)data.texture->height;
 			data.offSet = 0;
 			put_sprite_map(data, side_len);
 		}

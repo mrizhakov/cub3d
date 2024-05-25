@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/25 18:26:02 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/25 22:02:52 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,7 @@ int				check_colors_ok(t_game *game_data);
 int				is_valid_char(char matrix_val);
 int				is_valid_int(int matrix_val);
 int				maze_check(t_game *game_data);
+int				parsing_error(const char *msg, int fd);
 
 // Memory management
 int				initialise_game(t_game *game_data);

@@ -98,7 +98,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 {
 	float			left;
 	mlx_texture_t	*texture;
-	uint32_t		index;
+	float			index;
 	float			prev_left;
 	t_color			color;
 
@@ -114,14 +114,14 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	{
 		color = convertColors(texture, index, sprite.dimentions);
 		if (sprite.distance < game_data->z_buffer[(int)left]
-		&& texture->pixels[index + 3] != 0)
+		&& texture->pixels[(int)index + 3] != 0)
 			put_pixel(game_data->img, left, line, color);
 		prev_left = left;
 		left += sprite.err_column;
 		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel - 1)
 		{
 			if (sprite.distance < game_data->z_buffer[(int)++prev_left]
-				&& texture->pixels[index + 3] != 0)
+				&& texture->pixels[(int)index + 3] != 0)
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
