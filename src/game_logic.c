@@ -72,7 +72,6 @@ void	player_move(t_game *game_data, float *x, float *y)
 {
 	float  move_step;
 
-
 	*x -= sin(game_data->player_angle) * PLAYER_STEP * game_data->player_strafe_dir;
 	*y += cos(game_data->player_angle) * PLAYER_STEP * game_data->player_strafe_dir;
 	move_step = game_data->player_walk_dir * PLAYER_STEP;
@@ -86,7 +85,6 @@ void update_pos(t_game *game_data)
 {
 	float  player_y_check;
 	float  player_x_check;
-	// float  move_step;
 
 	player_x_check = 0;
 	player_y_check = 0;
