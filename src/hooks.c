@@ -37,6 +37,7 @@ void	ft_animation(void *param)
 	{
 		check_colors_ok(game_data);
 		game_data->psycho = false;
+		game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
 	}
 }
 
