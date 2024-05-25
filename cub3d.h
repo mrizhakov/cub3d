@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/25 10:59:29 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/25 18:26:02 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef enum e_textures
 {
 	TEX_MUSHR = 4,
 	TEX_MUSHR_2,
+	TEX_MUSHR_M,
 	TEX_DOOR_CL,
 	TEX_DOOR_1,
 	TEX_DOOR_OP,
@@ -303,20 +304,15 @@ void			free_char_arr(char **str);
 void			free_textures(t_game *game_data);
 
 
-// Extra MLX testing functions
+// MLX run
 int32_t			mlx_run(t_game *game_data);
-int32_t			conv_x(int32_t x, int32_t y, float angle);
-int32_t			conv_y(int32_t x, int32_t y, float angle);
-t_float_pixel	rotatePoint(t_float_pixel p, t_float_pixel center, float angle);
 
 //Drawing functions
 void			drawLine(t_slope slope_data, uint32_t color);
 int32_t			check_pix(t_float_pixel pix);
 void			draw_minimap(t_game *game_data, t_float_pixel start, unsigned int side_len);
-void			draw_minimap_with_border(t_game *game_data, t_float_pixel start, unsigned int side_len);
 int32_t			draw_player(t_game *game_data, t_float_pixel *player, unsigned int side_len);
 void			draw_black_background(t_game *game_data);
-int32_t			draw_grid(t_game *game_data, t_float_pixel start, unsigned int side_len);
 int32_t			draw_square(t_game *game_data, t_float_pixel start, unsigned int side_len);
 void			draw_sprites(t_game	*game_data);
 int32_t			draw_map_sprite(t_game *game_data, t_float_pixel *sprite, unsigned int side_len);
@@ -325,7 +321,6 @@ void			draw_textures(t_raycast data);
 
 //Raycast
 float			check_angle_overflow(t_game *game_data, float player_angle);
-void			draw_ray(t_game *game_data, float ray_angle);
 void			draw_fov(t_game *game_data);
 void			cast_ray(t_game *game_data, float ray_angle, int column_id);
 void			ray_orientation(t_raycast *ray, float ray_angle);
@@ -364,19 +359,14 @@ int				router_parse_data(char *line, t_game *game_data);
 void			put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 int32_t			ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
-
-
 //sprites
 int				init_sprites(t_game *game_data, char t, int x, int y);
 void			sprites_calculations(t_game	*game_data);
-t_sprite		*which_sprite(t_game *game_data, int y, int x);
-
 //doors
 int				init_doors(t_game *game_data, char t, int x, int y);
 int				check_door_place(t_game *game_data, int y, int x);
 void			open_door(t_game *game_data);
 t_doors			*which_door(t_game *game_data, int y, int x);
-
 
 //hooks
 void			ft_animation(void *param);

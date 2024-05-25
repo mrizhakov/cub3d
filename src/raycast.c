@@ -1,13 +1,5 @@
 #include "../cub3d.h"
 
-void	draw_ray(t_game *game_data, float ray_angle)
-{
-	drawLine(init_slope_data(game_data->player->x,
-			game_data->player->y, game_data->player->x + cos(ray_angle) * 30 + 0.00001,
-			game_data->player->y + sin(ray_angle) * 30 + 0.00001, game_data->img),
-			game_data->player->color);
-}
-
 void	ray_orientation(t_raycast *ray, float ray_angle)
 {
 	ray->is_ray_facing_down = ray_angle > 0 && ray_angle < M_PI;
@@ -208,6 +200,16 @@ void	fill_ray_data(t_game *game_data, int column_id, t_raycast *ray, float ray_a
 	ray->column = column_id;
 }
 
+void	draw_3d_surface(t_game *game_data, int column_id, t_raycast ray)
+{
+	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.bott,
+			(uint32_t)column_id, (uint32_t)WINDOW_HEIGHT - 1, game_data->img),
+			game_data->color[F].rgb_color);
+	// drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.top,
+	// 		(uint32_t)column_id, (uint32_t)0, game_data->img),
+	// 		game_data->color[C].rgb_color);
+}
+
 static void	wall_texture_calc(t_raycast *ray, t_game *game_data)
 {
 	if (ray->was_hit_vertical)
@@ -264,12 +266,7 @@ void	draw_3d_projection(t_game *game_data, int column_id, t_raycast ray, float r
 		game_data->color[F].rgb_color = ft_float_pixel(130, 94, 9, 255);
 	}
 	draw_textures(ray);
-	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.bott,
-			(uint32_t)column_id, (uint32_t)WINDOW_HEIGHT - 1, game_data->img),
-			game_data->color[F].rgb_color);
-	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.top,
-			(uint32_t)column_id, (uint32_t)0, game_data->img),
-			game_data->color[C].rgb_color);
+	draw_3d_surface(game_data, column_id, ray);
 }
 
 void	ray_calculations(t_raycast *ray, t_game *game_data, float ray_angle, t_casttype type)
@@ -290,11 +287,11 @@ void	cast_ray(t_game *game_data, float ray_angle, int column_id)
 
 	ray_calculations(&ray, game_data, ray_angle, W_WALL);
 	ray_calculations(&ray_door, game_data, ray_angle, W_DOOR);
-	draw_minimap_fov(game_data, ray, ray_door);
 	draw_3d_projection(game_data, column_id, ray, ray_angle);
 	game_data->z_buffer[column_id] = ray.distance;
 	if (ray_door.door)
 		draw_3d_door(game_data, column_id, ray_door, ray_angle);
+	draw_minimap_fov(game_data, ray, ray_door);
 }
 
 void	draw_fov(t_game *game_data)
@@ -303,7 +300,6 @@ void	draw_fov(t_game *game_data)
 	int		column_id;
 
 	column_id = 0;
-//	ray_angle = game_data->player_angle - (game_data->fov_angle/2);
 	while(column_id < game_data->num_rays)
 	{
 		game_data->redraw_minimap = 0;

@@ -29,10 +29,6 @@ void	set_width(t_game *game_data, t_sprite *vis_sprite)
 	posX = tan(vis_sprite->angle) * game_data->dist_proj_plane;
 	leftX = (WINDOW_WIDTH / 2) + posX - vis_sprite->dimentions / 2;
 	rightX = leftX + vis_sprite->dimentions;
-	// if (leftX < 0)
-	// 	leftX = 0;
-	// if (rightX >= WINDOW_WIDTH)
-	// 	rightX = WINDOW_WIDTH - 1;
 	vis_sprite->left_pixel = leftX;
 	vis_sprite->right_pixel = rightX;
 	vis_sprite->err_column = vis_sprite->dimentions / game_data->texture_width;
