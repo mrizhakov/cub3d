@@ -72,10 +72,13 @@ void	put_sprite_map(t_raycast data, uint32_t len)
 		{
 			put_pixel(data.img, data.top + j, data.column + i,
 					convertColors(data.texture, data.offSet, 3000));
-			i++;
+			i += data.err;
 			data.offSet += 4 * data.texture->width;
+			if (data.texture->height * data.texture->width * 4
+				- data.offSet < 3)
+				break ;
 		}
-		j++;
+		j += data.err;
 	}
 }
 
