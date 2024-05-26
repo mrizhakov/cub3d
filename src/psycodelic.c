@@ -13,13 +13,11 @@ t_sprite	*use_mushr(t_game *game_data)
 			return (&game_data->sprites[i]);
 		}
 	}
-	return NULL;
+	return (NULL);
 }
 
 void	psycho_trigger(t_game *game_data)
 {
-
-	//use mushroom
 	if (mlx_get_time() - game_data->phycho_time > PSYCHO && use_mushr(game_data))
 	{
 		game_data->psycho = true;

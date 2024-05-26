@@ -136,9 +136,10 @@ int32_t mlx_run(t_game *game_data)
 		return (EXIT_FAILURE);
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
-	// mlx_set_setting(MLX_FULLSCREEN, true);
-	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_animation, game_data);
+	mlx_loop_hook(game_data->mlx, ft_psychodelic, game_data);
 	mlx_loop_hook(game_data->mlx, ft_draw_image, game_data);
 	mlx_loop_hook(game_data->mlx, ft_keyboad_hook, game_data);
 	mlx_cursor_hook(game_data->mlx, ft_cursor_hook, game_data);

@@ -41,7 +41,7 @@ int error_handling(int argc, const char *argv[])
 
 	(void)argv;
 	if (argc != 2)
-		return(write(1, "usage: ./cub3D <map>.cub\n", 25), 0);
+		return(ft_putendl_fd("usage: ./cub3D <map>.cub\n", 2), 1);
 	fd_map = open((char *)argv[1], O_RDONLY);
 	if (fd_map == -1)
 		return(perror("Error opening file"), 1);

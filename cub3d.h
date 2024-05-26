@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/25 23:03:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/25 23:06:42 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -349,7 +349,7 @@ t_doors	*which_door(t_game *game_data, int y, int x);
 void	ft_animation(void *param);
 void	ft_keyboad_hook(void* param);
 void	ft_cursor_hook(double xpos, double ypos, void* param);
-void	ft_psychodelic(void *param)
+void	ft_psychodelic(void *param);
 
 
 #endif
