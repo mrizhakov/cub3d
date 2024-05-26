@@ -50,4 +50,3 @@ int maze_check(t_game *game_data)
 		return(ft_putendl_fd("Error\nWrong number of players", 2), 1);
 	return (0);
 }
-

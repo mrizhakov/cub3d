@@ -6,7 +6,7 @@ LIBMLX = ./MLX42
 SRC_DIR := src/
 EXE_SOURCE :=	draw.c error_handling.c error_messages.c game_logic.c main.c memory_management.c minimap.c \
 				mlx_demo.c parsing.c raycast.c testing.c textures.c texture_color.c pixel_color.c sprites.c doors.c \
-				hooks.c psycodelic.c ray_utils.c doors_actions.c draw_utils.c draw_funct.c
+				hooks.c psycodelic.c ray_utils.c doors_actions.c draw_utils.c draw_funct.c find_utils.c
 EXE_SRCS = $(addprefix $(SRC_DIR), $(EXE_SOURCE))
 OBJ_DIR := obj/
 INC := -I. -IMLX42/include -IMLX42/include/glad -IMLX42/include/KHR -IMLX42/include/lodepng -IMLX42/include/MLX42

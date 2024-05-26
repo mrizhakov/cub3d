@@ -183,6 +183,7 @@ void	sort_sprites(t_sprite sprites[10])
 		j++;
 	}
 }
+
 void	draw_sprites(t_game	*game_data)
 {
 	int			i;
@@ -215,21 +216,3 @@ void	sprites_calculations(t_game	*game_data)
 		i++;
 	}
 }
-
-// t_sprite	*which_sprite(t_game *game_data, int y, int x)
-// {
-// 	int i;
-
-// 	i = 0;
-// 	if (y >= MAZE_DIMENSION || x >= MAZE_DIMENSION)
-// 		return (NULL);
-// 	while (game_data->sprites[i].texture)
-// 	{
-// 		if (game_data->sprites[i].map_x == x
-// 			&& game_data->sprites[i].map_y == y)
-// 			return (&game_data->sprites[i]);
-// 		i++;
-// 	}
-// 	ft_putendl_fd("Warning\nsprite not found", 2);
-// 	return (NULL);
-// }

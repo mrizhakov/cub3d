@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/25 23:06:42 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/26 19:48:49 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,7 +279,6 @@ int		parsing_error(const char *msg, int fd);
 int		initialise_game(t_game *game_data);
 void	init_maze(t_game *game_data);
 void	free_on_exit(t_game *game_data);
-void	free_to_null_string(char **str);
 void	free_char_arr(char **str);
 void	free_textures(t_game *game_data);
 
@@ -297,6 +296,7 @@ void	draw_sprites(t_game	*game_data);
 int32_t	draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_len);
 t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, mlx_image_t *);
 void	draw_textures(t_raycast data);
+void	ft_draw_image(void* param);
 
 //Raycast
 float	check_angle_overflow(t_game *game_data, float player_angle);
@@ -346,10 +346,15 @@ void	open_door(t_game *game_data);
 t_doors	*which_door(t_game *game_data, int y, int x);
 
 //hooks
-void	ft_animation(void *param);
+void	ft_anim_sprite(void *param);
+void	ft_anim_door(void *param);
 void	ft_keyboad_hook(void* param);
 void	ft_cursor_hook(double xpos, double ypos, void* param);
 void	ft_psychodelic(void *param);
+
+//find utils
+int		find_wall(t_maze maze, int y, int x, int pad, int del);
+int		find_door(t_game *game_data, int y, int x, int pad, int del);
 
 
 #endif

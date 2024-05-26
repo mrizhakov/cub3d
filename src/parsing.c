@@ -144,9 +144,6 @@ int	check_parse(size_t j, t_game *game_data)
 
 int	ft_istabs(char *line)
 {
-	// size_t	i;
-
-	// i = 0;
 	if (line[0] >= '\t' && line[0] <= '\r')
 		return (1);
 	while (*line)

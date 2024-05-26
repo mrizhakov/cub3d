@@ -42,10 +42,6 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 		if (color.alpha != 0)
 			draw_pixel(pixelstart, color);
 	}
-	// if (!(x < img->width))
-	// 	ft_putendl_fd("Pixel is out of bounds (axes x)", 2);
-	// else if (!(y < img->height))
-	// 	ft_putendl_fd("Pixel is out of bounds (axes y)", 2);
 }
 
 static float sigmoid(float x)
@@ -55,10 +51,10 @@ static float sigmoid(float x)
 
 static float transform(float value)
 {
-	const float center = 0.4; // Center of transformation
-	const float scale = 10.0; // Scale factor for significance
-	float shifted = value - center; // Shift to make center at 0
-	float transformed = sigmoid(scale * shifted); // Apply sigmoid function
+	const float center = 0.4;
+	const float scale = 10.0;
+	float shifted = value - center;
+	float transformed = sigmoid(scale * shifted);
 	return transformed;
 }
 

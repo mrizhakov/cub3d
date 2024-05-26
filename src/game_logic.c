@@ -1,46 +1,5 @@
 #include "../cub3d.h"
 
-static int	find_wall(t_maze maze, int y, int x, int pad, int del)
-{
-	if (maze.g[(y) / del][(x + pad) / del] == '1')
-		return (1);
-	if (maze.g[(y) / del][(x - pad) / del] == '1')
-		return (1);
-	if (maze.g[(y - pad) / del][(x) / del] == '1')
-		return (1);
-	if (maze.g[(y - pad) / del][(x + pad) / del] == '1')
-		return (1);
-	if (maze.g[(y - pad) / del][(x - pad) / del] == '1')
-		return (1);
-	if (maze.g[(y + pad) / del][(x) / del] == '1')
-		return (1);
-	if (maze.g[(y + pad) / del][(x + pad) / del] == '1')
-		return (1);
-	if (maze.g[(y + pad) / del][(x - pad) / del] == '1')
-		return (1);
-	return (0);
-}
-
-static int	find_door(t_game *game_data, int y, int x, int pad, int del)
-{
-	int	i;
-
-	i = 0;
-	if (game_data->maze.g[(y) / del][(x + pad) / del] == 'D')
-		if (!which_door(game_data, (y) / del, (x + pad) / del)->isopen)
-			i = 1;
-	if (game_data->maze.g[(y) / del][(x - pad) / del] == 'D')
-		if (!which_door(game_data, (y) / del, (x - pad) / del)->isopen)
-			i = 1;
-	if (game_data->maze.g[(y - pad) / del][(x) / del] == 'D')
-		if (!which_door(game_data, (y - pad) / del, (x) / del)->isopen)
-			i = 1;
-	if (game_data->maze.g[(y + pad) / del][(x) / del] == 'D')
-		if (!which_door(game_data, (y + pad) / del, (x) / del)->isopen)
-			i = 1;
-	return (i);
-}
-
 int prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check, int map_padding)
 {
 	(void)game_data;

@@ -1,6 +1,32 @@
 #include "../cub3d.h"
 
-void	ft_animation(void *param)
+void	ft_anim_door(void *param)
+{
+	t_game	*game_data;
+	int		i;
+	float	anim_time;
+
+	anim_time = ANIM_TIME;
+	game_data = (t_game *)param;
+	if (game_data->psycho)
+		anim_time = 0.001;
+	if (mlx_get_time() - game_data->animat_time > anim_time)
+	{
+		i = 0;
+		while (game_data->doors[i].texture)
+		{
+			if (game_data->doors[i].isopen && game_data->doors[i]. texture < TEX_DOOR_OP)
+				game_data->doors[i].texture++;
+			else if (!game_data->doors[i].isopen && game_data->doors[i]. texture > TEX_DOOR_CL)
+				game_data->doors[i].texture--;
+			i++;
+		}
+		update_pos(game_data);
+		game_data->animat_time = mlx_get_time();
+	}
+}
+
+void	ft_anim_sprite(void *param)
 {
 	t_game	*game_data;
 	int		i;
@@ -21,16 +47,6 @@ void	ft_animation(void *param)
 				game_data->sprites[i].texture = TEX_MUSHR;
 			i++;
 		}
-		i = 0;
-		while (game_data->doors[i].texture)
-		{
-			if (game_data->doors[i].isopen && game_data->doors[i]. texture < TEX_DOOR_OP)
-				game_data->doors[i].texture++;
-			else if (!game_data->doors[i].isopen && game_data->doors[i]. texture > TEX_DOOR_CL)
-				game_data->doors[i].texture--;
-			i++;
-		}
-		game_data->animat_time = mlx_get_time();
 		update_pos(game_data);
 	}
 }

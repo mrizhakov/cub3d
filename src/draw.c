@@ -37,27 +37,6 @@ int32_t draw_player(t_game *game_data, t_float_pixel *player, uint32_t side_len)
 	return(1);
 }
 
-// int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_len)
-// {
-// 	(void)sprite;
-// 	t_float_pixel sprite_square;
-// 	size_t	i;
-
-// 	i = 0;
-// 	while (game_data->sprites[i].texture)
-// 	{
-// 		sprite_square.x = (game_data->sprites[i].x / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
-// 		sprite_square.y = (game_data->sprites[i].y / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
-// 		if (game_data->sprites[i].visible)
-// 			sprite_square.color = 0xFFFF00FF;
-// 		else
-// 			sprite_square.color = 0x00FFFFFF;
-// 		draw_square(game_data, sprite_square, side_len);
-// 		i++;
-// 	}
-// 	return(0);
-// }
-
 void	put_sprite_map(t_raycast data, uint32_t len)
 {
 	float	i;
@@ -105,4 +84,25 @@ int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_
 		i++;
 	}
 	return(0);
+}
+
+void ft_draw_image(void* param)
+{
+	t_game *game_data;
+	t_float_pixel h_start;
+	uint32_t color = ft_float_pixel(56, 56, 56 ,255);
+
+	game_data = (t_game *)param;
+	h_start.y = 0;
+	h_start.x = 0;
+	h_start.color = color;
+	if (game_data->redraw_minimap == 0)
+	{
+		draw_black_background(game_data);
+		draw_fov(game_data);
+		draw_minimap(game_data, h_start, MINIMAP_SQUARE_SIDE_LEN);
+		draw_player(game_data, game_data->player, 4);
+		draw_sprites(game_data);
+		draw_map_sprite(game_data, NULL, 10);
+	}
 }
