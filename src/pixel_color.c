@@ -46,7 +46,7 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 
 static float sigmoid(float x)
 {
-	return 1 / (1 + exp(-x));
+	return (1 / (1 + exp(-x)));
 }
 
 static float transform(float value)
