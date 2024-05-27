@@ -21,9 +21,9 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 	int			i;
 
 	i = 0;
-	while (game_data->doors[i].texture)
+	while (i < DOORS_CO && game_data->doors[i].texture)
 		i++;
-	if (i >= 10)
+	if (i >= DOORS_CO)
 		return (1);
 	game_data->doors[i].x = x * game_data->texture_width + game_data->texture_width / 2;
 	game_data->doors[i].y = y * game_data->texture_width + game_data->texture_width / 2;
@@ -50,4 +50,28 @@ t_doors	*which_door(t_game *game_data, int y, int x)
 	}
 	ft_putendl_fd("Warning\ndoor not found", 2);
 	return (game_data->doors);
+}
+
+void	sort_doors(t_doors doors[DOORS_CO])
+{
+	uint32_t	i;
+	uint32_t	j;
+	t_doors	tmp;
+
+	j = 0;
+	while (j <= DOORS_CO && doors[j].texture)
+	{
+		i = 0;
+		while (i < DOORS_CO && doors[i + 1].texture)
+		{
+			if (doors[i].distance == 0 || doors[i].distance < doors[i + 1].distance)
+			{
+				tmp = doors[i];
+				doors[i] = doors[i + 1];
+				doors[i + 1] = tmp;
+			}
+			i++;
+		}
+		j++;
+	}
 }

@@ -160,17 +160,17 @@ static void	draw_sprite(t_game *game_data, t_sprite	sprite)
 	}
 }
 
-void	sort_sprites(t_sprite sprites[10])
+void	sort_sprites(t_sprite sprites[SPRITES_CO])
 {
 	uint32_t	i;
 	uint32_t	j;
 	t_sprite	tmp;
 
 	j = 0;
-	while (sprites[j].texture)
+	while (j <= SPRITES_CO && sprites[j].texture)
 	{
 		i = 0;
-		while (sprites[i + 1].texture)
+		while (i < SPRITES_CO && sprites[i + 1].texture)
 		{
 			if (sprites[i].distance == 0 || sprites[i].distance < sprites[i + 1].distance)
 			{

@@ -18,7 +18,21 @@ int	parse_texture_file(t_direct direction, t_game *game_data, char *link)
 	return (0);
 }
 
-int parse_color_data(t_surface surface, t_game *game_data, char *data)
+int	set_color(t_game *game_data, t_surface surface, t_rgb rgb)
+{
+	int i;
+
+	i = -1;
+	while (++i < 3)
+		if (rgb.color[i] < 0 || rgb.color[i] > 255)
+			return (1);
+	game_data->color[surface] = rgb;
+	game_data->color_count[surface]++;
+	game_data->color[surface].valid_rgb = 1;
+	return (0);
+}
+
+int	parse_color_data(t_surface surface, t_game *game_data, char *data)
 {
 	char	**colors;
 	t_rgb	rgb;
@@ -31,26 +45,19 @@ int parse_color_data(t_surface surface, t_game *game_data, char *data)
 	i = 0;
 	while (colors[i])
 	{
+		if (i >= 3)
+			return (free_char_arr(colors), 1);
 		j = 0;
 		while(colors[i][j])
 			if (!ft_isdigit(colors[i][j++]))
-				return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
-		if (i >= 3)
-			return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
+				return (free_char_arr(colors), 1);
 		rgb.color[i] = ft_atoi(colors[i]);
 		i++;
 	}
-	if (i < 3)
-		return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
-	i = -1;
-	while (++i < 3)
-		if (rgb.color[i] < 0 || rgb.color[i] > 255)
-			return (free_char_arr(colors), rgb.valid_rgb = -1, 1);
 	free_char_arr(colors);
-	game_data->color[surface] = rgb;
-	game_data->color_count[surface]++;
-	game_data->color[surface].valid_rgb = 1;
-	return (0);
+	if (i < 3)
+		return (rgb.valid_rgb = -1, 1);
+	return (set_color(game_data, surface, rgb));
 }
 
 int	router_parse_data(char *line, t_game *game_data)

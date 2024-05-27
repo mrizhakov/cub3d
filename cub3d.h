@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/26 19:48:49 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:33:00 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # ifndef PSYCHO
 #  define PSYCHO 7
 # endif
+# define DOORS_CO 10
+# define SPRITES_CO 10
 # define TEXTURE_WINDTH 512
 # define ACTION_DIST 600
 # define ANIM_TIME 0.5
@@ -214,8 +216,8 @@ typedef struct	s_game
 	float			dist_proj_plane;
 	int				redraw_minimap;
 	int				texture_width;
-	t_sprite		sprites[11];
-	t_doors			doors[11];
+	t_sprite		sprites[SPRITES_CO + 1];
+	t_doors			doors[DOORS_CO + 1];
 	t_point			cursor;
 	t_maze			maze;
 	float			z_buffer[WINDOW_WIDTH];
@@ -258,8 +260,8 @@ typedef struct 	s_raycast {
 	int				offSet;
 	float			err;
 	mlx_image_t		*img;
-	t_doors			*door;
-	t_sprite		*sprite;
+	t_doors			*door[ORIENT];
+	// t_sprite		*sprite;
 }					t_raycast;
 
 // Error handling and parsing
@@ -344,6 +346,8 @@ int		init_doors(t_game *game_data, char t, int x, int y);
 int		check_door_place(t_game *game_data, int y, int x);
 void	open_door(t_game *game_data);
 t_doors	*which_door(t_game *game_data, int y, int x);
+void	sort_doors(t_doors doors[DOORS_CO]);
+
 
 //hooks
 void	ft_anim_sprite(void *param);
