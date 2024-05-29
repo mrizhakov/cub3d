@@ -1,5 +1,5 @@
 CC := cc
-FLAGS := -Wall -Wextra -Werror -g
+FLAGS := -Wall -Wextra -Werror
 NAME := cub3D
 RM := rm -f
 LIBMLX = ./MLX42

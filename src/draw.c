@@ -32,7 +32,6 @@ int32_t draw_player(t_game *game_data, t_float_pixel *player, uint32_t side_len)
 	player_square.x = (game_data->player->x / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
 	player_square.y = (game_data->player->y / game_data->texture_width * MINIMAP_SQUARE_SIDE_LEN) - 1;
 	player_square.color = game_data->player->color;
-	// draw_square(game_data, player_square, side_len);
 	(void)side_len;
 	return(1);
 }
@@ -54,7 +53,7 @@ void	put_sprite_map(t_raycast data, uint32_t len)
 			i += data.err;
 			data.offSet += 4 * data.texture->width;
 			if (data.texture->height * data.texture->width * 4
-				- data.offSet < 3)
+				- data.offSet < 4)
 				break ;
 		}
 		j += data.err;
