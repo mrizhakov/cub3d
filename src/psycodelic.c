@@ -22,7 +22,7 @@ void	psycho_trigger(t_game *game_data)
 	{
 		game_data->psycho = true;
 		game_data->phycho_time = mlx_get_time();
-		if (arc4random() % 2 == 1)
+		if (rand() % 2 == 1)
 			game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
 	}
 }
