@@ -85,7 +85,7 @@ int32_t draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_
 	return(0);
 }
 
-void ft_draw_image(void* param)
+void	ft_draw_image(void* param)
 {
 	t_game *game_data;
 	t_float_pixel h_start;
