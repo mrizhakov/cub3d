@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/05/27 21:33:00 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 15:35:23 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 # ifndef PSYCHO
 #  define PSYCHO 7
 # endif
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 # define DOORS_CO 10
 # define SPRITES_CO 10
 # define TEXTURE_WINDTH 512
@@ -242,8 +245,8 @@ typedef struct 	s_raycast {
 	float			hor_wall_hit_x;
 	float			hor_wall_hit_y;
 	int				found_vert_hit;
-	float			vert_wall_hit_x;
-	float			vert_wall_hit_y;
+	float			ver_wall_hit_x;
+	float			ver_wall_hit_y;
 	float			next_vert_touch_x;
 	float			next_vert_touch_y;
 	float			shortest_wall_hit_x;
@@ -264,7 +267,7 @@ typedef struct 	s_raycast {
 	// t_sprite		*sprite;
 }					t_raycast;
 
-// Error handling and parsing
+// Parsing
 int		error_handling(int argc, const char *argv[]);
 int		map_parsing(char *filename, t_game *game_data);
 int		init_data(t_game *game_data);
@@ -274,6 +277,9 @@ int		check_textures(t_game *game_data);
 int		check_colors_ok(t_game *game_data);
 int		is_valid_char(char matrix_val);
 int		is_valid_int(int matrix_val);
+int		ft_istabs(char *line);
+char	put_sign(char c, char *tokens);
+int		check_parse(size_t j, t_game *game_data);
 int		maze_check(t_game *game_data);
 int		parsing_error(const char *msg, int fd);
 
@@ -288,18 +294,18 @@ void	free_textures(t_game *game_data);
 int32_t	mlx_run(t_game *game_data);
 
 //Drawing functions
-void	drawLine(t_slope slope_data, uint32_t color);
+void	draw_line(t_slope slope_data, uint32_t color);
 int32_t	check_pix(t_float_pixel pix);
 void	draw_minimap(t_game *game_data, t_float_pixel start, uint32_t side_len);
-int32_t	draw_player(t_game *game_data, t_float_pixel *player, uint32_t side_len);
+int32_t	draw_player(t_game *game_data);
 void	draw_black_background(t_game *game_data);
 int32_t	draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len);
 void	draw_sprites(t_game	*game_data);
-int32_t	draw_map_sprite(t_game *game_data, t_float_pixel *sprite, uint32_t side_len);
+int32_t	draw_map_sprite(t_game *game_data, uint32_t side_len);
 t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, mlx_image_t *);
 void	draw_textures(t_raycast data);
 void	ft_draw_image(void* param);
-
+float	transform(float value);
 //Raycast
 float	check_angle_overflow(t_game *game_data, float player_angle);
 void	draw_fov(t_game *game_data);
@@ -322,17 +328,13 @@ int		prevent_wall_collisions(t_game *game_data, float player_y_check, float play
 void	update_pos(t_game *game_data);
 void	psycho_trigger(t_game *game_data);
 
-//Testing functions, remove for final version
-void	ft_print_parsed_map(t_game *game_data);
-void	print_maze(t_game *game_data);
-
 //Extra mlx
 int32_t	ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 int		load_textures(t_game *game_data);
 
 //pixels and colors
 void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
-t_color	convertColors(mlx_texture_t* texture, uint32_t index, float distance);
+t_color	convert_colors(mlx_texture_t* texture, uint32_t index, float distance);
 int		router_parse_data(char *line, t_game *game_data);
 void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 int32_t	ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);

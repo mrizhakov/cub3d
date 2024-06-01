@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pixel_color.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 15:18:16 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/06/01 15:42:06 by ddavlety         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 static void	draw_pixel(uint8_t *pixel, t_color color)
@@ -32,7 +44,7 @@ void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 
 void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 {
-	uint8_t		*pixelstart;
+	uint8_t	*pixelstart;
 
 	if (!img)
 		ft_putendl_fd("Image does not exist", 2);
@@ -44,21 +56,7 @@ void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color)
 	}
 }
 
-static float sigmoid(float x)
-{
-	return (1 / (1 + exp(-x)));
-}
-
-static float transform(float value)
-{
-	const float center = 0.4;
-	const float scale = 10.0;
-	float shifted = value - center;
-	float transformed = sigmoid(scale * shifted);
-	return transformed;
-}
-
-t_color convertColors(mlx_texture_t* texture, uint32_t index, float distance)
+t_color	convert_colors(mlx_texture_t *texture, uint32_t index, float distance)
 {
 	t_color	color;
 
@@ -70,5 +68,5 @@ t_color convertColors(mlx_texture_t* texture, uint32_t index, float distance)
 	color.red = distance * color.red;
 	color.green = distance * color.green;
 	color.blue = distance * color.blue;
-	return color;
+	return (color);
 }

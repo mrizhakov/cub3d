@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   psycodelic.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 15:30:18 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/06/01 15:30:18 by ddavlety         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 t_sprite	*use_mushr(t_game *game_data)
@@ -18,11 +30,10 @@ t_sprite	*use_mushr(t_game *game_data)
 
 void	psycho_trigger(t_game *game_data)
 {
-	if (mlx_get_time() - game_data->phycho_time > PSYCHO && use_mushr(game_data))
+	if (mlx_get_time() - game_data->phycho_time > PSYCHO
+		&& use_mushr(game_data))
 	{
 		game_data->psycho = true;
 		game_data->phycho_time = mlx_get_time();
-		if (rand() % 2 == 1)
-			game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(FOV / 2);
 	}
 }

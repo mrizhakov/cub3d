@@ -1,33 +1,49 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_funct.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 14:09:53 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/06/01 15:29:21 by ddavlety         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-static int32_t	draw_rectangle(t_game *game_data, t_float_pixel start, t_float_pixel end)
+static int32_t	draw_rectangle(t_game *game_data,
+	t_float_pixel start, t_float_pixel end)
 {
 	(void)game_data;
 	if (check_pix(start) && check_pix(end))
 	{
-		while(start.x < end.x)
+		while (start.x < end.x)
 		{
-			drawLine(init_slope_data(start.x, start.y, start.x, end.y, game_data->img), start.color);
+			draw_line(init_slope_data(start.x, start.y, start.x,
+					end.y, game_data->img), start.color);
 			start.x++;
 		}
-		while(start.x > end.x)
+		while (start.x > end.x)
 		{
-			drawLine(init_slope_data(start.x, start.y, start.x, end.y, game_data->img), start.color);
+			draw_line(init_slope_data(start.x, start.y, start.x,
+					end.y, game_data->img), start.color);
 			start.x--;
 		}
-		if(start.x == end.x)
+		if (start.x == end.x)
 		{
-			drawLine(init_slope_data(start.x, start.y, start.x, end.y, game_data->img), start.color);
+			draw_line(init_slope_data(start.x, start.y, start.x,
+					end.y, game_data->img), start.color);
 		}
-		return(1);
+		return (1);
 	}
-	return(0);
+	return (0);
 }
 
 void	draw_black_background(t_game *game_data)
 {
-	t_float_pixel black_background;
-	t_float_pixel end;
+	t_float_pixel	black_background;
+	t_float_pixel	end;
 
 	black_background.y = 0;
 	black_background.x = 0;
@@ -40,7 +56,7 @@ void	draw_black_background(t_game *game_data)
 
 int32_t	draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len)
 {
-	uint32_t i;
+	uint32_t	i;
 
 	i = 0;
 	(void)game_data;
@@ -48,22 +64,23 @@ int32_t	draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len)
 	{
 		while (i != side_len)
 		{
-			drawLine(init_slope_data(start.x, start.y, start.x, start.y + side_len, game_data->img), start.color);
+			draw_line(init_slope_data(start.x, start.y, start.x,
+					start.y + side_len, game_data->img), start.color);
 			i++;
 			start.x++;
 		}
-		return(1);
+		return (1);
 	}
-	return(0);
+	return (0);
 }
 
-void	drawLine(t_slope data, uint32_t color)
+void	draw_line(t_slope data, uint32_t color)
 {
 	while (1)
 	{
 		put_pixel_uint(data.img, data.x0, data.y0, color);
 		if (data.x0 == data.x1 && data.y0 == data.y1)
-			break;
+			break ;
 		data.e2 = data.err;
 		if (data.e2 > -data.dx)
 		{
@@ -84,7 +101,7 @@ void	draw_textures(t_raycast data)
 	float	prev_pixel;
 
 	i = data.offSet * 4;
-	while (data.top < - 10)
+	while (data.top < -10)
 	{
 		data.top += data.err;
 		i += data.texture->width * 4;
@@ -93,13 +110,13 @@ void	draw_textures(t_raycast data)
 	{
 		prev_pixel = data.top;
 		put_pixel(data.img, data.column, (int)data.top,
-					convertColors(data.texture, i, data.height));
+			convert_colors(data.texture, i, data.height));
 		data.top += data.err;
 		while (data.top - prev_pixel > 1)
 			put_pixel(data.img, data.column, (int)++prev_pixel,
-						convertColors(data.texture, i, data.height));
+				convert_colors(data.texture, i, data.height));
 		i += data.texture->width * 4;
 		if (data.top > WINDOW_HEIGHT + 10)
-			break;
+			break ;
 	}
 }

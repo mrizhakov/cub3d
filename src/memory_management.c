@@ -1,8 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   memory_management.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 15:00:31 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/06/01 15:01:34 by ddavlety         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
-void free_char_arr(char **str)
+void	free_char_arr(char **str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
@@ -12,10 +24,10 @@ void free_char_arr(char **str)
 	free(str);
 }
 
-void init_maze(t_game *game_maze)
+void	init_maze(t_game *game_maze)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < MAZE_DIMENSION)
@@ -39,12 +51,13 @@ int	initialise_game(t_game *game_data)
 	game_data->fov_angle = FOV * (M_PI / 180);
 	game_data->num_rays = WINDOW_WIDTH / 1;
 	game_data->texture_width = TEXTURE_WINDTH;
-	game_data->dist_proj_plane = (WINDOW_WIDTH / 2) / tan(game_data->fov_angle / 2);
+	game_data->dist_proj_plane = (WINDOW_WIDTH / 2)
+		/ tan(game_data->fov_angle / 2);
 	init_maze(game_data);
 	return (0);
 }
 
-void free_textures(t_game *game_data)
+void	free_textures(t_game *game_data)
 {
 	int	i;
 
@@ -60,7 +73,7 @@ void free_textures(t_game *game_data)
 	game_data->icon = NULL;
 }
 
-void free_on_exit(t_game *game_data)
+void	free_on_exit(t_game *game_data)
 {
 	int	i;
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   doors.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 13:56:20 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/06/01 14:09:35 by ddavlety         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 int	check_door_place(t_game *game_data, int y, int x)
@@ -18,15 +30,17 @@ int	check_door_place(t_game *game_data, int y, int x)
 
 int	init_doors(t_game *game_data, char t, int x, int y)
 {
-	int			i;
+	int	i;
 
 	i = 0;
 	while (i < DOORS_CO && game_data->doors[i].texture)
 		i++;
 	if (i >= DOORS_CO)
 		return (1);
-	game_data->doors[i].x = x * game_data->texture_width + game_data->texture_width / 2;
-	game_data->doors[i].y = y * game_data->texture_width + game_data->texture_width / 2;
+	game_data->doors[i].x = x * game_data->texture_width
+		+ game_data->texture_width / 2;
+	game_data->doors[i].y = y * game_data->texture_width
+		+ game_data->texture_width / 2;
 	game_data->doors[i].map_x = x;
 	game_data->doors[i].map_y = y;
 	if (t == 'D')
@@ -36,15 +50,14 @@ int	init_doors(t_game *game_data, char t, int x, int y)
 
 t_doors	*which_door(t_game *game_data, int y, int x)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (y >= MAZE_DIMENSION || x >= MAZE_DIMENSION)
 		return (NULL);
 	while (game_data->doors[i].texture)
 	{
-		if (game_data->doors[i].map_x == x
-			&& game_data->doors[i].map_y == y)
+		if (game_data->doors[i].map_x == x && game_data->doors[i].map_y == y)
 			return (&game_data->doors[i]);
 		i++;
 	}
@@ -56,7 +69,7 @@ void	sort_doors(t_doors doors[DOORS_CO])
 {
 	uint32_t	i;
 	uint32_t	j;
-	t_doors	tmp;
+	t_doors		tmp;
 
 	j = 0;
 	while (j <= DOORS_CO && doors[j].texture)
@@ -64,7 +77,8 @@ void	sort_doors(t_doors doors[DOORS_CO])
 		i = 0;
 		while (i < DOORS_CO && doors[i + 1].texture)
 		{
-			if (doors[i].distance == 0 || doors[i].distance < doors[i + 1].distance)
+			if (doors[i].distance == 0
+				|| doors[i].distance < doors[i + 1].distance)
 			{
 				tmp = doors[i];
 				doors[i] = doors[i + 1];

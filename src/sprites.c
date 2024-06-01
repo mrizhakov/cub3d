@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sprites.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/01 15:46:59 by ddavlety          #+#    #+#             */
+/*   Updated: 2024/06/01 15:47:00 by ddavlety         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	set_height(t_game *game_data, t_sprite *vis_sprite)
@@ -112,9 +124,9 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	}
 	while (left < sprite.right_pixel)
 	{
-		color = convertColors(texture, index, sprite.dimentions);
+		color = convert_colors(texture, index, sprite.dimentions);
 		if (sprite.distance < game_data->z_buffer[(int)left]
-		&& texture->pixels[(int)index + 3] != 0)
+				&& texture->pixels[(int)index + 3] != 0)
 			put_pixel(game_data->img, left, line, color);
 		prev_left = left;
 		left += sprite.err_column;
@@ -125,7 +137,8 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
-		if (left >= WINDOW_WIDTH || index + 3 >= texture->width * texture->height * 4)
+		if (left >= WINDOW_WIDTH
+			|| index + 3 >= texture->width * texture->height * 4)
 			break ;
 	}
 }
@@ -172,7 +185,8 @@ void	sort_sprites(t_sprite sprites[SPRITES_CO])
 		i = 0;
 		while (i < SPRITES_CO && sprites[i + 1].texture)
 		{
-			if (sprites[i].distance == 0 || sprites[i].distance < sprites[i + 1].distance)
+			if (sprites[i].distance == 0
+				|| sprites[i].distance < sprites[i + 1].distance)
 			{
 				tmp = sprites[i];
 				sprites[i] = sprites[i + 1];
