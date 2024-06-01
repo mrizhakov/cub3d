@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:18:16 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:42:06 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:43:47 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,11 @@ t_color	convert_colors(mlx_texture_t *texture, uint32_t index, float distance)
 {
 	t_color	color;
 
+	ft_bzero(&color, sizeof(color));
 	color.red = texture->pixels[index];
 	color.green = texture->pixels[index + 1];
 	color.blue = texture->pixels[index + 2];
-	color.alpha = texture->pixels[index + 3];
+	color.alpha = texture->pixels[index + 4];
 	distance = transform(distance / WINDOW_HEIGHT);
 	color.red = distance * color.red;
 	color.green = distance * color.green;

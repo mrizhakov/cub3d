@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:41:53 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 14:42:36 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:22:16 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,6 @@ int	error_handling(int argc, const char *argv[])
 		return (perror("Error opening file"), 1);
 	if (check_file_extension((char *)argv[1], ".cub")
 		|| check_read_file(fd_map))
-		return (write(2, "Map file is no bueno!\n", 22), close(fd_map), 1);
+		return (ft_putendl_fd("Error\nMap file is wrong!", 2), close(fd_map), 1);
 	return (0);
 }

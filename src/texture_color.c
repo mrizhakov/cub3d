@@ -6,13 +6,13 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:47:03 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:47:20 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:29:20 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	parse_texture_file(t_direct direction, t_game *game_data, char *link)
+int	parse_texture_file(int direction, t_game *game_data, char *link)
 {
 	int		texture_fd;
 	char	*file_name;
@@ -25,7 +25,10 @@ int	parse_texture_file(t_direct direction, t_game *game_data, char *link)
 		return(free(file_name), perror("Error opening texture files"), 2);
 	if (check_file_extension(file_name, ".png") || check_read_file(texture_fd))
 		return (free(file_name), close(texture_fd), ft_putendl_fd("Error reading png file", 2), 2);
-	game_data->texture_filename[direction] = file_name;
+	if (!game_data->texture_filename[direction])
+		game_data->texture_filename[direction] = file_name;
+	else
+		free(file_name);
 	game_data->texture_count[direction] += 1;
 	return (0);
 }
@@ -86,12 +89,12 @@ int	router_parse_data(char *line, t_game *game_data)
 	{
 		j = -1;
 		while (token_texture[++j])
-			if (!ft_strncmp(tokens[i], token_texture[j], 100) // why 100?
+			if (!ft_strncmp(tokens[i], token_texture[j], 100)
 				&& parse_texture_file(j, game_data, tokens[i + 1]))
 					return (free_char_arr(tokens), 1);
 		j = -1;
 		while (token_color[++j])
-			if (!ft_strncmp(tokens[i], token_color[j], 100) // why 100?
+			if (!ft_strncmp(tokens[i], token_color[j], 100)
 				&& parse_color_data(j, game_data, tokens[i + 1]))
 					return (free_char_arr(tokens), 1);
 		i++;

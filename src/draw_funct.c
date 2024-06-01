@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:09:53 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:29:21 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:52:44 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,9 @@ void	draw_textures(t_raycast data)
 	}
 	while (data.top < data.bott - 1)
 	{
+		if (data.texture->width * data.texture->height
+			* 4 - 4 <= (uint32_t)i)
+			break ;
 		prev_pixel = data.top;
 		put_pixel(data.img, data.column, (int)data.top,
 			convert_colors(data.texture, i, data.height));

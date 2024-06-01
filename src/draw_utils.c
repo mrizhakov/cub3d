@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:12:56 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:43:06 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 17:31:09 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ float	transform(float value)
 	float		transformed;
 
 	shifted = value - center;
-	transformed = 1 / (1 + exp(-scale * shifted));
+	transformed = 1 / (1 + exp(-(scale * shifted)));
 	return (transformed);
 }

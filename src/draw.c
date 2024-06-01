@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:13:34 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:29:17 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:52:54 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	put_sprite_map(t_raycast data, uint32_t len)
 		data.offSet = 4 * j;
 		while (i <= len)
 		{
+			if (data.texture->height * data.texture->width * 4
+				- 4 <= (uint32_t)data.offSet)
+				break ;
 			put_pixel(data.img, data.top + j, data.column + i,
 				convert_colors(data.texture, data.offSet, 3000));
 			i += data.err;
 			data.offSet += 4 * data.texture->width;
-			if (data.texture->height * data.texture->width * 4
-				- 3 <= (uint32_t)data.offSet)
-				break ;
 		}
 		j += data.err;
 	}

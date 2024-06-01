@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:02:36 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:26:30 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:06:40 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int32_t	mlx_run(t_game *game_data)
 	if (game_data->icon)
 		mlx_set_icon(game_data->mlx, game_data->icon);
 	mlx_set_setting(MLX_FULLSCREEN, true);
-	// mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
+	mlx_set_cursor_mode(game_data->mlx, MLX_MOUSE_DISABLED);
 	mlx_loop_hook(game_data->mlx, ft_anim_sprite, game_data);
 	mlx_loop_hook(game_data->mlx, ft_anim_door, game_data);
 	mlx_loop_hook(game_data->mlx, ft_psychodelic, game_data);

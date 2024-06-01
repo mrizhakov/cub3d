@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:46:59 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:47:00 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/01 16:53:36 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,10 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	}
 	while (left < sprite.right_pixel)
 	{
+		if (left >= WINDOW_WIDTH
+			|| texture->width * texture->height * 4
+			- 4 <= index)
+			break ;
 		color = convert_colors(texture, index, sprite.dimentions);
 		if (sprite.distance < game_data->z_buffer[(int)left]
 				&& texture->pixels[(int)index + 3] != 0)
@@ -137,9 +141,6 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 				put_pixel(game_data->img, prev_left, line, color);
 		}
 		index += 4;
-		if (left >= WINDOW_WIDTH
-			|| index + 3 >= texture->width * texture->height * 4)
-			break ;
 	}
 }
 
