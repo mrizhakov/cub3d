@@ -202,9 +202,6 @@ void	draw_3d_surface(t_game *game_data, int column_id, t_raycast ray)
 	drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.bott,
 			(uint32_t)column_id, (uint32_t)WINDOW_HEIGHT - 1, game_data->img),
 			game_data->color[F].rgb_color);
-	// drawLine(init_slope_data((uint32_t)column_id, (uint32_t)ray.top,
-	// 		(uint32_t)column_id, (uint32_t)0, game_data->img),
-	// 		game_data->color[C].rgb_color);
 }
 
 static void	wall_texture_calc(t_raycast *ray, t_game *game_data)

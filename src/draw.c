@@ -53,7 +53,7 @@ void	put_sprite_map(t_raycast data, uint32_t len)
 			i += data.err;
 			data.offSet += 4 * data.texture->width;
 			if (data.texture->height * data.texture->width * 4
-				- data.offSet < 4)
+				- 3 <= (uint32_t)data.offSet)
 				break ;
 		}
 		j += data.err;
