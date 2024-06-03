@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/06/01 15:35:23 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:11:08 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef enum e_surface
 {
 	F,
 	C,
+	SUR_NO,
 }	t_surface;
 
 typedef enum e_casttype
@@ -116,7 +117,6 @@ typedef struct s_slope
 	int32_t		sy;
 	int32_t		err;
 	int32_t		e2;
-	mlx_image_t *img;
 }				t_slope;
 
 typedef struct	s_rgb
@@ -294,7 +294,7 @@ void	free_textures(t_game *game_data);
 int32_t	mlx_run(t_game *game_data);
 
 //Drawing functions
-void	draw_line(t_slope slope_data, uint32_t color);
+void	draw_line(t_slope slope_data, uint32_t color, mlx_image_t *img);
 int32_t	check_pix(t_float_pixel pix);
 void	draw_minimap(t_game *game_data, t_float_pixel start, uint32_t side_len);
 int32_t	draw_player(t_game *game_data);
@@ -302,10 +302,11 @@ void	draw_black_background(t_game *game_data);
 int32_t	draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len);
 void	draw_sprites(t_game	*game_data);
 int32_t	draw_map_sprite(t_game *game_data, uint32_t side_len);
-t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1, mlx_image_t *);
+t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
 void	draw_textures(t_raycast data);
 void	ft_draw_image(void* param);
 float	transform(float value);
+void	draw_minimap_fov(t_game *game_data, t_raycast ray, t_raycast ray_door);
 //Raycast
 float	check_angle_overflow(t_game *game_data, float player_angle);
 void	draw_fov(t_game *game_data);
@@ -316,15 +317,19 @@ void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void	ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle);
 void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void	ray_shortest_distance(t_raycast *ray, t_game *game_data);
+void	draw_3d_projection(t_game *game_data, int column_id, t_raycast ray, float ray_angle);
+void	draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle);
 /* Ray_utils */
 float	distance_between_points(float x1, float y1, float x2, float y2);
 int		is_ray_facing_down(float ray_angle);
 int		is_ray_facing_right(float ray_angle);
 int		is_ray_facing_up(float ray_angle);
 int		is_ray_facing_left(float ray_angle);
+int		cast_type(char c, t_casttype type);
+
 
 //Game logic
-int		prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check, int map_padding);
+int		prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check);
 void	update_pos(t_game *game_data);
 void	psycho_trigger(t_game *game_data);
 
@@ -339,9 +344,12 @@ int		router_parse_data(char *line, t_game *game_data);
 void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 int32_t	ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
 
+
 //sprites
 int		init_sprites(t_game *game_data, char t, int x, int y);
 void	sprites_calculations(t_game	*game_data);
+float	calcul_angle_sprite(float p_angle, t_sprite *sprite, t_float_pixel *player);
+
 
 //doors
 int		init_doors(t_game *game_data, char t, int x, int y);
@@ -359,8 +367,10 @@ void	ft_cursor_hook(double xpos, double ypos, void* param);
 void	ft_psychodelic(void *param);
 
 //find utils
-int		find_wall(t_maze maze, int y, int x, int pad, int del);
-int		find_door(t_game *game_data, int y, int x, int pad, int del);
+int		find_wall(t_maze maze, int y, int x, int del);
+int		find_door(t_game *game_data, int y, int x, int del);
 
+/*Texture and colors utils*/
+void	init_tokens(char token_texture[TEX_NO][4], char token_color[SUR_NO][2]);
 
 #endif

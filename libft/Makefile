@@ -1,7 +1,7 @@
 CC = cc
 AR = ar rcs
 NAME = libft.a
-FLAGS = -Wall -Werror -Wextra #-g
+FLAGS = -Wall -Werror -Wextra -g
 INC_DIR = -I.
 RM = rm -f
 RANNAME = ranlib $(NAME)

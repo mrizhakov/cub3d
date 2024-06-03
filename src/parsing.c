@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:04:16 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:18:07 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:34:26 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,13 @@ int	init_player(t_game *game_data, char direction, int x_axis, int y_axis)
 
 int	tokenize(t_game *game_data, int y, int x, char *tokens)
 {
-	size_t	i;
+	int	i;
 
-	i = 0;
-	while (tokens[i])
+	i = -1;
+	while (tokens[++i])
 	{
 		if (game_data->maze.g[y][x] == tokens[i])
 			break ;
-		i++;
 	}
 	if (i == 4)
 	{
@@ -80,10 +79,8 @@ int	tokenize(t_game *game_data, int y, int x, char *tokens)
 	else if (i > 4)
 		return (2);
 	else
-	{
 		if (init_player(game_data, tokens[i], x, y))
 			return (ft_putendl_fd("Error\nTwo or more players", 2), 1);
-	}
 	return (0);
 }
 

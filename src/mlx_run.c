@@ -6,19 +6,18 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:02:36 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 16:06:40 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:28:05 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 t_slope	init_slope_data(uint32_t x0, uint32_t y0,
-		uint32_t x1, uint32_t y1, mlx_image_t *image)
+		uint32_t x1, uint32_t y1)
 {
 	t_slope	slope;
 
 	bzero(&slope, sizeof(slope));
-	slope.img = image;
 	slope.x0 = x0;
 	slope.y0 = y0;
 	slope.x1 = x1;

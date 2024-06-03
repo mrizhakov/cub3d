@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:09:53 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 16:52:44 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:31:27 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,19 @@ static int32_t	draw_rectangle(t_game *game_data,
 		while (start.x < end.x)
 		{
 			draw_line(init_slope_data(start.x, start.y, start.x,
-					end.y, game_data->img), start.color);
+					end.y), start.color, game_data->img);
 			start.x++;
 		}
 		while (start.x > end.x)
 		{
 			draw_line(init_slope_data(start.x, start.y, start.x,
-					end.y, game_data->img), start.color);
+					end.y), start.color, game_data->img);
 			start.x--;
 		}
 		if (start.x == end.x)
 		{
 			draw_line(init_slope_data(start.x, start.y, start.x,
-					end.y, game_data->img), start.color);
+					end.y), start.color, game_data->img);
 		}
 		return (1);
 	}
@@ -65,7 +65,7 @@ int32_t	draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len)
 		while (i != side_len)
 		{
 			draw_line(init_slope_data(start.x, start.y, start.x,
-					start.y + side_len, game_data->img), start.color);
+					start.y + side_len), start.color, game_data->img);
 			i++;
 			start.x++;
 		}
@@ -74,11 +74,11 @@ int32_t	draw_square(t_game *game_data, t_float_pixel start, uint32_t side_len)
 	return (0);
 }
 
-void	draw_line(t_slope data, uint32_t color)
+void	draw_line(t_slope data, uint32_t color, mlx_image_t *img)
 {
 	while (1)
 	{
-		put_pixel_uint(data.img, data.x0, data.y0, color);
+		put_pixel_uint(img, data.x0, data.y0, color);
 		if (data.x0 == data.x1 && data.y0 == data.y1)
 			break ;
 		data.e2 = data.err;

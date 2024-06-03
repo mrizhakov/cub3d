@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:12:56 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 17:31:09 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:41:09 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,30 @@ float	transform(float value)
 	shifted = value - center;
 	transformed = 1 / (1 + exp(-(scale * shifted)));
 	return (transformed);
+}
+
+void	draw_minimap_fov(t_game *game_data, t_raycast ray, t_raycast ray_door)
+{
+	t_slope	slope;
+
+	if (ray.distance > ray_door.distance
+		&& ray_door.door[0] && !ray_door.door[0]->isopen)
+		slope = init_slope_data((uint32_t)game_data->player->x
+				* MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN
+				/ game_data->texture_width,
+				(uint32_t)ray_door.shortest_wall_hit_x
+				* MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)ray_door.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN
+				/ game_data->texture_width);
+	else
+		slope = init_slope_data((uint32_t)game_data->player->x
+				* MINIMAP_SQUARE_SIDE_LEN / game_data->texture_width,
+				(uint32_t)game_data->player->y * MINIMAP_SQUARE_SIDE_LEN
+				/ game_data->texture_width,
+				(uint32_t)ray.shortest_wall_hit_x * MINIMAP_SQUARE_SIDE_LEN
+				/ game_data->texture_width,
+				(uint32_t)ray.shortest_wall_hit_y * MINIMAP_SQUARE_SIDE_LEN
+				/ game_data->texture_width);
+	draw_line(slope, game_data->player->color, game_data->img);
 }

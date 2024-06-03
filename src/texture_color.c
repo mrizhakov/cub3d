@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:47:03 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 17:29:20 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 13:15:32 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int	parse_texture_file(int direction, t_game *game_data, char *link)
 	file_name = ft_strtrim(link, "\n");
 	texture_fd = open(file_name, O_RDONLY);
 	if (texture_fd == -1)
-		return(free(file_name), perror("Error opening texture files"), 2);
+		return (free(file_name), perror("Error opening texture files"), 2);
 	if (check_file_extension(file_name, ".png") || check_read_file(texture_fd))
-		return (free(file_name), close(texture_fd), ft_putendl_fd("Error reading png file", 2), 2);
+		return (free(file_name), close(texture_fd),
+			ft_putendl_fd("Error reading png file", 2), 2);
 	if (!game_data->texture_filename[direction])
 		game_data->texture_filename[direction] = file_name;
 	else
@@ -35,7 +36,7 @@ int	parse_texture_file(int direction, t_game *game_data, char *link)
 
 int	set_color(t_game *game_data, t_surface surface, t_rgb rgb)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 3)
@@ -63,7 +64,7 @@ int	parse_color_data(t_surface surface, t_game *game_data, char *data)
 		if (i >= 3)
 			return (free_char_arr(colors), 1);
 		j = 0;
-		while(colors[i][j])
+		while (colors[i][j])
 			if (!ft_isdigit(colors[i][j++]))
 				return (free_char_arr(colors), 1);
 		rgb.color[i] = ft_atoi(colors[i]);
@@ -78,25 +79,26 @@ int	parse_color_data(t_surface surface, t_game *game_data, char *data)
 int	router_parse_data(char *line, t_game *game_data)
 {
 	char	**tokens;
-	char	*token_texture[] = {"NO", "SO", "WE", "EA", "MU", "MU2", "MUM", "DO0", "DO1", "DO2", "PS1", "PS2", "PS3", NULL};
-	char	*token_color[] = {"F", "C", NULL};
-	int	i;
-	int	j;
+	char	token_texture[TEX_NO + 1][4];
+	char	token_color[SUR_NO + 1][2];
+	int		i;
+	int		j;
 
 	i = 0;
 	tokens = ft_split(line, ' ');
+	init_tokens(token_texture, token_color);
 	while (tokens[i])
 	{
 		j = -1;
-		while (token_texture[++j])
+		while (token_texture[++j][0])
 			if (!ft_strncmp(tokens[i], token_texture[j], 100)
 				&& parse_texture_file(j, game_data, tokens[i + 1]))
-					return (free_char_arr(tokens), 1);
+				return (free_char_arr(tokens), 1);
 		j = -1;
-		while (token_color[++j])
+		while (token_color[++j][0])
 			if (!ft_strncmp(tokens[i], token_color[j], 100)
 				&& parse_color_data(j, game_data, tokens[i + 1]))
-					return (free_char_arr(tokens), 1);
+				return (free_char_arr(tokens), 1);
 		i++;
 	}
 	free_char_arr(tokens);

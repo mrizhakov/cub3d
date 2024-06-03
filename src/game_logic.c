@@ -6,14 +6,14 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:43:55 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 14:58:35 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 11:22:30 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 int	prevent_wall_collisions(t_game *game_data, float player_y_check,
-	float player_x_check, int map_padding)
+	float player_x_check)
 {
 	(void)game_data;
 	if (player_x_check >= 0 && player_y_check >= 0
@@ -21,14 +21,14 @@ int	prevent_wall_collisions(t_game *game_data, float player_y_check,
 		&& player_y_check <= game_data->texture_width * (MAZE_DIMENSION - 1))
 	{
 		if (!find_wall(game_data->maze, game_data->player->y,
-				player_x_check, map_padding, game_data->texture_width)
+				player_x_check, game_data->texture_width)
 			&& !find_door(game_data, game_data->player->y,
-				player_x_check, map_padding, game_data->texture_width))
+				player_x_check, game_data->texture_width))
 			game_data->player->x = player_x_check;
 		if (!find_wall(game_data->maze, player_y_check,
-				game_data->player->x, map_padding, game_data->texture_width)
+				game_data->player->x, game_data->texture_width)
 			&& !find_door(game_data, player_y_check,
-				game_data->player->x, map_padding, game_data->texture_width))
+				game_data->player->x, game_data->texture_width))
 			game_data->player->y = player_y_check;
 	}
 	return (1);
@@ -74,7 +74,6 @@ void	update_pos(t_game *game_data)
 	if (player_x_check || player_y_check)
 		prevent_wall_collisions(game_data,
 			game_data->player->y + player_y_check,
-			game_data->player->x + player_x_check,
-			game_data->texture_width / 4);
+			game_data->player->x + player_x_check);
 	sprites_calculations(game_data);
 }
