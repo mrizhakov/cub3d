@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:46:59 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 15:35:09 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 16:35:55 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,32 @@
 static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 								float offset, float line)
 {
-	float			left;
 	mlx_texture_t	*texture;
-	float			prev_left;
+	float			left;
 	t_color			color;
 
 	texture = game_data->textures[sprite.texture];
-	left = sprite.left_pixel;
-	while (left < 0)
+	while (sprite.left_pixel < 0)
 	{
 		offset += 4;
-		left += sprite.err_column;
+		sprite.left_pixel += sprite.err_column;
 	}
-	while (left < sprite.right_pixel)
+	while (sprite.left_pixel < sprite.right_pixel)
 	{
-		if (left >= WINDOW_WIDTH || texture->width
+		if (sprite.left_pixel >= WINDOW_WIDTH || texture->width
 			* texture->height * 4 - 4 <= offset)
 			break ;
 		color = convert_colors(texture, offset, sprite.dimentions);
-		if (sprite.distance < game_data->z_buffer[(int)left]
+		if (sprite.distance < game_data->z_buffer[(int)sprite.left_pixel]
 			&& texture->pixels[(int)offset + 3] != 0)
-			put_pixel(game_data->img, left, line, color);
-		prev_left = left;
-		left += sprite.err_column;
-		while ((left - prev_left) > 1 && prev_left < sprite.right_pixel - 1)
+			put_pixel(game_data->img, sprite.left_pixel, line, color);
+		left = sprite.left_pixel;
+		sprite.left_pixel += sprite.err_column;
+		while ((sprite.left_pixel - left) > 1 && left < sprite.right_pixel - 1)
 		{
-			if (sprite.distance < game_data->z_buffer[(int)++prev_left]
+			if (sprite.distance < game_data->z_buffer[(int)++left]
 				&& texture->pixels[(int)offset + 3] != 0)
-				put_pixel(game_data->img, prev_left, line, color);
+				put_pixel(game_data->img, left, line, color);
 		}
 		offset += 4;
 	}
