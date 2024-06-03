@@ -1,3 +1,0 @@
-1. When door is closing ray finds closiest door and starts drawing
-	if there is a door behind it. The issue is in raytracing of doors
-	and the method of finding the door that ray finds
