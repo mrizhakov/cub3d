@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:35:49 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 19:07:54 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:56:40 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 {
 	ray->xintercept = floor(game_data->player->x
 			/ game_data->texture_width) * game_data->texture_width;
-	if (game_data->psycho)
+	if (game_data->psycho == 1)
 		ray->xintercept = (game_data->player->x
 				/ MINIMAP_SQUARE_SIDE_LEN) * MINIMAP_SQUARE_SIDE_LEN;
 	if (ray->is_ray_facing_right)

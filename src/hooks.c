@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:59:07 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 14:59:59 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:15:11 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	ft_anim_door(void *param)
 
 	anim_time = ANIM_TIME;
 	game_data = (t_game *)param;
-	if (game_data->psycho)
-		anim_time = 0.001;
 	if (mlx_get_time() - game_data->animat_time > anim_time)
 	{
 		i = 0;
@@ -86,8 +84,6 @@ void	ft_keyboad_hook(void *param)
 		game_data->player_turn_dir = 1;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_E))
 		open_door(game_data);
-	if (mlx_is_key_down(game_data->mlx, MLX_KEY_SPACE))
-		psycho_trigger(game_data);
 	if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0
 		|| game_data->player_strafe_dir != 0)
 		update_pos(game_data);
@@ -126,4 +122,5 @@ void	ft_psychodelic(void *param)
 		game_data->dist_proj_plane = (WINDOW_WIDTH / 2)
 			/ tan(game_data->fov_angle / 2);
 	}
+	psycho_trigger(game_data);
 }

@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/06/03 19:21:11 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:55:14 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,7 @@ typedef struct s_game
 	t_maze			maze;
 	float			z_buffer[WINDOW_WIDTH];
 	float			animat_time;
-	bool			psycho;
+	int				psycho;
 	float			phycho_time;
 }				t_game;
 

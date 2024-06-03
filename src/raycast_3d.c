@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:37:44 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 19:15:28 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 20:58:57 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,8 @@ void	draw_3d_projection(t_game *game_data, int column_id,
 	ray.texture = game_data->textures[TEX_DOOR_OP];
 	wall_texture_calc(&ray, game_data);
 	fill_ray_data(game_data, column_id, &ray, ray_angle);
-	if (game_data->psycho)
+	if (game_data->psycho == 3)
 	{
-		ray.offset = rand() % 1000;
 		ray.texture = game_data->textures[TEX_PSY_1];
 		game_data->color[C].rgb_color = ft_float_pixel(227, 61, 148, 255);
 		game_data->color[F].rgb_color = ft_float_pixel(130, 94, 9, 255);
@@ -84,7 +83,7 @@ void	draw_3d_door(t_game *game_data, int column_id,
 	else
 		ray.offset = (int)ray.hor_wall_hit_x % game_data->texture_width;
 	fill_ray_data(game_data, column_id, &ray, ray_angle);
-	if (game_data->psycho)
+	if (game_data->psycho == 3)
 	{
 		ray.offset = rand() % 1000;
 		ray.texture = game_data->textures[TEX_PSY_2];
