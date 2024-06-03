@@ -3,14 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
+/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:46:59 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 16:35:55 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:34:41 by mrizakov         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+void skip_lines(float *offset, t_sprite *sprite)
+{
+	while (sprite->left_pixel < 0)
+	{
+		*offset += 4;
+		sprite->left_pixel += sprite->err_column;
+	}
+}
+
 
 static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 								float offset, float line)
@@ -20,11 +30,7 @@ static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 	t_color			color;
 
 	texture = game_data->textures[sprite.texture];
-	while (sprite.left_pixel < 0)
-	{
-		offset += 4;
-		sprite.left_pixel += sprite.err_column;
-	}
+	skip_lines(&offset, &sprite);
 	while (sprite.left_pixel < sprite.right_pixel)
 	{
 		if (sprite.left_pixel >= WINDOW_WIDTH || texture->width
