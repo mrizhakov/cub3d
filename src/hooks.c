@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:59:07 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 21:28:48 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:51:25 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,6 @@ void	ft_keyboad_hook(void *param)
 		game_data->player_turn_dir = 1;
 	if (mlx_is_key_down(game_data->mlx, MLX_KEY_E))
 		open_door(game_data);
-	// if (mlx_is_key_down(game_data->mlx, MLX_KEY_SPACE))
-	// 	psycho_trigger(game_data);
 	if (game_data->player_walk_dir != 0 || game_data->player_turn_dir != 0
 		|| game_data->player_strafe_dir != 0)
 		update_pos(game_data);
