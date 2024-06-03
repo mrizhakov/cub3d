@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/06/03 20:55:14 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:49:00 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct s_doors
 
 typedef struct s_sprite
 {
+	int			index;
 	float		x;
 	float		y;
 	int			map_x;

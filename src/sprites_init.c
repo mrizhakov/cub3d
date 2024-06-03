@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:46:59 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 15:21:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:46:10 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	init_sprites(t_game *game_data, char t, int x, int y)
 		+ game_data->texture_width / 2;
 	game_data->sprites[i].map_x = x;
 	game_data->sprites[i].map_y = y;
+	game_data->sprites[i].index = i;
 	if (t == 'M')
 		game_data->sprites[i].texture = TEX_MUSHR;
 	return (0);

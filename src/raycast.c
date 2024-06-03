@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:31:11 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 20:57:42 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 21:49:26 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,10 @@ void	draw_fov(t_game *game_data)
 		ray_angle = game_data->player_angle
 			+ atan((column_id - game_data->num_rays / dose)
 				/ game_data->dist_proj_plane);
+		if (game_data->psycho == 3)
+			ray_angle = game_data->player_angle
+				+ tan((column_id - game_data->num_rays / dose)
+					/ game_data->dist_proj_plane);
 		ray_angle = check_angle_overflow(game_data, ray_angle);
 		if (column_id < game_data->num_rays)
 			cast_ray(game_data, ray_angle, column_id);
