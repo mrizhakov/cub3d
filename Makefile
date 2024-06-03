@@ -46,9 +46,9 @@ clean:
 
 fclean: clean
 	$(RM) $(NAME)
-	# $(RM) -r $(TEST)
-	# $(RM) test.sh
-	# $(RM) -r $(LIBMLX)
+	$(RM) -r $(TEST)
+	$(RM) test.sh
+	$(RM) -r $(LIBMLX)
 
 re: fclean all
 

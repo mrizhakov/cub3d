@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:35:49 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 14:52:02 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:07:54 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ void	ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 		ray->xstep *= -1;
 	ray->next_hor_touch_x = ray->xintercept;
 	ray->next_hor_touch_y = ray->yintercept;
-	if (ray->is_ray_facing_up)
-		ray->next_hor_touch_y--;
 }
 
 void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype type)
@@ -44,7 +42,7 @@ void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 		&& ray->next_hor_touch_y / game_data->texture_width < MAZE_DIMENSION
 		&& ray->next_hor_touch_x / game_data->texture_width < MAZE_DIMENSION)
 	{
-		ray_type = cast_type_calc(game_data, ray, type, HOR);
+		ray_type = cast_type_hor(game_data, ray, type);
 		if (ray_type)
 		{
 			if (!(ray_type == W_DOOR && ray->door[HOR]->isopen))
@@ -82,8 +80,6 @@ void	ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 		ray->ystep *= -1;
 	ray->next_vert_touch_x = ray->xintercept;
 	ray->next_vert_touch_y = ray->yintercept;
-	if (ray->is_ray_facing_left)
-		ray->next_vert_touch_x--;
 }
 
 void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype type)
@@ -94,7 +90,7 @@ void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 		&& ray->next_vert_touch_y / game_data->texture_width <= MAZE_DIMENSION
 		&& ray->next_vert_touch_x / game_data->texture_width <= MAZE_DIMENSION)
 	{
-		ray_type = cast_type_calc(game_data, ray, type, VERT);
+		ray_type = cast_type_vert(game_data, ray, type);
 		if (ray_type)
 		{
 			if (!(ray_type == W_DOOR && ray->door[VERT]->isopen))

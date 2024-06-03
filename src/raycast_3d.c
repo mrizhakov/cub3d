@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:37:44 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 11:42:07 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:15:28 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	wall_texture_calc(t_raycast *ray, t_game *game_data)
 			ray->texture = game_data->textures[WE];
 		else if (ray->is_ray_facing_right)
 			ray->texture = game_data->textures[EA];
-		ray->offSet = (int)ray->ver_wall_hit_y % game_data->texture_width;
+		ray->offset = (int)ray->ver_wall_hit_y % game_data->texture_width;
 	}
 	else
 	{
@@ -52,7 +52,7 @@ static void	wall_texture_calc(t_raycast *ray, t_game *game_data)
 			ray->texture = game_data->textures[NO];
 		else if (ray->is_ray_facing_down)
 			ray->texture = game_data->textures[SO];
-		ray->offSet = (int)ray->hor_wall_hit_x % game_data->texture_width;
+		ray->offset = (int)ray->hor_wall_hit_x % game_data->texture_width;
 	}
 }
 
@@ -64,7 +64,7 @@ void	draw_3d_projection(t_game *game_data, int column_id,
 	fill_ray_data(game_data, column_id, &ray, ray_angle);
 	if (game_data->psycho)
 	{
-		ray.offSet = rand() % 1000;
+		ray.offset = rand() % 1000;
 		ray.texture = game_data->textures[TEX_PSY_1];
 		game_data->color[C].rgb_color = ft_float_pixel(227, 61, 148, 255);
 		game_data->color[F].rgb_color = ft_float_pixel(130, 94, 9, 255);
@@ -80,13 +80,13 @@ void	draw_3d_door(t_game *game_data, int column_id,
 	if (ray.texture == game_data->textures[TEX_DOOR_OP])
 		return ;
 	if (ray.was_hit_vertical)
-		ray.offSet = (int)ray.ver_wall_hit_y % game_data->texture_width;
+		ray.offset = (int)ray.ver_wall_hit_y % game_data->texture_width;
 	else
-		ray.offSet = (int)ray.hor_wall_hit_x % game_data->texture_width;
+		ray.offset = (int)ray.hor_wall_hit_x % game_data->texture_width;
 	fill_ray_data(game_data, column_id, &ray, ray_angle);
 	if (game_data->psycho)
 	{
-		ray.offSet = rand() % 1000;
+		ray.offset = rand() % 1000;
 		ray.texture = game_data->textures[TEX_PSY_2];
 	}
 	if (ray.distance < game_data->z_buffer[column_id])

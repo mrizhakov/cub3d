@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 14:09:53 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 11:31:27 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:15:21 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void	draw_textures(t_raycast data)
 	float	i;
 	float	prev_pixel;
 
-	i = data.offSet * 4;
+	i = data.offset * 4;
 	while (data.top < -10)
 	{
 		data.top += data.err;

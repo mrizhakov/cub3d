@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/06/03 14:51:44 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 19:21:11 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "./MLX42/include/MLX42/MLX42_Int.h"
 # include "./libft/libft.h"
-
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
@@ -23,14 +22,14 @@
 # include <fcntl.h>
 # include <math.h>
 # include <limits.h>
-# include <float.h>
 
 # ifndef PSYCHO
 #  define PSYCHO 7
 # endif
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
+# define FLT_MAX 3.402823E+38
 # define DOORS_CO 10
 # define SPRITES_CO 10
 # define TEXTURE_WINDTH 512
@@ -99,7 +98,6 @@ typedef struct s_draw
 	float			top;
 	float			bott;
 	float			height;
-	int				offSet;
 	float			err;
 	mlx_image_t		*img;
 }					t_draw;
@@ -119,32 +117,32 @@ typedef struct s_slope
 	int32_t		e2;
 }				t_slope;
 
-typedef struct	s_rgb
+typedef struct s_rgb
 {
 	int			color[3];
 	int			valid_rgb;
 	uint32_t	rgb_color;
 }				t_rgb;
 
-typedef struct	s_maze
+typedef struct s_maze
 {
 	char		g[MAZE_DIMENSION][MAZE_DIMENSION];
 	int			valid_maze;
 }				t_maze;
 
-typedef struct	s_float_pixel
+typedef struct s_float_pixel
 {
 	float		y;
 	float		x;
 	uint32_t	color;
 }				t_float_pixel;
 
-typedef struct 	s_point {
+typedef struct s_point {
 	float		x;
 	float		y;
 }				t_point;
 
-typedef struct	s_doors
+typedef struct s_doors
 {
 	float		x;
 	float		y;
@@ -194,7 +192,7 @@ typedef struct s_color
 	uint8_t	alpha;
 }			t_color;
 
-typedef struct	s_game
+typedef struct s_game
 {
 	mlx_t			*mlx;
 	mlx_image_t		*img;
@@ -202,7 +200,7 @@ typedef struct	s_game
 	mlx_texture_t	*icon;
 	char			*texture_filename[TEX_NO];
 	int				texture_count[TEX_NO];
-	bool				all_textures_ok;
+	bool			all_textures_ok;
 	t_rgb			color[2];
 	int				color_count[2];
 	int				player_init_loc[2];
@@ -229,7 +227,8 @@ typedef struct	s_game
 	float			phycho_time;
 }				t_game;
 
-typedef struct 	s_raycast {
+typedef struct s_raycast
+{
 	int				is_ray_facing_down;
 	int				is_ray_facing_right;
 	int				is_ray_facing_up;
@@ -254,17 +253,15 @@ typedef struct 	s_raycast {
 	int				was_hit_vertical;
 	float			distance_hor;
 	float			distance_vert;
-	//for drawing
 	mlx_texture_t	*texture;
 	int				column;
 	float			top;
 	float			bott;
 	float			height;
-	int				offSet;
+	int				offset;
 	float			err;
 	mlx_image_t		*img;
 	t_doors			*door[ORIENT];
-	// t_sprite		*sprite;
 }					t_raycast;
 
 // Parsing
@@ -304,7 +301,7 @@ void	draw_sprites(t_game	*game_data);
 int32_t	draw_map_sprite(t_game *game_data, uint32_t side_len);
 t_slope	init_slope_data(uint32_t x0, uint32_t y0, uint32_t x1, uint32_t y1);
 void	draw_textures(t_raycast data);
-void	ft_draw_image(void* param);
+void	ft_draw_image(void *param);
 float	transform(float value);
 void	draw_minimap_fov(t_game *game_data, t_raycast ray, t_raycast ray_door);
 //Raycast
@@ -313,13 +310,16 @@ void	draw_fov(t_game *game_data);
 void	cast_ray(t_game *game_data, float ray_angle, int column_id);
 void	ray_orientation(t_raycast *ray, float ray_angle);
 void	ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle);
-void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype);
+void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype type);
 void	ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle);
-void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype);
+void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype type);
 void	ray_shortest_distance(t_raycast *ray, t_game *game_data);
-void	draw_3d_projection(t_game *game_data, int column_id, t_raycast ray, float ray_angle);
-void	draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle);
-int		cast_type_calc(t_game *game_data, t_raycast *ray, t_casttype type, t_orientation orient);
+void	draw_3d_projection(t_game *game_data, int column_id,
+			t_raycast ray, float ray_angle);
+void	draw_3d_door(t_game *game_data, int column_id,
+			t_raycast ray, float ray_angle);
+int		cast_type_hor(t_game *game_data, t_raycast *ray, t_casttype type);
+int		cast_type_vert(t_game *game_data, t_raycast *ray, t_casttype type);
 
 /* Ray_utils */
 float	distance_between_points(float x1, float y1, float x2, float y2);
@@ -329,9 +329,9 @@ int		is_ray_facing_up(float ray_angle);
 int		is_ray_facing_left(float ray_angle);
 int		cast_type(char c, t_casttype type);
 
-
 //Game logic
-int		prevent_wall_collisions(t_game *game_data, float player_y_check, float player_x_check);
+int		prevent_wall_collisions(t_game *game_data, float player_y_check,
+			float player_x_check);
 void	update_pos(t_game *game_data);
 void	psycho_trigger(t_game *game_data);
 
@@ -341,17 +341,17 @@ int		load_textures(t_game *game_data);
 
 //pixels and colors
 void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, t_color color);
-t_color	convert_colors(mlx_texture_t* texture, uint32_t index, float distance);
+t_color	convert_colors(mlx_texture_t *texture, uint32_t index, float distance);
 int		router_parse_data(char *line, t_game *game_data);
-void	put_pixel_uint(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
+void	put_pixel_uint(mlx_image_t *img, uint32_t x,
+			uint32_t y, uint32_t color);
 int32_t	ft_float_pixel(int32_t r, int32_t g, int32_t b, int32_t a);
-
 
 //sprites
 int		init_sprites(t_game *game_data, char t, int x, int y);
 void	sprites_calculations(t_game	*game_data);
-float	calcul_angle_sprite(float p_angle, t_sprite *sprite, t_float_pixel *player);
-
+float	calcul_angle_sprite(float p_angle, t_sprite *sprite,
+			t_float_pixel *player);
 
 //doors
 int		init_doors(t_game *game_data, char t, int x, int y);
@@ -360,12 +360,11 @@ void	open_door(t_game *game_data);
 t_doors	*which_door(t_game *game_data, int y, int x);
 void	sort_doors(t_doors doors[DOORS_CO]);
 
-
 //hooks
 void	ft_anim_sprite(void *param);
 void	ft_anim_door(void *param);
-void	ft_keyboad_hook(void* param);
-void	ft_cursor_hook(double xpos, double ypos, void* param);
+void	ft_keyboad_hook(void *param);
+void	ft_cursor_hook(double xpos, double ypos, void *param);
 void	ft_psychodelic(void *param);
 
 //find utils
