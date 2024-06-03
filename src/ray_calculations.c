@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 11:35:49 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 11:36:01 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:52:02 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,14 @@ void	ray_horiz_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 {
 	int	ray_type;
-	int	y;
-	int	x;
 
 	while (ray->next_hor_touch_x >= 0 && ray->next_hor_touch_y >= 0
 		&& ray->next_hor_touch_y / game_data->texture_width < MAZE_DIMENSION
 		&& ray->next_hor_touch_x / game_data->texture_width < MAZE_DIMENSION)
 	{
-		y = (int)ray->next_hor_touch_y / game_data->texture_width;
-		x = (int)ray->next_hor_touch_x / game_data->texture_width;
-		ray_type = cast_type(game_data->maze.g[y][x], type);
+		ray_type = cast_type_calc(game_data, ray, type, HOR);
 		if (ray_type)
 		{
-			if (ray_type == W_DOOR)
-				ray->door[HOR] = which_door(game_data, y, x);
 			if (!(ray_type == W_DOOR && ray->door[HOR]->isopen))
 			{
 				ray->found_hor_hit = 1;
@@ -61,11 +55,8 @@ void	ray_horiz_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 			}
 			break ;
 		}
-		else
-		{
-			ray->next_hor_touch_x += ray->xstep;
-			ray->next_hor_touch_y += ray->ystep;
-		}
+		ray->next_hor_touch_x += ray->xstep;
+		ray->next_hor_touch_y += ray->ystep;
 	}
 }
 
@@ -98,20 +89,14 @@ void	ray_vert_calc(t_game *game_data, t_raycast *ray, float ray_angle)
 void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 {
 	int	ray_type;
-	int	y;
-	int	x;
 
 	while (ray->next_vert_touch_x >= 0 && ray->next_vert_touch_y >= 0
 		&& ray->next_vert_touch_y / game_data->texture_width <= MAZE_DIMENSION
 		&& ray->next_vert_touch_x / game_data->texture_width <= MAZE_DIMENSION)
 	{
-		y = (int)ray->next_vert_touch_y / game_data->texture_width;
-		x = (int)ray->next_vert_touch_x / game_data->texture_width;
-		ray_type = cast_type(game_data->maze.g[y][x], type);
+		ray_type = cast_type_calc(game_data, ray, type, VERT);
 		if (ray_type)
 		{
-			if (ray_type == W_DOOR)
-				ray->door[VERT] = which_door(game_data, y, x);
 			if (!(ray_type == W_DOOR && ray->door[VERT]->isopen))
 			{
 				ray->found_vert_hit = 1;
@@ -120,11 +105,8 @@ void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype type)
 			}
 			break ;
 		}
-		else
-		{
-			ray->next_vert_touch_x += ray->xstep;
-			ray->next_vert_touch_y += ray->ystep;
-		}
+		ray->next_vert_touch_x += ray->xstep;
+		ray->next_vert_touch_y += ray->ystep;
 	}
 }
 

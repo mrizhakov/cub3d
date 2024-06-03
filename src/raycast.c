@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:31:11 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 11:42:17 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:49:10 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@ void	ray_orientation(t_raycast *ray, float ray_angle)
 	ray->is_ray_facing_up = !ray->is_ray_facing_down;
 	ray->is_ray_facing_right = ray_angle < M_PI * 0.5 || ray_angle > M_PI * 1.5;
 	ray->is_ray_facing_left = !ray->is_ray_facing_right;
-}
-
-int	cast_type(char c, t_casttype type)
-{
-	if (c == '1' && type == W_WALL)
-		return (W_WALL);
-	else if (c == 'D' && type == W_DOOR)
-		return (W_DOOR);
-	else if (c == 'M' && type == W_SPRITE)
-		return (W_SPRITE);
-	else
-		return (W_NONE);
 }
 
 void	ray_calculations(t_raycast *ray, t_game *game_data,

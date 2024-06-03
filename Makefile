@@ -7,7 +7,8 @@ SRC_DIR := src/
 EXE_SOURCE :=	draw.c error_handling.c error_messages.c game_logic.c main.c memory_management.c minimap.c \
 				mlx_run.c parsing.c raycast.c textures.c texture_color.c pixel_color.c sprites.c doors.c \
 				hooks.c psycodelic.c ray_utils.c doors_actions.c draw_utils.c draw_funct.c find_utils.c \
-				parsing_utils.c raycast_3d.c ray_calculations.c sprites_calc.c texture_color_utils.c
+				parsing_utils.c raycast_3d.c ray_calculations.c sprites_calc.c texture_color_utils.c \
+				ray_calc_utils.c sprites_init.c
 EXE_SRCS = $(addprefix $(SRC_DIR), $(EXE_SOURCE))
 OBJ_DIR := obj/
 INC := -I. -IMLX42/include -IMLX42/include/glad -IMLX42/include/KHR -IMLX42/include/lodepng -IMLX42/include/MLX42

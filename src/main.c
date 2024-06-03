@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:00:11 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/01 15:00:25 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:58:07 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ int32_t	main(int argc, const char *argv[])
 		return (free_on_exit(game_data), 1);
 	if (load_textures(game_data))
 		return (free_on_exit(game_data), 1);
-	mlx_run(game_data);
-	free_on_exit(game_data);
-	printf("Exiting\n");
+	if (mlx_run(game_data))
+		return (free_on_exit(game_data), 1);
+	else
+		free_on_exit(game_data);
 	return (EXIT_SUCCESS);
 }

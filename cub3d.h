@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/06/03 13:11:08 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/03 14:51:44 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,8 @@ void	ray_vert_loop(t_game *game_data, t_raycast *ray, t_casttype);
 void	ray_shortest_distance(t_raycast *ray, t_game *game_data);
 void	draw_3d_projection(t_game *game_data, int column_id, t_raycast ray, float ray_angle);
 void	draw_3d_door(t_game *game_data, int column_id, t_raycast ray, float ray_angle);
+int		cast_type_calc(t_game *game_data, t_raycast *ray, t_casttype type, t_orientation orient);
+
 /* Ray_utils */
 float	distance_between_points(float x1, float y1, float x2, float y2);
 int		is_ray_facing_down(float ray_angle);
