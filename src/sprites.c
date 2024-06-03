@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sprites.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrizakov <mrizakov@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/01 15:46:59 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 18:34:41 by mrizakov         ###   ########.fr       */
+/*   Updated: 2024/06/03 18:42:01 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void skip_lines(float *offset, t_sprite *sprite)
+void	skip_lines(float *offset, t_sprite *sprite)
 {
 	while (sprite->left_pixel < 0)
 	{
@@ -20,7 +20,6 @@ void skip_lines(float *offset, t_sprite *sprite)
 		sprite->left_pixel += sprite->err_column;
 	}
 }
-
 
 static void	draw_sprite_line(t_game *game_data, t_sprite sprite,
 								float offset, float line)
