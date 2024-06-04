@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/03 12:26:36 by ddavlety          #+#    #+#             */
-/*   Updated: 2024/06/03 13:15:55 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:34:40 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,3 @@ void	init_tokens(char token_texture[TEX_NO + 1][4],
 		ft_strlcpy(token_color[SUR_NO], "", 1);
 	}
 }
-
-// void	init_col_tokens(char token_texture[3][4])
-// {
-
-// }

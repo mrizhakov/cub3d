@@ -6,7 +6,7 @@
 /*   By: ddavlety <ddavlety@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:49:09 by mrizhakov         #+#    #+#             */
-/*   Updated: 2024/06/03 21:49:00 by ddavlety         ###   ########.fr       */
+/*   Updated: 2024/06/04 11:34:33 by ddavlety         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,6 +373,6 @@ int		find_wall(t_maze maze, int y, int x, int del);
 int		find_door(t_game *game_data, int y, int x, int del);
 
 /*Texture and colors utils*/
-void	init_tokens(char token_texture[TEX_NO][4], char token_color[SUR_NO][2]);
+void	init_tokens(char token_texture[TEX_NO + 1][4], char token_color[SUR_NO + 1][2]);
 
 #endif
